@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>ANEXO V</h4>
+                    <h4>ANEXO VASDFASDFASDFADSFADSFASDFASDF</h4>
                     <h6>PLANILLA DE ALUMNOS Y ACOMPAÑANTES</h6>
                     <h6>(La presente deberá incorporarse al libro de Registro de Actas Institucionales, antes de
                     producirse la salida).</h6>
