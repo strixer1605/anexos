@@ -1,0 +1,62 @@
+.navbar-brand{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left: 20px;
+}
+
+nav{
+    border-bottom: 2px solid rgb(199, 199, 199);
+}
+
+#navbarSupportedContent{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left: 80px;
+}
+
+#logo{
+    width: 85px;
+    height: 85px;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+#content-wrapper {
+    padding-bottom: 120px; /* Ajustar según la altura del footer */
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    padding: 20px;
+}
+.small-card {
+    max-width: 300px; /* Tamaño máximo del card */
+    margin: auto; /* Centrar los cards */
+}
+
+@media (min-width: 768px) {
+    footer {
+        height: 120px;
+    }
+}
+
+@media (min-width: 320px) {
+    .navbar-collapse {
+        justify-content: center;
+    }
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+    .navbar-brand,
+    .navbar-toggler {
+        margin: auto;
+    }
+}
