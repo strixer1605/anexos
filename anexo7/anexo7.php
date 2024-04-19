@@ -89,7 +89,10 @@
     <div class="col-3"></div>
     <div class="col-6">
         <p>Dejo constancia de haber cumplimentado la planilla de salud de mi hijo/a <input type="text" id="www" class="form-control-sm border-primary">.
-        en <input type="text" id="inst" class="form-control-sm border-primary" placeholder="institución">. a los <input type="text" id="prof" class="form-control-sm border-primary" placeholder="profesores">. días del mes de
+        en 
+        <input type="text" id="inst" class="form-control-sm border-primary" placeholder="institución">.
+        a los 
+        <input type="text" id="prof" class="form-control-sm border-primary" placeholder="dias">. días del mes de
         <input type="month" id="mes" class="form-control-sm border-primary">, autorizando por la presente a actuar en caso de emergencia, según lo dispongan profesionales médicos.
         La presente se realiza bajo forma de declaración jurada con relación a los datos consignados arriba.</p>
     </div>

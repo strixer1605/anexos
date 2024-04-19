@@ -21,8 +21,11 @@
     </center>
     
     <div class="row">
-        <div class="col-12">
-            Corresponde al Expediente N° 5802-1701421/17
+        <div class="col-12 float-right">
+            <div class="float-right">
+                Corresponde al Expediente N° 5802-1701421/17
+            </div>
+            <br>
             <center>
                 <strong>ANEXO VIII PLAN DE ACTIVIDADES DE SALIDA EDUCATIVA</strong>
             </center>
@@ -31,23 +34,25 @@
 
     <br>
     
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <td>Institucion educativa</td>
-                <td>SALA / GRUPO / AÑO</td>
-                <td>DIVISION</td>
-                <td>ÁREA / MATERIA / ASIGNATURA / ESPACIO CURRICULAR</td>
-                <td>DOCENTE RESPONSABLE</td>
-            </tr>
-            <tr>
-                <td><textarea name="caja1" class="messi2 form-control" id="input1"></textarea></td>
-                <td><textarea name="caja1" class="messi1 form-control" id="input2"></textarea></td>
-                <td><textarea name="caja1" class="messi1 form-control" id="input3"></textarea></td>
-                <td><textarea name="caja1" class="messi1 form-control" id="input4"></textarea></td>
-                <td><textarea name="caja1" class="messi1 form-control" id="input5"></textarea></td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="table-responsive col-md-12">
+            <table class="table">
+                <tr>
+                    <td>Institucion educativa</td>
+                    <td>SALA / GRUPO / AÑO</td>
+                    <td>DIVISION</td>
+                    <td>ÁREA / MATERIA / ASIGNATURA / ESPACIO CURRICULAR</td>
+                    <td>DOCENTE RESPONSABLE</td>
+                </tr>
+                <tr>
+                    <td><textarea name="caja1" class="messi2 form-control" id="input1"></textarea></td>
+                    <td><textarea name="caja1" class="messi1 form-control" id="input2"></textarea></td>
+                    <td><textarea name="caja1" class="messi1 form-control" id="input3"></textarea></td>
+                    <td><textarea name="caja1" class="messi1 form-control" id="input4"></textarea></td>
+                    <td><textarea name="caja1" class="messi1 form-control" id="input5"></textarea></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <br>
