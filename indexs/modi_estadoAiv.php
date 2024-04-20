@@ -1,26 +1,13 @@
 <?php
-   include('conexion.php');
+  include('conexion.php');
 
-  
-   $id =  $_POST['id'];
+  $id =  $_POST['id'];
+  $estado = $_POST['estado'];
 
-   $estado = $_POST['estado'];
-   print_r ($estado);
+  print_r ($estado);
 
-   
-
- 
-
-
-
-
-   $sql = "UPDATE `anexoiv` SET `estado`='$estado', fecha_modificacion = NOW() WHERE `id` = '".$id."' ";
-
-
-
- mysqli_query($conexion,$sql);
-
-
+  $sql = "UPDATE `anexoiv` SET `estado`='$estado', fecha_modificacion = NOW() WHERE `id` = '".$id."' ";
+  mysqli_query($conexion,$sql);
 ?>
 
 

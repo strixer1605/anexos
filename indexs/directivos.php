@@ -13,34 +13,8 @@
             <nav class="navbar navbar-expand-lg bg-body-tertiary" style="color: gray;">
                 <div class="container-fluid">
                     <img src="../imagenes/eest.webp" alt="" id="logo">
-                    <a class="navbar-brand">Salidas Educativas</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <a class="navbar-brand" id="title">Salidas Educativas</a>
+                    <a href="#" class="btn btn-warning btn-atras" style="color: white; font-size:18px;"><span>Atrás</span></a>
                 </div>
             </nav>
             <h1 class="text-center mt-5">Bienvenido, Salvado!</h1>
@@ -54,7 +28,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Aprobación de salidas</h5>
                                 <p class="card-text">Aprobar salidas educativas. Las salidas pueden estar: Aprobadas, pendientes o canceladas/desaprobadas</p>
-                                <a href="#" class="btn btn-primary">Lista de salidas</a>
+                                <a href="aprobar.php" class="btn btn-primary">Lista de salidas</a>
                             </div>
                         </div>
                     </div>
@@ -82,8 +56,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
     <footer>
-        <div>
-            <img src="../imagenes/blancologo.webp" alt="" id="logo">
+        <img src="../imagenes/blancologo.webp" alt="" id="logofooter">
+        <div class="footer-text">
+            <p>
+                DATOS DE CONTACTO:<br>
+                Dirección: Calle 104 y 124. Santa teresita<br>
+                Teléfono: (02246) 420535 Fax: 423529<br>
+                E-mail: eest1lacosta@gmail.com
+            </p>
         </div>
     </footer>
 </html>

@@ -2,7 +2,7 @@
     // Datos de la base de datos
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = "1";
     $database = "salidaeducativa";
     
     // Crear conexión
