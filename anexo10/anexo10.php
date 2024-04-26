@@ -9,25 +9,26 @@
     <title>Anexo 10</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+    <!-- PONERLE BIEN EL ID A LOS CAMPOS REPETIDOS DE DIRE,TEL Y LOCALIDAD -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-md-6">
                 <img src="../imagenes/logoBA.png" height="160">
             </div>
-            <div class="col-md-6">
+            <div class="col-6 col-md-6">
                 <img src="../imagenes/logo.png" class="float-right" height="100">
             </div>
         </div>
-        <!-- FALTA HACERLO RESPONSIVE AL 100% -->
-        <div class="row justify-content-center text-right mx-0">
+        
+        <div class="row justify-content-end">
             <div class="col-6">
-                <div class="text-right">
+                <div class="float-right">
                     <p>Corresponde al Expediente N° 5802-1701421/17</p>
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <!-- aca iba un container-fluid por si se rompe -->
+        <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="text-center">
                 <b class="mb-4">ANEXO X</b>
                 <br>
@@ -37,61 +38,99 @@
 
             <br>
 
-            <div class="col-12 col-md-9">
-                <div class="col-12 text-left">
-                    Nombre del proyecto de salida
+            <div class="col-12 m-0 p-0">
+            <div>
+    <div class="col-12 text-left mb-3">
+        Nombre del proyecto de salida
+    </div>
+
+    <div class="col-10 text-left mb-3">
+        <input type="text" id="nombreSalida" placeholder="Nombre de salida" class="form-control-sm border-primary">
+    </div>
+
+    <div class="col-12 text-left mb-3">
+        Lugar, Día y hora de salida
+    </div>
+    
+    <div class="row m-0 p-0 mb-3">
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="lugarSalida" placeholder="Lugar a viajar" class="form-control-sm border-primary">
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="diaSalida" placeholder="dia a viajar" class="form-control-sm border-primary">
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="horaSalida" placeholder="hora a viajar" class="form-control-sm border-primary">
+        </div>
+    </div>
+
+    <div class="col-12 text-left mb-3">
+        Lugar, Día y hora de regreso
+    </div>
+    <div class="row m-0 p-0 mb-3">
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="lugarRegreso" placeholder="Lugar a regresar" class="form-control-sm border-primary">
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="diaRegreso" placeholder="dia a regresar" class="form-control-sm border-primary">
+        </div>
+        <div class="col-12 col-md-4 mb-3">
+            <input type="text" id="horaRegreso" placeholder="hora a regresar" class="form-control-sm border-primary">
+        </div>
+    </div>
+
+    <div class="col-12 text-left mb-3">
+        Lugares a visitar
+    </div>
+    <div class="form-floating m-3">
+        <textarea class="form-control" placeholder="Lugares a visitar" id="lugaresVisitar"></textarea>
+    </div>
+</div>
+
+                <div class="row m-0 p-0">
+                    <div class="col-12 text-left">
+                        Lugares de estadia- domicilios y teléfonos
+                    </div>
                 </div>
-                <div class="col-10 text-left">
-                    <input type="text" id="nombreSalida" class="form-control-sm border-primary">
+                <div class="row m-1">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <b>Estadia:</b> 
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="estadia" class="form-control-sm border-primary">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <b>Domicilio:</b> 
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="domicilio" class="form-control-sm border-primary">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <b>Telefono:</b> 
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="telefono" class="form-control-sm border-primary">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <b>Localidad:</b> 
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="localidad" class="form-control-sm border-primary">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-12 text-left">
-                    Lugar, Día y hora de salida
-                </div>
-                <div class="col-2"></div>
-                <div class="col-10 text-left">
-                    <input type="text" id="LDHSalida" placeholder="Separar datos con ," class="form-control-sm border-primary">
-                </div>
-
-                <div class="col-12 text-left">
-                    Lugar, Día y hora de regreso
-                </div>
-                <div class="col-2"></div>
-                <div class="col-10 text-left">
-                    <input type="text" id="LDHregreso" placeholder="Separar datos con ," class="form-control-sm border-primary">
-                </div>
-
-                <div class="col-12 text-left">
-                    Lugares a visitar
-                </div>
-                <div class="col-2"></div>
-                <div class="col-10 text-left">
-                    <input type="text" id="lugarVisitar" class="form-control-sm border-primary">
-                </div>
-
-                <div class="col-12 text-left">
-                    Lugares de estadia- domicilios y teléfonos
-                </div>
-                <div class="col-12 d-flex text-left mb-3">
-                    <div class="col-6">
-                        <b>Estadias:</b> 
-                        <input type="text" id="estadia" class="form-control-sm border-primary">
-                    </div>
-                    <div class="col-6">
-                        <b>Teléfono:</b>
-                        <input type="text" id="telEstadia" class="form-control-sm border-primary">
-                    </div>
-                </div>
-                <div class="col-12 d-flex text-left">
-                    <div class="col-6">
-                        <b>Domicilio:</b>
-                        <input type="text" id="domEstadia" class="form-control-sm border-primary">
-                    </div>
-                    <div class="col-6">
-                        <b>Localidad:</b>
-                        <input type="text" id="locaEstadia" class="form-control-sm border-primary">
-                    </div>
-                </div>
 
                 <div class="col-12 text-left">
                     Nombres y teléfonos de los acompañantes
@@ -107,93 +146,145 @@
                 </div>
             </div>
             <br>
-            <div class="d-flex justify-content-center mb-3">
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="empresa" class="mr-2">Empresa:</label>
-                        <input type="text" id="empresa" class="form-control-sm border-primary">
+            <div class="row m-0 p-0">
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="empresa" class="mr-2">Empresa:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="empresa" class="form-control-sm border-primary">
+                        </div>
                     </div>
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="direccion" class="mr-2">Dirección:</label>
-                        <input type="text" id="direccion" class="form-control-sm border-primary">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="localidad" class="mr-2">Localidad:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="localidad" class="form-control-sm border-primary">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="localidad" class="mr-2">Localidad:</label>
-                        <input type="text" id="localidad" class="form-control-sm border-primary">
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="direccion" class="mr-2">Dirección:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="direccion" class="form-control-sm border-primary">
+                        </div>
                     </div>
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="telefono" class="mr-2">Teléfono:</label>
-                        <input type="text" id="telefono" class="form-control-sm border-primary">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="telefono" class="mr-2">Teléfono:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="telefono" class="form-control-sm border-primary">
+                        </div>
                     </div>
                 </div>
             </div>
 
-        <div class="row" style="padding: 0 200px 0 200px">
+            
+
+        <div class="row m-0 p-0">
             <div class="col-9 text-left">
                 Hospitales y centros asistenciales cercanos
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4 text-left">
-                <b>Hospital Dr. Óscar Arraiz</b>
+        <div class="row m-1">
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Hospital:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="hospital" class="form-control-sm border-primary">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Teléfono:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="telefono" class="form-control-sm border-primary">
+                    </div>
+                </div>
             </div>
-            <div class="col-4 text-left">
-                Dirección:
-                <b>Copello 311</b>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4 text-left">
-                Teléfono:
-                <b>(02944-494170)</b>
-            </div>
-            <div class="col-4 text-left">
-                Localidad:
-                <b>Villa La Angostura</b>
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Dirección:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="direccion" class="form-control-sm border-primary">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Localidad:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="localidad" class="form-control-sm border-primary">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
-        <div class="row" style="padding: 0 200px 0 200px">
+        <div class="row p-0 m-0">
             <div class="col-9 text-left">
                 Otros datos de interés:
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4 text-left">
-                <b>Comisaría de Villa La Angostura</b>
+        <div class="row m-1">
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Lugares de interes:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="lugarInteres" class="form-control-sm border-primary">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Teléfono:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="telefono" class="form-control-sm border-primary">
+                    </div>
+                </div>
             </div>
-            <div class="col-4 text-left">
-                Dirección:
-                <b>Av. Arrayanes N° 242</b>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4 text-left">
-                Teléfono:
-                <b>0294 - 449-4121</b>
-            </div>
-            <div class="col-4 text-left">
-                Localidad:
-                <b>Villa La Angostura</b>
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Dirección:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="direccion" class="form-control-sm border-primary">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <b>Localidad:</b> 
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="localidad" class="form-control-sm border-primary">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
-        <div class="row" style="padding: 0 200px 0 200px">
+        <div class="row p-0 m-0">
             <div class="col-12 text-left">
                 (La conformidad de recepción del presente por parte de los padres se encuentra en la planilla adjunta)
             </div>
         </div>
-        <button type="button" id="boton_guardar" class="btn btn-info mt-3">Guardar</button>
+        <div class="row d-flex justify-content-center">
+            <button type="button" id="boton_guardar" class="btn btn-info mt-3">Guardar</button>
+        </div>
     </div>
 </body>
 </html>
