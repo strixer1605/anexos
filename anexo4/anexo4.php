@@ -12,17 +12,13 @@
                 if (anchoVentana <= 730) {
                     document.getElementById('lugar1').classList.remove('form-control-sm');
                     document.getElementById('fecha1').classList.remove('form-control-sm');
-                    document.getElementById('hora1').classList.remove('form-control-sm');
                     document.getElementById('lugar2').classList.remove('form-control-sm');
                     document.getElementById('fecha2').classList.remove('form-control-sm');
-                    document.getElementById('hora2').classList.remove('form-control-sm');
                 } else {
                     document.getElementById('lugar1').classList.add('form-control-sm');
                     document.getElementById('fecha1').classList.add('form-control-sm');
-                    document.getElementById('hora1').classList.add('form-control-sm');
                     document.getElementById('lugar2').classList.add('form-control-sm');
                     document.getElementById('fecha2').classList.add('form-control-sm');
-                    document.getElementById('hora2').classList.add('form-control-sm');
                 }
             }
 
@@ -66,7 +62,7 @@
                             <h6>Nombre del Proyecto : <input type="text" id="nombre_del_proyecto" class="form-control-sm border-primary" required></h6>
                         </div>
                         <div class="col-sm-12 text-left">
-                            <h5>Región: 123</h5>
+                            <h5>Región:</h5>
                         </div>
                         <div class="col-sm-12 text-left">
                             <h5>Distrito: La Costa</h5>
@@ -145,25 +141,25 @@
                     <div id="img" style="display: none;">
                         <div class="row">
                             <div class="col-sm-12 text-left">
-                                <h6>Apellido y Nombre :<input type="text" id="apellido_y_nombre" class="form-control-sm border-primary" required></h6>
+                                <h6>Apellido y Nombre: <input type="text" id="apellido_y_nombre" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Cargo:<input type="text" id="cargo" class="form-control-sm border-primary" required></h6>
+                                <h6>Cargo: <input type="text" id="cargo" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
                                 <button id="button" onclick="ocultar();">Ocultar Formulario</button>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Cantidad de alumnos:<input type="number" id="cantidad_de_alumnos" class="form-control-sm border-primary" required></h6>
+                                <h6>Cantidad de alumnos: <input type="number" id="cantidad_de_alumnos" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Cantidad de docentes acompañantes:<input type="number" id="cantidad_de_docentes_acompañantes" class="form-control-sm border-primary" required></h6>
+                                <h6>Cantidad de docentes acompañantes: <input type="number" id="cantidad_de_docentes_acompañantes" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Cantidad de no docentes acompañantes:<input type="number" id="cantidad_de_no_docentes_acompañantes" class="form-control-sm border-primary" required></h6>
+                                <h6>Cantidad de no docentes acompañantes: <input type="number" id="cantidad_de_no_docentes_acompañantes" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Total de personas:<input type="number" id="total_de_personas" class="form-control-sm border-primary" required></h6>
+                                <h6>Total de personas: <input type="number" id="total_de_personas" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
                                 <p>(Sólo para salidas de más de 24 horas)</p>
@@ -174,10 +170,10 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-12 text-left">
-                            <h6>Hospedaje:<input type="text" id="hospedaje" class="form-control-sm border-primary" required> Domicilio:<input type="text" id="domicilio_del_hospedaje" class="form-control-sm border-primary" required></h6>
+                            <h6>Hospedaje: <input type="text" id="hospedaje" class="form-control-sm border-primary" required> Domicilio: <input type="text" id="domicilio_del_hospedaje" class="form-control-sm border-primary" required></h6>
                         </div>
                         <div class="col-sm-12 text-left">
-                            <h6>Teléfono:<input type="number" id="telefono_del_hospedaje" class="form-control-sm border-primary" required> Localidad:<input type="text" id="localidad_del_hospedaje" class="form-control-sm border-primary" required></h6>
+                            <h6>Teléfono: <input type="number" id="telefono_del_hospedaje" class="form-control-sm border-primary" required> Localidad: <input type="text" id="localidad_del_hospedaje" class="form-control-sm border-primary" required></h6>
                         </div>
                     </div>
 
@@ -304,7 +300,7 @@
                             telefono_del_hospedaje: telefono_del_hospedaje,
                             localidad_del_hospedaje: localidad_del_hospedaje,
                         }, function (data) {
-                            console.log(data);
+                            alert(data);
                         });
                     }
                 });
