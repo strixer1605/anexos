@@ -1,7 +1,7 @@
 <?php
 include('../modulos/conexion.php');
 
-$sql = "SELECT * FROM anexov";
+$sql = "SELECT * FROM anexo_v";
 $anexov = mysqli_query($conexion, $sql);
 
 echo '<table class="table">

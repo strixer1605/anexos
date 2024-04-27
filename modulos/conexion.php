@@ -2,7 +2,7 @@
     // Datos de la base de datos
     $servername = "localhost";
     $username = "root";
-    $password = "1";
+    $password = "";
     $database = "salidaeducativa";
     
     // Crear conexión
@@ -12,7 +12,7 @@
     if ($conexion->connect_error) {
         die("Conexión fallida: " . $conexion->connect_error);
     } else {
-        // echo "Conexión exitosa";
+        echo "Conexión exitosa";
     }
     
 ?>
