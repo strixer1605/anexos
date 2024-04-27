@@ -39,6 +39,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
+                            <br>
                             <h6>Corresponde al Expediente N° 5802-1701421/17</h6>
                         </div>
                     </div>
@@ -110,6 +111,7 @@
                     </form>
                             
                     <div class="container">
+                        <br><br>
                         <?php
                             include('select_users.php');
                         ?>
@@ -120,9 +122,9 @@
                         <center>
                             <a class="link" href="../anexo8/anexo.php">Ir al anexo</a>
                         </center>
+                        <br>
                         <h5>La presente planilla tendrá validez para toda tramitación oficial que se realice.</h5>
                     </p>
-                    <br><br>
                     <p>
                         <h5>
                             1) El presente formulario deberá estar completo por duplicado (Uno para la Institución y otro para la

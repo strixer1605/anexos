@@ -80,7 +80,7 @@
             <div class="col-3">
             </div>
             <div class="col-5">
-                <p>-confirma que los datos son veridicos?____<input type="checkbox" class="form-check-input"></p>
+                <p>-¿Confirma que los datos son veridicos?____<input type="checkbox" class="form-check-input"></p>
             </div>
             <div class="col-1">
                 <input type="button"  id="enviar" value="enviar">
@@ -180,7 +180,7 @@
         }
 
         if (inputValido) {
-            $.post('insert_vi.php', {
+            $.post('insertAnexo6.php', {
                 no_ap: nombreyapellido,
                 dni: DNI,
                 calle: calle,
