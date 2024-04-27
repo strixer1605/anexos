@@ -1,0 +1,19 @@
+BASE DE DATOS: Momentaneamente adaptar la base de datos segun la insercion de los anexos (sujeto a cambios)
+
+ANEXO 4 (Crear salida): //
+
+ANEXO 5 (Asignar personas a la salida): //
+
+ANEXO 6 (Autorización salida alumno):
+	Mostrar dinamicamente segun la salida la informacion basica de la salida, para la vista como para la impresión. 
+	Ejemplo: "a realizarse en las localidades de ///Villa La Angostura, San Carlos de Bariloche/// a realizarse entre los días ///22 de Octubre/// y el ///03 de Noviembre/// del presente ciclo lectivo."
+	
+	Cargar el id del anexo cuatro segun lo que seleccione el usuario
+
+ANEXO 7 (Ficha médica alumno):
+
+ANEXO 8 ():
+
+ANEXO 10 (Informacion de la salida para padres): 
+	Al parecer, no es necesario que sea un forulario, sino una plantilla que carge los datos dinamicamente según
+	la salida.
