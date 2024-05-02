@@ -1,0 +1,16 @@
+p{
+   text-align: justify;
+   justify-content: start;
+}
+input{
+   background-color: #EBF5FB;
+}
+select{
+   background-color: #EBF5FB;
+}
+.true{
+   background-color: #EAFAF1;
+}
+.false{
+   background-color: #FDEDEC;
+}
