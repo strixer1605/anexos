@@ -94,6 +94,10 @@
                             <label class="col-auto col-md-12 etiqueta">Fecha:</label>
                             <input type="date" id="fecha1" class="col-9 col-md-12 form-control-sm border-primary mb-3" required>
                         </div>
+                        <div class="col-12 col-md-4">
+                            <label class="col-auto col-md-12 etiqueta">Hora:</label>
+                            <input type="time" id="hora1" class="col-9 col-md-12 form-control-sm border-primary mb-3" required>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -107,6 +111,10 @@
                         <div class="col-12 col-md-4">
                             <label class="col-auto col-md-12 etiqueta">Fecha:</label>
                             <input type="date" id="fecha2" class="col-9 col-md-12 form-control-sm border-primary mb-3" required>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label class="col-auto col-md-12 etiqueta">Hora:</label>
+                            <input type="time" id="hora2" class="col-9 col-md-12 form-control-sm border-primary mb-3" required>
                         </div>
                     </div>
 
@@ -127,27 +135,24 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm-12 text-left">
-                            <h6>Datos del/los docentes a cargo</h6>
+                            <h6>Datos de la/las personas a cargo</h6>
                         </div>
                     </div>
                     <br>
 
                     <div class="row">
                         <div class="col-sm-12 text-left">
-                            <button id="boton" onclick="mostrar();">Mostrar Campos</button>
+                            <button id="boton" class="btn btn-primary" onclick="toggleMostrarOcultar();">Mostrar Campos</button>
                         </div>
                     </div>
-
+                    <br>
                     <div id="img" style="display: none;">
                         <div class="row">
                             <div class="col-sm-12 text-left">
                                 <h6>Apellido y Nombre: <input type="text" id="apellido_y_nombre" class="form-control-sm border-primary" required></h6>
                             </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Cargo: <input type="text" id="cargo" class="form-control-sm border-primary" required></h6>
-                            </div>
-                            <div class="col-sm-12 text-left">
-                                <button id="button" onclick="ocultar();">Ocultar Formulario</button>
+                                <h6>Cargo: <?php include('selectCargos.php');?></h6>
                             </div>
                             <div class="col-sm-12 text-left">
                                 <h6>Cantidad de alumnos: <input type="number" id="cantidad_de_alumnos" class="form-control-sm border-primary" required></h6>
@@ -230,11 +235,13 @@
         <script src="../librerias/jquery.js"></script>
         <script src="../librerias/boostrap.js"></script>
         <script>
-            function mostrar() {
-                document.getElementById('img').style.display = 'block';
-            }
-            function ocultar() {
-                document.getElementById('img').style.display = 'none';
+            function toggleMostrarOcultar() {
+                var elemento = document.getElementById('img');
+                if (elemento.style.display === 'none') {
+                    elemento.style.display = 'block';
+                } else {
+                    elemento.style.display = 'none';
+                }
             }
             $(document).ready(function () {
                 $('#boton_guardar').click(function () {

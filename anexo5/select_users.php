@@ -19,13 +19,13 @@
         while ($resp = mysqli_fetch_assoc($anexov)) {
             echo '
             <tr>
-                <td>' . $resp['n'] . '</td>
+                <td>' . $resp['id_asignar'] . '</td>
                 <td><center>' . $resp['apellido_y_nombre'] . '</center></td>
                 <td><center>' . $resp['documento'] . '</center></td>
                 <td><center>' . $resp['cargo'] . '</center></td>
                 <td><center>' . $resp['edad'] . '</center></td>
                 <td><a href="editar.php"><button type="button" class="btn btn-info">✎</button></a></td>
-                <td><a href="anexoV.php"><button class="btn btn-danger boton_eliminar" data-dni=' . $resp['n'] . '>🗑</button></a></td>
+                <td><a href="anexoV.php"><button class="btn btn-danger boton_eliminar" data-dni=' . $resp['id_asignar'] . '>🗑</button></a></td>
             </tr>';
         }
 

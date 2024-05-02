@@ -66,8 +66,9 @@
                                         </div>
                                     </div>
                                     <p><b>DISTRITO:</b> La Costa</p>
-                                    <p><b>LUGAR A VISITAR:</b><input type="text" class="form-control" name="lugar" placeholder="Lugar de visita"
-                                    required></p>
+                                    <p><b>LUGAR A VISITAR:</b>
+                                        <?php include('selectSalidas.php') ?>
+                                    </p>
                                     <p><b>FECHA:</b><input type="date" class="form-control" name="fecha" required></p>
                                 </div>
                             </div>
@@ -87,23 +88,8 @@
                                 <input type="text" class="form-control" id="edad" placeholder="Edad" required>
                             </div><br>
                             <div class="col">
-                                <input type="radio" class="form-control" name="cargo" value="alumno" id="alumno">
-                                <center>
-                                    Alumno
-                                </center>
-                            </div>
-                            <div class="col">
-                                <input type="radio" class="form-control" name="cargo" value="docente" id="docente">
-                                <center>
-                                    Docente
-                                </center>
-                            </div>
-                            <div class="col">
-                                <input type="radio" class="form-control" name="cargo" value="no_docente" id="no_docente">
-                                <center>
-                                    No es docente
-                                </center>
-                            </div>
+                                <?php include('selectCargos.php');?>
+                            </div><br>
                             <center>
                                 <button type="button" class="btn btn-info mt-3" id="miID">Enviar</button>
                             </center>
@@ -120,7 +106,7 @@
                     <br><br><br><br>
                     <p>
                         <center>
-                            <a class="link" href="../anexo8/anexo.php">Ir al anexo</a>
+                            <a class="link" href="../anexo8/anexo8.php">Ir al anexo</a>
                         </center>
                         <br>
                         <h5>La presente planilla tendrá validez para toda tramitación oficial que se realice.</h5>
@@ -131,20 +117,29 @@
                             instancia de Supervisión)
                         </h5>
                     </p>
-                    <input style="margin-bottom: 20px;" type="file"></input>
-                    <input style="margin-bottom: 20px;" type="file"></input>
+                    <!-- <input style="margin-bottom: 20px;" type="file"></input>
+                    <input style="margin-bottom: 20px;" type="file"></input> -->
                 </div>
             </div>
         </div>
         <script>
             $(document).ready(function() {
                 $('#miID').click(function () {
+                    let fkanexo4 = $('#salida').val();
                     let apellido_y_nombre = $('#nom_ape').val();
                     let documento = $('#doc').val();
                     let edad = $('#edad').val();
-                    let cargo = $('input[name="cargo"]:checked').val();
+                    let cargo = $('#cargo').val();
                     console.log(apellido_y_nombre, documento, edad, cargo);
                     let inputValido = true;
+
+                    if ($('#salida').val().length === 0) {
+                        $('#salida').addClass("border border-danger");
+                        inputValido = false;
+                    } else {
+                        $('#salida').removeClass("border border-danger");
+                        $('#salida').addClass("border border-success");
+                    }
                     
                     if ($('#nom_ape').val().length === 0) {
                         $('#nom_ape').addClass("border border-danger");
@@ -180,6 +175,7 @@
 
                     if (inputValido) {
                         $.post('insert_user.php', {
+                            salida: fkanexo4,
                             nom_ape: apellido_y_nombre,
                             doc: documento,
                             edad: edad,
