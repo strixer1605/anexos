@@ -1,58 +1,43 @@
 <?php
-// Obtener el DNI y la contraseña del formulario de inicio de sesión
-$dni = $_POST['dni'];
-$contrasena = $_POST['contrasena'];
+    $dni = $_POST['dni'];
+    $contrasena = $_POST['contrasena'];
 
-// Conexión a la base de datos
-$conexion = mysqli_connect('localhost', 'root', '', 'salidaeducativa');
+    $directordni = 
+    $directorcontraseña =
 
-// Verificar la conexión
-if (!$conexion) {
-    die("Conexión fallida: " . mysqli_connect_error());
-}
+    include('../modulos/conexionescuela.php');
 
-// Prevenir la inyección SQL utilizando consultas preparadas
-$sql = "SELECT tipo FROM usuarios2 WHERE usuarios_dni = ? AND password = ?";
-$stmt = mysqli_prepare($conexion, $sql);
+    $sql = "SELECT tipo FROM usuarios2 WHERE usuarios_dni = ? AND password = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
 
-// Verificar la preparación de la consulta
-if ($stmt === false) {
-    die("Error en la preparación de la consulta: " . mysqli_error($conexion));
-}
-
-// Vincular parámetros y ejecutar la consulta
-mysqli_stmt_bind_param($stmt, "is", $dni, $contrasena);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
-// Verificar si la consulta fue exitosa
-if ($result) {
-    // Obtener el tipo de usuario
-    $row = mysqli_fetch_assoc($result);
-    $tipoUsuario = $row['tipo'];
-
-    // Redirigir según el tipo de usuario
-    switch ($tipoUsuario) {
-        case 'Director':
-            header("Location: directivos.php");
-            break;
-        case 'Administrador':
-            header("Location: profesores.php");
-            break;
-        case 'Preceptor':
-            header("Location: padres.php");
-            break;
-        default:
-            echo "<script>alert('Tipo de usuario no reconocido');
-             window.location.href = 'index.html';</script>";
-            break;
+    if ($stmt === false) {
+        die("Error en la preparación de la consulta: " . mysqli_error($conexion));
     }
-} else {
-    // Error en la consulta
-    echo "Error en la consulta: " . mysqli_error($conexion);
-}
 
-// Cerrar la conexión
-mysqli_stmt_close($stmt);
-mysqli_close($conexion);
+    mysqli_stmt_bind_param($stmt, "is", $dni, $contrasena);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        $tipoUsuario = $row['ocupacion'];
+        switch ($tipoUsuario) {
+                header("Location: directivos.php");
+            case 'Administrador':
+                header("Location: profesores.php");
+                break;
+            case 'Preceptor':
+                header("Location: padres.php");
+                break;
+            default:
+                echo "<script>alert('Tipo de usuario no reconocido');
+                window.location.href = 'index.html';</script>";
+                break;
+        }
+    } else {
+        echo "Error en la consulta: " . mysqli_error($conexion);
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conexion);
 ?>
