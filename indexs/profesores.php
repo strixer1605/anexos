@@ -1,12 +1,28 @@
+<?php
+    session_start();
+    // echo $dniUsuario;
+    if (empty($_SESSION['dni'])) {
+        // Redirigir al usuario a la página de inicio
+        header('Location: ../index.php');
+        exit;
+    }
+    $dniUsuario = $_SESSION['dni'];
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
         <link rel="stylesheet" href="../librerias/bootstrap.css">
         <script src="../librerias/jquery.js?v=1" ></script>
         <script src="../librerias/boostrap.js" ></script>
         <link rel="stylesheet" href="estilos.css">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
     <title>salida Educativa</title>
 </head>
 <body>
+<a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
+
     <header class="row p-1">
 
         <div class="col-3">

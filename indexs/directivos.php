@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    // echo $dniUsuario;
+    if (empty($_SESSION['dni'])) {
+        // Redirigir al usuario a la página de inicio
+        header('Location: ../index.php');
+        exit;
+    }
+    $dniUsuario = $_SESSION['dni'];
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +24,7 @@
                 <div class="container-fluid">
                     <img src="../imagenes/eest.webp" alt="" id="logo">
                     <a class="navbar-brand" id="title">Salidas Educativas</a>
-                    <a href="#" class="btn btn-warning btn-atras" style="color: white; font-size:18px;"><span>Atrás</span></a>
+                    <a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
                 </div>
             </nav>
             <h1 class="text-center mt-5">Bienvenido, Salvado!</h1>
