@@ -50,7 +50,7 @@
             <?php
             include('../modulos/conexion.php');
 
-            $sql = "SELECT * FROM anexo_iv";
+            $sql = "SELECT * FROM anexoiv";
             $anexoiv = mysqli_query($conexion, $sql);
 
             while ($resp = mysqli_fetch_assoc($anexoiv)) {

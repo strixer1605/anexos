@@ -38,12 +38,18 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <p class="flex-start">Fecha: <input type="date" id="fecha2" class="form-control-sm border-primary"><br>
-                    Apellido y nombres del: <input type="text" id="no_ap2" class="form-control-sm border-primary"><br>
+                <p class="flex-start">Fecha: <input type="date" id="fecha2" class="form-control-sm border-primary" value="<?php echo date('Y-m-d'); ?>"></p>
+
+                
+                    Apellido y nombres de el/la estudiante: <input type="text" id="no_ap2" class="form-control-sm border-primary"><br>
+                    
                     Apellido y nombres del Padre, Madre, Tutor o Representante Legal:<br>
                     <input type="text" id="no_ap_fa2" class="form-control-sm border-primary"><br>
+                    
                     Dirección: <input type="text" id="direc" class="form-control-sm border-primary"><br>
+                    
                     Teléfono: <input type="number" id="telef" class="form-control-sm border-primary"><br>
+                    
                     Lugar a Viajar: Villa La Angostura - San Carlos de Bariloche</p>
                 <div class="row">
                     <div class="col-1"></div>
@@ -127,6 +133,15 @@
         </div>
 
         <script>
+
+            // var xhr = new XMLHttpRequest();
+            // xhr.open('GET', 'fechaActual.php');
+            // xhr.onload = function() {
+            //     if (xhr.status === 200) {
+            //         document.getElementById('fecha2').value = xhr.responseText;
+            //     }
+            // };
+            // xhr.send();
             $(document).ready(function(){
                 $('#enviar').click(function(){
                     let camposCompletos = true;

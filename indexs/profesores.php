@@ -14,10 +14,7 @@
         <link rel="stylesheet" href="../librerias/bootstrap.css">
         <script src="../librerias/jquery.js?v=1" ></script>
         <script src="../librerias/boostrap.js" ></script>
-        <link rel="stylesheet" href="estilos.css">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="0">
+        <link rel="stylesheet" href="../css/estilos.css">
     <title>salida Educativa</title>
 </head>
 <body>
@@ -26,7 +23,7 @@
     <header class="row p-1">
 
         <div class="col-3">
-            <img src="../imagenes/eestn1.webp" width="100">
+            <img src="../imagenes/eest.webp" width="100">
         </div>
         <div class="col-6 text-center">
             <br>

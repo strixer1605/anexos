@@ -19,7 +19,7 @@
     $meses = $_POST['mes'];
 
     $sql = "INSERT INTO 
-            `anexo_vii`(`fecha`,`nombre`,`nombre_padre`,`direccion`,`telefono`,`es_alergico`,`ha_sufrido`,`medicacion`,`obra_social`,`institucion`,`profesor`,`mes`,`alergico_a`,`otro_malestar`,`su_medicacion`,`constancia`) 
+            `vii`(`fecha`,`nombre`,`nombre_padre`,`direccion`,`telefono`,`es_alergico`,`ha_sufrido`,`medicacion`,`obra_social`,`institucion`,`profesor`,`mes`,`alergico_a`,`otro_malestar`,`su_medicacion`,`constancia`) 
             VALUES ('".$fecha."','".$nombreapellido."','".$nombrepadre."','".$direccion."','".$telefono."','".$alergico."',
             '".$malestares."',
             '".$medicacion."','".$obrasocial."','".$institucion."','".$profesor."','".$meses."','".$alergia."','".$otromalestar."','".$quemedicacion."','".$constancia."')";
