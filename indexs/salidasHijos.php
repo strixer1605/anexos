@@ -6,7 +6,9 @@
         header('Location: ../index.php');
         exit;
     }
-    $dniUsuario = $_SESSION['dni'];
+    $dniPadre = $_SESSION['dni'];
+    $dniAlumno = $_GET['dniAlumno'];
+    echo $dniPadre, " ", $dniAlumno;
 ?>
 <!DOCTYPE html>
 <html lang="en">

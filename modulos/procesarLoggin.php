@@ -9,10 +9,10 @@
 
     $_SESSION['dni'] = $dni;
 
-    $sql_personal = "SELECT * FROM personal WHERE dni = '$dni'";
+    $sql_personal = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion LIKE 'DOCENTE'";
     $result_personal = $conexion->query($sql_personal);
 
-    $sql_padres = "SELECT * FROM padrestutores WHERE dni = '$dni'";
+    $sql_padres = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion NOT LIKE 'DOCENTE'";
     $result_padres = $conexion->query($sql_padres);
 
     if ($dni === $dni_director) {
@@ -22,29 +22,22 @@
 
     if ($result_personal && $result_personal->num_rows > 0) {
         $row = $result_personal->fetch_assoc();
-        // Verificar si la contraseña ingresada coincide con la contraseña almacenada
-        if ($password === $row["pass"]) {
-            // Redirigir al profesor
-            header("Location: ../indexs/profesores.php");
+        if ($password === $row["contrasena"]) {
+            header("Location: ../indexs/profesores/profesores.php");
             exit;
         }
     }
 
-    // Verificar si el DNI y la contraseña coinciden en la tabla padrestutores
     if ($result_padres && $result_padres->num_rows > 0) {
         $row = $result_padres->fetch_assoc();
-        // Verificar si la contraseña ingresada coincide con la contraseña almacenada
         if ($password === $row["contrasena"]) {
-            // Redirigir al padre
-            header("Location: ../indexs/padres/hijos(padres).php");
+            header("Location: ../indexs/padres/padres.php");
             exit;
         }
     }
 
-    // Si ninguna autenticación fue exitosa, redirigir a una página de error
     header("Location: error.php");
     exit;
 
-    // Cerrar la conexión (si es necesario)
     $conexion->close();
 ?>
