@@ -1,3 +1,16 @@
+<?php
+    session_start();
+    if (empty($_SESSION['dni']) || empty($_SESSION['nombre_profesor']) || empty($_SESSION['apellido_profesor'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $dniEncargado = $_SESSION['dni'];
+    $nombre = $_SESSION['nombre_profesor'];
+    $apellido = $_SESSION['apellido_profesor'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -148,8 +161,11 @@
                     <br>
                     <div id="img" style="display: none;">
                         <div class="row">
+                        <div class="col-sm-12 text-left">
+                                <h6>DNI Encargado (automático): <input type="text" id="dni_encargado" class="form-control-sm border-primary" value="<?php echo $dniEncargado;?>"></h6>
+                            </div>
                             <div class="col-sm-12 text-left">
-                                <h6>Apellido y Nombre: <input type="text" id="apellido_y_nombre" class="form-control-sm border-primary" required></h6>
+                                <h6>Apellido y Nombre Encargado (automático): <input type="text" id="apellido_y_nombre" class="form-control-sm border-primary" value="<?php echo $nombre, " ", $apellido;?>"></h6>
                             </div>
                             <div class="col-sm-12 text-left">
                                 <h6>Cargo: <?php include('selectCargos.php');?></h6>
@@ -266,6 +282,7 @@
                         let nombre_del_proyecto = $('#nombre_del_proyecto').val();
                         let denominacion_proyecto = $('#denominacion_proyecto').val();
                         let lugar_a_visitar = $('#lugar_a_visitar').val();
+                        let dni_encargado = $('#dni_encargado').val();
                         let apellido_y_nombre = $('#apellido_y_nombre').val();
                         let cargo = $('#cargo').val();
                         let fecha1 = $('#fecha1').val();
@@ -290,6 +307,7 @@
                             nombre_del_proyecto: nombre_del_proyecto,
                             denominacion_proyecto: denominacion_proyecto,
                             lugar_a_visitar: lugar_a_visitar,
+                            dni_encargado: dni_encargado,
                             apellido_y_nombre: apellido_y_nombre,
                             cargo: cargo,
                             fecha1: fecha1,

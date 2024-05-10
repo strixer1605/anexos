@@ -26,6 +26,8 @@
 
                 $dniPadre = $_SESSION['dni'];
 
+                echo $_SESSION['nombre_padre'], " ", $_SESSION['apellido_padre'];
+
                 $hijoSQL = "SELECT `dni_alumnos` FROM `padresalumnos` WHERE dni_padrestutores = '$dniPadre'";
 
                 $resultadoHijos = mysqli_query($conexion, $hijoSQL);
