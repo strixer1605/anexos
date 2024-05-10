@@ -7,7 +7,7 @@
         $denominacion_proyecto = $_POST['denominacion_proyecto'];
         $lugar_a_visitar = $_POST['lugar_a_visitar'];
         $dni_encargado = $_POST['dni_encargado'];
-        $apellido_y_nombre = $_POST['apellido_y_nombre'];
+        $apellido_y_nombre = ucwords(strtolower($_POST['apellido_y_nombre']));
         $cargo = $_POST['cargo'];
         $fecha1 =  $_POST['fecha1'];
         $lugar1 =  $_POST['lugar1'];
@@ -26,11 +26,17 @@
 
         $sql = "INSERT INTO `anexo_iv`(`nombre_del_proyecto`, `denominacion_proyecto`, `lugar_a_visitar`, `fecha1`, `lugar1`, `fecha2`, `lugar2`, `intenerario`, `actividades`, `dni_encargado`, `apellido_y_nombre`, `cargo`, `cantidad_de_alumnos`, `cantidad_de_docentes_acompañantes`, `cantidad_de_no_docentes_acompañantes`, `total_de_personas`, `hospedaje`, `domicilio_del_hospedaje`, `telefono_del_hospedaje`, `localidad_del_hospedaje`) 
         VALUES ('$nombre_del_proyecto','$denominacion_proyecto','$lugar_a_visitar','$fecha1','$lugar1','$fecha2','$lugar2','$itinerario','$actividades','$dni_encargado', '$apellido_y_nombre','$cargo','$cantidad_de_alumnos', '$cantidad_de_docentes_acompañantes', '$cantidad_de_no_docentes_acompañantes', '$total_de_personas', '$hospedaje', '$domicilio_del_hospedaje', '$telefono_del_hospedaje', '$localidad_del_hospedaje')";
-
+        
         if (mysqli_query($conexion, $sql)) {
-            echo 'Se guardó correctamente';
+            $id_anexo_iv = mysqli_insert_id($conexion);
+            $sql_anexovProfesor = "INSERT INTO `anexo_v` (`fk_anexoIV`, `documento`, `apellido_y_nombre`, `edad`, `cargo`) VALUES ('$id_anexo_iv', '$dni_encargado', '$apellido_y_nombre', '0', '$cargo')";
+            if (mysqli_query($conexion, $sql_anexovProfesor)) {
+                echo 'Se guardó correctamente';
+            } else {
+                echo 'Error al guardar en anexo 5';
+            }
         } else {
-            echo 'Error al guardar en la base de datos';
+            echo 'Error al guardar en la tabla anexo_iv';
         }
     }
 ?>

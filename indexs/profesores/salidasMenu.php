@@ -4,6 +4,11 @@
         header('Location: ../index.php');
         exit;
     }
+    $dni_encargado = $_SESSION['dni'];
+    include('../../modulos/conexion.php');
+
+    $sql = "SELECT `id`, `estado`, `nombre_del_proyecto`, `fecha_modificacion` FROM `anexo_iv` WHERE dni_encargado=$dni_encargado AND estado = 1";
+    $anexoiv = mysqli_query($conexion, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -22,10 +27,10 @@
                 <div class="container-fluid">
                     <img src="../../imagenes/eest.webp" alt="" id="logo">
                     <a class="navbar-brand" id="title">Salidas Educativas</a>
-                    <a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
+                    <a href="profesores.php" class="btn btn-warning" style="color: white;">Atrás</a>
                 </div>
             </nav>
-            <h1 class="text-center mt-5">Administracion</h1>
+            <h1 class="text-center mt-5">Administración</h1>
             <div class="row justify-content-center ">
                 <div class="col-6">
                     <h2 class="col-12 text-center mt-4">Opciones</h2>
@@ -35,7 +40,7 @@
                                 <div class="col-md-6">
                                     <a href="../../anexo4/anexo4.php" class="btn-success form-control botones" style="text-decoration:none;">Crear Salida Educativa</a>
                                     <br>
-                                    <a href="" class="btn-primary form-control botones">Opcion extra</a>
+                                    <!-- <a href="" class="btn-primary form-control botones">Opcion extra</a> -->
                                 </div>
                             </div>
                         </div>
@@ -47,11 +52,26 @@
                         <div class="container" style="margin-top: 20px;">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <div class="d-inline-flex align-items-center">
-                                        <p class="btn border form-control mb-0" style="cursor: default;">Villa la Angostura</p>
-                                        <a href="../../anexo5/anexo5.php" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Participantes</a>
-                                        <a href="../../anexo8/anexo8.php" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Actividades</a>
-                                    </div>
+                                    <?php 
+                                        if (mysqli_num_rows($anexoiv) > 0) {
+                                            $firstRow = mysqli_fetch_assoc($anexoiv);
+                                            echo '<div class="d-inline-flex align-items-center">';
+                                            echo '<p class="btn border form-control mb-0" style="cursor: text; width: 250px;">' . $firstRow['nombre_del_proyecto'] . '</p>';
+                                            echo '<a href="../../anexo5/anexo5.php?id=' . $firstRow['id'] . '&nombre=' . urlencode($firstRow['nombre_del_proyecto']) . '" class="btn btn-sm btn-success botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Participantes</a>';
+                                            echo '<a href="../../anexo8/anexo8.php?id=' . $firstRow['id'] . '&nombre=' . urlencode($firstRow['nombre_del_proyecto']) . '" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Actividades</a>';
+                                            echo '</div>';
+
+                                            while ($resp = mysqli_fetch_assoc($anexoiv)) {
+                                                echo '<div class="d-inline-flex align-items-center mt-2">';
+                                                echo '<p class="btn border form-control mb-0" style="cursor: text; width: 250px;">' . $resp['nombre_del_proyecto'] . '</p>';
+                                                echo '<a href="../../anexo5/anexo5.php?id=' . $resp['id'] . '&nombre=' . urlencode($resp['nombre_del_proyecto']) . '" class="btn btn-sm btn-success botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Participantes</a>';
+                                                echo '<a href="../../anexo8/anexo8.php?id=' . $resp['id'] . '&nombre=' . urlencode($resp['nombre_del_proyecto']) . '" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Actividades</a>';
+                                                echo '</div>';
+                                            }
+                                        } else {
+                                            echo '<p>No hay salidas disponibles.</p>';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>

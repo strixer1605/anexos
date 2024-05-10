@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if (empty($_SESSION['dni']) || empty($_SESSION['nombre_profesor']) || empty($_SESSION['apellido_profesor'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $dni_encargado = $_SESSION['dni'];
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -10,6 +20,9 @@
     </head>
 
     <body style="margin: 0; padding: 0;" >
+        <script>
+            var dni_encargado = '<?php echo $dni_encargado; ?>';
+        </script>
         <style>
             .link {
                 display: inline-block;
@@ -29,6 +42,9 @@
         <div class="d-flex justify-content-center">
             <div id="container">
                 <div class="col-md-8 mx-auto">
+                    <br>
+                    <a href="../indexs/profesores/salidasMenu.php" class="btn btn-danger" style="color: white;">< Atrás</a>
+                    <br><br>
                     <div class="row">
                         <div class="col col-sm-6">
                             <img src="../imagenes/logoBA.png" class="img-fluid" alt="Logo BA" width="50">
@@ -102,13 +118,8 @@
                             include('select_users.php');
                         ?>
                     </div>
-                    
-                    <br><br><br><br>
+                    <br>
                     <p>
-                        <center>
-                            <a class="link" href="../anexo8/anexo8.php">Ir al anexo</a>
-                        </center>
-                        <br>
                         <h5>La presente planilla tendrá validez para toda tramitación oficial que se realice.</h5>
                     </p>
                     <p>
@@ -117,8 +128,7 @@
                             instancia de Supervisión)
                         </h5>
                     </p>
-                    <!-- <input style="margin-bottom: 20px;" type="file"></input>
-                    <input style="margin-bottom: 20px;" type="file"></input> -->
+                    <br>
                 </div>
             </div>
         </div>

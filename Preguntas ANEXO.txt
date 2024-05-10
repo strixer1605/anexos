@@ -1,0 +1,7 @@
+¿El input de fecha en el anexo 5 a que se refiere?
+
+¿Como enumerar a las  personas dentro de la lista en la salida (Nº)?¿Se puede implementar en sql o es mas facil cuando
+se hace la impresión ordenar la lista?
+
+¿Como cargar la edad?
+

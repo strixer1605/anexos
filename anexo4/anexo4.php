@@ -43,6 +43,9 @@
         <div class="d-flex justify-content-center">
             <div class="row mx-0 p-0">
                 <div class="col-md-8 mx-auto">
+                    <br>
+                    <a href="../indexs/profesores/salidasMenu.php" class="btn btn-danger" style="color: white;">< Atrás</a>
+                    <br><br>
                     <div class="row">
                         <div class="col col-sm-6">
                             <img src="../imagenes/logoBA.png" class="img-fluid" alt="Logo BA" width="50">
