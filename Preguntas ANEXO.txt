@@ -5,3 +5,5 @@ se hace la impresión ordenar la lista?
 
 ¿Como cargar la edad?
 
+¿Como hacer la impresión? ¿Como y donde ubicar la opcion de impresion?
+

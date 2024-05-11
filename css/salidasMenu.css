@@ -6,8 +6,8 @@
     margin-right: auto;
 }
 
-nav{
-    border-bottom: 2px solid rgb(199, 199, 199);
+.navbar{
+    padding: 10px;
 }
 
 #navbarSupportedContent{

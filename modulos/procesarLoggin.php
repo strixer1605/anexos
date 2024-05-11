@@ -9,6 +9,13 @@
 
     $_SESSION['dni'] = $dni;
 
+    include('config.php');
+
+    if($dni_director==$dni){
+        $sql_personal = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion LIKE 'DIRECTOR'";
+        $result_director = $conexion->query($sql_personal);
+    }
+
     $sql_personal = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion LIKE 'DOCENTE'";
     $result_personal = $conexion->query($sql_personal);
 
@@ -17,9 +24,14 @@
 
     $conexion->close();
 
-    if ($dni === $dni_director) {
-        header("Location: ../indexs/directivos.php");
-        exit;
+    if ($result_director && $result_director->num_rows > 0) {
+        $row = $result_director->fetch_assoc();
+        if ($password === $row["contrasena"]) {
+            $_SESSION['nombre_dir'] = $row["nombre"];
+            $_SESSION['apellido_dir'] = $row["apellido"];
+            header("Location: ../indexs/director/directivos.php");
+            exit;
+        }
     }
 
     if ($result_personal && $result_personal->num_rows > 0) {

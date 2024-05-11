@@ -8,7 +8,7 @@
     }
     $dniPadre = $_SESSION['dni'];
     $dniAlumno = $_GET['dniAlumno'];
-    echo $dniPadre, " ", $dniAlumno;
+    // echo $dniPadre, " ", $dniAlumno;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +25,7 @@
         <div class="col-md-6 contenedor">
             Salidas Educativas
             <br><br>
-            <button type="submit" name="mi_horario" class="form-control botones">Salida nombre</button>
-            <!-- <a href="aprobar.php" class="btn btn-primary">Lista de salidas</a> -->
+            <button href="hijosMenu.php" name="mi_horario" class="form-control botones">Salidas Educativas</button>
         </div>
 
         <script src="../librerias/jquery.js?v=1"></script>

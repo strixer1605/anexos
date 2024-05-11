@@ -201,7 +201,7 @@
                         </div>
                     </div>
 
-                    <br><br>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12 text-left">
                             <h6>Gastos estimativos de la actividad y modo de solventarlos</h6>
@@ -217,40 +217,11 @@
                         </div>
                     </div>
                 
-                    <br><br><br><br><br><br>
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <h6>.......................................</h6>
-                            <p>Lugar y fecha</p>
-                            <p>Firma de Autoridad del Establecimiento</p><br><br><br><br><br><br><br><br>
-                            <h6>......................................</h6>
-                            <p>Lugar y fecha</p>
-                            <p>firma del Inspector Jefe Distrital</p>
-                            <p>(Si correspondiere)</p>
-                        </div>
-                        <div class="col-sm-5">
-                            <h6>.......................................</h6>
-                            <p>Lugar y fecha</p>
-                            <p>Firma del Inspector</p>
-                            <p>(Si correspondiere)</p><br><br><br><br><br><br>
-                            <h6>........................................</h6>
-                            <p>Lugar y fecha</p>
-                            <p>Firma del Inspector Jefe Regional</p>
-                            <p>(Si correspondiere)</p>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h6>1) El presente formulario deberá estar completo por duplicado </h6> 
-                            <h6> (Uno para la institución y otro para la instancia de supervisión)</h6>
-                            <br>
-                        </div>
-                    </div>
+                    <br><br>
                 </div>
             </div>
         </div>
+        <br><br>
         <script src="../librerias/jquery.js"></script>
         <script src="../librerias/boostrap.js"></script>
         <script>
