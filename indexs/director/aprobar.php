@@ -6,40 +6,45 @@
         <title>Salidas Educativas</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="../../librerias/bootstrap.css">
-        <link rel="stylesheet" href="../../css/salidasMenu.css">
+        <style>
+            body {
+                overflow-x: hidden; /* Oculta el desplazamiento horizontal */
+                width: 100%; /* Establece un ancho del cuerpo del 100% */
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-dark" style="color: white; padding: 10px;">
-            <div class="container-fluid">
-                <img src="../../imagenes/eest.webp" alt="" id="logo">
-                <a class="navbar-brand" id="title" style="color: white;">Salidas Educativas</a>
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="../../imagenes/eest.webp" style="height:100px;">
+                    <a class="navbar-brand" id="title" style="color: white; font-size:30px; margin-left: 30px;">Salidas Educativas</a>
+                </div>
                 <a href="profesores.php" class="btn btn-warning" style="color: white;">Atrás</a>
             </div>
         </nav>
         <br>
-        <div class="container">
-            <header class="row p-3 bg-primary text-white">
-                <div class="col-12 text-center">
-                    <h3 class="my-0">Aprobar Salidas Educativas</h3>
-                </div>
-            </header>
-        
-            <div class="row mt-4">
-                <div class="col-md-6 offset-md-3 text-center mt-4 d-flex align-items-end justify-content-center">
-                    <form id="searchForm" class="d-flex">
-                        <select class="form-select mb-2 me-2" name="Bestado" style="width: 200px;">
-                            <option value="todos">Todos</option>
-                            <option value="pendiente">Pendiente</option>
-                            <option value="aprobado">Aprobado</option>
-                            <option value="denegado">Denegado</option>
-                        </select>
-                        <button class="btn btn-primary mb-2" type="submit">🔍</button>
-                    </form>
-                </div>
+        <header class="row p-3 bg-dark text-white">
+            <div class="col-12 text-center">
+                <h3 class="my-0" style="color: white; padding: 10px;">Aprobar Salidas Educativas</h3>
             </div>
-    
-            <div class="row mt-4">
-                <div class="col-12">
+        </header>
+            
+        <div class="col-md-6 offset-md-3 text-center mt-4 d-flex align-items-end justify-content-center">
+            <form id="searchForm" class="d-flex">
+                <select class="form-select mb-2 me-2" name="Bestado" style="width: 200px;">
+                    <option value="todos">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobado">Aprobado</option>
+                    <option value="denegado">Denegado</option>
+                </select>
+                <button class="btn btn-primary mb-2" type="submit">🔍</button>
+            </form>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="table-responsive">
                     <table class="table table-striped text-center">
                         <thead class="bg-primary text-white">
                             <tr>
@@ -48,6 +53,8 @@
                                 <th>Fecha Salida</th>
                                 <th>Fecha Regreso</th>
                                 <th>Denominación Proyecto</th>
+                                <th>Anexo V</th>
+                                <th>Anexo VIII</th>
                                 <th>Eliminar</th>
                                 <th>Estado</th>
                                 <th>Cambiar Estado</th>
@@ -67,17 +74,18 @@
                                         echo '<td>' . $resp['fecha1'] . '</td>';
                                         echo '<td>' . $resp['fecha2'] . '</td>';
                                         echo '<td>' . $resp['denominacion_proyecto'] . '</td>';
+                                        echo '<td></td>';
+                                        echo '<td></td>';
                                         echo '<td><button class="btn btn-danger boton_eliminar" data-id="' . $resp['id'] . '">🗑</button></td>';
                                         echo '<td id="estados' . $resp['id'] . '">' . $resp['estado'] . '</td>';
-                                        echo '<td class="col-4">
-                                                <form method="post" action="insert_usert.php" class="btn btn-success">
+                                        echo '<td>
+                                                <form method="post" action="insert_usert.php">
                                                     <select name="estado">
                                                         <option value="pendiente">Pendiente</option>
                                                         <option value="aprobado">Aprobado</option>
                                                         <option value="denegado">Denegado</option>
                                                     </select>
                                                     <button type="button" class="cambiarEstado" data-id="' . $resp['id'] . '">💾</button>
-                                                    <button type="button" class="creear_pdf" data-id="' . $resp['id'] . '"> 📄</button>
                                                 </form>
                                             </td>';
                                     echo '</tr>';
@@ -85,7 +93,7 @@
                             ?>
                         </tbody>
                     </table>
-                </div>
+                </div>    
             </div>
         </div>
 
