@@ -33,10 +33,10 @@
         <div class="col-md-6 offset-md-3 text-center mt-4 d-flex align-items-end justify-content-center">
             <form id="searchForm" class="d-flex">
                 <select class="form-select mb-2 me-2" name="Bestado" style="width: 200px;">
-                    <option value="todos">Todos</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="aprobado">Aprobado</option>
-                    <option value="denegado">Denegado</option>
+                    <option value="0">Todos</option>
+                    <option value="1">Pendiente</option>
+                    <option value="2">Aprobado</option>
+                    <option value="3">Denegado</option>
                 </select>
                 <button class="btn btn-primary mb-2" type="submit">🔍</button>
             </form>
@@ -62,6 +62,12 @@
                         </thead>
                         <tbody id="proyectosTabla">
                             <?php
+                                session_start();
+                                if (empty($_SESSION['dni'])) {
+                                    header('Location: ../index.php');
+                                    exit;
+                                }
+                                
                                 include('../../modulos/conexion.php');
 
                                 $sql = "SELECT * FROM anexo_iv";
@@ -74,16 +80,35 @@
                                         echo '<td>' . $resp['fecha1'] . '</td>';
                                         echo '<td>' . $resp['fecha2'] . '</td>';
                                         echo '<td>' . $resp['denominacion_proyecto'] . '</td>';
-                                        echo '<td></td>';
-                                        echo '<td></td>';
+                                        
+                                        $sql2 = "SELECT fk_anexoIV FROM anexo_v WHERE fk_anexoIV ='".$resp['id']."'";
+                                        $anexov = mysqli_query($conexion, $sql2);
+
+                                        if ($anexov -> num_rows > 1) {
+                                            echo '<td>✔</td>';
+                                        }
+                                        else{
+                                            echo '<td>✘</td>';
+                                        }
+
+                                        $sql3 = "SELECT fk_anexoIV FROM anexo_viii WHERE fk_anexoIV ='".$resp['id']."'";
+                                        $anexoviii = mysqli_query($conexion, $sql3);
+
+                                        if ($anexoviii -> num_rows > 0) {
+                                            echo '<td>✔</td>';
+                                        }
+                                        else{
+                                            echo '<td>✘</td>';
+                                        }
+                                        
                                         echo '<td><button class="btn btn-danger boton_eliminar" data-id="' . $resp['id'] . '">🗑</button></td>';
                                         echo '<td id="estados' . $resp['id'] . '">' . $resp['estado'] . '</td>';
                                         echo '<td>
                                                 <form method="post" action="insert_usert.php">
                                                     <select name="estado">
-                                                        <option value="pendiente">Pendiente</option>
-                                                        <option value="aprobado">Aprobado</option>
-                                                        <option value="denegado">Denegado</option>
+                                                        <option value="1">Pendiente</option>
+                                                        <option value="2">Aprobado</option>
+                                                        <option value="3">Denegado</option>
                                                     </select>
                                                     <button type="button" class="cambiarEstado" data-id="' . $resp['id'] . '">💾</button>
                                                 </form>
@@ -106,9 +131,8 @@
                 var id = $(this).data('id');
                 var estado = $(this).parent().find('select[name="estado"]').val();
 
-                $.post('insert_usert.php', { estado: estado, id: id }, function(data) {
+                $.post('modi_estadoAiv.php', { estado: estado, id: id }, function(data) {
                     $("#estados" + id).text(estado);
-
                     setTimeout(function() {
                         location.reload();
                     });
@@ -124,26 +148,14 @@
                 });
             });
 
-            // Búsqueda
             $('#searchForm').on('submit', function (e) {
                 e.preventDefault();
-                var estado = $('select[name="Bestado"]').val().toLowerCase();
-
-                $('tbody tr').hide();
-                $('tbody tr').each(function () {
-                    var estadoProyecto = $(this).find('td:eq(6)').text().toLowerCase();
-                    if (estadoProyecto === estado || estado === "todos") {
-                        $(this).show();
-                    }
+                var estado = $('select[name="Bestado"]').val();
+                $.post('buscarEstadoAnexo.php', { estadoSelect: estado }, function(data) {
+                    $('#proyectosTabla').html(data);
                 });
             });
 
-            $(document).on('click', '.creear_pdf', function () {
-                var id = $(this).data('id');
-                $.get('mostrar_pdf.php', { id: id }, function(data) {
-                    alert("PDF generado con éxito");
-                });
-            });
         </script>
     </body>
 </html>

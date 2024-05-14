@@ -124,21 +124,13 @@
     <script>
         $(document).ready(function() {
             $('#miID').click(function () {
-                let fkanexo4 = $('#salida').val();
+                let fkanexo4 = id_salida;
                 let apellido_y_nombre = $('#nom_ape').val();
                 let documento = $('#doc').val();
                 let edad = $('#edad').val();
                 let cargo = $('#cargo').val();
                 console.log(apellido_y_nombre, documento, edad, cargo);
                 let inputValido = true;
-
-                if ($('#salida').val().length === 0) {
-                    $('#salida').addClass("border border-danger");
-                    inputValido = false;
-                } else {
-                    $('#salida').removeClass("border border-danger");
-                    $('#salida').addClass("border border-success");
-                }
                 
                 if ($('#nom_ape').val().length === 0) {
                     $('#nom_ape').addClass("border border-danger");

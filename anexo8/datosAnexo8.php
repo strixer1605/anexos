@@ -3,7 +3,6 @@
 
     if(isset($_GET['id'])) {
         $id_salida = $_GET['id'];
-
         $sql = "SELECT * FROM `anexo_iv` WHERE id = ?";
 
         $stmt = mysqli_prepare($conexion, $sql);
@@ -19,6 +18,7 @@
         } else {
             echo "No se encontraron resultados.";
         }
+        echo '<script>var id_salida = "' . $id_salida . '";</script>';
         mysqli_stmt_close($stmt);
     } else {
         echo "No se proporcionó un ID.";

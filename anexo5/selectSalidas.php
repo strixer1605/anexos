@@ -9,4 +9,6 @@
     while ($resp = mysqli_fetch_assoc($anexoiv)) {
         echo '<p value='.$resp['id'].'>'.$resp['nombre_del_proyecto'].'</p>';
     };
+
+    echo '<script>var id_salida = "' . $id_salida . '";</script>';
 ?>

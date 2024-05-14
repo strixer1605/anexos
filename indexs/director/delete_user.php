@@ -13,7 +13,7 @@
 
   if(mysqli_error($conexion) == " ")
   {
-      echo 'se elimino correctamente';
+      echo 'Se elimino correctamente';
 
   }else
   {

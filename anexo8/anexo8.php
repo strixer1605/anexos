@@ -180,6 +180,7 @@
                 $('#guardar').click(function() {
                     var inputs = $('.form-control');
                     var dataValid = true;
+                    let fkanexo4=id_salida;
 
                     inputs.each(function() {
                         if ($(this).val().length === 0) {
@@ -193,6 +194,7 @@
                     if (dataValid) {
                         // Procesamiento de datos y redirección
                         var data = {
+                            salida: fkanexo4,
                             in1: $('textarea[name="caja1"]').val(),
                             in2: $('textarea[name="caja2"]').val(),
                             in3: $('textarea[name="caja3"]').val(),
@@ -215,11 +217,6 @@
                         $.post('datos.php', data, function(response) {
                             alert(response);
                         });
-
-                        // Redirige a otra página después de un breve retraso (puedes ajustar el tiempo)
-                        setTimeout(function() {
-                            window.location.href = "../Anexo IX/anexoix.php";
-                        }, 2000); // Redireccionar después de 2 segundos
                     }
                 });
             });

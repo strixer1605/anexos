@@ -1,6 +1,6 @@
 <?php
 
-include('conexion.php');
+include('../modulos/conexion.php');
 
     $caja1 =  $_POST['in1'];
     $caja2 =  $_POST['in2'];
@@ -19,8 +19,10 @@ include('conexion.php');
     $caja15 =  $_POST['in15'];
     $caja16 =  $_POST['in16'];
     $caja17 =  $_POST['in17'];
+    $salida = $_POST['salida'];
 
-    if($caja1 != null && $caja1 != "" && $caja2 != "" && $caja2 != null &&
+    if ($caja1 != null && $caja1 != "" && $salida != null && $salida != "" &&
+        $caja2 != "" && $caja2 != null &&
        $caja3 != null && $caja3 != "" && $caja4 != "" && $caja4 != null &&
        $caja5 != null && $caja5 != "" && $caja6 != "" && $caja6 != null &&
        $caja7 != null && $caja7 != "" && $caja8 != "" && $caja8 != null &&
@@ -30,15 +32,13 @@ include('conexion.php');
        $caja15 != null && $caja15 != "" && $caja16 != "" && $caja16 != null &&
        $caja17 != null && $caja17){
 
-
         $sql = "INSERT INTO 
-
-                `anexoviii`(`institucion`, `año`, `division`, `area`, `docente`,
+                `anexo_viii`(`institucion`, `fk_anexoIV`, `año`, `division`, `area`, `docente`,
                 `objetivo`, `fecha`, `lugares`, 
                 `descripcion`, `responsables`,`observaciones`,
                 `descripcion2`, `responsables2`, `observaciones2`,
                 `descripcion3`, `responsables3`, `observaciones3`) 
-                VALUES ('".$caja1."','".$caja2."','".$caja3."','".$caja4."','".$caja5."'
+                VALUES ('".$caja1."','".$salida."','".$caja2."','".$caja3."','".$caja4."','".$caja5."'
                 ,'".$caja6."','".$caja7."','".$caja8."'
                 ,'".$caja9."','".$caja10."','".$caja11."'
                 ,'".$caja12."','".$caja13."','".$caja14."'
