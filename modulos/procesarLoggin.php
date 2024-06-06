@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include('config.php');
+    include('conexion.php');
     include('conexionescuela.php');
 
     $dni = mysqli_real_escape_string($conexion, $_POST["dni"]);

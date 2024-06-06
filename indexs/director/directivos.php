@@ -1,15 +1,27 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['dni_director'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
+    $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="../librerias/jquery.js?v=1" ></script>
-        <link rel="stylesheet" href="../librerias/bootstrap.css">
-        <link rel="stylesheet" href="../css/estilos.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="../../librerias/jquery.js?v=1"></script>
+        <link rel="stylesheet" href="../../librerias/bootstrap.css">
+        <link rel="stylesheet" href="../../css/estilos.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Menu</title>
     </head>
     <body>
+
         <a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
-        <div class="row justify-content-center ">
+        <div class="row justify-content-center">
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>
                 <div class="col-12 text-center mt-4">
@@ -19,50 +31,22 @@
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Hijos a Cargo</h2>
                 <div class="col-12 text-center mt-4">
-                    <?php
-                        session_start();
-                        if (empty($_SESSION['dni'])) {
-                            // Redirigir al usuario a la página de inicio
-                            header('Location: ../index.php');
-                            exit;
-                        }
-
-                        include('../../modulos/config.php');
-                        include('../../modulos/conexionescuela.php');
-
-                        $dniPadre = $_SESSION['dni'];
-
-                        $hijoSQL = "SELECT `dni_alumnos` FROM `padresalumnos` WHERE dni_padrestutores = '$dniPadre'";
-
-                        $resultadoHijos = mysqli_query($conexion, $hijoSQL);
-                        if ($resultadoHijos) {
-                            while ($filaHijo = mysqli_fetch_assoc($resultadoHijos)) {
-
-                                $dniAlumno = $filaHijo['dni_alumnos'];
-
-                                $alumnoSQL = "SELECT `nombre`, `apellido` FROM `alumnos` WHERE dni = '$dniAlumno'";
-                                $resultadoAlumno = mysqli_query($conexion, $alumnoSQL);
-
-                                if ($resultadoAlumno) {
-                                    while ($datosAlumno = mysqli_fetch_assoc($resultadoAlumno)) {
-                                        $nombreAlumno = $datosAlumno['nombre'];
-                                        $apellidoAlumno = $datosAlumno['apellido'];
-                                        // Enlace con href que apunta a la página "salidas hijo"
-                                        echo '<a href="../salidasHijos.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">'.$apellidoAlumno.' '.$nombreAlumno.'</a><br><br>';
-                                    }
-                                } else {
-                                    echo "Error al obtener datos del alumno";
-                                }
-                            }
-                        } else {
-                            echo "Error al obtener DNIs de los alumnos asociados al padre";
-                        }
-                    ?>
+                    <?php if (!empty($hijos)): ?>
+                        <?php foreach ($hijos as $hijo): ?>
+                            <a href="../salidasHijos.php?dniAlumno=<?= $hijo['dni'] ?>" class="btn border-bottom border-top form-control" style="width: 100%;"><?= $hijo['apellido'] . ' ' . $hijo['nombre'] ?></a><br><br>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No hay hijos asociados.</p>
+                    <?php endif; ?>
+                    <?php if ($error): ?>
+                        <p><?= $error ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-        <script src="../librerias/jquery.js?v=1"></script>
-        <script src="../librerias/boostrap.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="../../librerias/jquery.js"></script>
+        <script src="../../librerias/boostrap.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+                    
