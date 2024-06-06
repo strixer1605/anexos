@@ -23,9 +23,8 @@
     <body>
         <br>
         <div class="col-md-6 contenedor">
-            Salidas Educativas
-            <br><br>
-            <button href="hijosMenu.php" name="mi_horario" class="form-control botones">Salidas Educativas</button>
+            <br>    
+            <?php echo '<a href="hijos/hijosMenu.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">Salidas Educativas</a>'?>
         </div>
 
         <script src="../librerias/jquery.js?v=1"></script>
