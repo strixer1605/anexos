@@ -9,6 +9,8 @@
     $dniPadre = $_SESSION['dni'];
     $dniAlumno = $_GET['dniAlumno'];
     // echo $dniPadre, " ", $dniAlumno;
+    include('../../modulos/conexion.php');
+    include('../../modulos/conexionescuela.php');
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +27,20 @@
         <br>
         <div class="col-md-6 contenedor">
             <br>
-            <button type="button" class="btn btn-success">Anexo 6</button>
-            <button type="button" class="btn btn-success">Anexo 7</button>
+            <?php
+                $Anexo5Hijo = 'SELECT * FROM `anexo_v` WHERE documento = '.$dniAlumno.'';
+                $resultadoAnexo5 = mysqli_query($conexion, $Anexo5Hijo);
+                $rowA5 = $resultadoAnexo5->fetch_assoc();
+                if($resultadoAnexo5){
+                    $Anexo4Hijo = 'SELECT * FROM `anexo_iv` WHERE id = '.$rowA5['fk_anexoIV'].'';
+                    $resultadoA4 = mysqli_query($conexion, $Anexo4Hijo);
+                    $rowA4 = $resultadoA4->fetch_assoc();
+                    echo $rowA4['nombre_del_proyecto'];
+                }
+                else{
+                    echo 'No hay salidas pendientes...';
+                }
+            ?>
         </div>
 
         <script src="../librerias/jquery.js?v=1"></script>
