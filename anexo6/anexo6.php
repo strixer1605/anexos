@@ -102,10 +102,9 @@
                 <p>
                     Por la presente autorizo a mi hijo/a. <input type="text" id="no_ap" class="form-control-sm border-primary" value="<?php echo $nombre . ' ' . $apellido; ?>">
                     DNI Nº <input type="number" id="dni" class="form-control-sm border-primary" value="<?php echo $dniAlum; ?>"> domiciliado en la. <input type="text" id="calle" class="form-control-sm border-primary" value="<?php echo $calle; ?>"> 
-                    N°. <input type="text" id="num" class="form-control-sm border-primary" value="<?php echo $numeroCalle; ?>"> de la localidad de. <input type="text" id="local" class="form-control-sm border-primary"> T.E. 
+                    N°. <input type="text" id="num" class="form-control-sm border-primary" value="<?php echo $numeroCalle; ?>"> de la localidad de <input type="text" id="local" class="form-control-sm border-primary"> T.E. 
                     <input type="number" id="tele" class="form-control-sm border-primary"> que concurre a la <b>Escuela de Educación Secundaria Técnica Nº1</B> del distrito <b>La
-                    Costa</b>, a participar de la Salida Educativa <b><?php include('selectAnexo6.php');?></b>, a
-                    realizarse en las localidades de // a realizarse entre los días // y el // del presente ciclo lectivo.
+                    Costa</b>, a participar de la Salida Educativa <?php include('selectAnexo6.php');?>
                 </p>
                 <p>
                     Dejo constancia de que he sido informado de las características
