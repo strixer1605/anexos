@@ -1,15 +1,26 @@
 <?php
     session_start();
-    // echo $dniUsuario;
-    if (empty($_SESSION['dni'])) {
-        // Redirigir al usuario a la página de inicio
+
+    if (isset($_SESSION['dni_profesor'])) {
+        $dni_padre = $_SESSION['dni_profesor'];
+    } elseif (isset($_SESSION['dni_director'])) {
+        $dni_padre = $_SESSION['dni_director'];
+    } elseif (isset($_SESSION['dni_padre'])) {
+        $dni_padre = $_SESSION['dni_padre'];
+    } else {
         header('Location: ../index.php');
         exit;
     }
-    $dniPadre = $_SESSION['dni'];
+
+    if (empty($dni_padre)) {
+
+        header('Location: ../index.php');
+        exit;
+    }
+
     $dniAlumno = $_GET['dniAlumno'];
-    // echo $dniPadre, " ", $dniAlumno;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

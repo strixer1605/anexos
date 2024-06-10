@@ -1,13 +1,13 @@
 <?php
     session_start();
-    if (empty($_SESSION['dni']) || empty($_SESSION['nombre_profesor']) || empty($_SESSION['apellido_profesor'])) {
+    if (empty($_SESSION['dni_profesor'])) {
         header('Location: ../index.php');
         exit;
     }
 
-    $dniEncargado = $_SESSION['dni'];
-    $nombre = $_SESSION['nombre_profesor'];
-    $apellido = $_SESSION['apellido_profesor'];
+    $dniEncargado = $_SESSION['dni_profesor'];
+    $nombre = $_SESSION['nombre_doc'];
+    $apellido = $_SESSION['apellido_doc'];
 ?>
 
 

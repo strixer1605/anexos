@@ -16,7 +16,7 @@
             <?php
                 session_start();
 
-                if (empty($_SESSION['dni'])) {
+                if (empty($_SESSION['dni_padre'])) {
                     header('Location: ../index.php');
                     exit;
                 }
@@ -24,7 +24,7 @@
                 include('../../modulos/conexion.php');
                 include('../../modulos/conexionescuela.php');
 
-                $dniPadre = $_SESSION['dni'];
+                $dniPadre = $_SESSION['dni_padre'];
 
                 echo $_SESSION['nombre_padre'], " ", $_SESSION['apellido_padre'];
 

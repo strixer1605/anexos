@@ -1,13 +1,13 @@
 <?php
     session_start();
-    if (empty($_SESSION['dni']) || empty($_SESSION['nombre_profesor']) || empty($_SESSION['apellido_profesor'])) {
+    if (empty($_SESSION['dni_profesor']) || empty($_SESSION['nombre_doc']) || empty($_SESSION['apellido_doc'])) {
         header('Location: ../index.php');
         exit;
     }
 
-    $dni_encargado = $_SESSION['dni'];
-    $nombre = $_SESSION['nombre_profesor'];
-    $apellido = $_SESSION['apellido_profesor'];
+    $dni_encargado = $_SESSION['dni_profesor'];
+    $nombre = $_SESSION['nombre_doc'];
+    $apellido = $_SESSION['apellido_doc'];
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
     <body>
         <div class="container">
             <br>
-            <a href="../indexs/profesores/salidasMenu.php" class="btn btn-danger" style="color: white;">< Atrás</a>
+            <a href="../indexs/profesores/salidasMenu.php" class="btn btn-danger" style="color: white;">Atrás</a>
             <br><br>
             <header>
                 <div class="row">

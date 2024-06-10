@@ -22,7 +22,7 @@
     </head>
     <body>
 
-        <a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
+        <a href="../../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
         <div class="row justify-content-center ">
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>

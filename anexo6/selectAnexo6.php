@@ -5,7 +5,7 @@
         die("Error de conexión: " . $conexion->connect_error);
     }
 
-    $sql = "SELECT * FROM `anexoiv` WHERE 1";
+    $sql = "SELECT * FROM `anexo_iv` WHERE 1";
 
     $resultado = $conexion->query($sql);
 

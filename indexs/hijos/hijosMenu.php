@@ -1,16 +1,24 @@
 <?php
     session_start();
-    // echo $dniUsuario;
-    if (empty($_SESSION['dni'])) {
-        // Redirigir al usuario a la página de inicio
+
+    if (isset($_SESSION['dni_profesor'])) {
+        $dni_padre = $_SESSION['dni_profesor'];
+    } elseif (isset($_SESSION['dni_director'])) {
+        $dni_padre = $_SESSION['dni_director'];
+    } elseif (isset($_SESSION['dni_padre'])) {
+        $dni_padre = $_SESSION['dni_padre'];
+    } else {
         header('Location: ../index.php');
         exit;
     }
-    $dniPadre = $_SESSION['dni'];
-    $dniAlumno = $_GET['dniAlumno'];
-    // echo $dniPadre, " ", $dniAlumno;
+
+    if (empty($dni_padre)) {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $dniAlum = $_GET['dniAlumno'];
     include('../../modulos/conexion.php');
-    include('../../modulos/conexionescuela.php');
 ?>
 
 <!DOCTYPE html>
@@ -28,18 +36,33 @@
         <div class="col-md-6 contenedor">
             <br>
             <?php
-                $Anexo5Hijo = 'SELECT * FROM `anexo_v` WHERE documento = '.$dniAlumno.'';
-                $resultadoAnexo5 = mysqli_query($conexion, $Anexo5Hijo);
-                $rowA5 = $resultadoAnexo5->fetch_assoc();
-                if($resultadoAnexo5){
-                    $Anexo4Hijo = 'SELECT * FROM `anexo_iv` WHERE id = '.$rowA5['fk_anexoIV'].'';
+            $Anexo5Hijo = 'SELECT * FROM anexo_v WHERE documento = "' . $dniAlum . '"';
+            $resultadoAnexo5 = mysqli_query($conexion, $Anexo5Hijo);
+
+            if ($resultadoAnexo5 && mysqli_num_rows($resultadoAnexo5) > 0) {
+                $rowA5 = mysqli_fetch_assoc($resultadoAnexo5);
+
+                if (isset($rowA5['fk_anexoIV']) && !empty($rowA5['fk_anexoIV'])) {
+                    $Anexo4Hijo = 'SELECT * FROM anexo_iv WHERE id = "' . $rowA5['fk_anexoIV'] . '"';
                     $resultadoA4 = mysqli_query($conexion, $Anexo4Hijo);
-                    $rowA4 = $resultadoA4->fetch_assoc();
-                    echo $rowA4['nombre_del_proyecto'];
+
+                    if ($resultadoA4 && mysqli_num_rows($resultadoA4) > 0) {
+                        while ($rowA4 = mysqli_fetch_assoc($resultadoA4)) {
+                            echo '<div class="d-inline-flex align-items-center mt-2">';
+                            echo '<p class="btn border form-control mb-0" style="cursor: text; width: 250px;">' . htmlspecialchars($rowA4['nombre_del_proyecto']) . '</p>';
+                            echo '<a href="../../anexo6/anexo6.php?id=' . htmlspecialchars($rowA4['id']) . '&nombre=' . urlencode($rowA4['nombre_del_proyecto']) . '&dniAlumno='.urlencode($dniAlum).'" class="btn btn-sm btn-success botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Autorización</a>';
+                            echo '<a href="../../anexo7/anexo7.php?id=' . htmlspecialchars($rowA4['id']) . '&nombre=' . urlencode($rowA4['nombre_del_proyecto']) . '&dniAlumno='.urlencode($dniAlum).'" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Ficha Médica</a>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo 'No se encontró el Anexo IV correspondiente.';
+                    }
+                } else {
+                    echo 'No se encontró el campo fk_anexoIV en Anexo V.';
                 }
-                else{
-                    echo 'No hay salidas pendientes...';
-                }
+            } else {
+                echo 'No hay salidas pendientes...';
+            }
             ?>
         </div>
 

@@ -1,3 +1,59 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['dni_profesor'])) {
+        $dni_padre = $_SESSION['dni_profesor'];
+    } elseif (isset($_SESSION['dni_director'])) {
+        $dni_padre = $_SESSION['dni_director'];
+    } elseif (isset($_SESSION['dni_padre'])) {
+        $dni_padre = $_SESSION['dni_padre'];
+    } else {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    if (empty($dni_padre)) {
+        header('Location: ../index.php');
+        exit;
+    }
+
+    $dniAlum = $_GET['dniAlumno'];
+
+    include('../modulos/conexion.php');
+    include('../modulos/conexionescuela.php');
+
+    $infoSQL = new mysqli("localhost", "root", "", "escuela");
+    if ($infoSQL->connect_error) {
+        die("Error de conexión: " . $infoSQL->connect_error);
+    }
+
+    // Ejecutar la consulta múltiple
+    if ($infoSQL->multi_query("SELECT `nombre`, `apellido` FROM `alumnos` WHERE dni = '$dniAlum';
+        SELECT domicilio, SUBSTRING_INDEX(domicilio, ' Nro. ', 1) AS calle, SUBSTRING_INDEX(domicilio, ' Nro. ', -1) AS numeroCalle FROM `alumnos` WHERE dni = '$dniAlum';")) {
+        // Procesar el primer conjunto de resultados
+        if ($resultado1 = $infoSQL->store_result()) {
+            if ($fila1 = $resultado1->fetch_assoc()) {
+                $nombre = $fila1['nombre'];
+                $apellido = $fila1['apellido'];
+            }
+            $resultado1->free();
+        }
+
+        $infoSQL->next_result();
+
+        // Procesar el segundo conjunto de resultados
+        if ($resultado2 = $infoSQL->store_result()) {
+            if ($fila2 = $resultado2->fetch_assoc()) {
+                $calle = $fila2['calle'];
+                $numeroCalle = $fila2['numeroCalle'];
+            }
+            $resultado2->free();
+        }
+    }
+
+    $infoSQL->close();
+?>
+
 <html>
     <head>
         <tittle></tittle>
@@ -32,7 +88,8 @@
                 </div>
                 <div class="col-6">
                     <h4><b>ANEXO VI</b></h4>
-                    <h5>AUTORIZACION SALIDA EDUCATIVA/<del>SALIDA DE REPRESENTACION INSTITUCIONAL</del></h5> 
+                    <h5>AUTORIZACION SALIDA EDUCATIVA</h5> 
+                    <br>
                 </div>
                 <div class="col-4">
                 </div>
@@ -42,46 +99,51 @@
             <div class="col-3">
             </div>
             <div class="col-6">
-                <p>Por la presente autorizo a mi hijo/a. <input type="text" id="no_ap" class="form-control-sm border-primary">
-                DNI Nº <input type="number" id="dni" class="form-control-sm border-primary"> domiciliado en la. <input type="text" id="calle" class="form-control-sm border-primary"> 
-                N°. <input type="number" id="num" class="form-control-sm border-primary"> de la localidad de. <input type="text" id="local" class="form-control-sm border-primary"> T.E. 
-                <input type="number" id="tele" class="form-control-sm border-primary"> que concurre a la <b>Escuela de Educación Secundaria Técnica Nº1</B> del distrito <b>La
-                Costa</b>, a participar de la Salida Educativa <b><?php include('selectAnexo6.php');?></b>, a
-                realizarse en las localidades de // a realizarse entre los días // y el // del presente ciclo lectivo.</p>
-                <p>Dejo constancia de que he sido informado de las características
-                particulares de dicha salida, como así también de los responsables de las
-                actividades a desarrollar, medios de transporte a utilizar y donde se realizaran
-                dichas actividades.</p>
-                <p>Autorizo a los responsables de la salida a disponer cambios con relación
-                la planificación de las actividades en aspectos acotados, que resulten
-                necesarios, a su solo criterio y sin aviso previo, sobre lo cual me deberán
-                informar y fundamentar al regreso.</p>
-                <p>Autorizo en caso de necesidad y urgencia, a hacer atender al alumno por
-                profesionales médicos y a que se adopten las prescripciones que ellos
-                indiquen, sobre el cual requiero inmediato aviso.</p>
-                <p>Los docentes a cargo del cuidado y vigilancia activa de los menores no
-                serán responsables de los objetos u otros elementos de valor que los mismos
-                puedan llevar.
+                <p>
+                    Por la presente autorizo a mi hijo/a. <input type="text" id="no_ap" class="form-control-sm border-primary" value="<?php echo $nombre . ' ' . $apellido; ?>">
+                    DNI Nº <input type="number" id="dni" class="form-control-sm border-primary" value="<?php echo $dniAlum; ?>"> domiciliado en la. <input type="text" id="calle" class="form-control-sm border-primary" value="<?php echo $calle; ?>"> 
+                    N°. <input type="text" id="num" class="form-control-sm border-primary" value="<?php echo $numeroCalle; ?>"> de la localidad de. <input type="text" id="local" class="form-control-sm border-primary"> T.E. 
+                    <input type="number" id="tele" class="form-control-sm border-primary"> que concurre a la <b>Escuela de Educación Secundaria Técnica Nº1</B> del distrito <b>La
+                    Costa</b>, a participar de la Salida Educativa <b><?php include('selectAnexo6.php');?></b>, a
+                    realizarse en las localidades de // a realizarse entre los días // y el // del presente ciclo lectivo.
+                </p>
+                <p>
+                    Dejo constancia de que he sido informado de las características
+                    particulares de dicha salida, como así también de los responsables de las
+                    actividades a desarrollar, medios de transporte a utilizar y donde se realizaran
+                    dichas actividades.
+                </p>
+                <p>
+                    Autorizo a los responsables de la salida a disponer cambios con relación
+                    la planificación de las actividades en aspectos acotados, que resulten
+                    necesarios, a su solo criterio y sin aviso previo, sobre lo cual me deberán
+                    informar y fundamentar al regreso.
+                </p>
+                <p>
+                    Autorizo en caso de necesidad y urgencia, a hacer atender al alumno por
+                    profesionales médicos y a que se adopten las prescripciones que ellos
+                    indiquen, sobre el cual requiero inmediato aviso.
+                </p>
+                <p>
+                    Los docentes a cargo del cuidado y vigilancia activa de los menores no
+                    serán responsables de los objetos u otros elementos de valor que los mismos
+                    puedan llevar.
                 </p>
             </div>  
+        </div>  
         </div>      
         <div class="row d-flex justify-content-center">
             <div class="col-6">
-                Lugar: <input type="text" id="lugar" class="col-9 col-md-6 form-control-sm border-primary"></br>
-                Fecha: <input type="date" id="fecha" class="col-9 col-md-6 form-control-sm border-primary"></br>
-                Firma y aclaración del Padre, Madre, Tutor o Representante Legal: ............................</br>
-                DNI: <input type="number" id="dnipa" class="col-9 col-md-6 form-control-sm border-primary">
+                Lugar: <input type="text" id="lugar" class="col-9 col-md-6 form-control-sm border-primary"><br><br>
+                Fecha: <input type="date" id="fecha" class="col-9 col-md-6 form-control-sm border-primary"><br><br>
+                DNI: <input type="number" id="dnipa" class="col-9 col-md-6 form-control-sm border-primary" value="<?php echo $dni_padre; ?>">
             </div>
         </div>
         </br>
-        <div class="row">
-            <div class="col-3">
-            </div>
-            <div class="col-5">
-                <p>-¿Confirma que los datos son veridicos?____<input type="checkbox" class="form-check-input"></p>
-            </div>
-            <div class="col-1">
-                <input type="button"  id="enviar" value="enviar">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <p>-¿Confirma que los datos son veridicos?</p><input type="checkbox" class="form-check-input">
+                <input type="button"  id="enviar" value="Enviar">
                 <br>
                 <br>
             </div>

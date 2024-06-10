@@ -6,9 +6,7 @@
 
     $dni = mysqli_real_escape_string($conexion, $_POST["dni"]);
     $password = mysqli_real_escape_string($conexion, $_POST["password"]);
-
-    $_SESSION['dni'] = $dni;
-
+    
     include('config.php');
 
     if ($dni_director == $dni) {
