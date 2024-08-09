@@ -1,0 +1,26 @@
+#title{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left: 30px;
+    color: black;
+    font-size: 30px;
+    margin-right: auto;
+}
+
+.navbar{
+    padding: 10px;
+}
+
+#navbarSupportedContent{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#logo{
+    width: 85px;
+    height: 85px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
