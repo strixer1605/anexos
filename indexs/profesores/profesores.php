@@ -5,8 +5,7 @@
         exit;
     }
     include('../../modulos/conexion.php');
-    include('../../modulos/conexionescuela.php');
-
+    
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 ?>
@@ -22,7 +21,7 @@
     </head>
     <body>
 
-        <a href="../../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
+        <a href="../../php/logout.php" class="btn btn-danger">Cerrar sesión</a>
         <div class="row justify-content-center ">
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>

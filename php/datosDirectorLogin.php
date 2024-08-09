@@ -1,21 +1,20 @@
 <?php
     session_start();
     include('conexion.php');
-    include('conexionescuela.php');
 
-    if (isset($_SESSION['dni_padre'])) {
-        $dni = $_SESSION['dni_padre'];
-        $sql = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion NOT LIKE 'DOCENTE'";
-        $result_doc = $conexion->query($sql);
+    if (isset($_SESSION['dni_director'])) {
+        $dni_dir = $_SESSION['dni_director'];
+        $sql_dir = "SELECT * FROM personal WHERE dni = '$dni_dir' AND ocupacion LIKE 'DIRECTOR'";
+        $result_dir = $conexion->query($sql_dir);
 
-        if ($result_doc && $result_doc->num_rows > 0) {
-            $row = $result_doc->fetch_assoc();
-            $_SESSION['nombre_padre'] = $row['nombre'];
-            $_SESSION['apellido_padre'] = $row['apellido'];
-            $_SESSION['ocup_padre'] = $row['ocupacion'];
-            $_SESSION['telef_padre'] = $row['telefono'];
+        if ($result_dir -> num_rows > 0) {
+            $row = $result_dir->fetch_assoc();
+            $_SESSION['nombre_dir'] = $row['nombre'];
+            $_SESSION['apellido_dir'] = $row['apellido'];
+            $_SESSION['ocup_dir'] = $row['ocupacion'];
+            $_SESSION['telef_dir'] = $row['telefono'];
 
-            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "' . $dni . '"';
+            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "' . $dni_dir . '"';
             $resultadoHijos = mysqli_query($conexion, $hijoSQL);
 
             if ($resultadoHijos) {
@@ -46,6 +45,6 @@
         exit;
     }
 
-    header("Location: ../indexs/padres/padres.php");
+    header("Location: ../indexs/director/directivos.php");
     exit;
 ?>
