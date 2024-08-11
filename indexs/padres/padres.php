@@ -21,8 +21,7 @@
                     exit;
                 }
                 
-                include('../../modulos/conexion.php');
-                include('../../modulos/conexionescuela.php');
+                include('../../php/conexion.php');
 
                 $dniPadre = $_SESSION['dni_padre'];
 

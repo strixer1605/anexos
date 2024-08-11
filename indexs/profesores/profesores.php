@@ -4,7 +4,7 @@
         header('Location: ../index.php');
         exit;
     }
-    include('../../modulos/conexion.php');
+    include('../../php/conexion.php');
     
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
@@ -26,7 +26,7 @@
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>
                 <div class="col-12 text-center mt-4">
-                    <a href="salidasMenu.php" class="btn border-bottom border-top form-control" style="width: 100%;">Salidas Educativas</a>
+                    <a href="menuSalidas.php" class="btn border-bottom border-top form-control" style="width: 100%;">Salidas Educativas</a>
                 </div>
             </div>
             <div class="col-6">

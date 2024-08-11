@@ -63,7 +63,7 @@
                         <tbody id="proyectosTabla">
                             <?php
                                 session_start();
-                                if (empty($_SESSION['dni'])) {
+                                if (empty($_SESSION['dni_profesor'])) {
                                     header('Location: ../index.php');
                                     exit;
                                 }

@@ -22,7 +22,7 @@
             <div class="card-body">
                 <h3 class="card-title text-center">Iniciar sesión</h3>
                 <div class="card-text">
-                    <form action="modulos/procesarLoggin.php" method="post">
+                    <form action="php/procesarLoggin.php" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">DNI</label>
                             <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="dni" aria-describedby="emailHelp">
