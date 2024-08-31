@@ -24,7 +24,7 @@
                 width: 100%;
                 height: 34px;
                 padding: 6px 12px;
-                font-size: 14px;
+                font-size: 13px;
                 line-height: 1.42857143;
                 color: #555;
                 background-color: #fff;
@@ -42,23 +42,6 @@
                 background-color: white;
                 padding: 10px;
             }
-            .navbar-brand {
-                color: white;
-                font-weight: 400;
-                font-size: 30px;
-            }
-            .navbar-brand:hover {
-                color: #ffcc00;
-                cursor: pointer;
-            }
-            .btn-get-started {
-                background-color: #f8bf00;
-                color: #000;
-                border: none;
-            }
-            .btn-get-started:hover {
-                background-color: #ffcc00;
-            }
             ul {
                 padding-left: 0;
                 list-style-type: none;
@@ -73,18 +56,24 @@
                 height: auto !important;
                 text-decoration: none !important;
                 cursor: pointer;
-                font-size: 17px;
+                font-size: 16px;
                 color: #000;
+                /* border: 1px solid transparent; Establece un borde transparente */
+                transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave para los cambios */
             }
-            .botones:focus { 
-                border: none;
+
+            .botones:focus,
+            .botones:hover,
+            .botones:active {
+                border-color: transparent; /* Asegúrate de que el borde no cambie */
+                outline: none; /* Elimina el contorno del enfoque */
             }
         </style>
     </head>
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
-                <button class="btn btn-warning ms-auto" style="color: white;">Atrás</button>
+                <a href="menuAdministrarSalidas.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
             </div>
         </nav>
 
@@ -95,7 +84,7 @@
                     <h3>Formularios</h3>
                     <hr>
                     <ul>
-                        <li><button class="btn w-100 mb-3">Anexo 5 / 8 / 9 / 10</button></li>
+                        <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
@@ -106,6 +95,7 @@
                         <li><button class="btn form-control botones w-100 mb-3">Anexo 5</button></li>
                         <li><button class="btn form-control botones w-100 mb-3">Anexo 8</button></li>
                         <li><button class="btn form-control botones w-100 mb-3">Anexo 9</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3">Anexo 10</button></li>
                     </ul>
                 </div>
             </div>
