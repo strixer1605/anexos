@@ -15,33 +15,68 @@
         </nav>
 
         <div class="container">
-            <h2>Anexo 5</h2>
+            <!-- <h2>Anexo 5</h2>
             <br>
-            <form id="formAnexo5" class="formulario">
-                <div class="mb-5">
-                    <label for="dni" class="form-label">DNI del Profesor / Alumno / Acompañante:</label>
-                    <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese DNI" required pattern="\d{8}">
+            <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
+                <label for="dni_search" class="form-label">DNI:</label>
+                <div class="mb-5" style="display: flex; align-items: center;">
+                    <input type="number" class="form-control" id="dni_search" name="dni_search" required pattern="\d{8}" placeholder="Insertar por DNI..." style="width: 91%; margin-right:10px;">
+                    <button type="button" class="btn btn-success">
+                        Cargar
+                    </button>
                 </div>
-                <div class="mb-5">
-                    <label for="distrito" class="form-label">Distrito:</label>
-                    <input type="text" class="form-control" id="distrito" name="distrito" placeholder="Ingrese Distrito" required pattern="[A-Za-z\s]+">
+                <label for="cursos" class="form-label">Cursos:</label>
+                <div class="mb-5" style="display: flex; align-items: center;">
+                    <select id="cursos" name="cursos" class="form-control" required placeholder="Insertar por curso..." style="width: 91%; margin-right:10px;">
+                        <option value="6C">6°C</option>
+                        <option value="6B">6°B</option>
+                        <option value="7A">7°A</option>
+                        <option value="7C">7°C</option>
+                    </select>
+                    <button type="button" class="btn btn-success">
+                        Cargar
+                    </button>
                 </div>
+
                 <div class="mb-5">
-                    <label for="institucion" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" required pattern="[A-Za-z\s]+">
+                    <label for="acompanante" class="form-label">Insertar Acompañante:</label>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" id="dni_acompanante" name="dni_acompanante" placeholder="DNI" required pattern="\d{8}">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" id="nombre_acompanante" name="nombre_acompanante" placeholder="Nombre y apellido" required>
+                    </div>
+                    <div class="mb-2">
+                        <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
+                    </div>
+                    <button type="button" class="btn btn-success">
+                        Cargar
+                    </button>
                 </div>
-                <div class="mb-5">
-                    <label for="numero" class="form-label">N°:</label>
-                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Ingrese Número" required>
-                </div>
-            </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">N°</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Nombre y apellido</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Alumno</th>
+                            <th scope="col">Docente</th>
+                            <th scope="col">Acompañante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </form> -->
             <br>
             <h2>Anexo 8</h2>
             <br>
-            <form id="formAnexo8" class="formulario">
+            <form id="formAnexoXII" class="formulario" action="../../php/insertAnexoVIII .php" method="POST">
                 <div class="mb-5">
                     <label for="institucion" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" required pattern="[A-Za-z\s]+">
+                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" value="E.E.S.T. Nº1" required pattern="[A-Za-z\s]+">
                 </div>
                 <div class="mb-5">
                     <label for="anio" class="form-label">Año:</label>
@@ -167,7 +202,7 @@
                     <input type="text" class="form-control" id="nombreConductor1" name="nombreConductor1" placeholder="Ingrese el nombre del conductor 1" required>
                 </div>
 
-                <div class="mb-5">
+                <!-- <div class="mb-5">
                     <label for="dniConductor1" class="form-label">DNI del Conductor 1:</label>
                     <input type="number" class="form-control" id="dniConductor1" name="dniConductor1" placeholder="Ingrese el DNI del conductor 1" required>
                 </div>
@@ -180,14 +215,14 @@
                 <div class="mb-5">
                     <label for="vigenciaConductor1" class="form-label">Vigencia del Conductor 1:</label>
                     <input type="number" class="form-control" id="vigenciaConductor1" name="vigenciaConductor1" placeholder="Ingrese la vigencia de la licencia del conductor 1" required>
-                </div>
+                </div> -->
 
                 <div class="mb-5">
                     <label for="nombreConductor2" class="form-label">Nombre del Conductor 2:</label>
                     <input type="text" class="form-control" id="nombreConductor2" name="nombreConductor2" placeholder="Ingrese el nombre del conductor 2" required>
                 </div>
 
-                <div class="mb-5">
+                <!-- <div class="mb-5">
                     <label for="dniConductor2" class="form-label">DNI del Conductor 2:</label>
                     <input type="number" class="form-control" id="dniConductor2" name="dniConductor2" placeholder="Ingrese el DNI del conductor 2" required>
                 </div>
@@ -200,7 +235,7 @@
                 <div class="mb-5">
                     <label for="vigenciaConductor2" class="form-label">Vigencia del Conductor 2:</label>
                     <input type="number" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" required>
-                </div>
+                </div> -->
             </form>
             <br>
             <h2>Anexo 10</h2>
@@ -225,10 +260,10 @@
             </form>
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-success">Cargar</button>
+                <button type="submit" class="btn btn-success" id="cargar">Cargar</button>
             </div>
         </div>
-        <script src="../../js/validarIV.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../../js/enviarFormularios.js"></script>
     </body>
 </html>

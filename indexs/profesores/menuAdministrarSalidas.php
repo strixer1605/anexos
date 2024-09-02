@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['dni_profesor'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+    include('../../php/conexion.php');
+    
+    $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+
+    $dni = $_SESSION['dni_profesor'];
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -98,7 +110,7 @@
                     <h3 class="subtitulo">Salidas Pendientes</h3>
                     <hr>
                     <ul>
-                        <li><a href="menuSalida.php" class="btn form-control botones w-100 mb-3">Salida 1</a></li>
+                        <?php include('../../php/traerSalidasPendientesProfesor.php'); ?>
                     </ul>
                 </div>
             </div>
