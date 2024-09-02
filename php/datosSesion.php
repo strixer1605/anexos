@@ -10,8 +10,8 @@
 
         if ($result_director -> num_rows > 0) {
             $row = $result_director->fetch_assoc();
-            $_SESSION['nombre_dir'] = $row['nombre'];
-            $_SESSION['apellido_dir'] = $row['apellido'];
+            $_SESSION['nombreDir'] = $row['nombre'];
+            $_SESSION['apellidoDir'] = $row['apellido'];
 
             $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "' . $dni_director . '"';
             include('datosHijo.php');
@@ -32,8 +32,8 @@
 
         if ($result_profesor->num_rows > 0) {
             $row = $result_profesor->fetch_assoc();
-            $_SESSION['nombre_doc'] = $row['nombre'];
-            $_SESSION['apellido_doc'] = $row['apellido'];
+            $_SESSION['nombreDoc'] = $row['nombre'];
+            $_SESSION['apellidoDoc'] = $row['apellido'];
 
             $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dni_profesor.'"';
             include('datosHijo.php');

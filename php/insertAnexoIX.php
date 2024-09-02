@@ -22,7 +22,7 @@
         // $vigenciaConductor2 = $_POST['vigenciaConductor2'];
 
         $sql = "INSERT INTO anexo_9 (razon_social, domicilio_transporte, telefono_transporte, domicilio_responsable, telefono_responsable, telefono_movil, titularidad_vehiculo, compania_aseguradora, numero_poliza, tipo_seguro, nombre_conductor1, dni_conductor1, licencia_conductor1, vigencia_conductor1, nombre_conductor2, dni_conductor2, licencia_conductor2, vigencia_conductor2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $conexion->prepare($sql);
         $stmt->bind_param("ssssssssssssssssss", $razonSocial, $domicilioTransporte, $telefonoTransporte, $domicilioResponsable, $telefonoResponsable, $telefonoMovil, $titularidadVehiculo, $companiaAseguradora, $numeroPoliza, $tipoSeguro, $nombreConductor1, $dniConductor1, $licenciaConductor1, $vigenciaConductor1, $nombreConductor2, $dniConductor2, $licenciaConductor2, $vigenciaConductor2);
 
         if ($stmt->execute()) {
