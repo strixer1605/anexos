@@ -4,24 +4,43 @@ include 'conexion.php';
 ob_start();
 
 $dniPersona = $_POST['dniPersona'];
+$personas = [];
 
 if(isset($dniPersona)) {
-    $sql = "SELECT dni, apellido, nombre, fechan FROM alumnos WHERE dni LIKE ?";
-    $stmt = $conexion->prepare($sql);
+    $sqlAlumnos = "SELECT dni, apellido, nombre, fechan FROM alumnos WHERE dni LIKE ?";
+    $stmtAlumnos = $conexion->prepare($sqlAlumnos);
     $dniLike = "%$dniPersona%";
-    $stmt->bind_Param('s', $dniLike);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $stmtAlumnos->bind_Param('s', $dniLike);
+    $stmtAlumnos->execute();
+    $resultAlumnos = $stmtAlumnos->get_result();
     
-    $personas = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $resultAlumnos->fetch_assoc()) {
+        $row['cargo'] = 3;
         $personas[] = $row;
     }
 
-    //limpiar cualquier posible salida previa
+    $stmtAlumnos->close();
+
+    
+    //perparar la consulta para la tabla personal
+    $sqlPersonal = "SELECT dni, apellido, nombre, fechan FROM personal WHERE dni LIKE ?";
+    $stmtPersonal = $conexion->prepare($sqlPersonal);
+    $dniLike = "%$dniPersona%";
+    $stmtPersonal->bind_Param('s', $dniLike);
+    $stmtPersonal->execute();
+    $resultPersonal = $stmtPersonal->get_result();
+    
+    while ($row = $resultPersonal->fetch_assoc()) {
+        $row['cargo'] = 2;
+        $personas[] = $row;
+    }
+
+    $stmtPersonal->close();
+
     ob_end_clean();
+
     echo json_encode($personas);
-    $stmt->close();
+
 } else {
     echo json_encode(['error' => 'No se envió el DNI']);
 }

@@ -1,3 +1,7 @@
+<?php
+    $idSalida = $_POST['idAnexoIV'];
+    echo $idSalida;
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,7 +34,7 @@
                     </select>
                     </div>
                     <div class="col-4">
-                        <button type="button" class="btn btn-success">
+                        <button type="button" id="agregarPersona" class="btn btn-success">
                             Cargar
                         </button>
                     </div>
@@ -278,7 +282,13 @@
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             $(document).ready(function(){
-                $("#dniSearch").keyup(function() {
+                $('#dniSearch, #agregarPersona').on('keydown', function(event){
+                    if (event.which === 13) {
+                        event.preventDefault();
+                        $("#agregarPersona").click();  
+                    }
+                })
+                $("#dniSearch").keyup(function(event) {
                     var dniPersona = $("#dniSearch").val();
                     $.ajax({
                         type: 'POST',
@@ -299,15 +309,16 @@
                                 
                             }
                             //iterar sobre cada persona y agregarla al seelect
-                            const agregarPersona = function(persona) {
+                            const cargarPersona = function(persona) {
                                 var option = document.createElement('option');
                                 option.value = persona.dni; //asigna el valor al value
                                 option.textContent = `${persona.nombre} ${persona.apellido}`; //asigna el valor del texto
+                                option.setAttribute('data-cargo', persona.cargo);
                                 select.appendChild(option);
                             }
                             //recorre el array personas y llama a la función que agrega personas al select
                             for (let i = 0; i < personas.length; i++){
-                                agregarPersona(personas[i]);
+                                cargarPersona(personas[i]);
 
                             }
                         },
@@ -316,9 +327,43 @@
                             
                         }
                     })
-                    console.log(dniPersona);
                     
-                })  
+                })
+                $("#agregarPersona").click(function(){
+                    const select = document.getElementById('coincidenciaPersona');
+                    const selectedOption = select.options[select.selectedIndex]; // Corregido: 'options' en lugar de 'option'
+
+                    const dni = selectedOption.value;
+                    const nombreApellido = selectedOption.textContent;
+                    const cargo = selectedOption.getAttribute('data-cargo');
+                    const idAnexoIV = <?php echo json_encode($idSalida); ?>;
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../php/agregarPersonaAnexoV.php',
+                        data: {
+                            dni,
+                            nombreApellido,
+                            cargo,
+                            idAnexoIV
+                        },
+                        success:function(response) {
+                            console.log(response);
+                            const datos = JSON.parse(response);
+                            console.log(datos);
+                            
+                            
+                        },
+                        error:function(response) {
+                            console.log(response);
+                            
+                        }
+                    })
+                    console.log(dni, nombreApellido, cargo);
+                    
+                })
+
+                
             })
         </script>
     </body>

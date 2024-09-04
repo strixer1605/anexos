@@ -1,3 +1,39 @@
+<?php
+include '../../php/conexion.php'; // Asegúrate de incluir tu archivo de conexión a la base de datos
+
+// Verificar si el idAnexoIV está presente en la solicitud POST
+if (isset($_POST['idAnexoIV'])) {
+    $idSalida = $_POST['idAnexoIV'];
+
+    // Preparar la consulta SQL
+    $sql = "SELECT nombreProyecto FROM anexoiv WHERE idAnexoIV = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param('i', $idSalida); // Suponiendo que idAnexoIV es un entero
+
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        
+        // Verificar si se encontró un resultado
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $nombreProyecto = $row['nombreProyecto'];
+        } else {
+            echo ('error');
+        }
+    } else {
+        echo ('error');
+    }
+
+    // Cerrar la declaración y la conexión
+    $stmt->close();
+} else {
+    echo ('error');
+}
+
+$conexion->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -78,29 +114,42 @@
         </nav>
 
         <div class="container">
-            <h1>(Nombre de la salida)</h1>
+            <h1>
+                <?php
+                    echo $row['nombreProyecto'];
+                ?>
+            </h1>
             <div class="row mt-5">
                 <div class="col-md-6">
                     <h3>Formularios</h3>
                     <hr>
                     <ul>
-                        <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
+                        <li><a href="#" class="btn form-control botones w-100 mb-3" onclick = "submitForm('formularioAnexosCompletos.php', <?php echo $idSalida ?>)">Anexos 5/8/9/10</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <h3>Documentos (PDF)</h3>
                     <hr>
                     <ul>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 4</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 5</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 8</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 9</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 10</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3" onclick = "submitForm('#', <?php echo $idSalida ?>)">Anexo 4</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3" onclick = "submitForm('#', <?php echo $idSalida ?>)">Anexo 5</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3" onclick = "submitForm('#', <?php echo $idSalida ?>)">Anexo 8</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3" onclick = "submitForm('#', <?php echo $idSalida ?>)">Anexo 9</button></li>
+                        <li><button class="btn form-control botones w-100 mb-3" onclick = "submitForm('#', <?php echo $idSalida ?>)">Anexo 10</button></li>
                     </ul>
                 </div>
             </div>
         </div>
-
+        <form id="hiddenForm" method="POST" action="" style="display: none;">
+            <input type="hidden" name="idAnexoIV" id="idAnexoIV" value="">
+        </form>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function submitForm(action, idAnexoIV) {
+                document.getElementById('hiddenForm').action = action;
+                document.getElementById('idAnexoIV').value = idAnexoIV;
+                document.getElementById('hiddenForm').submit();
+            }
+        </script>
     </body>
 </html>
