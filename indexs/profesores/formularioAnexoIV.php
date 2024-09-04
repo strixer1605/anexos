@@ -86,7 +86,7 @@
 
                 <div class="mb-5">
                     <label for="telefonoInstitucion" class="form-label">Teléfono:</label>
-                    <input type="number" class="form-control" id="telefonoInstitucion" name="telefono" placeholder="Ingrese el teléfono" required pattern="\d{11}" value="02246420535">
+                    <input type="number" class="form-control" id="telefonoInstitucion" name="telefono" placeholder="Ingrese el teléfono" required pattern="\d{10}" value="2246420535">
                 </div>
 
                 <div class="mb-5">
