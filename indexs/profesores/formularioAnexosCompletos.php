@@ -15,15 +15,25 @@
         </nav>
 
         <div class="container">
-            <!-- <h2>Anexo 5</h2>
+            <h2>Anexo 5</h2>
             <br>
             <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
                 <label for="dni_search" class="form-label">DNI:</label>
                 <div class="mb-5" style="display: flex; align-items: center;">
-                    <input type="number" class="form-control" id="dni_search" name="dni_search" required pattern="\d{8}" placeholder="Insertar por DNI..." style="width: 91%; margin-right:10px;">
-                    <button type="button" class="btn btn-success">
-                        Cargar
-                    </button>
+                    <div class="col-4 d-flex">
+                        <input type="number" class="form-control" id="dniSearch" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI..." style="width: 91%; margin-right:10px;">
+                        
+                    </div>
+                    <div class="col-4">
+                        <select name="coincidenciaPersona" id="coincidenciaPersona">
+        
+                    </select>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-success">
+                            Cargar
+                        </button>
+                    </div>
                 </div>
                 <label for="cursos" class="form-label">Cursos:</label>
                 <div class="mb-5" style="display: flex; align-items: center;">
@@ -69,7 +79,7 @@
                         
                     </tbody>
                 </table>
-            </form> -->
+            </form>
             <br>
             <h2>Anexo 8</h2>
             <br>
@@ -264,6 +274,52 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../../js/enviarFormularios.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#dniSearch").keyup(function() {
+                    var dniPersona = $("#dniSearch").val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../php/buscarPersona.php',
+                        data: {dniPersona: dniPersona},
+                        success:function(response){
+                            console.log(response);
+                            
+                            var select = document.getElementById('coincidenciaPersona');
+                            select.innerHTML = '';
+
+                            //parsear la respuesta JSON
+                            const personas = JSON.parse(response);
+
+                            if (personas.error) {
+                                console.log(personas.error);
+                                return;
+                                
+                            }
+                            //iterar sobre cada persona y agregarla al seelect
+                            const agregarPersona = function(persona) {
+                                var option = document.createElement('option');
+                                option.value = persona.dni; //asigna el valor al value
+                                option.textContent = `${persona.nombre} ${persona.apellido}`; //asigna el valor del texto
+                                select.appendChild(option);
+                            }
+                            //recorre el array personas y llama a la función que agrega personas al select
+                            for (let i = 0; i < personas.length; i++){
+                                agregarPersona(personas[i]);
+
+                            }
+                        },
+                        error:function(response) {
+                            console.log(response);
+                            
+                        }
+                    })
+                    console.log(dniPersona);
+                    
+                })  
+            })
+        </script>
     </body>
 </html>

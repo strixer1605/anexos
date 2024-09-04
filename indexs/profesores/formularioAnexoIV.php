@@ -46,17 +46,17 @@
 
                 <div class="mb-5">
                     <label for="region" class="form-label">Región:</label>
-                    <input type="number" class="form-control" id="region" name="region" placeholder="Ingrese la región" required pattern="[A-Za-z\s]+" value="18">
+                    <input type="number" class="form-control" id="region" name="region" placeholder="Ingrese la región" required pattern="[A-Za-z\s\.]+" value="18">
                 </div>
 
                 <div class="mb-5">
                     <label for="distrito" class="form-label">Distrito:</label>
-                    <input type="text" class="form-control" id="distrito" name="distrito" placeholder="Ingrese el distrito" required pattern="[A-Za-z\s]+" value="La Costa">
+                    <input type="text" class="form-control" id="distrito" name="distrito" placeholder="Ingrese el distrito" required pattern="[A-Za-z\s\.]+" value="La Costa">
                 </div>
 
                 <div class="mb-5">
                     <label for="institucionEducativa" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucionEducativa" name="institucionEducativa" placeholder="Ingrese la institución educativa" required pattern="[A-Za-z\s]+" value="E.E.S.T.">
+                    <input type="text" class="form-control" id="institucionEducativa" name="institucionEducativa" placeholder="Ingrese la institución educativa" required pattern="[A-Za-z\s\.]+" value="E.E.S.T.">
                 </div>
 
                 <div class="mb-5">
@@ -182,12 +182,11 @@
 
         <script>
             document.getElementById("formularioSalidas").addEventListener("submit", function(event) {
-
                 var inputs = document.querySelectorAll("input[required], textarea[required]");
                 for (var input of inputs) {
                     if (input.value.trim() === "") {
                         alert("Por favor, complete todos los campos obligatorios.");
-                        event.preventDefault(); // Evita el envío del formulario
+                        event.preventDefault();
                         return;
                     }
                 }

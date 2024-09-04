@@ -1,4 +1,4 @@
-<?php 
+<?php
     $sqlSalidasPendientes = "SELECT `idAnexoIV`, `estado`, `denominacionProyecto`, `dniEncargado`, `cargo`, `fechaModificacion` FROM `anexoiv` WHERE dniEncargado = $dni AND estado = 1";
     $resultSalida = $conexion->query($sqlSalidasPendientes);
 
