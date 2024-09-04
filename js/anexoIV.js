@@ -27,7 +27,7 @@ document.getElementById("formularioSalidas").addEventListener("submit", function
 
     const checkboxes = document.querySelectorAll(".form-check-input");
     checkboxes.forEach(function(checkbox) {
-        checkbox.value = checkbox.checked ? "true" : "false";
+        checkbox.value = checkbox.checked ? "1" : "0";
     });
     
     if (!confirm("¿Está seguro de que desea enviar el formulario con estos datos?")) {

@@ -31,16 +31,16 @@
         $domicilioHospedaje = $_POST['domicilioHospedaje'];
         $telefonoHospedaje = $_POST['telefonoHospedaje'];
         $localidadHospedaje = $_POST['localidadHospedaje'];
-        $anexo8 = $_POST['anexo8'];
-        $anexo9 = $_POST['anexo9'];
-        $anexo10 = $_POST['anexo10'];
+        $anexo8 = isset($_POST['anexo8']) ? 1 : 0;
+        $anexo9 = isset($_POST['anexo9']) ? 1 : 0;
+        $anexo10 = isset($_POST['anexo10']) ? 1 : 0;
 
         $sql = "INSERT INTO anexoiv (
             estado, tipoSolicitud, region, distrito, institucionEducativa, numeroInstitucion, domicilioInstitucion,
             telefonoInstitucion, denominacionProyecto, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
             dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentesAcompañantes, cantNoDocentesAcompañantes,
-            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, anexo8, anexo9, anexo10
+            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, anexoVIIIHabil, anexoIXHabil, anexoXHabil
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
@@ -54,10 +54,11 @@
             );
 
             if ($stmt->execute()) {
-                echo "Datos insertados correctamente";
+                header('Location: ../indexs/profesores/menuAdministrarSalidas.php');
+                exit();
             } else {
                 echo "Error: " . $stmt->error;
-                echo $sql;
+                echo "<br> SQL: " . $sql;
             }
 
             $stmt->close();
