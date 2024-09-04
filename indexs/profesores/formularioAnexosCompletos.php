@@ -15,7 +15,7 @@
         </nav>
 
         <div class="container">
-            <!-- <h2>Anexo 5</h2>
+            <h2>Anexo 5</h2>
             <br>
             <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
                 <label for="dni_search" class="form-label">DNI:</label>
@@ -69,7 +69,7 @@
                         
                     </tbody>
                 </table>
-            </form> -->
+            </form>
             <br>
             <h2>Anexo 8</h2>
             <br>

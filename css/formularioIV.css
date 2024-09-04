@@ -85,3 +85,16 @@ label {
 .formulario {
     text-align: left;
 }
+
+.anexos-section {
+    margin-bottom: 20px;
+}
+
+.anexos-section label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}

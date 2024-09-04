@@ -1,5 +1,4 @@
 document.getElementById('cargar').addEventListener('click', function() {
-    
     enviarFormulario('formAnexo8', '../../php/insertAnexoVIII.php');
     enviarFormulario('formularioSalidaIX', '../../php/insertAnexoIX.php');
     enviarFormulario('formularioSalidaX', '../../php/insertAnexoX.php');
