@@ -1,3 +1,7 @@
-Podrian darnos un ejemplo de un anexo 4 de 24 horas?
-Podrian darnos un ejemplo de un anexo 5 de 24 horas?
-Las salidas de menos de 24 horas tienen anexos 8 y 9?
+Enviar un correo a la escuela notificando la solicitud de salida
+Crear tabs para la carga de los anexos restantes
+Verificacion de carga de todos los inputs
+Edicion de anexos ()
+Marca de anexos requeridos
+Requerir anexos que se marcaron, para enviar la solicitud a salvado
+Modificar los campos de cantidad de personas en el anexo 4 una vez actualizado el anexo 5

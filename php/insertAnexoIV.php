@@ -31,23 +31,27 @@
         $domicilioHospedaje = $_POST['domicilioHospedaje'];
         $telefonoHospedaje = $_POST['telefonoHospedaje'];
         $localidadHospedaje = $_POST['localidadHospedaje'];
+        $anexo8 = $_POST['anexo8'];
+        $anexo9 = $_POST['anexo9'];
+        $anexo10 = $_POST['anexo10'];
 
         $sql = "INSERT INTO anexoiv (
             estado, tipoSolicitud, region, distrito, institucionEducativa, numeroInstitucion, domicilioInstitucion,
             telefonoInstitucion, denominacionProyecto, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
             dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentesAcompañantes, cantNoDocentesAcompañantes,
-            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, anexoVIIIHabil,
+            anexoIXHabil, anexoXHabil
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiissisissssssssssisiiiiissis",
+                "iiissisissssssssssisiiiiissisiii",
                 $estado, $tipoSolicitud, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
                 $telefonoInstitucion, $denominacionProyecto, $lugarVisita, $fechaSalida, $lugarSalida,
                 $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades,
                 $dniEncargado, $apellidoNombreEncargado, $cargo, $cantidadAlumnos, $cantDocentesAcompañantes, $cantNoDocentesAcompañantes,
-                $totalPersonas, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje
+                $totalPersonas, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje, $anexo8, $anexo9, $anexo10
             );
 
             if ($stmt->execute()) {

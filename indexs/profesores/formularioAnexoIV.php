@@ -33,7 +33,22 @@
             <h2>Cargar Anexo 4</h2>
             <br>
             <form id="formularioSalidas" class="formulario" action="../../php/insertAnexoIV.php" method="post">
-                
+                <div class="anexos-section">
+                    <label>Anexos a utilizar:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="anexo8" name="anexo8" value="true" checked>
+                        <label class="form-check-label" for="anexo8">Anexo 8</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="anexo9" name="anexo9" value="true" checked>
+                        <label class="form-check-label" for="anexo9">Anexo 9</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="anexo10" name="anexo10" value="true" checked>
+                        <label class="form-check-label" for="anexo10">Anexo 10</label>
+                    </div>
+                </div>
+
                 <label>Tipo de Salida:</label><br>
                 <div class="form-check">
                     <input type="radio" id="representacion" name="tipoSalida" value="1" class="form-check-input" required>
@@ -155,22 +170,22 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="nombreHospedaje" class="form-label">Nombre del hospedaje:</label>
+                    <label for="nombreHospedaje" id="nH" class="form-label">Nombre del hospedaje:</label>
                     <input type="text" class="form-control" id="nombreHospedaje" name="nombreHospedaje" placeholder="Ingrese el nombre del hospedaje..." required>
                 </div>
 
                 <div class="mb-5">
-                    <label for="domicilioHospedaje" class="form-label">Domicilio del hospedaje:</label>
+                    <label for="domicilioHospedaje" id="dH" class="form-label">Domicilio del hospedaje:</label>
                     <input type="text" class="form-control" id="domicilioHospedaje" name="domicilioHospedaje" placeholder="Ingrese el domicilio del hospedaje..." required>
                 </div>
 
                 <div class="mb-5">
-                    <label for="telefonoHospedaje" class="form-label">Teléfono del hospedaje:</label>
+                    <label for="telefonoHospedaje" id="tH" class="form-label">Teléfono del hospedaje:</label>
                     <input type="number" class="form-control" id="telefonoHospedaje" name="telefonoHospedaje" placeholder="Ingrese el teléfono del hospedaje..." required pattern="\d{11}">
                 </div>
 
                 <div class="mb-5">
-                    <label for="localidadHospedaje" class="form-label">Localidad del hospedaje:</label>
+                    <label for="localidadHospedaje" id="lH" class="form-label">Localidad del hospedaje:</label>
                     <input type="text" class="form-control" id="localidadHospedaje" name="localidadHospedaje" placeholder="Ingrese la localidad del hospedaje..." required>
                 </div>
 
@@ -182,11 +197,12 @@
 
         <script>
             document.getElementById("formularioSalidas").addEventListener("submit", function(event) {
+
                 var inputs = document.querySelectorAll("input[required], textarea[required]");
                 for (var input of inputs) {
                     if (input.value.trim() === "") {
                         alert("Por favor, complete todos los campos obligatorios.");
-                        event.preventDefault();
+                        event.preventDefault(); // Evita el envío del formulario
                         return;
                     }
                 }
