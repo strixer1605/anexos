@@ -6,7 +6,7 @@ if (isset($_POST['idAnexoIV'])) {
     $idSalida = $_POST['idAnexoIV'];
 
     // Preparar la consulta SQL
-    $sql = "SELECT nombreProyecto FROM anexoiv WHERE idAnexoIV = ?";
+    $sql = "SELECT denominacionProyecto FROM anexoiv WHERE idAnexoIV = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param('i', $idSalida); // Suponiendo que idAnexoIV es un entero
 
@@ -17,7 +17,7 @@ if (isset($_POST['idAnexoIV'])) {
         // Verificar si se encontró un resultado
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $nombreProyecto = $row['nombreProyecto'];
+            $denominacionProyecto = $row['denominacionProyecto'];
         } else {
             echo ('error');
         }
@@ -116,7 +116,7 @@ $conexion->close();
         <div class="container">
             <h1>
                 <?php
-                    echo $row['nombreProyecto'];
+                    echo $row['denominacionProyecto'];
                 ?>
             </h1>
             <div class="row mt-5">

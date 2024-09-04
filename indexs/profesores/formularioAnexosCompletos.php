@@ -314,6 +314,7 @@
                                 option.value = persona.dni; //asigna el valor al value
                                 option.textContent = `${persona.nombre} ${persona.apellido}`; //asigna el valor del texto
                                 option.setAttribute('data-cargo', persona.cargo);
+                                option.setAttribute('data-fechan', persona.fechan);
                                 select.appendChild(option);
                             }
                             //recorre el array personas y llama a la función que agrega personas al select
@@ -336,6 +337,7 @@
                     const dni = selectedOption.value;
                     const nombreApellido = selectedOption.textContent;
                     const cargo = selectedOption.getAttribute('data-cargo');
+                    const fechan = selectedOption.getAttribute('data-fechan');
                     const idAnexoIV = <?php echo json_encode($idSalida); ?>;
                     
                     $.ajax({
@@ -345,6 +347,7 @@
                             dni,
                             nombreApellido,
                             cargo,
+                            fechan,
                             idAnexoIV
                         },
                         success:function(response) {
