@@ -1,6 +1,6 @@
 <?php
-    $idSalida = $_POST['idAnexoIV'];
-    echo $idSalida;
+    session_start();
+    $idSalida = $_SESSION['idSalida'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

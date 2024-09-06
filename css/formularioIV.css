@@ -98,3 +98,7 @@ label {
 .form-check {
     margin-bottom: 10px;
 }
+
+table {
+    text-align: center;
+}
