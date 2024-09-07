@@ -90,15 +90,17 @@
                             <thead>
                                 <tr>
                                     <th scope="col">N°</th>
-                                    <th scope="col">DNI</th>
-                                    <th scope="col">Nombre y apellido</th>
-                                    <th scope="col">Edad</th>
+                                    <th scope="col">Apellido y Nombre</th>
+                                    <th scope="col">Documento</th>
                                     <th scope="col">Alumno</th>
+                                    <th scope="col">Edad</th>
                                     <th scope="col">Docente</th>
-                                    <th scope="col">Acompañante</th>
+                                    <th scope="col">No Docente</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Eliminar</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablaParticipantes">
                                 
                             </tbody>
                         </table>
@@ -320,6 +322,7 @@
         <script src="../../js/cargarPersonasAnexoV.js"></script>
         <script>
             $(document).ready(function(){
+                cargarTablaPasajeros();
                 $('#dniSearch, #agregarPersona').on('keydown', function(event){
                     if (event.which === 13) {
                         event.preventDefault();
@@ -389,9 +392,10 @@
                             idAnexoIV
                         },
                         success:function(response) {
-                            console.log(response);
-                            const datos = JSON.parse(response);
-                            console.log(datos);
+                            // console.log(response);
+                            cargarTablaPasajeros();
+                            // const datos = JSON.parse(response);
+                            // console.log(datos);
                             
                             
                         },
@@ -403,6 +407,60 @@
                     console.log(dni, nombreApellido, cargo);
                     
                 })
+
+                function cargarTablaPasajeros() {
+                    $.ajax({
+                        method: 'GET',
+                        url: '../../php/traerPersonasAnexoV.php',
+                        success: function(response) {
+                            const pasajeros = JSON.parse(response);
+                            let tablaHTML = '';
+                            let indice = 0;
+                            pasajeros.forEach(function(pasajero) {
+                                let alumno = '';
+                                let docente = '';
+                                let noDocente = '';
+                                console.log(pasajero.cargo);
+                                
+                                indice += 1;
+                                switch(parseInt(pasajero.cargo)) {
+                                    case 2: docente = 'X';
+                                            break;
+                                    case 3: alumno = 'X';
+                                            break;
+                                    case 4: noDocente = 'X';
+                                            break;
+                                }
+                                console.log(alumno);
+                                tablaHTML +=`<tr>
+                                                <td>${indice}</td>
+                                                <td>${pasajero.apellidoNombre}</td>
+                                                <td>${pasajero.dni}</td>
+                                                <td>${alumno}</td>
+                                                <td>${pasajero.edad}</td>
+                                                <td>${docente}</td>
+                                                <td>${noDocente}</td>
+                                                <td>
+                                                    <a href="modMantenimientoCurso.php?" class="modificar btn btn-success btn-sm">
+                                                        Seguimiento
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button class="eliminar" ">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>`;
+                            });
+
+                            $('#tablaParticipantes').html(tablaHTML);
+
+                        },
+                        error: function() {
+                            alert ("Ha ocurrido un error al obtener los pasajeros")
+                        }
+                    })
+                }
             })
         </script>
     </body>
