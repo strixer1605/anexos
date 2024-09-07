@@ -56,20 +56,20 @@
                                 <select class="form-control" name="coincidenciaPersona" id="coincidenciaPersona"></select>
                             </div>
                             <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
-                                <button type="button" id="agregarPersona" class="btn btn-success w-100">Cargar</button>
+                                <button type="button" id="agregarPersona" class="btn btn-success w-100">Cargar Persona</button>
                             </div>
                         </div>
 
-                        <!-- Sección de Cursos -->
+                        <!-- Sección de Grupos -->
                         <div class="row mb-4">
                             <div class="col-md-8 col-12">
-                                <label for="cursos" class="form-label">Cursos:</label>
-                                <select id="cursos" name="cursos" class="form-control" required>
+                                <label for="grupos" class="form-label">Grupos:</label>
+                                <select id="grupos" name="grupos" class="form-control" required>
                                     <?php include ('../../php/traerGrupos.php'); ?>
                                 </select>
                             </div>
                             <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
-                                <button type="button" class="btn btn-success w-100" id="cargarGrupo">Cargar</button>
+                                <button type="button" class="btn btn-success w-100" id="cargarGrupo">Cargar Grupo</button>
                             </div>
                         </div>
 
@@ -88,7 +88,7 @@
                                 <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
                             </div>
                             <div class="col-12 mt-2 d-flex justify-content-center">
-                                <button type="button" class="btn btn-success w-100">Cargar</button>
+                                <button type="button" class="btn btn-success w-100">Cargar Acompañante</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
@@ -332,6 +332,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="../../js/cargarGrupo.js"></script>
         <!-- <script src="../../js/enviarFormularios.js"></script> -->
         <!-- <script src="../../js/cargarPersonasAnexoV.js"></script> -->
         <script>
