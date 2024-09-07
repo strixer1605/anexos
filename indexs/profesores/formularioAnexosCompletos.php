@@ -49,7 +49,7 @@
                         <div class="row mb-4">
                             <div class="col-md-4 col-12">
                                 <label for="dniSearch" class="form-label">DNI:</label>
-                                <input type="number" class="form-control" id="dniSearch" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
+                                <input type="number" class="form-control" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                             </div>
                             <div class="col-md-4 col-12 mt-md-0 mt-2">
                                 <label for="coincidenciaPersona" class="form-label">Coincidencias:</label>
@@ -408,6 +408,8 @@
 
                             if (datos.status === 'success') {
                                 cargarTablaPasajeros();
+                                $('#dniSearch').val("");
+                                
                             } else if (datos.status === 'error') {
                                 alert (datos.message);
                             }
@@ -471,6 +473,10 @@
                         seleccionados.push($(this).val());
                     });
 
+                    //deshabilita el boton eliminar temporalmente por conflicto con focus
+                    const eliminarBtn = $(this);
+                    eliminarBtn.prop('disabled', true);
+
                     if (seleccionados.length > 0) {
                         $.ajax({
                             method: 'POST',
@@ -482,8 +488,11 @@
                                     title: "Persona/s eliminada/s correctamente",
                                     showConfirmButton: false,
                                     timer: 1500
+                                }).then(() => {
+                                    cargarTablaPasajeros();
+                                    document.getElementById('dniSearch').focus();
+                                    eliminarBtn.prop('disabled', false);
                                 });
-                                cargarTablaPasajeros();
                             },
                             error: function(){
                                 Swal.fire({
@@ -491,6 +500,9 @@
                                     title: "Ocurrió un error al eliminar a las personas",
                                     showConfirmButton: false,
                                     timer: 1500
+                                }).then(() => {
+                                    document.getElementById('dniSearch').focus();
+                                    eliminarBtn.prop('disabled', false);
                                 });
                             }
                         })
