@@ -8,6 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu de Salidas</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/formularioIV.css">
     </head>
@@ -44,68 +45,81 @@
                     <h2>Anexo 5</h2>
                     <br>
                     <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
-                        <label for="dni_search" class="form-label">DNI:</label>
-                        <div class="mb-5" style="display: flex; align-items: center;">
-                            <div class="col-4 d-flex">
-                                <input type="number" class="form-control" id="dniSearch" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI..." style="width: 91%; margin-right:10px;">
-                                
+                        <!-- Sección de DNI -->
+                        <div class="row mb-4">
+                            <div class="col-md-4 col-12">
+                                <label for="dniSearch" class="form-label">DNI:</label>
+                                <input type="number" class="form-control" id="dniSearch" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                             </div>
-                            <div class="col-4">
-                                <select name="coincidenciaPersona" id="coincidenciaPersona">
-                
-                            </select>
+                            <div class="col-md-4 col-12 mt-md-0 mt-2">
+                                <label for="coincidenciaPersona" class="form-label">Coincidencias:</label>
+                                <select class="form-control" name="coincidenciaPersona" id="coincidenciaPersona"></select>
                             </div>
-                            <div class="col-4">
-                                <button type="button" id="agregarPersona" class="btn btn-success">
-                                    Cargar
-                                </button>
+                            <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
+                                <button type="button" id="agregarPersona" class="btn btn-success w-100">Cargar</button>
                             </div>
                         </div>
-                        <label for="cursos" class="form-label">Cursos:</label>
-                        <div class="mb-5" style="display: flex; align-items: center;">
-                            <select id="cursos" name="cursos" class="form-control" required placeholder="Insertar por curso..." style="width: 91%; margin-right:10px;">
-                                <?php include ('../../php/traerGrupos.php'); ?>
-                            </select>
-                            <button type="button" class="btn btn-success" id="cargarGrupo">
-                                Cargar
+
+                        <!-- Sección de Cursos -->
+                        <div class="row mb-4">
+                            <div class="col-md-8 col-12">
+                                <label for="cursos" class="form-label">Cursos:</label>
+                                <select id="cursos" name="cursos" class="form-control" required>
+                                    <?php include ('../../php/traerGrupos.php'); ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
+                                <button type="button" class="btn btn-success w-100" id="cargarGrupo">Cargar</button>
+                            </div>
+                        </div>
+
+                        <!-- Sección de Acompañante -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="acompanante" class="form-label">Insertar Acompañante:</label>
+                            </div>
+                            <div class="col-md-4 col-12 mt-2">
+                                <input type="text" class="form-control" id="dni_acompanante" name="dni_acompanante" placeholder="DNI" required pattern="\d{8}">
+                            </div>
+                            <div class="col-md-4 col-12 mt-2">
+                                <input type="text" class="form-control" id="nombre_acompanante" name="nombre_acompanante" placeholder="Nombre y apellido" required>
+                            </div>
+                            <div class="col-md-4 col-12 mt-2">
+                                <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
+                            </div>
+                            <div class="col-12 mt-2 d-flex justify-content-center">
+                                <button type="button" class="btn btn-success w-100">Cargar</button>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-row-reverse mb-1">
+                            <button type="button" id="eliminarSeleccionados" class="btn btn-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                             </button>
                         </div>
 
-                        <div class="mb-5">
-                            <label for="acompanante" class="form-label">Insertar Acompañante:</label>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" id="dni_acompanante" name="dni_acompanante" placeholder="DNI" required pattern="\d{8}">
-                            </div>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" id="nombre_acompanante" name="nombre_acompanante" placeholder="Nombre y apellido" required>
-                            </div>
-                            <div class="mb-2">
-                                <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
-                            </div>
-                            <button type="button" class="btn btn-success">
-                                Cargar
-                            </button>
+                        <!-- Tabla de Participantes -->
+                        <div class="table-responsive">
+                            <table class="table table-striped-columns">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Apellido y Nombre</th>
+                                        <th scope="col">Documento</th>
+                                        <th scope="col">Alumno</th>
+                                        <th scope="col">Edad</th>
+                                        <th scope="col">Docente</th>
+                                        <th scope="col">No Docente</th>
+                                        <th scope="col">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaParticipantes">
+                                    <!-- Contenido dinámico -->
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Apellido y Nombre</th>
-                                    <th scope="col">Documento</th>
-                                    <th scope="col">Alumno</th>
-                                    <th scope="col">Edad</th>
-                                    <th scope="col">Docente</th>
-                                    <th scope="col">No Docente</th>
-                                    <th scope="col">Editar</th>
-                                    <th scope="col">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaParticipantes">
-                                
-                            </tbody>
-                        </table>
                     </form>
                 </div>
+
                 
                 <!-- Anexo 8 -->
                 <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
@@ -318,8 +332,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../../js/enviarFormularios.js"></script>
-        <script src="../../js/cargarPersonasAnexoV.js"></script>
+        <!-- <script src="../../js/enviarFormularios.js"></script> -->
+        <!-- <script src="../../js/cargarPersonasAnexoV.js"></script> -->
         <script>
             $(document).ready(function(){
                 cargarTablaPasajeros();
@@ -365,7 +379,6 @@
                             }
                         },
                         error:function(response) {
-                            console.log(response);
                             
                         }
                     })
@@ -373,8 +386,7 @@
                 })
                 $("#agregarPersona").click(function(){
                     const select = document.getElementById('coincidenciaPersona');
-                    const selectedOption = select.options[select.selectedIndex]; // Corregido: 'options' en lugar de 'option'
-
+                    const selectedOption = select.options[select.selectedIndex];
                     const dni = selectedOption.value;
                     const nombreApellido = selectedOption.textContent;
                     const cargo = selectedOption.getAttribute('data-cargo');
@@ -392,20 +404,18 @@
                             idAnexoIV
                         },
                         success:function(response) {
-                            // console.log(response);
-                            cargarTablaPasajeros();
-                            // const datos = JSON.parse(response);
-                            // console.log(datos);
-                            
-                            
+                            const datos = JSON.parse(response);
+
+                            if (datos.status === 'success') {
+                                cargarTablaPasajeros();
+                            } else if (datos.status === 'error') {
+                                alert (datos.message);
+                            }
                         },
                         error:function(response) {
-                            console.log(response);
-                            
+                            alert ("Ocurrió un error");
                         }
-                    })
-                    console.log(dni, nombreApellido, cargo);
-                    
+                    })                    
                 })
 
                 function cargarTablaPasajeros() {
@@ -420,7 +430,6 @@
                                 let alumno = '';
                                 let docente = '';
                                 let noDocente = '';
-                                console.log(pasajero.cargo);
                                 
                                 indice += 1;
                                 switch(parseInt(pasajero.cargo)) {
@@ -431,7 +440,6 @@
                                     case 4: noDocente = 'X';
                                             break;
                                 }
-                                console.log(alumno);
                                 tablaHTML +=`<tr>
                                                 <td>${indice}</td>
                                                 <td>${pasajero.apellidoNombre}</td>
@@ -441,14 +449,7 @@
                                                 <td>${docente}</td>
                                                 <td>${noDocente}</td>
                                                 <td>
-                                                    <a href="modMantenimientoCurso.php?" class="modificar btn btn-success btn-sm">
-                                                        Seguimiento
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <button class="eliminar" ">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
+                                                    <input type = "checkbox" class = "selectPersona" value = "${pasajero.dni}">
                                                 </td>
                                             </tr>`;
                             });
@@ -461,6 +462,40 @@
                         }
                     })
                 }
+
+                $(document).on('click', '#eliminarSeleccionados', function() {
+                    //obtener checkboxes seleccionados
+
+                    const seleccionados = [];
+                    $('.selectPersona:checked').each(function() {
+                        seleccionados.push($(this).val());
+                    });
+
+                    if (seleccionados.length > 0) {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../../php/eliminarPersonaAnexoV.php',
+                            data: {dniList: seleccionados},
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Persona/s eliminada/s correctamente",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                cargarTablaPasajeros();
+                            },
+                            error: function(){
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Ocurrió un error al eliminar a las personas",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            }
+                        })
+                    }
+                })
             })
         </script>
     </body>
