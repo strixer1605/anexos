@@ -1,6 +1,12 @@
-document.getElementById('cargar').addEventListener('click', function() {
+document.getElementById('cargarAnexoV').addEventListener('click', function() {
     enviarFormulario('formAnexo8', '../../php/insertAnexoVIII.php');
+});
+
+document.getElementById('cargarAnexoIX').addEventListener('click', function() {
     enviarFormulario('formularioSalidaIX', '../../php/insertAnexoIX.php');
+});
+
+document.getElementById('cargarAnexoX').addEventListener('click', function() {
     enviarFormulario('formularioSalidaX', '../../php/insertAnexoX.php');
 });
 
