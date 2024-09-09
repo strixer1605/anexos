@@ -80,6 +80,32 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
         $personas = $data['personas'];
         $idAnexoIV = $_SESSION['idSalida'];
 
+        $personasDuplicadas = [];
+
+        // --------- Fase de verificación (antes de cualquier inserción) ---------
+        foreach ($personas as $persona) {
+            $dni = intval($persona['dni']);
+
+            // Verificar duplicados
+            $sqlVerificar = "SELECT fkAnexoIV FROM `anexov` WHERE dni = ? AND fkAnexoIV = ?";
+            $stmtVerificar = $conexion->prepare($sqlVerificar);
+            $stmtVerificar->bind_param('ii', $dni, $idAnexoIV);
+            $stmtVerificar->execute();
+            $resultVerificar = $stmtVerificar->get_result();
+            
+            if($resultVerificar->num_rows > 0) {
+                $personasDuplicadas[] = $dni;
+            }
+            
+            $stmtVerificar->close();
+
+        }
+
+        if (count($personasDuplicadas) > 0) {
+            echo json_encode(['status' => 'error', 'message' =>'Algunas personas ya están registradas en la salida.']);
+            exit;
+        }
+
         foreach ($personas as $persona) {
             // Validar y extraer datos
             $dni = intval($persona['dni']);
@@ -96,24 +122,14 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
             $fechaHoy = new DateTime($fechaActual);
             $edad = $fechaHoy->diff($fechaNacimiento)->y;
 
-            // Verificar duplicados
-            $sqlVerificar = "SELECT fkAnexoIV FROM `anexov` WHERE dni = ? AND fkAnexoIV = ?";
-            $stmtVerificar = $conexion->prepare($sqlVerificar);
-            $stmtVerificar->bind_param('ii', $dni, $idAnexoIV);
-            $stmtVerificar->execute();
-            $resultVerificar = $stmtVerificar->get_result();
+            $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
+            $stmtInsert = $conexion->prepare($sqlInsert);
+            $cargo = 3; // Asignar el cargo correspondiente
 
-            if ($resultVerificar->num_rows == 0) {
-                // Inserción
-                $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
-                $stmtInsert = $conexion->prepare($sqlInsert);
-                $cargo = 3; // Asignar el cargo correspondiente
-
-                $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
-                $stmtInsert->execute();
-                $stmtInsert->close();
-            }
-            $stmtVerificar->close();
+            $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
+            $stmtInsert->execute();
+            $stmtInsert->close();
+            
         }
 
         echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);

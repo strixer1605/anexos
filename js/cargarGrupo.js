@@ -29,17 +29,18 @@ $('#cargarGrupo').on('click', function () {
   buscarPersonasGrupo(idGrupo, function(result, pasajeros) {
     if (result) {
       cargarGrupos(pasajeros).then(function(response){
+        console.log(response);
         if (response.status === 'success') {
-          // console.log(response);
-        } else {
-          // console.log(response.message);
+          console.log(response.message);
+        } else if (response.status === 'error') {
+          console.log(response.message);
         }
       }).catch(function(error) {
         console.error("Error en la carga de grupos:", error);
         alert('Ocurrió un error en la solicitud para cargar los grupos.');
       });
     } else {
-      // console.log("Ocurrió un error");
+      console.log("Ocurrió un error");
     }
   });
 });
