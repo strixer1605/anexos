@@ -69,7 +69,7 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
         $stmtVerificar->close();
     }
     $conexion->close();
-}elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
 
     // Leer el cuerpo de la solicitud
@@ -106,6 +106,7 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
             exit;
         }
 
+        $consultaExitosa = true;
         foreach ($personas as $persona) {
             // Validar y extraer datos
             $dni = intval($persona['dni']);
@@ -126,13 +127,26 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
             $stmtInsert = $conexion->prepare($sqlInsert);
             $cargo = 3; // Asignar el cargo correspondiente
 
+            if ($stmtInsert === false) {
+                $consultaExitosa = false;
+                break;
+            }
+
             $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
-            $stmtInsert->execute();
+            
+            if (!$stmtInsert->execute()) {
+                $consultaExitosa = false;
+                break;
+            }
             $stmtInsert->close();
             
         }
 
-        echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);
+        if ($consultaExitosa) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);
+        }
+
     } else {
         echo json_encode(['status' => 'error', 'message' => 'No se recibieron personas.']);
     }
