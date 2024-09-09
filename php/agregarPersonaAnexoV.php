@@ -69,6 +69,57 @@ if (isset($_POST['idAnexoIV'], $_POST['dni'], $_POST['nombreApellido'], $_POST['
         $stmtVerificar->close();
     }
     $conexion->close();
+}elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    session_start();
+
+    // Leer el cuerpo de la solicitud
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true); // Decodificar JSON a un array asociativo
+
+    if (isset($data['personas'])) {
+        $personas = $data['personas'];
+        $idAnexoIV = $_SESSION['idSalida'];
+
+        foreach ($personas as $persona) {
+            // Validar y extraer datos
+            $dni = intval($persona['dni']);
+            $nombreApellido = trim($persona['nombre'] . ' ' . $persona['apellido']);
+            $fechan = $persona['fechan'];
+
+            if (!$fechan || !DateTime::createFromFormat('Y-m-d', $fechan)) {
+                continue; // Saltar si la fecha no es válida
+            }
+
+            //calculo de edad
+            $fechaActual = date("Y-m-d");
+            $fechaNacimiento = new DateTime($fechan);
+            $fechaHoy = new DateTime($fechaActual);
+            $edad = $fechaHoy->diff($fechaNacimiento)->y;
+
+            // Verificar duplicados
+            $sqlVerificar = "SELECT fkAnexoIV FROM `anexov` WHERE dni = ? AND fkAnexoIV = ?";
+            $stmtVerificar = $conexion->prepare($sqlVerificar);
+            $stmtVerificar->bind_param('ii', $dni, $idAnexoIV);
+            $stmtVerificar->execute();
+            $resultVerificar = $stmtVerificar->get_result();
+
+            if ($resultVerificar->num_rows == 0) {
+                // Inserción
+                $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
+                $stmtInsert = $conexion->prepare($sqlInsert);
+                $cargo = 3; // Asignar el cargo correspondiente
+
+                $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
+                $stmtInsert->execute();
+                $stmtInsert->close();
+            }
+            $stmtVerificar->close();
+        }
+
+        echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No se recibieron personas.']);
+    }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Datos incompletos.']);
 }

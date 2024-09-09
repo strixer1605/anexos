@@ -327,7 +327,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../../js/cargarGrupo.js"></script>
         <script src="../../js/enviarFormularios.js"></script>
-        <script src="../../js/cargarPersonasAnexoV.js"></script>
+        <!-- <script src="../../js/cargarPersonasAnexoV.js"></script> -->
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
         </script>
