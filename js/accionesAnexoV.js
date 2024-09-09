@@ -6,6 +6,13 @@ $(document).ready(function(){
             $("#agregarPersona").click();  
         }
     })
+
+    $('#dniAcompañante, #nombreAcompañante, #edadAcompañante').on('keydown', function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            $('#cargarAcompañante').click(); 
+        }
+    });
     
     $("#dniSearch").keyup(function(event) {
         var dniPersona = $("#dniSearch").val();
@@ -23,7 +30,7 @@ $(document).ready(function(){
                 const personas = JSON.parse(response);
 
                 if (personas.error) {
-                    console.log(personas.error);
+                    // console.log(personas.error);
                     return;
                     
                 }
@@ -84,6 +91,49 @@ $(document).ready(function(){
             }
         })                    
     })
+
+    $('#cargarAcompañante').click(function() {
+        // Obtener los valores de los campos
+        const dniAcompañante = document.getElementById('dniAcompañante').value.trim();
+        const nombreAcompañante = document.getElementById('nombreAcompañante').value.trim();
+        const edadAcompañante = document.getElementById('edadAcompañante').value.trim();
+
+        // Validar que los campos no estén vacíos
+        if (dniAcompañante === '' || nombreAcompañante === '' || edadAcompañante === '') {
+            alert('Por favor, complete todos los campos.');
+            return; // Salir de la función si hay campos vacíos
+        }
+
+        // Validar formato de DNI (debe ser un número de 8 dígitos)
+        if (!/^\d{8}$/.test(dniAcompañante)) {
+            alert('El DNI debe tener 8 dígitos.');
+            return; // Salir de la función si el formato es incorrecto
+        }
+
+        // Enviar los datos por AJAX
+        $.ajax({
+            method: 'POST',
+            url: '../../php/agregarPersonaAnexoV.php',
+            data: {
+                dniAcompañante,
+                nombreAcompañante,
+                edadAcompañante
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    cargarTablaPasajeros(); // Llama a la función para actualizar la tabla
+                    alert(response.message); // Muestra el mensaje de éxito
+                } else if (response.status === 'error') {
+                    alert(response.message); // Muestra el mensaje de error
+                }
+            },
+            error: function(xhr, status, error) {
+                // console.log("Error en la solicitud:", error); // Para depurar el error si ocurre
+                alert("Ocurrió un error en la comunicación con el servidor.");
+            }
+        });
+    });
 
     function cargarTablaPasajeros() {
         $.ajax({
@@ -222,11 +272,11 @@ $(document).ready(function(){
                 }
 
             }).catch(function(error) {
-                console.error("Error en la carga de grupos:", error);
+                // console.error("Error en la carga de grupos:", error);
                 alert('Ocurrió un error en la solicitud para cargar los grupos.');
             });
             } else {
-                console.log("Ocurrió un error");
+                // console.log("Ocurrió un error");
             }
         });
     });

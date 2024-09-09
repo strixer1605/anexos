@@ -79,16 +79,16 @@
                                 <label for="acompanante" class="form-label">Insertar Acompañante:</label>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="dni_acompanante" name="dni_acompanante" placeholder="DNI" required pattern="\d{8}">
+                                <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI" required pattern="\d{8}">
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="nombre_acompanante" name="nombre_acompanante" placeholder="Nombre y apellido" required>
+                                <input type="text" class="form-control" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido" required>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
+                                <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad" required>
                             </div>
                             <div class="col-12 mt-2 d-flex justify-content-center">
-                                <button type="button" class="btn btn-success w-100">Cargar Acompañante</button>
+                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar Acompañante</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
