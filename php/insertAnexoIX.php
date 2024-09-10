@@ -26,7 +26,7 @@
         $stmt->bind_param("ssssssssssssssssss", $razonSocial, $domicilioTransporte, $telefonoTransporte, $domicilioResponsable, $telefonoResponsable, $telefonoMovil, $titularidadVehiculo, $companiaAseguradora, $numeroPoliza, $tipoSeguro, $nombreConductor1, $dniConductor1, $licenciaConductor1, $vigenciaConductor1, $nombreConductor2, $dniConductor2, $licenciaConductor2, $vigenciaConductor2);
 
         if ($stmt->execute()) {
-            echo "Datos insertados correctamente";
+            echo "success";
         } else {
             echo "Error: " . $stmt->error;
         }

@@ -1,4 +1,8 @@
 <?php
+    session_start();
+
+    $idSalida = $_SESSION['idSalida'];
+
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,16 +24,19 @@
         $respEvaluacion = $_POST['respEvaluacion'];
         $obsEvaluacion = $_POST['obsEvaluacion'];
 
-        $sql = "INSERT INTO anexoviii (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("isisssssssssssssss", $fkAnexoIV, $institucion, $anio, $division, $area, $docente, $objetivo, $fechaSalida, $lugaresVisitar, $descPrevia, $respPrevia, $obsPrevia, $descDurante, $respDurante, $obsDurante, $descEvaluacion, $respEvaluacion, $obsEvaluacion);
+        $sql = "INSERT INTO anexoviii (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conexion->error);
+        }
+        $stmt->bind_param("isisssssssssssssss", $idSalida, $institucion, $anio, $division, $area, $docente, $objetivo, $fechaSalida, $lugaresVisitar, $descPrevia, $respPrevia, $obsPrevia, $descDurante, $respDurante, $obsDurante, $descEvaluacion, $respEvaluacion, $obsEvaluacion);
 
         if ($stmt->execute()) {
-            echo "Datos insertados correctamente";
+            echo "success";
         } else {
             echo "Error: " . $stmt->error;
         }
-
         $stmt->close();
         $conexion->close();
     }

@@ -130,8 +130,8 @@ $(document).ready(function(){
     }
 
     $(document).on('click', '#eliminarSeleccionados', function() {
+        
         //obtener checkboxes seleccionados
-
         const seleccionados = [];
         $('.selectPersona:checked').each(function() {
             seleccionados.push($(this).val());

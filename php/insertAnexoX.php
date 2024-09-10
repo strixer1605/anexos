@@ -12,7 +12,7 @@
         $stmt->bind_param("ssss", $infraestructura, $hospitales, $mediosAlternativos, $datosOpcionales);
 
         if ($stmt->execute()) {
-            echo "Datos insertados correctamente";
+            echo "success";
         } else {
             echo "Error: " . $stmt->error;
         }

@@ -22,7 +22,7 @@
         <div class="container mt-4">
             <h2>Menú de Anexos</h2>
             <br>
-
+            <?php include("../../php/traerEstadoAnexos.php")?>
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -41,7 +41,7 @@
 
             <div class="tab-content mt-3" id="myTabContent"> 
                 <!-- Anexo 5 -->
-                <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo8-tab">
+                <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo5-tab">
                     <h2>Anexo 5</h2>
                     <br>
                     <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
@@ -125,7 +125,7 @@
                 <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
                     <h2>Anexo 8</h2>
                     <br>
-                    <form id="formAnexoXII" class="formulario" action="../../php/insertAnexoVIII .php" method="POST">
+                    <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVIII .php" method="POST">
                         <div class="mb-5">
                             <label for="institucion" class="form-label">Institución Educativa:</label>
                             <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" value="E.E.S.T. Nº1" required pattern="[A-Za-z\s]+">
@@ -195,14 +195,14 @@
                             <input type="text" class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>
                         </div>
                     </form>
-                    <button type="submit" class="btn btn-success">Cargar Anexo 8</button>
+                    <button type="submit" class="btn btn-success" id="cargarAnexoVIII">Cargar Anexo 8</button>
                 </div>
 
                 <!-- Anexo 9 -->
                 <div class="tab-pane fade" id="anexo9" role="tabpanel" aria-labelledby="anexo9-tab">
                     <h2>Anexo 9</h2>
                     <br>
-                    <form id="formularioSalidaIX" class="formulario">
+                    <form id="formAnexoIX" class="formulario">
                         <div class="mb-5">
                             <label for="razonSocial" class="form-label">Razon Social:</label>
                             <input type="text" class="form-control" id="razonSocial" name="razonSocial" placeholder="Ingrese la razón social" required>
@@ -293,14 +293,14 @@
                             <input type="number" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" required>
                         </div> -->
                     </form>
-                    <button type="submit" class="btn btn-success">Cargar Anexo 9</button>
+                    <button type="submit" class="btn btn-success" id="cargarAnexoIX">Cargar Anexo 9</button>
                 </div>
 
                 <!-- Anexo 10 -->
                 <div class="tab-pane fade" id="anexo10" role="tabpanel" aria-labelledby="anexo10-tab">
                     <h2>Anexo 10</h2>
                     <br>
-                    <form id="formularioSalidaX" class="formulario">
+                    <form id="formAnexoX" class="formulario">
                         <div class="mb-5">
                             <label for="infraestructura" class="form-label">Infraestructura disponible:</label>
                             <input type="text" class="form-control" id="infraestructura" name="infraestructura" placeholder="Ingrese la infraestructura disponible" required>
@@ -318,18 +318,22 @@
                             <input type="text" class="form-control" id="datosOpcionales" name="datosOpcionales" placeholder="Ingrese los datos opcionales" required>
                         </div>
                     </form>
-                    <button type="submit" class="btn btn-success">Cargar Anexo 10</button>
+                    <button type="submit" class="btn btn-success" id="cargarAnexoX">Cargar Anexo 10</button>
                 </div>
             </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../js/cargarGrupo.js"></script>
         <script src="../../js/enviarFormularios.js"></script>
-        <script src="../../js/cargarPersonasAnexoV.js"></script>
+        <!-- <script src="../../js/cargarPersonasAnexoV.js"></script> -->
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
+            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
+            var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
+            var anexoXHabil = "<?php echo $anexoxHabil; ?>";
         </script>
         <script src="../../js/formulariosCompletos.js"></script>
     </body>
