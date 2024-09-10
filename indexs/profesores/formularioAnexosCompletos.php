@@ -79,20 +79,23 @@
                                 <label for="acompanante" class="form-label">Insertar Acompañante:</label>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="dni_acompanante" name="dni_acompanante" placeholder="DNI" required pattern="\d{8}">
+                                <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI" required pattern="\d{8}">
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="nombre_acompanante" name="nombre_acompanante" placeholder="Nombre y apellido" required>
+                                <input type="text" class="form-control" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido" required>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="number" class="form-control" id="edad_acompanante" name="edad_acompanante" placeholder="Edad" required>
+                                <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad" required>
                             </div>
                             <div class="col-12 mt-2 d-flex justify-content-center">
-                                <button type="button" class="btn btn-success w-100">Cargar Acompañante</button>
+                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar Acompañante</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
-                            <button type="button" id="eliminarSeleccionados" class="btn btn-danger">
+                            <button type="button" id="selectAll" class="btn btn-secondary">
+                                Seleccionar todo
+                            </button>
+                            <button type="button" id="eliminarSeleccionados" class="btn btn-danger mx-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                             </button>
                         </div>
@@ -325,16 +328,13 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../../js/cargarGrupo.js"></script>
         <script src="../../js/enviarFormularios.js"></script>
-        <!-- <script src="../../js/cargarPersonasAnexoV.js"></script> -->
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
             var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
             var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
             var anexoXHabil = "<?php echo $anexoxHabil; ?>";
         </script>
-        <script src="../../js/formulariosCompletos.js"></script>
+        <script src="../../js/accionesAnexoV.js"></script>
     </body>
 </html>

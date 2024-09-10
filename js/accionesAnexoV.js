@@ -6,6 +6,14 @@ $(document).ready(function(){
             $("#agregarPersona").click();  
         }
     })
+
+    $('#dniAcompañante, #nombreAcompañante, #edadAcompañante').on('keydown', function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            $('#cargarAcompañante').click(); 
+        }
+    });
+    
     $("#dniSearch").keyup(function(event) {
         var dniPersona = $("#dniSearch").val();
         $.ajax({
@@ -22,7 +30,7 @@ $(document).ready(function(){
                 const personas = JSON.parse(response);
 
                 if (personas.error) {
-                    console.log(personas.error);
+                    // console.log(personas.error);
                     return;
                     
                 }
@@ -84,6 +92,49 @@ $(document).ready(function(){
         })                    
     })
 
+    $('#cargarAcompañante').click(function() {
+        // Obtener los valores de los campos
+        const dniAcompañante = document.getElementById('dniAcompañante').value.trim();
+        const nombreAcompañante = document.getElementById('nombreAcompañante').value.trim();
+        const edadAcompañante = document.getElementById('edadAcompañante').value.trim();
+
+        // Validar que los campos no estén vacíos
+        if (dniAcompañante === '' || nombreAcompañante === '' || edadAcompañante === '') {
+            alert('Por favor, complete todos los campos.');
+            return; // Salir de la función si hay campos vacíos
+        }
+
+        // Validar formato de DNI (debe ser un número de 8 dígitos)
+        if (!/^\d{8}$/.test(dniAcompañante)) {
+            alert('El DNI debe tener 8 dígitos.');
+            return; // Salir de la función si el formato es incorrecto
+        }
+
+        // Enviar los datos por AJAX
+        $.ajax({
+            method: 'POST',
+            url: '../../php/agregarPersonaAnexoV.php',
+            data: {
+                dniAcompañante,
+                nombreAcompañante,
+                edadAcompañante
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    cargarTablaPasajeros(); // Llama a la función para actualizar la tabla
+                    alert(response.message); // Muestra el mensaje de éxito
+                } else if (response.status === 'error') {
+                    alert(response.message); // Muestra el mensaje de error
+                }
+            },
+            error: function(xhr, status, error) {
+                // console.log("Error en la solicitud:", error); // Para depurar el error si ocurre
+                alert("Ocurrió un error en la comunicación con el servidor.");
+            }
+        });
+    });
+
     function cargarTablaPasajeros() {
         $.ajax({
             method: 'GET',
@@ -129,6 +180,12 @@ $(document).ready(function(){
         })
     }
 
+    //seleccionar todos los integrantes de la salida
+    $('#selectAll').click(function() {
+        $('.selectPersona').prop('checked', true);
+    })
+
+    //eliminar integrantes de la salida seleccionados
     $(document).on('click', '#eliminarSeleccionados', function() {
         
         //obtener checkboxes seleccionados
@@ -140,6 +197,7 @@ $(document).ready(function(){
         //deshabilita el boton eliminar temporalmente por conflicto con focus
         const eliminarBtn = $(this);
         eliminarBtn.prop('disabled', true);
+        const habilitarBoton = eliminarBtn.prop('disabled', false);
 
         if (seleccionados.length > 0) {
             $.ajax({
@@ -155,7 +213,7 @@ $(document).ready(function(){
                     }).then(() => {
                         cargarTablaPasajeros();
                         document.getElementById('dniSearch').focus();
-                        eliminarBtn.prop('disabled', false);
+                        habilitarBoton;
                     });
                 },
                 error: function(){
@@ -166,10 +224,62 @@ $(document).ready(function(){
                         timer: 1500
                     }).then(() => {
                         document.getElementById('dniSearch').focus();
-                        eliminarBtn.prop('disabled', false);
+                        habilitarBoton;
                     });
                 }
             })
         }
+        habilitarBoton;
     })
+
+    const buscarPersonasGrupo = function(grupo, callback) {
+        $.ajax({
+            method: 'POST',
+            url: '../../php/buscarPersonasGrupos.php',
+            data: { grupo: grupo },
+            success:function(response) {
+                const pasajeros = JSON.parse(response);
+                callback(true, pasajeros);
+            },
+            error:function() {
+                callback(false);
+            }
+        })
+        }
+        
+    const cargarGrupos = function(personas) {
+        return $.ajax({
+            method: 'POST',
+            url: '../../php/agregarPersonaAnexoV.php',
+            data: JSON.stringify({ personas: personas }), // se asegura de convertirlo a JSON
+            contentType: 'application/json', // Indica que se está enviando JSON
+        });
+    }
+      
+    $('#cargarGrupo').on('click', function () {
+        //obtiene el value del select
+        const idGrupo = $('#grupos').val();
+        
+        buscarPersonasGrupo(idGrupo, function(result, pasajeros) {
+            if (result) {
+            cargarGrupos(pasajeros).then(function(response){
+                if (response.status === 'success') {
+                    cargarTablaPasajeros();
+                    // console.log(response.message);
+                } 
+                else if (response.status === 'error') {
+                    // console.log(response.message);
+                }
+
+            }).catch(function(error) {
+                // console.error("Error en la carga de grupos:", error);
+                alert('Ocurrió un error en la solicitud para cargar los grupos.');
+            });
+            } else {
+                // console.log("Ocurrió un error");
+            }
+        });
+    });
+      
+      
 })
