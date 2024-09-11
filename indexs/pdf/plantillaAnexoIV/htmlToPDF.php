@@ -270,13 +270,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </p>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-6 mb-5 mt-5 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex align-items-center justify-content-center flex-column">
                                 <div>......................................................................</div>
                                 <div>Lugar y fecha Firma de Autoridad del Establecimiento</div>
                             </div>
                         </div>
-                        <div class="col-6 mb-3 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-6 mb-5 mt-5 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex align-items-center justify-content-center flex-column">
                                 <div>......................................................................</div>
                                 <div>Lugar y fecha Firma del Inspector (si correspondiere)</div>

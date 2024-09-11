@@ -54,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (nextTabId != null) {
                         document.getElementById(nextTabId).disabled = false;
                         $('#' + nextTabId).tab('show');
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     }
                 });
             } else {
