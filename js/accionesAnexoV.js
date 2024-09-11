@@ -73,7 +73,8 @@ $(document).ready(function(){
                 nombreApellido,
                 cargo,
                 fechan,
-                idAnexoIV
+                idAnexoIV,
+                opcion: 'agregarPersona'
             },
             success:function(response) {
                 const datos = JSON.parse(response);
@@ -117,7 +118,8 @@ $(document).ready(function(){
             data: {
                 dniAcompañante,
                 nombreAcompañante,
-                edadAcompañante
+                edadAcompañante,
+                opcion: 'agregarAcompañante'
             },
             dataType: 'json',
             success: function(response) {
@@ -251,7 +253,7 @@ $(document).ready(function(){
         return $.ajax({
             method: 'POST',
             url: '../../php/agregarPersonaAnexoV.php',
-            data: JSON.stringify({ personas: personas }), // se asegura de convertirlo a JSON
+            data: JSON.stringify({ personas: personas, opcion: 'agregarGrupo' }),
             contentType: 'application/json', // Indica que se está enviando JSON
         });
     }
@@ -263,6 +265,7 @@ $(document).ready(function(){
         buscarPersonasGrupo(idGrupo, function(result, pasajeros) {
             if (result) {
             cargarGrupos(pasajeros).then(function(response){
+                console.log(response);
                 if (response.status === 'success') {
                     cargarTablaPasajeros();
                     // console.log(response.message);
