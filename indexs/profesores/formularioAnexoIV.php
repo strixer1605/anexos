@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['dni_profesor'])) {
+    if (!isset($_SESSION['dniProfesor'])) {
         header('Location: ../index.php');
         exit;
     }
@@ -8,7 +8,7 @@
     
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 
-    $dniProfesor = $_SESSION['dni_profesor'];
+    $dniProfesor = $_SESSION['dniProfesor'];
     $nombrePro = $_SESSION['nombreDoc'];
     $apellidoPro = $_SESSION['apellidoDoc'];
     $nombreCompletoProfesor = $nombrePro." ".$apellidoPro;
@@ -187,6 +187,11 @@
                 <div class="mb-5">
                     <label for="localidadHospedaje" id="lH" class="form-label">Localidad del hospedaje:</label>
                     <input type="text" class="form-control" id="localidadHospedaje" name="localidadHospedaje" placeholder="Ingrese la localidad del hospedaje..." required>
+                </div>
+
+                <div class="mb-5">
+                    <label for="gastosEstimativos" id="gE" class="form-label">Gastos Estimativos:</label>
+                    <input type="text" class="form-control" id="gastosEstimativos" name="gastosEstimativos" placeholder="Ingrese los gastos estimativos o como solventarlos..." required>
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">

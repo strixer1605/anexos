@@ -3,9 +3,9 @@
     include('conexion.php');
     var_dump($_SESSION);
 
-    if (isset($_SESSION['dni_director'])) {
-        $dni_director = $_SESSION['dni_director'];
-        $sql_director = "SELECT * FROM personal WHERE dni = '$dni_director'";
+    if (isset($_SESSION['dniDirector'])) {
+        $dniDirector = $_SESSION['dniDirector'];
+        $sql_director = "SELECT * FROM personal WHERE dni = '$dniDirector'";
         $result_director = $conexion->query($sql_director);
 
         if ($result_director -> num_rows > 0) {
@@ -13,7 +13,7 @@
             $_SESSION['nombreDir'] = $row['nombre'];
             $_SESSION['apellidoDir'] = $row['apellido'];
 
-            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "' . $dni_director . '"';
+            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "' . $dniDirector . '"';
             include('datosHijo.php');
         } else {
             header('Location: error.php');
@@ -25,9 +25,9 @@
         exit;
     }
 
-    elseif (isset($_SESSION['dni_profesor'])) {
-        $dni_profesor = $_SESSION['dni_profesor'];
-        $sql_profesor = "SELECT * FROM personal WHERE dni = '$dni_profesor'";
+    elseif (isset($_SESSION['dniProfesor'])) {
+        $dniProfesor = $_SESSION['dniProfesor'];
+        $sql_profesor = "SELECT * FROM personal WHERE dni = '$dniProfesor'";
         $result_profesor = $conexion->query($sql_profesor);
 
         if ($result_profesor->num_rows > 0) {
@@ -35,7 +35,7 @@
             $_SESSION['nombreDoc'] = $row['nombre'];
             $_SESSION['apellidoDoc'] = $row['apellido'];
 
-            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dni_profesor.'"';
+            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dniProfesor.'"';
             include('datosHijo.php');
         } else {
             header('Location: error.php');
@@ -47,9 +47,9 @@
         exit;
     }
 
-    elseif (isset($_SESSION['dni_padre'])) {
-        $dni_padre = $_SESSION['dni_padre'];
-        $sql_padre = "SELECT * FROM padrestutores WHERE dni = '$dni_padre'";
+    elseif (isset($_SESSION['dniPadre'])) {
+        $dniPadre = $_SESSION['dniPadre'];
+        $sql_padre = "SELECT * FROM padrestutores WHERE dni = '$dniPadre'";
         $result_padre = $conexion->query($sql_padre);
 
         if ($result_padre->num_rows > 0) {
@@ -57,7 +57,7 @@
             $_SESSION['nombre_padre'] = $row['nombre'];
             $_SESSION['apellido_padre'] = $row['apellido'];
 
-            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dni_padre.'"';
+            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dniPadre.'"';
             include('datosHijo.php');
         } else {
             header('Location: error.php');

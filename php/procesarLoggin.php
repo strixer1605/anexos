@@ -16,8 +16,8 @@
 
     $conexion->close();
 
-    if ($dni == $dni_director && $password == $password_d) {
-        $_SESSION['dni_director'] = $dni_director;
+    if ($dni == $dniDirector && $password == $password_d) {
+        $_SESSION['dniDirector'] = $dniDirector;
         header("Location: datosSesion.php");
         exit;
     } 
@@ -26,7 +26,7 @@
         $row = $result_personal->fetch_assoc();
         
         if ($password === $row["pass"]) {
-            $_SESSION['dni_profesor'] = $dni;
+            $_SESSION['dniProfesor'] = $dni;
             header("Location: datosSesion.php");
             exit;
         }
@@ -35,7 +35,7 @@
     if ($result_padre->num_rows > 0) {
         $row = $result_padre->fetch_assoc();
         if ($password === $row["contrasena"]) {
-            $_SESSION['dni_padre'] = $dni;
+            $_SESSION['dniPadre'] = $dni;
             header("Location: datosSesion.php");
             exit;
         }

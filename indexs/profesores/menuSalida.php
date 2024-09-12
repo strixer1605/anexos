@@ -102,25 +102,15 @@ include '../../php/conexion.php';
                     <h3>Documentos (PDF)</h3>
                     <hr>
                     <ul>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 4</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 5</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 8</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 9</button></li>
-                        <li><button class="btn form-control botones w-100 mb-3">Anexo 10</button></li>
+                        <li><a href="../pdf/plantillaAnexoIV/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo 4</a></li>
+                        <li><a href="../pdf/plantillaAnexoV/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo 5</a></li>
+                        <li><a href="../pdf/plantillaAnexoVIII/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo 8</a></li>
+                        <li><a href="../pdf/plantillaAnexoIX/" class="btn form-control botones w-100 mb-3">Anexo 9</a></li>
+                        <li><a href="../pdf/plantillaAnexoX/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <!-- <form id="hiddenForm" method="POST" action="" style="display: none;">
-            <input type="hidden" name="idAnexoIV" id="idAnexoIV" value="">
-        </form> -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            // function submitForm(action, idAnexoIV) {
-            //     document.getElementById('hiddenForm').action = action;
-            //     document.getElementById('idAnexoIV').value = idAnexoIV;
-            //     document.getElementById('hiddenForm').submit();
-            // }
-        </script>
     </body>
 </html>
