@@ -1,11 +1,10 @@
 <?php
     session_start();
-
     $idSalida = $_SESSION['idSalida'];
-
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
         $institucion = $_POST['institucion'];
         $anio = $_POST['anio'];
         $division = $_POST['division'];
@@ -24,20 +23,105 @@
         $respEvaluacion = $_POST['respEvaluacion'];
         $obsEvaluacion = $_POST['obsEvaluacion'];
 
-        $sql = "INSERT INTO anexoviii (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conexion->prepare($sql);
+        $sqlVerificacion = "SELECT * FROM anexoviii WHERE fkAnexoIV = ?";
+        $stmtVerificacion = $conexion->prepare($sqlVerificacion);
+        $stmtVerificacion->bind_param("i", $idSalida);
+        $stmtVerificacion->execute();
+        $result = $stmtVerificacion->get_result();
 
-        if ($stmt === false) {
-            die("Error en la preparación de la consulta: " . $conexion->error);
-        }
-        $stmt->bind_param("isisssssssssssssss", $idSalida, $institucion, $anio, $division, $area, $docente, $objetivo, $fechaSalida, $lugaresVisitar, $descPrevia, $respPrevia, $obsPrevia, $descDurante, $respDurante, $obsDurante, $descEvaluacion, $respEvaluacion, $obsEvaluacion);
+        if ($result->num_rows > 0) {
+            $sql = "UPDATE anexoviii SET 
+                institucion = ?, 
+                año = ?, 
+                division = ?, 
+                area = ?, 
+                docente = ?, 
+                objetivo = ?, 
+                fechaSalida = ?, 
+                lugaresVisitar = ?, 
+                descripcionPrevias = ?, 
+                responsablesPrevias = ?, 
+                observacionesPrevias = ?, 
+                descripcionDurante = ?, 
+                responsablesDurante = ?, 
+                observacionesDurante = ?, 
+                descripcionEvaluacion = ?, 
+                responsablesEvaluacion = ?, 
+                observacionesEvaluacion = ? 
+                WHERE fkAnexoIV = ?";
 
-        if ($stmt->execute()) {
-            echo "success";
+            $stmt = $conexion->prepare($sql);
+
+            if ($stmt === false) {
+                die("Error en la preparación de la consulta: " . $conexion->error);
+            }
+
+            $stmt->bind_param("sssssssssssssss",
+                $institucion, 
+                $anio, 
+                $division, 
+                $area, 
+                $docente, 
+                $objetivo, 
+                $fechaSalida, 
+                $lugaresVisitar, 
+                $descPrevia, 
+                $respPrevia, 
+                $obsPrevia, 
+                $descDurante, 
+                $respDurante, 
+                $obsDurante, 
+                $descEvaluacion, 
+                $respEvaluacion, 
+                $obsEvaluacion, 
+            );
+
+            if ($stmt->execute()) {
+                echo "success";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            $stmt->close();
+
         } else {
-            echo "Error: " . $stmt->error;
+            $sql = "INSERT INTO anexoviii 
+                (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conexion->prepare($sql);
+
+            if ($stmt === false) {
+                die("Error en la preparación de la consulta: " . $conexion->error);
+            }
+
+            $stmt->bind_param("issssssssssssssssi", 
+                $idSalida, 
+                $institucion, 
+                $anio, 
+                $division, 
+                $area, 
+                $docente, 
+                $objetivo, 
+                $fechaSalida, 
+                $lugaresVisitar, 
+                $descPrevia, 
+                $respPrevia, 
+                $obsPrevia, 
+                $descDurante, 
+                $respDurante, 
+                $obsDurante, 
+                $descEvaluacion, 
+                $respEvaluacion, 
+                $obsEvaluacion
+            );
+
+            if ($stmt->execute()) {
+                echo "success";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            $stmt->close();
         }
-        $stmt->close();
+        
         $conexion->close();
     }
 ?>

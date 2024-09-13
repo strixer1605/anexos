@@ -1,8 +1,6 @@
 <?php
-
-session_start();
-include '../../php/conexion.php';
-
+    session_start();
+    include '../../php/conexion.php';
 ?>
 
 <!DOCTYPE html>

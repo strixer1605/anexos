@@ -18,7 +18,7 @@
                 $anexoviiiHabil = $row['anexoviiiHabil'];
                 $anexoixHabil = $row['anexoixHabil'];
                 $anexoxHabil = $row['anexoxHabil'];
-                echo $anexoviiiHabil, $anexoixHabil, $anexoxHabil;
+                // echo $anexoviiiHabil, $anexoixHabil, $anexoxHabil;
             } else {
                 die('Error: No se encontraron resultados.');
             }

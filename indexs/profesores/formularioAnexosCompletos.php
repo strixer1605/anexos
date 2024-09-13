@@ -88,7 +88,7 @@
                                 <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad" required>
                             </div>
                             <div class="col-12 mt-2 d-flex justify-content-center">
-                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar Acompañante</button>
+                                <button id="cargarAcompañante" type="button" class="btn btn-success w-50">Cargar Acompañante</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
@@ -128,75 +128,8 @@
                 <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
                     <h2>Anexo 8</h2>
                     <br>
-                    <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVIII .php" method="POST">
-                        <div class="mb-5">
-                            <label for="institucion" class="form-label">Institución Educativa:</label>
-                            <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" value="E.E.S.T. Nº1" required pattern="[A-Za-z\s]+">
-                        </div>
-                        <div class="mb-5">
-                            <label for="anio" class="form-label">Año:</label>
-                            <input type="number" class="form-control" id="anio" name="anio" placeholder="Ingrese Año" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="division" class="form-label">División:</label>
-                            <input type="text" class="form-control" id="division" name="division" placeholder="Ingrese División" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="area" class="form-label">Área:</label>
-                            <input type="text" class="form-control" id="area" name="area" placeholder="Ingrese Área" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="docente" class="form-label">Docente:</label>
-                            <input type="text" class="form-control" id="docente" name="docente" placeholder="Ingrese Docente" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="objetivo" class="form-label">Objetivo:</label>
-                            <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese Objetivo" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="fechaSalida" class="form-label">Fecha de la Salida:</label>
-                            <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="lugaresVisitar" class="form-label">Lugares a visitar:</label>
-                            <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="descPrevia" class="form-label">Descripción previa:</label>
-                            <input type="text" class="form-control" id="descPrevia" name="descPrevia" placeholder="Ingrese Descripción" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="respPrevia" class="form-label">Responsables (Previamente):</label>
-                            <input type="text" class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
-                            <input type="text" class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="descDurante" class="form-label">Descripción (Durante):</label>
-                            <input type="text" class="form-control" id="descDurante" name="descDurante" placeholder="Ingrese Descripción" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="respDurante" class="form-label">Responsables (Durante):</label>
-                            <input type="text" class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
-                            <input type="text" class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="descEvaluacion" class="form-label">Descripción (Evaluación):</label>
-                            <input type="text" class="form-control" id="descEvaluacion" name="descEvaluacion" placeholder="Ingrese Descripción" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="respEvaluacion" class="form-label">Responsables (Evaluación):</label>
-                            <input type="text" class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
-                            <input type="text" class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>
-                        </div>
+                    <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVIII.php" method="POST">
+                        <?php include ("../../php/traerAnexoVIII.php"); ?>
                     </form>
                     <button type="submit" class="btn btn-success" id="cargarAnexoVIII">Cargar Anexo 8</button>
                 </div>
