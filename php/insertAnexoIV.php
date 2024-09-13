@@ -31,6 +31,7 @@
         $domicilioHospedaje = $_POST['domicilioHospedaje'];
         $telefonoHospedaje = $_POST['telefonoHospedaje'];
         $localidadHospedaje = $_POST['localidadHospedaje'];
+        $gastosEstimativos = $_POST['gastosEstimativos'];
         $anexo8 = isset($_POST['anexo8']) ? 1 : 0;
         $anexo9 = isset($_POST['anexo9']) ? 1 : 0;
         $anexo10 = isset($_POST['anexo10']) ? 1 : 0;
@@ -40,17 +41,17 @@
             telefonoInstitucion, denominacionProyecto, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
             dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentesAcompañantes, cantNoDocentesAcompañantes,
-            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, anexoVIIIHabil, anexoIXHabil, anexoXHabil
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, gastosEstimativos, anexoVIIIHabil, anexoIXHabil, anexoXHabil
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiissisissssssssssisiiiiissisiii",
+                "iiissisissssssssssisiiiiississiii",
                 $estado, $tipoSolicitud, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
                 $telefonoInstitucion, $denominacionProyecto, $lugarVisita, $fechaSalida, $lugarSalida,
                 $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades,
                 $dniEncargado, $apellidoNombreEncargado, $cargo, $cantidadAlumnos, $cantDocentesAcompañantes, $cantNoDocentesAcompañantes,
-                $totalPersonas, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje,$anexo8, $anexo9, $anexo10
+                $totalPersonas, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje,$gastosEstimativos, $anexo8, $anexo9, $anexo10
             );
 
             if ($stmt->execute()) {

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['dni_profesor'])) {
+    if (!isset($_SESSION['dniProfesor'])) {
         header('Location: ../index.php');
         exit;
     }

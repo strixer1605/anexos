@@ -1,40 +1,21 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $region = $_POST['region'];
-    $distrito = $_POST['distrito'];
-    $institucionEducativa = $_POST['institucionEducativa'];
-    $numero = $_POST['numero'];
-    $domicilio = $_POST['domicilio'];
-    $telefono = $_POST['telefono'];
-    $denominacionProyecto = $_POST['denominacionProyecto'];
-    $lugarVisitar = $_POST['lugarVisitar'];
-    $fechaSalida = $_POST['fechaSalida'];
-    $timestampSalida = strtotime($fechaSalida);
-    $fechaFormateadaSalida = date('d/m/Y', $timestampSalida);
-    $lugarSalida = $_POST['lugarSalida'];
-    $horaSalida = $_POST['horaSalida'];
-    $fechaRegreso = $_POST['fechaRegreso'];
-    $timestampRegreso = strtotime($fechaRegreso);
-    $fechaFormateadaRegreso = date('d/m/Y', $timestampRegreso);
-    $lugarRegreso = $_POST['lugarRegreso'];
-    $horaRegreso = $_POST['horaRegreso'];
-    $itinerario = $_POST['itinerario'];
-    $actividades = $_POST['actividades'];
-    $docentes = $_POST['docentes'];
-    $docentesFormateado = nl2br($docentes);
-    $cargos = $_POST['cargos'];
-    $cargosFormateados = nl2br($cargos);
-    $cantidadAlumnos = $_POST['cantidadAlumnos'];
-    $cantidadDocentes = $_POST['cantidadDocentes'];
-    $cantidadNoDocentes = $_POST['cantidadNoDocentes'];
-    $totalPersonas = $_POST['totalPersonas'];
-    $hospedaje = $_POST['hospedaje'];
-    $telefonoHospedaje = $_POST['telefonoHospedaje'];
-    $domicilioHospedaje = $_POST['domicilioHospedaje'];
-    $localidadHospedaje = $_POST['localidadHospedaje'];
-    $gastosEstimativos = $_POST['gastosEstimativos'];
-    $tipoSalida = $_POST['tipoSalida'];
-};
+    session_start();
+    if (!$_SESSION['dniProfesor']){
+        header('Location: ../../../index.php');
+    } else {
+        include '../../../php/datosAnexoIV.php';
+        $fechaSalida = $fila['fechaSalida'];
+        $timestampSalida = strtotime($fechaSalida);
+        $fechaFormateadaSalida = date('d/m/Y', $timestampSalida);
+        $fechaRegreso = $fila['fechaRegreso'];
+        $timestampRegreso = strtotime($fechaRegreso);
+        $fechaFormateadaRegreso = date('d/m/Y', $timestampRegreso);
+
+
+        //hacer un while para recorrer el resultado de docentes acompañantes del anexoV para agregarlo al array de docentes y lo mismo con los cargos
+        $docentes = ['laurito', 'donati', 'schiro', 'reichert'];
+        $cargos = ['Profesor', 'Profesor', 'Profesor', 'Profesor'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="col-12 d-flex justify-content-center ">
                 <?php
-                if ($tipoSalida === "Salida Educativa") {
+                if ($fila['tipoSolicitud'] == 1) {
                     echo '
                     <p class="m-0 p-0"><span style="text-decoration: line-through;">Salida Educativa</span> / Salida de Representación Institucional</p>
                     ';
@@ -93,26 +74,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-12">
                         <div id="regionData" class="fw-bold">
                             Región:
-                            <span class="fw-normal" id="regionData"><?php echo $region ?></span>
+                            <span class="fw-normal" id="regionData"><?php echo $fila['region'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div id="dataDistrito" class="fw-bold">
                             Distrito:
-                            <span class="fw-normal"><?php echo $distrito ?></span>
+                            <span class="fw-normal"><?php echo $fila['distrito'] ?></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div id="dataInstitucion" class="fw-bold">
                                 Institucion Educativa:
-                                <span class="fw-normal"> <?php echo $institucionEducativa ?></span>
+                                <span class="fw-normal"> <?php echo $fila['institucionEducativa'] ?></span>
                             </div>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
                             <div id="dataNumero" class="fw-bold">
                                 N°
-                                <span class="fw-normal"> <?php echo $numero ?></span>
+                                <span class="fw-normal"> <?php echo $fila['numeroInstitucion'] ?></span>
                             </div>
                         </div>
                     </div>
@@ -120,26 +101,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-6">
                             <div id="dataDomicilio" class="fw-bold">
                                 Domicilio:
-                                <span class="fw-normal"><?php echo $domicilio ?></span>
+                                <span class="fw-normal"><?php echo $fila['domicilioInstitucion'] ?></span>
                             </div>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
                             <div id="dataTelefono" class="fw-bold">
                                 Teléfono:
-                                <span class="fw-normal"><?php echo $telefono ?></span>
+                                <span class="fw-normal"><?php echo $fila['telefonoInstitucion'] ?></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div id="dataDenominacion" class="fw-bold">
                             Denominación del Proyecto:
-                            <span class="fw-normal"><?php echo $denominacionProyecto ?></span>
+                            <span class="fw-normal"><?php echo $fila['denominacionProyecto'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div id="dataLugar" class="fw-bold">
                             Lugar a visitar:
-                            <span class="fw-normal"> <?php echo $lugarVisitar ?></span>
+                            <span class="fw-normal"> <?php echo $fila['lugarVisita'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
@@ -153,12 +134,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="col-4">
                             <p id="dataLugarSalida" class="fw-bold">Lugar:
-                                <span class="fw-normal"> <?php echo $lugarSalida ?></span>
+                                <span class="fw-normal"> <?php echo $fila['lugarSalida'] ?></span>
                             </p>
                         </div>
                         <div class="col-4">
                             <p id="dataHoraSalida" class="fw-bold">Hora:
-                                <span class="fw-normal"> <?php echo $horaSalida ?> </span>Aprox
+                                <span class="fw-normal"> <?php echo $fila['horaSalida'] ?> </span>Aprox
                             </p>
                         </div>
                     </div>
@@ -173,25 +154,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="col-4">
                             <p class="fw-bold">Lugar:
-                                <span class="fw-normal"> <?php echo $lugarRegreso ?></span>
+                                <span class="fw-normal"> <?php echo $fila['lugarRegreso'] ?></span>
                             </p>
                         </div>
                         <div class="col-4">
                             <p class="fw-bold">Hora:
-                                <span class="fw-normal"> <?php echo $horaRegreso ?> </span>Aprox
+                                <span class="fw-normal"> <?php echo $fila['horaRegreso'] ?> </span>Aprox
                             </p>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
-                        <div class="fw-bold">
+                        <div class="fw-bold" style="width: 500px;">
                             Itinerario:
-                            <span class="fw-normal"> <?php echo $itinerario ?></span>
+                            <span class="fw-normal text-break"> <?php echo $fila['itinerario'] ?></span>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
-                        <div class="fw-bold">
+                        <div class="fw-bold" style="width: 500px;">
                             Actividades:
-                            <span class="fw-normal"> <?php echo $actividades ?></span>
+                            <span class="fw-normal text-break"> <?php echo $fila['actividades'] ?></span>
                         </div>
                     </div>
                 </div>
@@ -201,7 +182,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="fw-bold">
                                 Datos del/los docentes/s a cargo Apellido y nombre:
                                 <br>
-                                <span class="fw-normal"><?php echo $docentesFormateado ?></span>
+                                <span class="fw-normal"><?php 
+                                    echo $fila['apellidoNombreEncargado'];
+                                    echo '<br>';
+                                    for ($i = 0; $i < count($docentes); $i++) {
+                                        echo $docentes[$i] . "<br>";
+                                    }
+
+                                ?></span>
                             </div>
                         </div>
                         <div class="col-4 d-flex justify-content-center">
@@ -209,32 +197,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <br>
                                 Cargo
                                 <br>
-                                <span class="fw-normal"><?php echo $cargosFormateados ?></span>
+                                <span class="fw-normal"><?php if ($fila['cargo'] == 1) {
+                                    echo "Profesor";
+                                    echo '<br>';
+                                    for ($i = 0; $i < count($cargos); $i++) {
+                                        echo $cargos[$i] . "<br>";
+                                    }
+                                } ?></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Cantidad de alumnos:
-                            <span class="fw-normal"> <?php echo $cantidadAlumnos ?></span>
+                            <span class="fw-normal"> <?php echo $fila['cantidadAlumnos'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Cantidad de docentes acompañantes:
-                            <span class="fw-normal"> <?php echo $cantidadDocentes ?></span>
+                            <span class="fw-normal"> <?php echo $fila['cantDocentesAcompañantes'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Cantidad de no docentes:
-                            <span class="fw-normal"> <?php echo $cantidadNoDocentes ?></span>
+                            <span class="fw-normal"> <?php echo $fila['cantNoDocentesAcompañantes'] ?></span>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div class="fw-bold">
                             Total de personas:
-                            <span class="fw-normal"> <?php echo $totalPersonas ?></span>
+                            <span class="fw-normal"> <?php echo $fila['totalPersonas'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
@@ -243,30 +237,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-12">
                         <div class="fw-bold">
                             Nombre del hotel, camping, etc:
-                            <span class="fw-normal"> <?php echo $hospedaje ?></span>
+                            <span class="fw-normal"> <?php echo $fila['nombreHospedaje'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Teléfono:
-                            <span class="fw-normal"> <?php echo $telefonoHospedaje ?></span>
+                            <span class="fw-normal"> <?php echo $fila['telefonoHospedaje'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Domicilio:
-                            <span class="fw-normal"> <?php echo $domicilioHospedaje ?></span>
+                            <span class="fw-normal"> <?php echo $fila['domicilioHospedaje'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Localidad:
-                            <span class="fw-normal"> <?php echo $localidadHospedaje ?></span>
+                            <span class="fw-normal"> <?php echo $fila['localidadHospedaje'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
-                        <p class="fw-bold">Gastos estimativos de la excursión:
-                            <span class="fw-normal"> <?php echo $gastosEstimativos ?></span>
+                        <p class="fw-bold" style="width: 500px;">Gastos estimativos de la excursión:
+                            <span class="fw-normal text-break"> <?php echo $fila['gastosEstimativos'] ?></span>
                         </p>
                     </div>
                     <div class="row mb-3">

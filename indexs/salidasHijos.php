@@ -1,18 +1,18 @@
 <?php
     session_start();
 
-    if (isset($_SESSION['dni_profesor'])) {
-        $dni_padre = $_SESSION['dni_profesor'];
-    } elseif (isset($_SESSION['dni_director'])) {
-        $dni_padre = $_SESSION['dni_director'];
-    } elseif (isset($_SESSION['dni_padre'])) {
-        $dni_padre = $_SESSION['dni_padre'];
+    if (isset($_SESSION['dniProfesor'])) {
+        $dniPadre = $_SESSION['dniProfesor'];
+    } elseif (isset($_SESSION['dniDirector'])) {
+        $dniPadre = $_SESSION['dniDirector'];
+    } elseif (isset($_SESSION['dniPadre'])) {
+        $dniPadre = $_SESSION['dniPadre'];
     } else {
         header('Location: ../index.php');
         exit;
     }
 
-    if (empty($dni_padre)) {
+    if (empty($dniPadre)) {
 
         header('Location: ../index.php');
         exit;
