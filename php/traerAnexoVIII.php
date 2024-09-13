@@ -24,7 +24,7 @@
             echo '
                 <div class="mb-5">
                     <label for="institucion" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" value="E.E.S.T. Nº1" required pattern="[A-Za-z\s]+">
+                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución" value="'.$row['institucion'].'" required pattern="[A-Za-z\s]+">
                 </div>
                 <div class="mb-5">
                     <label for="anio" class="form-label">Año:</label>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="mb-5">
                     <label for="division" class="form-label">División:</label>
-                    <input type="text" class="form-control" id="division" name="division" placeholder="Ingrese División" value="'.$row['año'].' required>
+                    <input type="text" class="form-control" id="division" name="division" placeholder="Ingrese División" value="'.$row['division'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="area" class="form-label">Área:</label>
@@ -44,51 +44,51 @@
                 </div>
                 <div class="mb-5">
                     <label for="objetivo" class="form-label">Objetivo:</label>
-                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese Objetivo" value="'.$row['objetivo'].' required>
+                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese Objetivo" value="'.$row['objetivo'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="fechaSalida" class="form-label">Fecha de la Salida:</label>
-                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" value="'.$row['año'].' required>
+                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" value="'.$row['fechaSalida'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="lugaresVisitar" class="form-label">Lugares a visitar:</label>
-                    <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares" value="'.$row['año'].' required>
+                    <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares" value="'.$row['lugaresVisitar'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="descPrevia" class="form-label">Descripción previa:</label>
-                    <input type="text" class="form-control" id="descPrevia" name="descPrevia" placeholder="Ingrese Descripción" required>
+                    <input type="text" class="form-control" id="descPrevia" name="descPrevia" placeholder="Ingrese Descripción" value="'.$row['descripcionPrevias'].'" required>
                 </div>
                 <div class="mb-5">
-                    <label for="respPrevia" class="form-label">Responsables (Previamente):</label>
-                    <input type="text" class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables" required>
+                    <label for="respPrevia" class="form-label"A>Responsables (Previamente):</label>
+                    <input type="text" class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables" value="'.$row['responsablesPrevias'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
-                    <input type="text" class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones" required>
+                    <input type="text" class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones" value="'.$row['observacionesPrevias'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="descDurante" class="form-label">Descripción (Durante):</label>
-                    <input type="text" class="form-control" id="descDurante" name="descDurante" placeholder="Ingrese Descripción" required>
+                    <input type="text" class="form-control" id="descDurante" name="descDurante" placeholder="Ingrese Descripción" value="'.$row['descripcionDurante'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="respDurante" class="form-label">Responsables (Durante):</label>
-                    <input type="text" class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables" required>
+                    <input type="text" class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables" value="'.$row['responsablesDurante'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
-                    <input type="text" class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones" required>
+                    <input type="text" class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones" value="'.$row['observacionesDurante'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="descEvaluacion" class="form-label">Descripción (Evaluación):</label>
-                    <input type="text" class="form-control" id="descEvaluacion" name="descEvaluacion" placeholder="Ingrese Descripción" required>
+                    <input type="text" class="form-control" id="descEvaluacion" name="descEvaluacion" placeholder="Ingrese Descripción" value="'.$row['descripcionEvaluacion'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="respEvaluacion" class="form-label">Responsables (Evaluación):</label>
-                    <input type="text" class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables" required>
+                    <input type="text" class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables" value="'.$row['responsablesEvaluacion'].'" required>
                 </div>
                 <div class="mb-5">
                     <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
-                    <input type="text" class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>
+                    <input type="text" class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" value="'.$row['observacionesEvaluacion'].'" required>
                 </div>
             ';
         } else {

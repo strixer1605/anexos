@@ -1,10 +1,11 @@
 <?php
+    
     session_start();
     $idSalida = $_SESSION['idSalida'];
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+        // Obtener datos del formulario
         $institucion = $_POST['institucion'];
         $anio = $_POST['anio'];
         $division = $_POST['division'];
@@ -23,6 +24,7 @@
         $respEvaluacion = $_POST['respEvaluacion'];
         $obsEvaluacion = $_POST['obsEvaluacion'];
 
+        // Verificar si ya existe un registro para la salida
         $sqlVerificacion = "SELECT * FROM anexoviii WHERE fkAnexoIV = ?";
         $stmtVerificacion = $conexion->prepare($sqlVerificacion);
         $stmtVerificacion->bind_param("i", $idSalida);
@@ -30,6 +32,7 @@
         $result = $stmtVerificacion->get_result();
 
         if ($result->num_rows > 0) {
+            // Si existe, actualizar
             $sql = "UPDATE anexoviii SET 
                 institucion = ?, 
                 año = ?, 
@@ -56,7 +59,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("sssssssssssssss",
+            $stmt->bind_param("sisssssssssssssssi", 
                 $institucion, 
                 $anio, 
                 $division, 
@@ -73,7 +76,8 @@
                 $obsDurante, 
                 $descEvaluacion, 
                 $respEvaluacion, 
-                $obsEvaluacion, 
+                $obsEvaluacion,
+                $idSalida
             );
 
             if ($stmt->execute()) {
@@ -84,16 +88,18 @@
             $stmt->close();
 
         } else {
+            // Si no existe, insertar
             $sql = "INSERT INTO anexoviii 
                 (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             $stmt = $conexion->prepare($sql);
 
             if ($stmt === false) {
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("issssssssssssssssi", 
+            $stmt->bind_param("isisssssssssssssss", 
                 $idSalida, 
                 $institucion, 
                 $anio, 
@@ -121,7 +127,8 @@
             }
             $stmt->close();
         }
-        
+
+        $stmtVerificacion->close();
         $conexion->close();
     }
 ?>

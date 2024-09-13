@@ -1,6 +1,7 @@
 <?php
     session_start();
     $idSalida = $_SESSION['idSalida'];
+    error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
