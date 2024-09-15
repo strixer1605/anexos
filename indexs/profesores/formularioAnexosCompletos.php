@@ -117,13 +117,12 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tablaParticipantes">
-                                    <!-- Contenido dinámico -->
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </form>
                 </div>
-
                 
                 <!-- Anexo 8 -->
                 <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
@@ -140,95 +139,7 @@
                     <h2>Anexo 9</h2>
                     <br>
                     <form id="formAnexoIX" class="formulario">
-                        <div class="mb-5">
-                            <label for="razonSocial" class="form-label">Razon Social:</label>
-                            <input type="text" class="form-control" id="razonSocial" name="razonSocial" placeholder="Ingrese la razón social" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="domicilioTransporte" class="form-label">Domicilio del transporte:</label>
-                            <input type="text" class="form-control" id="domicilioTransporte" name="domicilioTransporte" placeholder="Ingrese el domicilio del transporte" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="telefonoTransporte" class="form-label">Teléfono del transporte:</label>
-                            <input type="number" class="form-control" id="telefonoTransporte" name="telefonoTransporte" placeholder="Ingrese el número" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="domicilioResponsable" class="form-label">Domicilio del responsable:</label>
-                            <input type="text" class="form-control" id="domicilioResponsable" name="domicilioResponsable" placeholder="Ingrese el domicilio del responsable" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="telefonoResponsable" class="form-label">Teléfono:</label>
-                            <input type="number" class="form-control" id="telefonoResponsable" name="telefonoResponsable" placeholder="Ingrese el teléfono" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="telefonoMovil" class="form-label">Teléfono Movil:</label>
-                            <input type="number" class="form-control" id="telefonoMovil" name="telefonoMovil" placeholder="Ingrese el teléfono móvil" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="titularidadVehiculo" class="form-label">Titularidad del vehículo:</label>
-                            <input type="text" class="form-control" id="titularidadVehiculo" name="titularidadVehiculo" placeholder="Ingrese la titularidad del vehículo" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="companiaAseguradora" class="form-label">Compañía aseguradora:</label>
-                            <input type="text" class="form-control" id="companiaAseguradora" name="companiaAseguradora" placeholder="Ingrese la compañía aseguradora" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="numeroPoliza" class="form-label">Número de póliza:</label>
-                            <input type="number" class="form-control" id="numeroPoliza" name="numeroPoliza" placeholder="Ingrese el número de póliza" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="tipoSeguro" class="form-label">Tipo de seguro:</label>
-                            <input type="text" class="form-control" id="tipoSeguro" name="tipoSeguro" placeholder="Ingrese el tipo de seguro" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="nombreConductor1" class="form-label">Nombre del Conductor 1:</label>
-                            <input type="text" class="form-control" id="nombreConductor1" name="nombreConductor1" placeholder="Ingrese el nombre del conductor 1" required>
-                        </div>
-
-                        <!-- <div class="mb-5">
-                            <label for="dniConductor1" class="form-label">DNI del Conductor 1:</label>
-                            <input type="number" class="form-control" id="dniConductor1" name="dniConductor1" placeholder="Ingrese el DNI del conductor 1" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="licenciaConductor1" class="form-label">Licencia del Conductor 1:</label>
-                            <input type="number" class="form-control" id="licenciaConductor1" name="licenciaConductor1" placeholder="Ingrese la licencia del conductor 1" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="vigenciaConductor1" class="form-label">Vigencia del Conductor 1:</label>
-                            <input type="number" class="form-control" id="vigenciaConductor1" name="vigenciaConductor1" placeholder="Ingrese la vigencia de la licencia del conductor 1" required>
-                        </div> -->
-
-                        <div class="mb-5">
-                            <label for="nombreConductor2" class="form-label">Nombre del Conductor 2:</label>
-                            <input type="text" class="form-control" id="nombreConductor2" name="nombreConductor2" placeholder="Ingrese el nombre del conductor 2" required>
-                        </div>
-
-                        <!-- <div class="mb-5">
-                            <label for="dniConductor2" class="form-label">DNI del Conductor 2:</label>
-                            <input type="number" class="form-control" id="dniConductor2" name="dniConductor2" placeholder="Ingrese el DNI del conductor 2" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="licenciaConductor2" class="form-label">Licencia del Conductor 2:</label>
-                            <input type="number" class="form-control" id="licenciaConductor2" name="licenciaConductor2" placeholder="Ingrese la licencia del conductor 2" required>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="vigenciaConductor2" class="form-label">Vigencia del Conductor 2:</label>
-                            <input type="number" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" required>
-                        </div> -->
+                        <?php include ("../../php/traerAnexoIX.php"); ?>
                     </form>
                     <button type="submit" class="btn btn-success" id="cargarAnexoIX">Cargar Anexo 9</button>
                 </div>
@@ -238,22 +149,7 @@
                     <h2>Anexo 10</h2>
                     <br>
                     <form id="formAnexoX" class="formulario">
-                        <div class="mb-5">
-                            <label for="infraestructura" class="form-label">Infraestructura disponible:</label>
-                            <input type="text" class="form-control" id="infraestructura" name="infraestructura" placeholder="Ingrese la infraestructura disponible" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="hospitales" class="form-label">Hospitales disponibles:</label>
-                            <input type="text" class="form-control" id="hospitales" name="hospitales" placeholder="Ingrese los hospitales disponibles" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="mediosAlternativos" class="form-label">Medios alternativos:</label>
-                            <input type="text" class="form-control" id="mediosAlternativos" name="mediosAlternativos" placeholder="Ingrese los medios alternativos" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="datosOpcionales" class="form-label">Datos opcionales:</label>
-                            <input type="text" class="form-control" id="datosOpcionales" name="datosOpcionales" placeholder="Ingrese los datos opcionales" required>
-                        </div>
+                        <?php include ("../../php/traerAnexoX.php"); ?>
                     </form>
                     <button type="submit" class="btn btn-success" id="cargarAnexoX">Cargar Anexo 10</button>
                 </div>

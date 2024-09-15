@@ -1,11 +1,9 @@
 <?php
-    
     session_start();
     $idSalida = $_SESSION['idSalida'];
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Obtener datos del formulario
         $institucion = $_POST['institucion'];
         $anio = $_POST['anio'];
         $division = $_POST['division'];
