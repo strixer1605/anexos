@@ -1,4 +1,5 @@
 <?php
+
     $idSalida = $_SESSION['idSalida'] ?? null;
     include('conexion.php');
 
@@ -15,6 +16,9 @@
 
         if ($stmt->execute()) {
             $result = $stmt->get_result();
+
+            $nombreDoc = htmlspecialchars($_SESSION['nombreDoc'], ENT_QUOTES, 'UTF-8');
+            $apellidoDoc = htmlspecialchars($_SESSION['apellidoDoc'], ENT_QUOTES, 'UTF-8');
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
@@ -38,19 +42,21 @@
                             'año' => '',
                             'division' => '',
                             'area' => 'Ninguna',
+                            'docente' => $nombreDoc . ' ' . $apellidoDoc,
                             'objetivo' => '',
                             'fechaSalida' => $rowAnexoIV['fechaSalida'],
                             'lugaresVisitar' => $rowAnexoIV['lugarVisita'],
                             'descripcionPrevias' => '',
-                            'responsablesPrevias' => '',
+                            'responsablesPrevias' => $nombreDoc . ' ' . $apellidoDoc,
                             'observacionesPrevias' => '',
                             'descripcionDurante' => '',
-                            'responsablesDurante' => '',
+                            'responsablesDurante' => $nombreDoc . ' ' . $apellidoDoc,
                             'observacionesDurante' => '',
                             'descripcionEvaluacion' => '',
-                            'responsablesEvaluacion' => '',
+                            'responsablesEvaluacion' => $nombreDoc . ' ' . $apellidoDoc,
                             'observacionesEvaluacion' => ''
                         ];
+                        
                     } else {
                         die('Error: No se encontraron registros ni en anexoviii ni en anexoiv.');
                     }
@@ -61,26 +67,23 @@
                 $stmtAnexoIV->close();
             }
 
-            $nombreDoc = htmlspecialchars($_SESSION['nombreDoc'], ENT_QUOTES, 'UTF-8');
-            $apellidoDoc = htmlspecialchars($_SESSION['apellidoDoc'], ENT_QUOTES, 'UTF-8');
-
             echo '
                 <div class="mb-5">
                     <label for="institucion" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="' . htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') . '" required pattern="[A-Za-z\s]+">
+                    <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="'. htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+">
                 </div>
                 <div class="mb-5">
                     <label for="anio" class="form-label">Año:</label>
-                    <input type="text" class="form-control" id="anio" name="anio" placeholder="Ingrese Año/Años..." required value="' . htmlspecialchars($row['año'], ENT_QUOTES, 'UTF-8') . '">
+                    <input type="text" class="form-control" id="anio" name="anio" placeholder="Ingrese Año/Años..." required value="'. htmlspecialchars($row['año'], ENT_QUOTES, 'UTF-8') .'">
                 </div>
                 <div class="mb-5">
                     <label for="division" class="form-label">División:</label>
-                    <input type="text" class="form-control" id="division" name="division" placeholder="Ingrese División/es..." value="' . htmlspecialchars($row['division'], ENT_QUOTES, 'UTF-8') . '" required pattern="[A-Za-z\s]+" title="Solo se permiten letras en este campo.">
+                    <input type="text" class="form-control" id="division" name="division" placeholder="Ingrese División/es..." value="'. htmlspecialchars($row['division'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" title="Solo se permiten letras en este campo.">
                 </div>
                 <div class="mb-5">
                     <label for="area" class="form-label">Área:</label>
                     <select class="form-select" id="area" name="area" required>
-                        <option disabled value="' .htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8'). '"selected>' .htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8'). '</option>
+                        <option disabled value="' .htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8'). '"selected>'. htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8') .'</option>
                         <option value="Biología">Biología</option>
                         <option value="Fisicoquímica">Fisicoquímica</option>
                         <option value="Lengua y Literatura">Lengua y Literatura</option>
@@ -97,55 +100,55 @@
                 </div>
                 <div class="mb-5">
                     <label for="docente" class="form-label">Docente:</label>
-                    <input type="text" class="form-control" id="docente" name="docente" placeholder="Ingrese Docente..." value="' . $nombreDoc . ' ' . $apellidoDoc . '" required pattern="[A-Za-z\s]+" title="Solo se permiten letras en este campo.">
+                    <input type="text" class="form-control" id="docente" name="docente" placeholder="Ingrese Docente..." value="'. htmlspecialchars($row['docente'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" title="Solo se permiten letras en este campo.">
                 </div>
                 <div class="mb-5">
                     <label for="objetivo" class="form-label">Objetivo:</label>
-                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese Objetivo..." value="' . htmlspecialchars($row['objetivo'], ENT_QUOTES, 'UTF-8') . '" required>
+                    <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese Objetivo..." value="'. htmlspecialchars($row['objetivo'], ENT_QUOTES, 'UTF-8') .'" required>
                 </div>
                 <div class="mb-5">
                     <label for="fechaSalida" class="form-label">Fecha de la Salida:</label>
-                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" value="' . htmlspecialchars($row['fechaSalida'], ENT_QUOTES, 'UTF-8') . '" required>
+                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" value="'. htmlspecialchars($row['fechaSalida'], ENT_QUOTES, 'UTF-8') .'" required>
                 </div>
                 <div class="mb-5">
                     <label for="lugaresVisitar" class="form-label">Lugares a visitar:</label>
-                    <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares..." value="' . htmlspecialchars($row['lugaresVisitar'], ENT_QUOTES, 'UTF-8') . '" required>
+                    <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares..." value="'. htmlspecialchars($row['lugaresVisitar'], ENT_QUOTES, 'UTF-8') .'" required>
                 </div>
                 <div class="mb-5">
                     <label for="descPrevia" class="form-label">Descripción previa:</label>
-                    <textarea class="form-control" id="descPrevia" name="descPrevia" placeholder="Ingrese Descripción..." required>' . htmlspecialchars($row['descripcionPrevias'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="descPrevia" name="descPrevia" placeholder="Ingrese Descripción..." required>'. htmlspecialchars($row['descripcionPrevias'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="respPrevia" class="form-label">Responsables (Previamente):</label>
-                    <textarea class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables..." required>' . $nombreDoc . ' ' . $apellidoDoc . ' ' . htmlspecialchars($row['responsablesPrevias'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables..." required>'. htmlspecialchars($row['responsablesPrevias'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
-                    <textarea class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones..." required>' . htmlspecialchars($row['observacionesPrevias'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones..." required>'. htmlspecialchars($row['observacionesPrevias'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="descDurante" class="form-label">Descripción (Durante):</label>
-                    <textarea class="form-control" id="descDurante" name="descDurante" placeholder="Ingrese Descripción..." required>' . htmlspecialchars($row['descripcionDurante'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="descDurante" name="descDurante" placeholder="Ingrese Descripción..." required>'. htmlspecialchars($row['descripcionDurante'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="respDurante" class="form-label">Responsables (Durante):</label>
-                    <textarea class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables..." required>' . $nombreDoc . ' ' . $apellidoDoc . ' ' . htmlspecialchars($row['responsablesDurante'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables..." required>'. htmlspecialchars($row['responsablesDurante'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
-                    <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required>' . htmlspecialchars($row['observacionesDurante'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required>'. htmlspecialchars($row['observacionesDurante'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="descEvaluacion" class="form-label">Descripción (Evaluación):</label>
-                    <textarea class="form-control" id="descEvaluacion" name="descEvaluacion" placeholder="Ingrese Descripción..." required>' . htmlspecialchars($row['descripcionEvaluacion'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="descEvaluacion" name="descEvaluacion" placeholder="Ingrese Descripción..." required>'. htmlspecialchars($row['descripcionEvaluacion'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="respEvaluacion" class="form-label">Responsables (Evaluación):</label>
-                    <textarea class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables..." required>' . $nombreDoc . ' ' . $apellidoDoc . ' ' . htmlspecialchars($row['responsablesEvaluacion'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables..." required>' . htmlspecialchars($row['responsablesEvaluacion'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
-                    <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>' . htmlspecialchars($row['observacionesEvaluacion'], ENT_QUOTES, 'UTF-8') . '</textarea>
+                    <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>'. htmlspecialchars($row['observacionesEvaluacion'], ENT_QUOTES, 'UTF-8') .'</textarea>
                 </div>
             ';
         } else {
