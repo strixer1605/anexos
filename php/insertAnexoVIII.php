@@ -4,23 +4,28 @@
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $institucion = $_POST['institucion'];
-        $anio = $_POST['anio'];
-        $division = $_POST['division'];
-        $area = $_POST['area'];
-        $docente = $_POST['docente'];
-        $objetivo = $_POST['objetivo'];
-        $fechaSalida = $_POST['fechaSalida'];
-        $lugaresVisitar = $_POST['lugaresVisitar'];
-        $descPrevia = $_POST['descPrevia'];
-        $respPrevia = $_POST['respPrevia'];
-        $obsPrevia = $_POST['obsPrevia'];
-        $descDurante = $_POST['descDurante'];
-        $respDurante = $_POST['respDurante'];
-        $obsDurante = $_POST['obsDurante'];
-        $descEvaluacion = $_POST['descEvaluacion'];
-        $respEvaluacion = $_POST['respEvaluacion'];
-        $obsEvaluacion = $_POST['obsEvaluacion'];
+
+        $institucion = isset($_POST['institucion']) ? $_POST['institucion'] : null;
+        $anio = isset($_POST['anio']) ? $_POST['anio'] : null;
+        $division = isset($_POST['division']) ? $_POST['division'] : null;
+        $area = isset($_POST['area']) ? $_POST['area'] : null;
+        $docente = isset($_POST['docente']) ? $_POST['docente'] : null;
+        $objetivo = isset($_POST['objetivo']) ? $_POST['objetivo'] : null;
+        $fechaSalida = isset($_POST['fechaSalida']) ? $_POST['fechaSalida'] : null;
+        $lugaresVisitar = isset($_POST['lugaresVisitar']) ? $_POST['lugaresVisitar'] : null;
+        $descPrevia = isset($_POST['descPrevia']) ? $_POST['descPrevia'] : null;
+        $respPrevia = isset($_POST['respPrevia']) ? $_POST['respPrevia'] : null;
+        $obsPrevia = isset($_POST['obsPrevia']) ? $_POST['obsPrevia'] : null;
+        $descDurante = isset($_POST['descDurante']) ? $_POST['descDurante'] : null;
+        $respDurante = isset($_POST['respDurante']) ? $_POST['respDurante'] : null;
+        $obsDurante = isset($_POST['obsDurante']) ? $_POST['obsDurante'] : null;
+        $descEvaluacion = isset($_POST['descEvaluacion']) ? $_POST['descEvaluacion'] : null;
+        $respEvaluacion = isset($_POST['respEvaluacion']) ? $_POST['respEvaluacion'] : null;
+        $obsEvaluacion = isset($_POST['obsEvaluacion']) ? $_POST['obsEvaluacion'] : null;
+
+        if (empty($area)) {
+            $area = 'Ninguna';
+        }
 
         // Verificar si ya existe un registro para la salida
         $sqlVerificacion = "SELECT * FROM anexoviii WHERE fkAnexoIV = ?";
@@ -57,7 +62,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("sisssssssssssssssi", 
+            $stmt->bind_param("sssssssssssssssssi", 
                 $institucion, 
                 $anio, 
                 $division, 
@@ -97,7 +102,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("isisssssssssssssss", 
+            $stmt->bind_param("isssssssssssssssss", 
                 $idSalida, 
                 $institucion, 
                 $anio, 

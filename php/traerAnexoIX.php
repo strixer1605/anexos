@@ -33,7 +33,7 @@
 
                 <div class="mb-5">
                     <label for="telefonoTransporte" class="form-label">Teléfono del transporte:</label>
-                    <input type="number" class="form-control" id="telefonoTransporte" name="telefonoTransporte" placeholder="Ingrese el número" value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="telefonoTransporte" name="telefonoTransporte" placeholder="Ingrese el número" value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
@@ -43,12 +43,12 @@
 
                 <div class="mb-5">
                     <label for="telefonoResponsable" class="form-label">Teléfono:</label>
-                    <input type="number" class="form-control" id="telefonoResponsable" name="telefonoResponsable" placeholder="Ingrese el teléfono" value="'.htmlspecialchars($row['telefono'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="telefonoResponsable" name="telefonoResponsable" placeholder="Ingrese el teléfono" value="'.htmlspecialchars($row['telefono'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="telefonoMovil" class="form-label">Teléfono Movil:</label>
-                    <input type="number" class="form-control" id="telefonoMovil" name="telefonoMovil" placeholder="Ingrese el teléfono móvil" value="'.htmlspecialchars($row['telefonoMovil'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="telefonoMovil" name="telefonoMovil" placeholder="Ingrese el teléfono móvil" value="'.htmlspecialchars($row['telefonoMovil'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
@@ -63,7 +63,7 @@
 
                 <div class="mb-5">
                     <label for="numeroPoliza" class="form-label">Número de póliza:</label>
-                    <input type="number" class="form-control" id="numeroPoliza" name="numeroPoliza" placeholder="Ingrese el número de póliza" value="'.htmlspecialchars($row['numeroPoliza'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="numeroPoliza" name="numeroPoliza" placeholder="Ingrese el número de póliza" value="'.htmlspecialchars($row['numeroPoliza'], ENT_QUOTES, 'UTF-8').'" pattern="\d{1,15}" title="El número de póliza debe contener solo dígitos y no debe exceder los 15 dígitos." required>
                 </div>
 
                 <div class="mb-5">
@@ -78,17 +78,17 @@
 
                 <div class="mb-5">
                     <label for="dniConductor1" class="form-label">DNI del Conductor 1:</label>
-                    <input type="number" class="form-control" id="dniConductor1" name="dniConductor1" placeholder="Ingrese el DNI del conductor 1" value="'.htmlspecialchars($row['dniConductor1'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="dniConductor1" name="dniConductor1" placeholder="Ingrese el DNI del conductor 1" value="'.htmlspecialchars($row['dniConductor1'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="licenciaConductor1" class="form-label">Licencia del Conductor 1:</label>
-                    <input type="number" class="form-control" id="licenciaConductor1" name="licenciaConductor1" placeholder="Ingrese la licencia del conductor 1" value="'.htmlspecialchars($row['numeroLicencia1'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="licenciaConductor1" name="licenciaConductor1" placeholder="Ingrese la licencia del conductor 1" value="'.htmlspecialchars($row['numeroLicencia1'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="vigenciaConductor1" class="form-label">Vigencia del Conductor 1:</label>
-                    <input type="number" class="form-control" id="vigenciaConductor1" name="vigenciaConductor1" placeholder="Ingrese la vigencia de la licencia del conductor 1" value="'.htmlspecialchars($row['vigencia1'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="date" class="form-control" id="vigenciaConductor1" name="vigenciaConductor1" placeholder="Ingrese la vigencia de la licencia del conductor 1" value="'.htmlspecialchars($row['vigencia1'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
@@ -98,17 +98,17 @@
 
                 <div class="mb-5">
                     <label for="dniConductor2" class="form-label">DNI del Conductor 2:</label>
-                    <input type="number" class="form-control" id="dniConductor2" name="dniConductor2" placeholder="Ingrese el DNI del conductor 2" value="'.htmlspecialchars($row['dniConductor2'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="dniConductor2" name="dniConductor2" placeholder="Ingrese el DNI del conductor 2" value="'.htmlspecialchars($row['dniConductor2'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="licenciaConductor2" class="form-label">Licencia del Conductor 2:</label>
-                    <input type="number" class="form-control" id="licenciaConductor2" name="licenciaConductor2" placeholder="Ingrese la licencia del conductor 2" value="'.htmlspecialchars($row['numeroLicencia2'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control" id="licenciaConductor2" name="licenciaConductor2" placeholder="Ingrese la licencia del conductor 2" value="'.htmlspecialchars($row['numeroLicencia2'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="mb-5">
                     <label for="vigenciaConductor2" class="form-label">Vigencia del Conductor 2:</label>
-                    <input type="number" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" value="'.htmlspecialchars($row['vigencia2'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="date" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" value="'.htmlspecialchars($row['vigencia2'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
             ';
         } else {

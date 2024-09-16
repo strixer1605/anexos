@@ -8,79 +8,42 @@ document.addEventListener("DOMContentLoaded", function() {
     var anexo9DivTab = document.getElementById('anexo9-tab');
     var anexo10DivTab = document.getElementById('anexo10-tab');
 
-    if (anexoVIIIHabil == "0") {
-        anexo8Div.style.display = 'none';
-        anexo8DivTab.style.display = 'none';
-    } else if (anexoVIIIHabil == "1") {
-        if (anexoIXHabil == "0") {
+    var anexoVIIIHabil = "<?php echo $anexoVIIIHabil; ?>";
+    var anexoIXHabil = "<?php echo $anexoIXHabil; ?>";
+    var anexoXHabil = "<?php echo $anexoXHabil; ?>";
+
+    if (anexoVIIIHabil === "0") {
+        if (anexo8Div) anexo8Div.style.display = 'none';
+        if (anexo8DivTab) anexo8DivTab.style.display = 'none';
+    } else if (anexoVIIIHabil === "1") {
+        if (anexoIXHabil === "0") {
             var nextTabVIII = "anexo10-tab";
-        } else if (anexoIXHabil == "1") {
+        } else if (anexoIXHabil === "1") {
             var nextTabVIII = "anexo9-tab";
-        } else if (anexoXHabil == "0" && anexoXHabil == "0") {
+        } else if (anexoXHabil === "0") {
             var nextTabVIII = "anexo5-tab";
         }
     }
 
     if (anexoIXHabil === "0") {
-        anexo9Div.style.display = 'none';
-        anexo9DivTab.style.display = 'none'; 
-    } else if (anexoIXHabil == "1") {
-        if (anexoXHabil == "0") {
+        if (anexo9Div) anexo9Div.style.display = 'none';
+        if (anexo9DivTab) anexo9DivTab.style.display = 'none';
+    } else if (anexoIXHabil === "1") {
+        if (anexoXHabil === "0") {
             var nextTabIX = "anexo5-tab";
-        } else if (anexoXHabil == "1") {
+        } else if (anexoXHabil === "1") {
             var nextTabIX = "anexo10-tab";
         }
     }
 
     if (anexoXHabil === "0") {
-        anexo10Div.style.display = 'none';
-        anexo10DivTab.style.display = 'none';
-    } else if (anexoXHabil == "1"){
+        if (anexo10Div) anexo10Div.style.display = 'none';
+        if (anexo10DivTab) anexo10DivTab.style.display = 'none';
+    } else if (anexoXHabil === "1") {
         var nextTabX = "anexo5-tab";
     }
 
-    // // Función para autocompletar los datos cargados
-    // function cargarDatosAnexo(tabId) {
-    //     fetch(`../../php/traerDatosAnexosJS.php?tabId=${tabId}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             Object.keys(data.fields).forEach(fieldId => {
-    //                 const field = document.getElementById(fieldId);
-    //                 if (field) {
-    //                     field.value = data.fields[fieldId];
-    //                 }
-    //             });
-    //         } else {
-    //             console.error("No se pudieron cargar los datos del anexo.");
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // }
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     $('#anexo8-tab').on('shown.bs.tab', function() {
-    //         if (anexoVIIIHabil === "1") {
-    //             cargarDatosAnexo('anexo8');
-    //         }
-    //     });
-    
-    //     $('#anexo9-tab').on('shown.bs.tab', function() {
-    //         if (anexoIXHabil === "1") {
-    //             cargarDatosAnexo('anexo9');
-    //         }
-    //     });
-    
-    //     $('#anexo10-tab').on('shown.bs.tab', function() {
-    //         if (anexoXHabil === "1") {
-    //             cargarDatosAnexo('anexo10');
-    //         }
-    //     });
-    // });
-
-    document.getElementById('cargarAnexoVIII').addEventListener('click', function(event) {
+    function validateAndSubmitAnexoVIII(event) {
         const fields = [
             'institucion',
             'anio',
@@ -103,16 +66,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let firstInvalidField = null;
 
-        // Validar campos vacíos
         for (let field of fields) {
             const element = document.getElementById(field);
-            if (element.value.trim() === '') {
+            if (element && element.value.trim() === '') {
                 firstInvalidField = element;
                 break;
             }
         }
 
-        // Validar si hay campos vacíos
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -129,9 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Validar año
-        const anio = document.getElementById('anio').value;
-        if (anio < 1 || anio > 7) {
+        const anio = document.getElementById('anio');
+        if (anio && (anio.value < 1 || anio.value > 7)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Año Inválido',
@@ -139,8 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 setTimeout(() => {
-                    document.getElementById('anio').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    document.getElementById('anio').focus();
+                    anio.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    anio.focus();
                 }, 500);
             });
             event.preventDefault();
@@ -148,41 +108,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTabVIII);
-    });
+    }
 
-    document.getElementById('cargarAnexoIX').addEventListener('click', function(event) {
-        const telefonos = [
-            'telefonoTransporte',
-            'telefonoResponsable',
-            'telefonoMovil'
-        ];
-
+    function validateAndSubmitAnexoIX(event) {
         let firstInvalidField = null;
-
-        // Validar campos de teléfono
-        for (let telefono of telefonos) {
-            const value = document.getElementById(telefono).value;
-            if (!/^\d{10}$/.test(value)) {
-                if (!firstInvalidField) {
-                    firstInvalidField = document.getElementById(telefono);
-                }
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Número de Teléfono Inválido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono}]`).textContent}" debe contener exactamente 10 dígitos.`,
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
-                    }, 10);
-                });
-                event.preventDefault();
-                return;
-            }
-        }
-
-        // Validar otros campos
         const otrosCampos = [
             'razonSocial',
             'domicilioTransporte',
@@ -195,9 +124,9 @@ document.addEventListener("DOMContentLoaded", function() {
             'nombreConductor2'
         ];
 
-        for (let campo of otrosCampos) {
-            const element = document.getElementById(campo);
-            if (element.value.trim() === '') {
+        for (let id of otrosCampos) {
+            const element = document.getElementById(id);
+            if (element && element.value.trim() === '') {
                 if (!firstInvalidField) {
                     firstInvalidField = element;
                 }
@@ -205,6 +134,156 @@ document.addEventListener("DOMContentLoaded", function() {
                     icon: 'warning',
                     title: 'Campo Obligatorio',
                     text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 500);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+
+        const telefonos = [
+            { id: 'telefonoTransporte', maxDigits: 12, allowDashes: false },
+            { id: 'telefonoResponsable', maxDigits: 12, allowDashes: false },
+            { id: 'telefonoMovil', maxDigits: 12, allowDashes: true }
+        ];
+
+        for (let telefono of telefonos) {
+            const element = document.getElementById(telefono.id);
+            if (!element) continue;
+            const value = element.value.trim();
+            const regex = telefono.allowDashes ? /^\d{1,12}(-\d{1,12})*$/ : /^\d{1,12}$/;
+
+            if (!regex.test(value)) {
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Número de Teléfono Inválido',
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números y, en el caso del teléfono móvil, puede contener guiones medios. Máximo ${telefono.maxDigits} dígitos.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 10);
+                });
+                event.preventDefault();
+                return;
+            }
+
+            if (value.replace(/-/g, '').length > telefono.maxDigits) {
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Número de Teléfono Excedido',
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 10);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+
+        const dniLicencias = [
+            { dni: 'dniConductor1', licencia: 'licenciaConductor1' },
+            { dni: 'dniConductor2', licencia: 'licenciaConductor2' }
+        ];
+
+        for (let { dni, licencia } of dniLicencias) {
+            const dniElement = document.getElementById(dni);
+            const licenciaElement = document.getElementById(licencia);
+            if (!dniElement || !licenciaElement) continue;
+            const dniValue = dniElement.value.trim();
+            const licenciaValue = licenciaElement.value.trim();
+
+            if (dniValue.length > 10 || licenciaValue.length > 10) {
+                if (!firstInvalidField) {
+                    firstInvalidField = dniValue.length > 10 ? dniElement : licenciaElement;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'DNI o Licencia Excedidos',
+                    text: 'El DNI o la Licencia no debe exceder los 10 dígitos.',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 10);
+                });
+                event.preventDefault();
+                return;
+            }
+
+            if (dniValue !== licenciaValue) {
+                if (!firstInvalidField) {
+                    firstInvalidField = dniElement;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'DNI y Licencia No Coinciden',
+                    text: 'El DNI y la Licencia deben coincidir.',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 10);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+
+        const fechaVigenciaConductor1 = document.getElementById('vigenciaConductor1');
+        const fechaVigenciaConductor2 = document.getElementById('vigenciaConductor2');
+        const fechaActual = new Date();
+
+        if (fechaVigenciaConductor1) {
+            const fechaVigenciaValue1 = new Date(fechaVigenciaConductor1.value);
+            if (fechaVigenciaValue1 <= fechaActual) {
+                if (!firstInvalidField) {
+                    firstInvalidField = fechaVigenciaConductor1;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha de Vigencia Inválida',
+                    text: 'La fecha de vigencia del conductor 1 no puede ser igual o anterior a la fecha actual.',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalidField.focus();
+                    }, 10);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+
+        if (fechaVigenciaConductor2) {
+            const fechaVigenciaValue2 = new Date(fechaVigenciaConductor2.value);
+            if (fechaVigenciaValue2 <= fechaActual) {
+                if (!firstInvalidField) {
+                    firstInvalidField = fechaVigenciaConductor2;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha de Vigencia Inválida',
+                    text: 'La fecha de vigencia del conductor 2 no puede ser igual o anterior a la fecha actual.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
                     setTimeout(() => {
@@ -218,9 +297,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', nextTabIX);
-    });
+    }
 
-    document.getElementById('cargarAnexoX').addEventListener('click', function(event) {
+    function validateAndSubmitAnexoX(event) {
         const fields = [
             'infraestructura',
             'hospitales',
@@ -230,10 +309,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let firstInvalidField = null;
 
-        // Validar campos vacíos
         for (let field of fields) {
             const element = document.getElementById(field);
-            if (element.value.trim() === '') {
+            if (element && element.value.trim() === '') {
                 if (!firstInvalidField) {
                     firstInvalidField = element;
                 }
@@ -246,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -254,10 +332,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', nextTabX);
-    });
+    }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
         var form = document.getElementById(formId);
+        if (!form) return;
+
         var formData = new FormData(form);
 
         fetch(actionUrl, {
@@ -277,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    if (nextTabId != null) {
+                    if (nextTabId) {
                         document.getElementById(nextTabId).disabled = false;
                         $('#' + nextTabId).tab('show');
                     }
@@ -300,5 +380,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 confirmButtonText: 'Ok'
             });
         });
-    }    
+    }
+
+    document.getElementById('cargarAnexoVIII').addEventListener('click', validateAndSubmitAnexoVIII);
+    document.getElementById('cargarAnexoIX').addEventListener('click', validateAndSubmitAnexoIX);
+    document.getElementById('cargarAnexoX').addEventListener('click', validateAndSubmitAnexoX);
 });
