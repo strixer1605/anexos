@@ -4,6 +4,7 @@
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
         $razonSocial = $_POST['razonSocial'];
         $domicilioTransporte = $_POST['domicilioTransporte'];
         $telefonoTransporte = $_POST['telefonoTransporte'];
@@ -59,7 +60,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("ssisiississiiiisiii", 
+            $stmt->bind_param("ssisiississiissiisi", 
                 $razonSocial, 
                 $domicilioTransporte, 
                 $telefonoTransporte, 
@@ -100,7 +101,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("issisiississiiisiii", 
+            $stmt->bind_param("issisiississiissiis", 
                 $idSalida, 
                 $razonSocial, 
                 $domicilioTransporte, 

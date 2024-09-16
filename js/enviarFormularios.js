@@ -8,10 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var anexo9DivTab = document.getElementById('anexo9-tab');
     var anexo10DivTab = document.getElementById('anexo10-tab');
 
-    var anexoVIIIHabil = "<?php echo $anexoVIIIHabil; ?>";
-    var anexoIXHabil = "<?php echo $anexoIXHabil; ?>";
-    var anexoXHabil = "<?php echo $anexoXHabil; ?>";
-
     if (anexoVIIIHabil === "0") {
         if (anexo8Div) anexo8Div.style.display = 'none';
         if (anexo8DivTab) anexo8DivTab.style.display = 'none';
@@ -156,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const element = document.getElementById(telefono.id);
             if (!element) continue;
             const value = element.value.trim();
-            const regex = telefono.allowDashes ? /^\d{1,12}(-\d{1,12})*$/ : /^\d{1,12}$/;
+            const regex = telefono.allowDashes ? /^\d{10,12}(-\d{10,12})*$/ : /^\d{10,12}$/;
 
             if (!regex.test(value)) {
                 if (!firstInvalidField) {
@@ -165,13 +161,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Número de Teléfono Inválido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números y, en el caso del teléfono móvil, puede contener guiones medios. Máximo ${telefono.maxDigits} dígitos.`,
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números y, en el caso del teléfono móvil, puede contener guiones medios. Mínimo: 10 digitos, Máximo: ${telefono.maxDigits} dígitos.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -190,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -222,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -241,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -267,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
@@ -289,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(() => {
                         firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
-                    }, 10);
+                    }, 500);
                 });
                 event.preventDefault();
                 return;
