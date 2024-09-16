@@ -1,14 +1,23 @@
 <?php
-    $fkAnexoIV = $_POST['valor'];
-    
-    if(isset($fkAnexoIV)) {
-        include 'conexion.php';
+    session_start();
+    $idSalida = $_SESSION['idSalida'];
 
-        $sql = "SELECT * FROM `anexo_v` WHERE fk_anexoIV = $fkAnexoIV";
+    if(isset($idSalida)) {
+        include '../../../php/conexion.php';
+
+        $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = $idSalida";
         $resultado = $conexion->query($sql);
+
+        $sqlAnexoIV = "SELECT `institucionEducativa`, `numeroInstitucion`, `distrito`, `denominacionProyecto`, `lugarVisita`, `fechaSalida`, `fechaRegreso` FROM `anexoiv` WHERE idAnexoIV = $idSalida";
+        $resultadoAnexoIV = $conexion->query($sqlAnexoIV);
+        $filaAnexoIV = $resultadoAnexoIV->fetch_assoc();
+
+        $fechaSalida = date("d/m/Y", strtotime($filaAnexoIV['fechaSalida']));
+        $fechaRegreso = date("d/m/Y", strtotime($filaAnexoIV['fechaRegreso']));
     } else {
         echo "no hay nada";
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,20 +91,35 @@
                 <div class="col-12 mb-4" style="border: 1px solid black; padding: 20px 25px 25px 20px; width: 95%;">
                     <div class="col-12 d-flex">
                         <div class="col-6 mb-2">
-                            <span class="fw-bold">INSTITUCION EDUCATIVA:</span><span>E.E.S.T.</span>
+                            <span class="fw-bold">INSTITUCION EDUCATIVA:</span><span><?php
+                                echo $filaAnexoIV['institucionEducativa'];
+                            ?>
+                            </span>
                         </div>
                         <div class="col-6 mb-2 d-flex justify-content-center">
-                            <span class="fw-bold">N°</span><span>1</span>
+                            <span class="fw-bold">N°</span><span><?php
+                                echo $filaAnexoIV['numeroInstitucion'];
+                            ?>
+                            </span>
                         </div>
                     </div>
                     <div class="col-12 mb-2">
-                        <span class="fw-bold">DISTRITO:</span><span>La Costa</span>
+                        <span class="fw-bold">DISTRITO:</span><span><?php
+                            echo $filaAnexoIV['distrito'];
+                        ?>
+                        </span>
                     </div>
                     <div class="col-12 mb-2">
-                        <span class="fw-bold">LUGAR A VISITAR:</span><span>Villa La Angostura</span>
+                        <span class="fw-bold">LUGAR A VISITAR:</span><span><?php
+                            echo $filaAnexoIV['lugarVisita'];
+                        ?>
+                        </span>
                     </div>
                     <div class="col-12">
-                        <span class="fw-bold">FECHA:</span><span>22/10/2022 al 03/11/2022</span>
+                        <span class="fw-bold">FECHA:</span><span><?php
+                            echo $fechaSalida .' al '. $fechaRegreso;
+                        ?>
+                        </span>
                     </div>
                 </div>
             </row>
@@ -134,8 +158,8 @@
                                     echo '
                                     <tr>
                                     <th scope="row">'.$indice.'</th>
-                                    <td class="nombre">'.$fila['apellido_y_nombre'].'</td>
-                                    <td>'.$fila['documento'].'</td>
+                                    <td class="nombre">'.$fila['apellidoNombre'].'</td>
+                                    <td>'.$fila['dni'].'</td>
                                     <td>'.$alumno.'</td>
                                     <td>'.$fila['edad'].'</td>
                                     <td>'.$profesor.'</td>
