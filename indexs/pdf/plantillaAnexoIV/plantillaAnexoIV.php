@@ -41,10 +41,10 @@
         <div class="row d-flex">
             <div class="col-12 d-flex">
                 <div class="col-6 d-flex justify-content-center ">
-                    <img src="logoEscuela.png" style="width: 100px; margin-right: 60px;" alt="">
+                    <img src="../../../imagenes/eest.webp" style="width: 100px; margin-right: 60px;" alt="">
                 </div>
                 <div style="align-items: center;" class="col-6 d-flex justify-content-end ">
-                    <img src="logoProvincia.jpg" alt="">
+                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
