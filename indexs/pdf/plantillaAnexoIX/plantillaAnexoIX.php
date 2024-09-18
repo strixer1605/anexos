@@ -1,3 +1,24 @@
+<?php
+    session_start();
+    if (!$_SESSION['dniProfesor']){
+        header('Location: ../../../index.php');
+    } else {
+        include '../../../php/conexion.php';
+        $idSalida = $_SESSION['idSalida'];
+        $sql = "SELECT * FROM anexoix WHERE fkAnexoIV = $idSalida";
+        $resultado = mysqli_query($conexion, $sql);
+        $fila = $resultado->fetch_assoc();
+
+        //formatear fecha vigencia
+        $vigencia1 = $fila['vigencia1'];
+        $timestampVigencia1 = strtotime($vigencia1);
+        $fechaFormateadaVigencia1 = date('d/m/Y', $timestampVigencia1);
+        
+        $vigencia2 = $fila['vigencia2'];
+        $timestampVigencia2 = strtotime($vigencia2);
+        $fechaFormateadaVigencia2 = date('d/m/Y', $timestampVigencia2);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +41,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="logoEscuela.png" style="width: 100px;" alt="">
+                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="logoProvincia.jpg" alt="">
+                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
@@ -39,58 +60,58 @@
             <!-- Cuerpo PDF -->
             <!-- Datos empresa de transporte -->
             <div class="col-12 mb-2">
-                <span class="fw-bold">Nombre de la persona o razón social de la empresa:</span> <span>Rutatlantica S.A.</span>
+                <span class="fw-bold">Nombre de la persona o razón social de la empresa:</span> <span><?php echo $fila['razonSocial'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Domicilio del propietario o la empresa:</span> <span> Altolaguirre N° 444 – Tapiales – Bs As</span>
+                <span class="fw-bold">Domicilio del propietario o la empresa:</span> <span><?php echo $fila['domicilioTransporte'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Teléfono del propietario o la empresa:</span> <span> 011 – 4622-7337</span>
+                <span class="fw-bold">Teléfono del propietario o la empresa:</span> <span><?php echo $fila['telefonoTransporte'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Domicilio del gerente o responsable:</span> <span></span>
+                <span class="fw-bold">Domicilio del gerente o responsable:</span> <span><?php echo $fila['domicilioResponsable'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Teléfono:</span> <span>011 – 4622-7337</span>
+                <span class="fw-bold">Teléfono:</span> <span><?php echo $fila['telefono'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Teléfono móvil:</span> <span>---</span>
+                <span class="fw-bold">Teléfono móvil:</span> <span><?php echo $fila['telefonoMovil'] ?></span>
             </div>
             <div class="col-12 mb-5">
-                <span class="fw-bold">Titularidad del vehículo:</span> <span>Rutatlantica S.A</span>
+                <span class="fw-bold">Titularidad del vehículo:</span> <span><?php echo $fila['titularidadVehiculo'] ?></span>
             </div>
 
 
             <!-- Datos empresa aseguradora -->
 
             <div class="col-12 mb-2">
-                <span class="fw-bold">Compañia aseguradora:</span> <span class="fw-bold">Protección</span>
+                <span class="fw-bold">Compañia aseguradora:</span> <span class="fw-bold"><?php echo $fila['companiaAseguradora'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">Número de póliza:</span> <span>00165380</span>
+                <span class="fw-bold">Número de póliza:</span> <span><?php echo $fila['numeroPoliza'] ?></span>
             </div>
             <div class="col-12 mb-5">
-                <span class="fw-bold">Tipo de seguro:</span> <span>RC TP 4.1/CA TP 1.1/CA TP 2.1/CA TP 2.2/CA TP 2.3/CA TP 2.4</span>
+                <span class="fw-bold">Tipo de seguro:</span> <span><?php echo $fila['tipoSeguro'] ?></span>
             </div>
 
 
             <!-- Datos conductor N°1 -->
             
             <div class="col-12 mb-2">
-                <span class="fw-bold">Nombre del Conductor:</span> <span>Héctor Eduardo Barraza</span>
+                <span class="fw-bold">Nombre del Conductor:</span> <span><?php echo $fila['nombreConductor1'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">DNI del conductor:</span> <span>20.638.845</span>
+                <span class="fw-bold">DNI del conductor:</span> <span><?php echo $fila['dniConductor1'] ?></span>
             </div>
             <div class="col-12 mb-3">
                 <div class="col-12 mb-1">
                     <span>N° de carnet de conducir y vigencia:</span>
                 </div>
                 <div class="col-12">
-                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Licencia N°:</span><span>20.638.845</span>
+                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Licencia N°:</span><span><?php echo $fila['numeroLicencia1'] ?></span>
                 </div>
                 <div class="col-12">
-                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Vigencia:</span><span>14/06/23</span>
+                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Vigencia:</span><span><?php echo date('d/m/Y', strtotime($fila['vigencia1'])) ?></span>
                 </div>
             </div>
             
@@ -98,20 +119,20 @@
             <!-- Datos conductor N°2 -->
             
             <div class="col-12 mb-2">
-                <span class="fw-bold">Nombre del Conductor:</span> <span>Roberto Carlos Britte</span>
+                <span class="fw-bold">Nombre del Conductor: </span> <span><?php echo $fila['nombreConductor2'] ?></span>
             </div>
             <div class="col-12 mb-2">
-                <span class="fw-bold">DNI del conductor:</span> <span>24.632.716</span>
+                <span class="fw-bold">DNI del conductor: </span> <span><?php echo $fila['dniConductor2'] ?></span>
             </div>
             <div class="col-12 mb-2">
                 <div class="col-12 mb-1">
                     <span>N° de carnet de conducir y vigencia:</span>
                 </div>
                 <div class="col-12">
-                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Licencia N°:</span><span>24.632.716</span>
+                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Licencia N°: </span><span><?php echo $fila['numeroLicencia2'] ?></span>
                 </div>
                 <div class="col-12">
-                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Vigencia:</span><span>17/05/23</span>
+                    <span style="margin: 0px 0px 0px 30px;" class="fw-bold">Vigencia: </span><span><?php echo date('d/m/Y', strtotime($fila['vigencia2'])) ?></span>
                 </div>
             </div>
 

@@ -1,3 +1,55 @@
+<?php
+    session_start();
+    $idSalida = $_SESSION['idSalida'];
+
+    if(isset($idSalida)) {
+        include '../../../php/conexion.php';
+
+        function formatearCampoConExplode($campo, $delimitador = ',') {
+            if (!empty($campo)) {
+                return explode($delimitador, $campo);
+            }
+            return [];
+        }
+
+        function procesarResultados($conexion, $idSalida) {
+            $sql = "SELECT objetivo, lugaresVisitar, descripcionPrevias, responsablesPrevias, descripcionDurante, responsablesDurante, descripcionEvaluacion, responsablesEvaluacion FROM `anexoviii` WHERE fkAnexoIV = $idSalida";
+            $resultado = $conexion->query($sql);
+            $fila = $resultado->fetch_assoc();
+        
+            if ($fila) {
+                // Procesar cada campo específico que necesita explode
+                $fila['objetivo'] = formatearCampoConExplode($fila['objetivo']);
+                $fila['lugaresVisitar'] = formatearCampoConExplode($fila['lugaresVisitar']);
+                $fila['descripcionPrevias'] = formatearCampoConExplode($fila['descripcionPrevias']);
+                $fila['responsablesPrevias'] = formatearCampoConExplode($fila['responsablesPrevias']);
+                $fila['descripcionDurante'] = formatearCampoConExplode($fila['descripcionDurante']);
+                $fila['responsablesDurante'] = formatearCampoConExplode($fila['responsablesDurante']);
+                $fila['descripcionEvaluacion'] = formatearCampoConExplode($fila['descripcionEvaluacion']);
+                $fila['responsablesEvaluacion'] = formatearCampoConExplode($fila['responsablesEvaluacion']);
+                return $fila;
+            } else {
+                return null;
+            }
+        }
+
+        $sql = "SELECT * FROM `anexoviii` WHERE fkAnexoIV = $idSalida";
+        $resultado = $conexion->query($sql);
+        $fila = $resultado->fetch_assoc();
+
+        // Usar la función para procesar los resultados
+        $resultados = procesarResultados($conexion, $idSalida);
+
+        $sqlAnexoIV = "SELECT `institucionEducativa`, `numeroInstitucion`, `lugarVisita`, `fechaSalida` FROM `anexoiv` WHERE idAnexoIV = $idSalida";
+        $resultadoAnexoIV = $conexion->query($sqlAnexoIV);
+        $filaAnexoIV = $resultadoAnexoIV->fetch_assoc();
+
+        $fechaSalida = date("d/m/Y", strtotime($filaAnexoIV['fechaSalida']));
+    } else {
+        echo "no hay nada";
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,10 +99,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="logoEscuela.png" style="width: 100px;" alt="">
+                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="logoProvincia.jpg" alt="">
+                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
@@ -75,21 +127,19 @@
                         <th style="width: 50px;" scope="col">DOCENTE RESPONSABLE</th>
                     </tr>
                     <tbody>
-                        <td>EEST Nº1</td>
-                        <td>1,2,3,4,
-                            5,6,7</td>
-                        <td>Todas</td>
-                        <td>Biología.
-                            Fisicoquímica.
-                            Lengua. Historia.
-                            Geografía.
-                            Matemáticas.
-                            Educación Física.
-                            Programación.
-                            Sist. Constructivos.
-                            Servicios Turísticos</td>
-                        <td>Armándola,
-                            Enrique Hugo</td>
+                        <td><span><?php echo $fila['institucion'] ?></span></span></td>
+                        <td><?php 
+                            echo $fila['año'];
+                        ?></td>
+                        <td><?php 
+                            echo $fila['division'];
+                        ?></td>
+                        <td><?php 
+                            echo $fila['area'];
+                        ?></td>
+                        <td><?php 
+                            echo $fila['docente'];
+                        ?></td>
                     </tbody>
                 </table>
             </div>
@@ -103,30 +153,25 @@
                         <th scope="col">LUGAR/ES QUE SE VISITARÁ/N</th>
                     </tr>
                     <tbody>
-                        <td>Participar en la planificación y
-                            realización de equipos de
-                            actividades científicos
-                            recreativas, valorando los
-                            aportes propios y ajenos en
-                            función de los objetivos.
-                            <br><br>
-                             .Utilizar sus conocimientos
-                            previos y adquiridos desde un
-                            aprendizaje significativo |sobre
-                            los elementos físicos y los seres
-                            vivos, promover y valorar el
-                            medio ambiente encaminados a
-                            conservarlos y mejorarlos.
-                            <br><br>
-                             Incorporar hábitos de orden y
-                            cumplimiento de las tareas
-                            asignadas, fortaleciendo la
-                            integración.
+                        <td>
+                        <?php
+                            foreach ($resultados['objetivo'] as $objetivo) {
+                                echo "• " . trim($objetivo) . "<br><br>";
+                            }
+                        ?>
                             </td>
-                        <td>22/10/22</td>
-                        <td> Villa La Angostura
-                            <br>
-                            * San Carlos de Bariloche </td>
+                        <td>
+                            <?php
+                                echo date("d/m/Y", strtotime($fila['fechaSalida'])); 
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                foreach($resultados['lugaresVisitar'] as $lugar) {
+                                    echo "• " . trim($lugar) . "<br><br>";
+                                }
+                            ?>
+                        </td>
                     </tbody>
                 </table>
             </div>
@@ -140,21 +185,25 @@
                         <th scope="col">OBSERVACIONES</th>
                     </tr>
                     <tbody>
-                        <td>Charlas informativas, didácticas, con
-                            padres y alumnos.
-                            <br><br>
-                             Investigación y recolección de datos
-                            sobre la geografía, historia, bagaje
-                            cultural de la zona a visitar.
-                            <br><br>
-                             Realización y actualización de la
-                            página web del proyecto
-                            <br><br>
-                             Diagramación de revista y formación
-                            de grupos</td>
-                        <td>Armándola Enrique
-                            Salvado, Martin</td>
-                        <td>-----</td>
+                        <td>
+                            <?php
+                                foreach ($resultados['descripcionPrevias'] as $descripcionPrevias) {
+                                    echo "• " . trim($descripcionPrevias) . "<br><br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                foreach ($resultados['responsablesPrevias'] as $responsablesPrevias) {
+                                    echo "• " . trim($responsablesPrevias) . "<br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                echo $fila['observacionesPrevias'];
+                            ?>
+                        </td>
                     </tbody>
                 </table>
             </div>
@@ -168,21 +217,25 @@
                         <th scope="col">OBSERVACIONES</th>
                     </tr>
                     <tbody>
-                        <td>Charlas informativas, didácticas, con
-                            padres y alumnos.
-                            <br><br>
-                             Investigación y recolección de datos
-                            sobre la geografía, historia, bagaje
-                            cultural de la zona a visitar.
-                            <br><br>
-                             Realización y actualización de la
-                            página web del proyecto
-                            <br><br>
-                             Diagramación de revista y formación
-                            de grupos</td>
-                        <td>Armándola Enrique
-                            Salvado, Martin</td>
-                        <td>-----</td>
+                        <td>
+                            <?php
+                                foreach ($resultados['descripcionDurante'] as $descripcionDurante) {
+                                    echo "• " . trim($descripcionDurante) . "<br><br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                foreach ($resultados['responsablesDurante'] as $responsablesDurante) {
+                                    echo "• " . trim($responsablesDurante) . "<br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                echo $fila['observacionesPrevias'];
+                            ?>
+                        </td>
                     </tbody>
                 </table>
             </div>
@@ -197,21 +250,25 @@
                         <th scope="col">OBSERVACIONES</th>
                     </tr>
                     <tbody>
-                        <td>Charlas informativas, didácticas, con
-                            padres y alumnos.
-                            <br><br>
-                             Investigación y recolección de datos
-                            sobre la geografía, historia, bagaje
-                            cultural de la zona a visitar.
-                            <br><br>
-                             Realización y actualización de la
-                            página web del proyecto
-                            <br><br>
-                             Diagramación de revista y formación
-                            de grupos</td>
-                        <td>Armándola Enrique
-                            Salvado, Martin</td>
-                        <td>-----</td>
+                    <td>
+                            <?php
+                                foreach ($resultados['descripcionEvaluacion'] as $descripcionEvaluacion) {
+                                    echo "• " . trim($descripcionEvaluacion) . "<br><br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                foreach ($resultados['responsablesEvaluacion'] as $responsablesEvaluacion) {
+                                    echo "• " . trim($responsablesEvaluacion) . "<br>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                echo $fila['observacionesPrevias'];
+                            ?>
+                        </td>
                     </tbody>
                 </table>
             </div>
