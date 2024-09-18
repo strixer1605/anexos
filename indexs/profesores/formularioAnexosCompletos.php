@@ -91,6 +91,10 @@
                             <div class="col-12 mt-2 d-flex justify-content-center">
                                 <button id="cargarAcompañante" type="button" class="btn btn-success w-50">Cargar Acompañante</button>
                             </div>
+                            <br><br>
+                            <div id="advice" class="col-12" style="margin-top: 30px;">
+
+                            </div>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
                             <button type="button" id="selectAll" class="btn btn-secondary">

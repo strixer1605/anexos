@@ -56,7 +56,20 @@
             );
 
             if ($stmt->execute()) {
-                header('Location: ../indexs/profesores/menuAdministrarSalidas.php');
+
+                $sqlAnexoV = "INSERT INTO `anexov`(`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
+                $stmtAnexoV = $conexion->prepare($sqlAnexoV);
+                $stmtAnexoV->bind_param("iisii", $idSalida, $dniEncargado, $apellidoNombreEncargado, 0, 2);
+
+                if ($stmt->execute()) {
+                    echo "Datos insertados correctamente";
+                } else {
+                    echo "Error: " . $stmt->error;
+                }
+
+                $stmt->close();
+
+                header('Location: ../indexs/profesores/menuAdministrarSalidas.php¿');
                 exit();
             } else {
                 echo "Error: " . $stmt->error;

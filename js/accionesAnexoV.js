@@ -137,57 +137,15 @@ $(document).ready(function(){
         });
     });
 
-    function cargarTablaPasajeros() {
-        $.ajax({
-            method: 'GET',
-            url: '../../php/traerPersonasAnexoV.php',
-            success: function(response) {
-                const pasajeros = JSON.parse(response);
-                let tablaHTML = '';
-                let indice = 0;
-                pasajeros.forEach(function(pasajero) {
-                    let alumno = '';
-                    let docente = '';
-                    let noDocente = '';
-                    
-                    indice += 1;
-                    switch(parseInt(pasajero.cargo)) {
-                        case 2: docente = 'X';
-                                break;
-                        case 3: alumno = 'X';
-                                break;
-                        case 4: noDocente = 'X';
-                                break;
-                    }
-                    tablaHTML +=`<tr>
-                                    <td>${indice}</td>
-                                    <td>${pasajero.apellidoNombre}</td>
-                                    <td>${pasajero.dni}</td>
-                                    <td>${alumno}</td>
-                                    <td>${pasajero.edad}</td>
-                                    <td>${docente}</td>
-                                    <td>${noDocente}</td>
-                                    <td>
-                                        <input type = "checkbox" class = "selectPersona" value = "${pasajero.dni}">
-                                    </td>
-                                </tr>`;
-                });
-
-                $('#tablaParticipantes').html(tablaHTML);
-
-            },
-            error: function() {
-                alert ("Ha ocurrido un error al obtener los pasajeros")
-            }
-        })
-    }
-
-    //seleccionar todos los integrantes de la salida
     $('#selectAll').click(function() {
-        $('.selectPersona').prop('checked', true);
+        if($('.selectPersona').prop('checked') == false){
+            $('.selectPersona').prop('checked', true);
+        }
+        else {
+            $('.selectPersona').prop('checked', false);
+        }
     })
 
-    //eliminar integrantes de la salida seleccionados
     $(document).on('click', '#eliminarSeleccionados', function() {
         
         //obtener checkboxes seleccionados
@@ -283,6 +241,111 @@ $(document).ready(function(){
             }
         });
     });
-      
+
+    function cargarTablaPasajeros() {
+        $.ajax({
+            method: 'GET',
+            url: '../../php/traerPersonasAnexoV.php',
+            success: function(response) {
+                const pasajeros = JSON.parse(response);
+                let tablaHTML = '';
+                
+                // Inicializar contadores
+                let cantidadMenores = 0;      // Alumnos menores de 16 años
+                let cantidadSemiMayores = 0;  // Alumnos entre 16 y 17 años
+                let cantidadMayores = 0;      // Alumnos de 18 años o más
+                let cantidadDocentes = 0;     // Contador de docentes actuales
+                let indice = 0;
+                
+                pasajeros.forEach(function(pasajero) {
+                    let pasajeroEdad = pasajero.edad;
+                    let alumno = '';
+                    let docente = '';
+                    let noDocente = '';
+            
+                    // 2 = docente --- 3 = alumno --- 4 = noDocente
+                    if (pasajeroEdad < 16) {
+                        cantidadMenores += 1;
+                    } else if (pasajeroEdad >= 16 && pasajeroEdad < 18) {
+                        cantidadSemiMayores += 1;
+                    } else if (pasajeroEdad >= 18) {
+                        cantidadMayores += 1;
+                    }
+            
+                    if (parseInt(pasajero.cargo) === 2) {
+                        cantidadDocentes += 1;
+                        console.log(pasajero.cargo);
+                    }
+            
+                    indice += 1;
+                    switch (parseInt(pasajero.cargo)) {
+                        case 2: docente = 'X'; break;
+                        case 3: alumno = 'X'; break;
+                        case 4: noDocente = 'X'; break;
+                    }
+            
+                    tablaHTML += `<tr>
+                                    <td>${indice}</td>
+                                    <td>${pasajero.apellidoNombre}</td>
+                                    <td>${pasajero.dni}</td>
+                                    <td>${alumno}</td>
+                                    <td>${pasajero.edad}</td>
+                                    <td>${docente}</td>
+                                    <td>${noDocente}</td>
+                                    <td>
+                                        <input type="checkbox" class="selectPersona" value="${pasajero.dni}">
+                                    </td>
+                                </tr>`;
+                });
+            
+                // Calcular docentes necesarios
+                let docentesMenores = Math.ceil(cantidadMenores / 12);  // Docentes para menores de 16
+                let docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15);  // Docentes para 16-17 años
+                let docentesMayores = cantidadMayores > 0 ? 1 : 0;  // Docentes para mayores de 18, al menos 1
+            
+                // Verificar si sobran menores (si hay menos de 12, se pue-den transferir al grupo de 16-17)
+                if (cantidadMenores % 12 !== 0 && cantidadMenores < 12) {
+                    let sobrantesMenores = cantidadMenores % 12;
+                    cantidadSemiMayores += sobrantesMenores; // Transferir los alumnos sobrantes a semiMayores
+                    docentesMenores = Math.floor(cantidadMenores / 12); // Actualizar docentes para menores
+                    docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15); // Recalcular docentes para semiMayores
+                }
+            
+                // Calcular el total de docentes necesarios
+                let totalDocentesRequeridos = docentesMenores + docentesSemiMayores + docentesMayores;
+            
+                // Si los alumnos son muchos, recomendar más docentes
+                if (totalDocentesRequeridos > 5) {
+                    alert("Se recomienda agregar más docentes debido a la cantidad de alumnos.");
+                }
+
+                let alertaHtml = ''
+                if(cantidadDocentes < totalDocentesRequeridos){
+
+                }
+                else if(){
+                    alertaHtml = 'Anexo 5 aprobable'
+                }
+            
+                let calculoDocentes = ''
+                calculoDocentes += 
+                `
+                    <h1>
+                    <p id="validarDocente">Menores de 16: ${cantidadMenores}</p>
+                    <p id="validarDocente">Entre 16 y 17: ${cantidadSemiMayores}</p>
+                    <p id="validarDocente">Mayores de 18: ${cantidadMayores}</p>
+                    <p id="validarDocente">Docentes requeridos: ${totalDocentesRequeridos}</p>
+                    <p id="validarDocente">Docentes actuales: ${cantidadDocentes}</p>
+                `;
+
+                $('#advice').html(calculoDocentes);
+                $('#tablaParticipantes').html(tablaHTML);
+            },
+            
+            error: function() {
+                alert ("Ha ocurrido un error al obtener los pasajeros")
+            }
+        })
+    }
       
 })
