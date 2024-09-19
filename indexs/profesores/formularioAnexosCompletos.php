@@ -41,6 +41,7 @@
             </ul>
 
             <div class="tab-content mt-3" id="myTabContent"> 
+                <?php include('../../php/verificarInsertProfesorAV.php'); ?>
                 <!-- Anexo 5 -->
                 <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo5-tab">
                     <h2>Anexo 5</h2>
@@ -142,7 +143,7 @@
                 <div class="tab-pane fade" id="anexo9" role="tabpanel" aria-labelledby="anexo9-tab">
                     <h2>Anexo 9</h2>
                     <br>
-                    <form id="formAnexoIX" class="formulario">
+                    <form id="formAnexoIX" class="formulario" enctype="multipart/form-data">
                         <?php include ("../../php/traerAnexoIX.php"); ?>
                     </form>
                     <button type="submit" class="btn btn-success" id="cargarAnexoIX">Cargar Anexo 9</button>

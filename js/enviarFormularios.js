@@ -59,9 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
             'respEvaluacion',
             'obsEvaluacion'
         ];
-
+    
         let firstInvalidField = null;
-
+    
         for (let field of fields) {
             const element = document.getElementById(field);
             if (element && element.value.trim() === '') {
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 break;
             }
         }
-
+    
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -77,15 +77,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 text: `El campo "${firstInvalidField.previousElementSibling.textContent}" es obligatorio.`,
                 confirmButtonText: 'Aceptar'
             }).then(() => {
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setTimeout(() => {
-                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     firstInvalidField.focus();
                 }, 500);
             });
             event.preventDefault();
             return;
         }
-
+    
         const anio = document.getElementById('anio');
         if (anio && (anio.value < 1 || anio.value > 7)) {
             Swal.fire({
@@ -94,20 +94,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 text: 'El año debe estar entre 1 y 7.',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
+                anio.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setTimeout(() => {
-                    anio.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     anio.focus();
                 }, 500);
             });
             event.preventDefault();
             return;
         }
-
+    
         enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTabVIII);
     }
-
+    
     function validateAndSubmitAnexoIX(event) {
         let firstInvalidField = null;
+    
         const otrosCampos = [
             'razonSocial',
             'domicilioTransporte',
@@ -119,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
             'nombreConductor1',
             'nombreConductor2'
         ];
-
+    
         for (let id of otrosCampos) {
             const element = document.getElementById(id);
             if (element && element.value.trim() === '') {
@@ -132,28 +133,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        element.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
-
+    
         const telefonos = [
             { id: 'telefonoTransporte', maxDigits: 12, allowDashes: false },
-            { id: 'telefonoResponsable', maxDigits: 12, allowDashes: false },
-            { id: 'telefonoMovil', maxDigits: 12, allowDashes: true }
+            { id: 'telefonoResponsable', maxDigits: 12, allowDashes: false }
         ];
-
+    
         for (let telefono of telefonos) {
             const element = document.getElementById(telefono.id);
             if (!element) continue;
             const value = element.value.trim();
-            const regex = telefono.allowDashes ? /^\d{10,12}(-\d{10,12})*$/ : /^\d{10,12}$/;
-
+            const regex = telefono.allowDashes ? /^[\d-]{10,12}$/ : /^\d{10,12}$/;
+    
             if (!regex.test(value)) {
                 if (!firstInvalidField) {
                     firstInvalidField = element;
@@ -161,18 +161,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Número de Teléfono Inválido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números y, en el caso del teléfono móvil, puede contener guiones medios. Mínimo: 10 digitos, Máximo: ${telefono.maxDigits} dígitos.`,
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 12.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        element.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
-
+    
             if (value.replace(/-/g, '').length > telefono.maxDigits) {
                 if (!firstInvalidField) {
                     firstInvalidField = element;
@@ -183,118 +183,137 @@ document.addEventListener("DOMContentLoaded", function() {
                     text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        element.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
-
+    
         const dniLicencias = [
             { dni: 'dniConductor1', licencia: 'licenciaConductor1' },
             { dni: 'dniConductor2', licencia: 'licenciaConductor2' }
         ];
-
+    
         for (let { dni, licencia } of dniLicencias) {
             const dniElement = document.getElementById(dni);
             const licenciaElement = document.getElementById(licencia);
             if (!dniElement || !licenciaElement) continue;
             const dniValue = dniElement.value.trim();
             const licenciaValue = licenciaElement.value.trim();
-
-            if (dniValue.length > 10 || licenciaValue.length > 10) {
-                if (!firstInvalidField) {
-                    firstInvalidField = dniValue.length > 10 ? dniElement : licenciaElement;
-                }
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'DNI o Licencia Excedidos',
-                    text: 'El DNI o la Licencia no debe exceder los 10 dígitos.',
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
-                    }, 500);
-                });
-                event.preventDefault();
-                return;
-            }
-
-            if (dniValue !== licenciaValue) {
+    
+            if (dniValue.length < 7 || dniValue.length > 8 || dniValue !== licenciaValue) {
                 if (!firstInvalidField) {
                     firstInvalidField = dniElement;
                 }
                 Swal.fire({
                     icon: 'warning',
-                    title: 'DNI y Licencia No Coinciden',
-                    text: 'El DNI y la Licencia deben coincidir.',
+                    title: 'DNI o Licencia Inválidos',
+                    text: 'El DNI y la Licencia deben tener entre 7 y 8 dígitos y deben coincidir.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    dniElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        dniElement.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
-
+    
         const fechaVigenciaConductor1 = document.getElementById('vigenciaConductor1');
         const fechaVigenciaConductor2 = document.getElementById('vigenciaConductor2');
         const fechaActual = new Date();
-
+        const fechaLimite = new Date('2100-01-01');
+    
         if (fechaVigenciaConductor1) {
             const fechaVigenciaValue1 = new Date(fechaVigenciaConductor1.value);
-            if (fechaVigenciaValue1 <= fechaActual) {
+            if (fechaVigenciaValue1 <= fechaActual || fechaVigenciaValue1 >= fechaLimite) {
                 if (!firstInvalidField) {
                     firstInvalidField = fechaVigenciaConductor1;
                 }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Fecha de Vigencia Inválida',
-                    text: 'La fecha de vigencia del conductor 1 no puede ser igual o anterior a la fecha actual.',
+                    text: 'La fecha de vigencia del conductor 1 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    fechaVigenciaConductor1.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        fechaVigenciaConductor1.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
-
+    
         if (fechaVigenciaConductor2) {
             const fechaVigenciaValue2 = new Date(fechaVigenciaConductor2.value);
-            if (fechaVigenciaValue2 <= fechaActual) {
+            if (fechaVigenciaValue2 <= fechaActual || fechaVigenciaValue2 >= fechaLimite) {
                 if (!firstInvalidField) {
                     firstInvalidField = fechaVigenciaConductor2;
                 }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Fecha de Vigencia Inválida',
-                    text: 'La fecha de vigencia del conductor 2 no puede ser igual o anterior a la fecha actual.',
+                    text: 'La fecha de vigencia del conductor 2 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    fechaVigenciaConductor2.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        fechaVigenciaConductor2.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
+    
+        // Verificar la carga de imágenes
+        // const imagenes = [
+        //     'cedulaTransporte',
+        //     'certificadoAptitudTecnica',
+        //     'crnt',
+        //     'vtvNacion',
+        //     'certificadoInspeccionVtvNacion',
+        //     'registroControlModelo',
+        //     'vtvProvincia',
+        //     'documentacionConductores'
+        // ];
+    
+        // for (let imagen of imagenes) {
+        //     const archivo = document.getElementById(imagen).files[0];
+        //     const archivoPrevio = document.querySelector(`a[data-file-for=${imagen}]`);
 
+        //     if (!archivo && archivoPrevio) {
+        //         if (!firstInvalidField) {
+        //             firstInvalidField = document.getElementById(imagen);
+        //         }
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             title: 'Imagen Requerida',
+        //             text: `El archivo "${document.querySelector(`label[for=${imagen}]`).textContent}" es obligatorio.`,
+        //             confirmButtonText: 'Aceptar'
+        //         }).then(() => {
+        //             document.getElementById(imagen).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        //             setTimeout(() => {
+        //                 document.getElementById(imagen).focus();
+        //             }, 500);
+        //         });
+        //         event.preventDefault();
+        //         return;
+        //     }
+        // }
+    
+        // Enviar el formulario si todo es válido
         enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', nextTabIX);
     }
-
+    
     function validateAndSubmitAnexoX(event) {
         const fields = [
             'infraestructura',

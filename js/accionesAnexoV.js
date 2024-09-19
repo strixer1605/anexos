@@ -124,10 +124,10 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    cargarTablaPasajeros(); // Llama a la función para actualizar la tabla
-                    alert(response.message); // Muestra el mensaje de éxito
+                    cargarTablaPasajeros();
+                    alert(response.message);
                 } else if (response.status === 'error') {
-                    alert(response.message); // Muestra el mensaje de error
+                    alert(response.message);
                 }
             },
             error: function(xhr, status, error) {
@@ -148,13 +148,13 @@ $(document).ready(function(){
 
     $(document).on('click', '#eliminarSeleccionados', function() {
         
-        //obtener checkboxes seleccionados
+        //Obtener checkboxes seleccionados
         const seleccionados = [];
         $('.selectPersona:checked').each(function() {
             seleccionados.push($(this).val());
         });
 
-        //deshabilita el boton eliminar temporalmente por conflicto con focus
+        //Deshabilita el boton eliminar temporalmente por conflicto con focus
         const eliminarBtn = $(this);
         eliminarBtn.prop('disabled', true);
         const habilitarBoton = eliminarBtn.prop('disabled', false);
@@ -212,12 +212,12 @@ $(document).ready(function(){
             method: 'POST',
             url: '../../php/agregarPersonaAnexoV.php',
             data: JSON.stringify({ personas: personas, opcion: 'agregarGrupo' }),
-            contentType: 'application/json', // Indica que se está enviando JSON
+            contentType: 'application/json',
         });
     }
       
     $('#cargarGrupo').on('click', function () {
-        //obtiene el value del select
+        //Obtiene el value del select
         const idGrupo = $('#grupos').val();
         
         buscarPersonasGrupo(idGrupo, function(result, pasajeros) {
@@ -250,11 +250,10 @@ $(document).ready(function(){
                 const pasajeros = JSON.parse(response);
                 let tablaHTML = '';
                 
-                // Inicializar contadores
-                let cantidadMenores = 0;      // Alumnos menores de 16 años
-                let cantidadSemiMayores = 0;  // Alumnos entre 16 y 17 años
-                let cantidadMayores = 0;      // Alumnos de 18 años o más
-                let cantidadDocentes = 0;     // Contador de docentes actuales
+                let cantidadMenores = 0;     
+                let cantidadSemiMayores = 0;
+                let cantidadMayores = 0;
+                let cantidadDocentes = 0;
                 let indice = 0;
                 
                 pasajeros.forEach(function(pasajero) {
@@ -263,18 +262,17 @@ $(document).ready(function(){
                     let docente = '';
                     let noDocente = '';
             
-                    // 2 = docente --- 3 = alumno --- 4 = noDocente
+                    // Clasificar por edad
                     if (pasajeroEdad < 16) {
                         cantidadMenores += 1;
                     } else if (pasajeroEdad >= 16 && pasajeroEdad < 18) {
                         cantidadSemiMayores += 1;
-                    } else if (pasajeroEdad >= 18) {
+                    } else if (pasajeroEdad >= 18 && parseInt(pasajero.cargo) != 2) {
                         cantidadMayores += 1;
                     }
             
                     if (parseInt(pasajero.cargo) === 2) {
                         cantidadDocentes += 1;
-                        console.log(pasajero.cargo);
                     }
             
                     indice += 1;
@@ -303,49 +301,43 @@ $(document).ready(function(){
                 let docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15);  // Docentes para 16-17 años
                 let docentesMayores = cantidadMayores > 0 ? 1 : 0;  // Docentes para mayores de 18, al menos 1
             
-                // Verificar si sobran menores (si hay menos de 12, se pue-den transferir al grupo de 16-17)
+                // Recalcular si sobran menores (si hay menos de 12)
                 if (cantidadMenores % 12 !== 0 && cantidadMenores < 12) {
                     let sobrantesMenores = cantidadMenores % 12;
-                    cantidadSemiMayores += sobrantesMenores; // Transferir los alumnos sobrantes a semiMayores
-                    docentesMenores = Math.floor(cantidadMenores / 12); // Actualizar docentes para menores
-                    docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15); // Recalcular docentes para semiMayores
+                    cantidadSemiMayores += sobrantesMenores;
+                    docentesMenores = Math.floor(cantidadMenores / 12);
+                    docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15);
                 }
             
                 // Calcular el total de docentes necesarios
                 let totalDocentesRequeridos = docentesMenores + docentesSemiMayores + docentesMayores;
             
-                // Si los alumnos son muchos, recomendar más docentes
                 if (totalDocentesRequeridos > 5) {
                     alert("Se recomienda agregar más docentes debido a la cantidad de alumnos.");
                 }
-
-                let alertaHtml = ''
-                if(cantidadDocentes < totalDocentesRequeridos){
-
-                }
-                else if(){
-                    alertaHtml = 'Anexo 5 aprobable'
+            
+                let alertaHtml = '';
+                if (cantidadDocentes < totalDocentesRequeridos) {
+                    alertaHtml = '<p>Anexo 5 no aprobable</p>';
+                } else {
+                    alertaHtml = '<p>Anexo 5 aprobable</p>';
                 }
             
-                let calculoDocentes = ''
-                calculoDocentes += 
-                `
-                    <h1>
-                    <p id="validarDocente">Menores de 16: ${cantidadMenores}</p>
-                    <p id="validarDocente">Entre 16 y 17: ${cantidadSemiMayores}</p>
-                    <p id="validarDocente">Mayores de 18: ${cantidadMayores}</p>
-                    <p id="validarDocente">Docentes requeridos: ${totalDocentesRequeridos}</p>
-                    <p id="validarDocente">Docentes actuales: ${cantidadDocentes}</p>
+                let calculoDocentes = `
+                    <h5>Menores de 16: ${cantidadMenores}</h5>
+                    <h5>Entre 16 y 17: ${cantidadSemiMayores}</h5>
+                    <h5>Mayores de 18: ${cantidadMayores}</h5>
+                    <h5>Docentes requeridos: ${totalDocentesRequeridos}</h5>
+                    <h5>Docentes actuales: ${cantidadDocentes}</h5>
                 `;
-
-                $('#advice').html(calculoDocentes);
+            
+                $('#advice').html(alertaHtml + calculoDocentes);
                 $('#tablaParticipantes').html(tablaHTML);
             },
             
             error: function() {
-                alert ("Ha ocurrido un error al obtener los pasajeros")
+                alert("Ha ocurrido un error al obtener los pasajeros");
             }
-        })
-    }
-      
+        });
+    }      
 })
