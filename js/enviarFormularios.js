@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     var anexo8Div = document.getElementById('anexo8');
     var anexo9Div = document.getElementById('anexo9');
     var anexo10Div = document.getElementById('anexo10');
@@ -143,6 +142,73 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
+        const camposSoloNumeros = [
+            { id: 'numeroPoliza', nombre: 'Número de Póliza' },
+            { id: 'dniConductor1', nombre: 'DNI del Conductor 1' },
+            { id: 'licenciaConductor1', nombre: 'Licencia del Conductor 1' },
+            { id: 'dniConductor2', nombre: 'DNI del Conductor 2' },
+            { id: 'licenciaConductor2', nombre: 'Licencia del Conductor 2' }
+        ];
+    
+        for (let campo of camposSoloNumeros) {
+            const element = document.getElementById(campo.id);
+            if (!element) continue;
+            const value = element.value.trim();
+    
+            // Verificación: permitir solo dígitos (0-9)
+            if (!/^\d+$/.test(value)) {
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Valor Inválido',
+                    text: `El campo "${campo.nombre}" debe contener solo números.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        element.focus();
+                    }, 500);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+    
+        // Verificar que los nombres de conductores no contengan números.
+        const camposSoloTexto = [
+            { id: 'nombreConductor1', nombre: 'Nombre del Conductor 1' },
+            { id: 'nombreConductor2', nombre: 'Nombre del Conductor 2' }
+        ];
+    
+        for (let campo of camposSoloTexto) {
+            const element = document.getElementById(campo.id);
+            if (!element) continue;
+            const value = element.value.trim();
+    
+            // Verificación: permitir solo letras y espacios.
+            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Nombre Inválido',
+                    text: `El campo "${campo.nombre}" debe contener solo letras.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        element.focus();
+                    }, 500);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+    
+        // Verificación de teléfonos.
         const telefonos = [
             { id: 'telefonoTransporte', maxDigits: 12, allowDashes: false },
             { id: 'telefonoResponsable', maxDigits: 12, allowDashes: false }
@@ -193,6 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
+        // Verificación de DNI y licencia
         const dniLicencias = [
             { dni: 'dniConductor1', licencia: 'licenciaConductor1' },
             { dni: 'dniConductor2', licencia: 'licenciaConductor2' }
@@ -225,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
+        // Verificación de fechas
         const fechaVigenciaConductor1 = document.getElementById('vigenciaConductor1');
         const fechaVigenciaConductor2 = document.getElementById('vigenciaConductor2');
         const fechaActual = new Date();
@@ -273,8 +341,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
         }
-    
-        // Verificar la carga de imágenes
+
+        // // Verificar la carga de imágenes
         // const imagenes = [
         //     'cedulaTransporte',
         //     'certificadoAptitudTecnica',
@@ -290,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //     const archivo = document.getElementById(imagen).files[0];
         //     const archivoPrevio = document.querySelector(`a[data-file-for=${imagen}]`);
 
-        //     if (!archivo && archivoPrevio) {
+        //     if (!archivo && !archivoPrevio) {
         //         if (!firstInvalidField) {
         //             firstInvalidField = document.getElementById(imagen);
         //         }

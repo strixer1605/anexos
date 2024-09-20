@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2024 a las 20:24:09
+-- Tiempo de generación: 19-09-2024 a las 05:45:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -5553,15 +5553,23 @@ CREATE TABLE `anexoix` (
   `nombreConductor2` varchar(100) NOT NULL,
   `dniConductor2` int(8) NOT NULL,
   `numeroLicencia2` int(8) NOT NULL,
-  `vigencia2` date NOT NULL
+  `vigencia2` date NOT NULL,
+  `cedulaTransporte` varchar(200) NOT NULL,
+  `certifAptTecnica` varchar(200) NOT NULL,
+  `crnt` varchar(200) NOT NULL,
+  `vtvNacion` varchar(200) NOT NULL,
+  `certInspVtvNac` varchar(200) NOT NULL,
+  `regisCrtlModelo` varchar(200) NOT NULL,
+  `vtvProvincia` varchar(200) NOT NULL,
+  `docConductores` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `anexoix`
 --
 
-INSERT INTO `anexoix` (`fkAnexoIV`, `razonSocial`, `domicilioTransporte`, `telefonoTransporte`, `domicilioResponsable`, `telefono`, `telefonoMovil`, `titularidadVehiculo`, `companiaAseguradora`, `numeroPoliza`, `tipoSeguro`, `nombreConductor1`, `dniConductor1`, `numeroLicencia1`, `vigencia1`, `nombreConductor2`, `dniConductor2`, `numeroLicencia2`, `vigencia2`) VALUES
-(1, 'a', 'a', 1122334455, 'a', 1122334455, '0', 'a', 'a', 1, 'a', 'a', 11223344, 11223344, '2026-02-22', 'A', 11223344, 11223344, '2027-11-21');
+INSERT INTO `anexoix` (`fkAnexoIV`, `razonSocial`, `domicilioTransporte`, `telefonoTransporte`, `domicilioResponsable`, `telefono`, `telefonoMovil`, `titularidadVehiculo`, `companiaAseguradora`, `numeroPoliza`, `tipoSeguro`, `nombreConductor1`, `dniConductor1`, `numeroLicencia1`, `vigencia1`, `nombreConductor2`, `dniConductor2`, `numeroLicencia2`, `vigencia2`, `cedulaTransporte`, `certifAptTecnica`, `crnt`, `vtvNacion`, `certInspVtvNac`, `regisCrtlModelo`, `vtvProvincia`, `docConductores`) VALUES
+(1, 'a', 'a', 1122334455, 'a', 1122334455, '0', 'a', 'a', 1122334455, 'a', 'a', 11223344, 11223344, '2026-02-22', 'aaaa', 11223344, 11223344, '2026-02-22', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -5674,16 +5682,18 @@ INSERT INTO `anexoviii` (`fkAnexoIV`, `institucion`, `año`, `division`, `area`,
 
 CREATE TABLE `anexox` (
   `fkAnexoIV` int(11) NOT NULL,
-  `localidadEmpresa` varchar(100) NOT NULL,
-  `hospitales` varchar(150) NOT NULL,
-  `hospitalesTelefono` bigint(20) NOT NULL,
-  `hospitalesDireccion` varchar(100) NOT NULL,
-  `hospitalesLocalidad` varchar(100) NOT NULL,
-  `datosInteresNombre` varchar(150) NOT NULL,
-  `datosInteresTelefono` bigint(20) NOT NULL,
-  `datosInteresDireccion` varchar(100) NOT NULL,
-  `datosInteresLocalidad` varchar(100) NOT NULL
+  `infraestructuraDisponible` varchar(300) NOT NULL,
+  `hospitalesDisponibles` varchar(300) NOT NULL,
+  `mediosAlternativos` varchar(300) NOT NULL,
+  `datosOpcionales` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexox`
+--
+
+INSERT INTO `anexox` (`fkAnexoIV`, `infraestructuraDisponible`, `hospitalesDisponibles`, `mediosAlternativos`, `datosOpcionales`) VALUES
+(1, 'aaaaaaaa', 'a', 'a', 'a');
 
 -- --------------------------------------------------------
 

@@ -105,73 +105,73 @@
                     <label for="vigenciaConductor2" class="form-label">Vigencia del Conductor 2:</label>
                     <input type="date" class="form-control" id="vigenciaConductor2" name="vigenciaConductor2" placeholder="Ingrese la vigencia de la licencia del conductor 2" value="'.htmlspecialchars($row['vigencia2'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
+                ';
                 
-                <div class="mb-5">
-                    <label for="cedulaTransporte" class="form-label">Cédula del Transporte:</label>';
-                    // Previsualización del archivo si existe
-                    if (!empty($row['cedulaTransporte'])) {
-                        echo '<a href="../' . htmlspecialchars($row['cedulaTransporte'], ENT_QUOTES, 'UTF-8') . '" class="form-control"  target="_blank">Ver archivo subido</a><br>';
-                    }
-                    // Campo para subir nuevo archivo
-                    echo '<input type="file" class="form-control" id="cedulaTransporte" name="cedulaTransporte" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="cedulaTransporte" class="form-label">Cédula del Transporte:</label>
+                //     Previsualización del archivo si existe
+                //     if (!empty($row['cedulaTransporte'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['cedulaTransporte'], ENT_QUOTES, 'UTF-8') . '" class="form-control"  target="_blank" data-file-for="cedulaTransporte">Ver archivo subido</a><br>';
+                //     }
+                //     // Campo para subir nuevo archivo
+                //     echo '<input type="file" class="form-control" id="cedulaTransporte" name="cedulaTransporte" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="certificadoAptitudTecnica" class="form-label">Certificado de Aptitud Técnica:</label>';
-                    if (!empty($row['certifAptTecnica'])) {
-                        echo '<a href="../' . htmlspecialchars($row['certifAptTecnica'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="certificadoAptitudTecnica" name="certificadoAptitudTecnica" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="certificadoAptitudTecnica" class="form-label">Certificado de Aptitud Técnica:</label>';
+                //     if (!empty($row['certifAptTecnica'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['certifAptTecnica'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="certificadoAptitudTecnica">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="certificadoAptitudTecnica" name="certificadoAptitudTecnica" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="crnt" class="form-label">CRNT:</label>';
-                    if (!empty($row['crnt'])) {
-                        echo '<a href="../' . htmlspecialchars($row['crnt'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="crnt" name="crnt" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="crnt" class="form-label">CRNT:</label>';
+                //     if (!empty($row['crnt'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['crnt'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="crnt">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="crnt" name="crnt" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="vtvNacion" class="form-label">VTV Nación:</label>';
-                    if (!empty($row['vtvNacion'])) {
-                        echo '<a href="../' . htmlspecialchars($row['vtvNacion'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="vtvNacion" name="vtvNacion" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="vtvNacion" class="form-label">VTV Nación:</label>';
+                //     if (!empty($row['vtvNacion'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['vtvNacion'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="vtvNacion">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="vtvNacion" name="vtvNacion" accept="image/*">
+                // </div>
             
-                <div class="mb-5">
-                    <label for="certificadoInspeccionVtvNacion" class="form-label">Certificado de Inspección VTV Nación:</label>';
-                    if (!empty($row['certInspVtvNac'])) {
-                        echo '<a href="../' . htmlspecialchars($row['certInspVtvNac'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="certificadoInspeccionVtvNacion" name="certificadoInspeccionVtvNacion" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="certificadoInspeccionVtvNacion" class="form-label">Certificado de Inspección VTV Nación:</label>';
+                //     if (!empty($row['certInspVtvNac'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['certInspVtvNac'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="certificadoInspeccionVtvNacion">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="certificadoInspeccionVtvNacion" name="certificadoInspeccionVtvNacion" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="registroControlModelo" class="form-label">Registro de Control de Modelo:</label>';
-                    if (!empty($row['regisCrtlModelo'])) {
-                        echo '<a href="../' . htmlspecialchars($row['regisCrtlModelo'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="registroControlModelo" name="registroControlModelo" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="registroControlModelo" class="form-label">Registro de Control de Modelo:</label>';
+                //     if (!empty($row['regisCrtlModelo'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['regisCrtlModelo'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="registroControlModelo">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="registroControlModelo" name="registroControlModelo" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="vtvProvincia" class="form-label">VTV Provincia:</label>';
-                    if (!empty($row['vtvProvincia'])) {
-                        echo '<a href="../' . htmlspecialchars($row['vtvProvincia'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="vtvProvincia" name="vtvProvincia" accept="image/*">
-                </div>
+                // <div class="mb-5">
+                //     <label for="vtvProvincia" class="form-label">VTV Provincia:</label>';
+                //     if (!empty($row['vtvProvincia'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['vtvProvincia'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="vtvProvincia">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="vtvProvincia" name="vtvProvincia" accept="image/*">
+                // </div>
                 
-                <div class="mb-5">
-                    <label for="documentacionConductores" class="form-label">Documentación de los Conductores:</label>';
-                    if (!empty($row['docConductores'])) {
-                        echo '<a href="../' . htmlspecialchars($row['docConductores'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank">Ver archivo subido</a><br>';
-                    }
-                    echo '<input type="file" class="form-control" id="documentacionConductores" name="documentacionConductores" accept="image/*">
-                </div>
-            ';
+                // <div class="mb-5">
+                //     <label for="documentacionConductores" class="form-label">Documentación de los Conductores:</label>';
+                //     if (!empty($row['docConductores'])) {
+                //         echo '<a href="../' . htmlspecialchars($row['docConductores'], ENT_QUOTES, 'UTF-8') . '" class="form-control" target="_blank" data-file-for="documentacionConductores">Ver archivo subido</a><br>';
+                //     }
+                //     echo '<input type="file" class="form-control" id="documentacionConductores" name="documentacionConductores" accept="image/*">';
+                // </div>
         } else {
             error_log('Error al ejecutar la consulta: ' . $stmt->error);
             die('Error interno del servidor.');
