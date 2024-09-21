@@ -1,14 +1,94 @@
 <?php
-    $nombres = "SALVADO, Martin Raúl
-    ARMANDOLA, Enrique Hugo
-    ROBASTI, Soledad Fernanda";
-    $telefonos = "(02257) 15502537
-    (02257) 15545439
-    (02246) 15505697";
+    session_start();
+    if(!$_SESSION['dniProfesor']) {
+        header('Location: ../../../index.php');
+    } else {
+        $idSalida = $_SESSION['idSalida'];
+        include '../../../php/conexion.php';
+        $sql = "
+            SELECT 
+            -- Datos de la tabla anexoiv
+            aiv.denominacionProyecto,
+            CONCAT(aiv.lugarSalida, ', ', aiv.fechaSalida, ', ', aiv.horaSalida) AS salida,
+            CONCAT(aiv.lugarRegreso, ', ', aiv.fechaRegreso, ', ', aiv.horaRegreso) AS regreso,
+            aiv.lugarVisita,
+            aiv.nombreHospedaje,
+            aiv.domicilioHospedaje,
+            aiv.telefonoHospedaje,
+            aiv.localidadHospedaje,
+            aiv.apellidoNombreEncargado,
+            
+            -- Concatenar los nombres con salto de línea
+            GROUP_CONCAT(av.apellidoNombre SEPARATOR ',\n') AS nombresConcatenados,
+            
+            -- Concatenar los DNI con salto de línea si también quieres separarlos
+            GROUP_CONCAT(av.dni SEPARATOR ',\n') AS dniConcatenados,
+            
+            -- Datos de la tabla anexoix
+            aix.razonSocial,
+            aix.domicilioTransporte,
+            aix.telefonoTransporte,
+            
+            -- Datos de la tabla anexox
+            ax.localidadEmpresa,
+            ax.hospitales,
+            ax.hospitalesTelefono,
+            ax.hospitalesDireccion,
+            ax.hospitalesLocalidad,
+            ax.datosInteresNombre,
+            ax.datosInteresTelefono,
+            ax.datosInteresDireccion,
+            ax.datosInteresLocalidad
+
+        FROM anexoiv aiv
+        -- Unimos con la tabla anexov
+        LEFT JOIN anexov av ON av.fkAnexoIV = aiv.idAnexoIV AND av.cargo = 2
+        -- Unimos con la tabla anexoix
+        LEFT JOIN anexoix aix ON aix.fkAnexoIV = aiv.idAnexoIV
+        -- Unimos con la tabla anexox
+        LEFT JOIN anexox ax ON ax.fkAnexoIV = aiv.idAnexoIV
+
+        -- Condición para que el fkAnexoIV coincida con el idSalida almacenado en la sesión
+        WHERE aiv.idAnexoIV = $idSalida
+        GROUP BY aiv.idAnexoIV;
+        ";
+        
+        // Mostrar los nombres separados
+        // foreach ($nombres_array as $nombre) {
+        //     echo $nombre . "<br>";
+        // }
+
     
-    // Dividir las cadenas en arrays
-    $nombres_array = explode("\n", $nombres);
-    $telefonos_array = explode("\n", $telefonos);
+        // Ejecutar la consulta
+        $result = $conexion->query($sql);
+        $fila = $result->fetch_assoc();
+        
+
+        //poner en columna los nombres de docentes a cargo
+        $nombres = $fila['nombresConcatenados'];
+        $nombres_array = explode("\n", $nombres);
+        
+        // Formatear las fechas
+        function formatearFecha($fecha, $hora) {
+            $fechaFormato = date('d/m/Y', strtotime($fecha));
+            return $fechaFormato . ', ' . $hora;
+        }
+
+        // Dar formato a la fecha de salida y regreso
+        if ($fila) {
+            // Separar la fecha y la hora de los campos
+            list($lugarSalida, $fechaSalida, $horaSalida) = explode(', ', $fila['salida']);
+            list($lugarRegreso, $fechaRegreso, $horaRegreso) = explode(', ', $fila['regreso']);
+
+            // Formatear las fechas
+            $fila['salida'] = $lugarSalida . ', ' . formatearFecha($fechaSalida, $horaSalida);
+            $fila['regreso'] = $lugarRegreso . ', ' . formatearFecha($fechaRegreso, $horaRegreso);
+
+        } else {
+            echo "No se encontraron resultados.";
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +140,7 @@
                          <span>Nombre del Proyecto de salida</span>
                      </div>
                      <div class="col-12">
-                         <p class="fw-bold margenDato">Ahora es Tiempo de Sumar XIV - El Regreso</p>
+                         <p class="fw-bold margenDato"><?php echo $fila['denominacionProyecto'] ?></p>
                      </div>
                  </div>
                  <div class="col-12">
@@ -68,7 +148,7 @@
                          <span>Lugar, Día y hora de salida</span>
                      </div>
                      <div class="col-12">
-                         <p class="fw-bold margenDato">EEST N°1, 23/10/2022, 09:00hs.</p>
+                         <p class="fw-bold margenDato"><?php echo $fila['salida'] ?></p>
                      </div>
                  </div>
                  <div class="col-12">
@@ -76,7 +156,7 @@
                          <span>Lugar, Día y hora de regreso</span>
                      </div>
                      <div class="col-12">
-                         <p class="fw-bold margenDato">EEST N°1, 03/11/2022, 15:00hs.</p>
+                         <p class="fw-bold margenDato"><?php echo $fila['regreso'] ?></p>
                      </div>
                  </div>
                  <div class="col-12">
@@ -84,7 +164,7 @@
                          <span>Lugares a visitar</span>
                      </div>
                      <div class="col-12">
-                         <p class="fw-bold margenDato">Villa La Angostura. San Carlos de Bariloche</p>
+                         <p class="fw-bold margenDato"><?php echo $fila['lugarVisita'] ?></p>
                      </div>
                  </div>
              </div>
@@ -96,18 +176,18 @@
                 </div>
                 <div class="col-12 d-flex">
                     <div class="col-6">
-                        <span class="fw-bold">Hostel:</span> <span>La Angostura</span>
+                        <span class="fw-bold">Hostel:</span> <span><?php echo $fila['nombreHospedaje'] ?></span>
                     </div>
                     <div class="col-6">
-                        <span class="fw-bold">Teléfono:</span> <span>0294 449-4834</span>
+                        <span class="fw-bold">Teléfono:</span> <span><?php echo $fila['telefonoHospedaje'] ?></span>
                     </div>
                 </div>
                 <div class="col-12 d-flex">
                     <div class="col-6">
-                        <span class="fw-bold">Domicilio:</span> <span>Calle Barbagelata N°147</span>
+                        <span class="fw-bold">Domicilio:</span> <span><?php echo $fila['domicilioHospedaje'] ?></span>
                     </div>
                     <div class="col-6">
-                        <span class="fw-bold">Localidad:</span> <span>Villa La Angostura</span>
+                        <span class="fw-bold">Localidad:</span> <span><?php echo $fila['localidadHospedaje'] ?></span>
                     </div>
                 </div>
             </div>
@@ -121,15 +201,15 @@
                     <div class="col-6 fw-bold">
                     <?php
                         foreach ($nombres_array as $nombre) {
-                            echo htmlspecialchars($nombre) . "<br>"; // Muestra cada nombre en una nueva línea
-                        }
+                                echo $nombre . "<br>";
+                            }
                     ?>
                     </div>
                     <div class="col-6 fw-bold">
                     <?php
-                        foreach ($telefonos_array as $telefono) {
-                            echo htmlspecialchars($telefono) . "<br>"; // Muestra cada teléfono en una nueva línea
-                        }
+                        // foreach ($telefonos_array as $telefono) {
+                        //     echo htmlspecialchars($telefono) . "<br>"; // Muestra cada teléfono en una nueva línea
+                        // }
                     ?>
                     </div>
                 </div>
@@ -144,18 +224,18 @@
 
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span>Empresa:</span> <span></span>
+                            <span>Empresa:</span> <span><?php echo $fila['razonSocial'] ?></span>
                         </div>
                         <div class="col-6">
-                            <span>Dirección:</span> <span></span>
+                            <span>Dirección:</span> <span><?php echo $fila['domicilioTransporte'] ?></span>
                         </div>
                     </div>
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span>Teléfono:</span> <span></span>
+                            <span>Teléfono:</span> <span><?php echo $fila['telefonoTransporte'] ?></span>
                         </div>
                         <div class="col-6">
-                            <span>Localidad:</span> <span></span>
+                            <span>Localidad:</span> <span><?php echo $fila['localidadEmpresa'] ?></span>
                         </div>
                     </div>
                 </div>
@@ -171,18 +251,18 @@
 
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span class="fw-bold">Hospital Dr. Óscar Arraiz</span>
+                            <span class="fw-bold"><?php echo $fila['hospitales'] ?></span>
                         </div>
                         <div class="col-6">
-                            <span>Dirección:</span> <span class="fw-bold">Copello 311</span>
+                            <span>Dirección:</span> <span class="fw-bold"><?php echo $fila['hospitalesDireccion'] ?></span>
                         </div>
                     </div>
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span>Teléfono:</span> <span class="fw-bold">02944 - 49170</span>
+                            <span>Teléfono:</span> <span class="fw-bold"><?php echo $fila['hospitalesTelefono'] ?></span>
                         </div>
                         <div class="col-6">
-                            <span>Localidad:</span> <span class="fw-bold">Villa La Angostura</span>
+                            <span>Localidad:</span> <span class="fw-bold"><?php echo $fila['hospitalesLocalidad'] ?></span>
                         </div>
                     </div>
                 </div>
@@ -198,18 +278,18 @@
 
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span class="fw-bold">Comisaria de Villa La Angostura</span>
+                            <span class="fw-bold"><?php echo $fila['datosInteresNombre']?></span>
                         </div>
                         <div class="col-6">
-                            <span>Dirección:</span> <span class="fw-bold">Av. Arrayanes N° 242</span>
+                            <span>Dirección:</span> <span class="fw-bold"><?php echo $fila['datosInteresDireccion']?></span>
                         </div>
                     </div>
                     <div class="col-12 d-flex">
                         <div class="col-6">
-                            <span>Teléfono:</span> <span class="fw-bold">0249 - 449-4121</span>
+                            <span>Teléfono:</span> <span class="fw-bold"><?php echo $fila['datosInteresTelefono']?></span>
                         </div>
                         <div class="col-6">
-                            <span>Localidad:</span> <span class="fw-bold">Villa La Angostura</span>
+                            <span>Localidad:</span> <span class="fw-bold"><?php echo $fila['datosInteresLocalidad']?></span>
                         </div>
                     </div>
                 </div>

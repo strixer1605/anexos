@@ -3,18 +3,45 @@
     if (!$_SESSION['dniProfesor']){
         header('Location: ../../../index.php');
     } else {
-        include '../../../php/datosAnexoIV.php';
+        include '../../../php/conexion.php';
+        $idSalida = $_SESSION['idSalida'];
+
+        $sql = "SELECT 
+            -- Datos de la tabla anexoiv
+            aiv.*,
+
+            -- Concatenar los apellidoNombre con salto de línea y una coma para separar
+            GROUP_CONCAT(av.apellidoNombre SEPARATOR ',\n') AS nombresConcatenados
+
+            FROM anexoiv aiv
+            -- Unimos con la tabla anexov (donde cargo = 2)
+            LEFT JOIN anexov av ON av.fkAnexoIV = aiv.idAnexoIV AND av.cargo = 2
+
+            -- Condición para que el fkAnexoIV coincida con $idSalida
+            WHERE aiv.idAnexoIV = $idSalida
+            GROUP BY aiv.idAnexoIV;
+            ";
+            
+        $resultado = mysqli_query($conexion, $sql);
+        $fila = mysqli_fetch_assoc($resultado);
+
+        $nombresConcatenados = $fila['nombresConcatenados'];
+
+        // Dividir los nombres en un array
+        $nombresArray = explode("\n", $nombresConcatenados);
+
+        // Crear un array de cargos con 'profesor' para cada nombre
+        $cargos = array_fill(0, count($nombresArray), 'profesor');
+
+
+        //formatear fechas de regreso y salida de YY-MM-DD A DD-MM-YY
         $fechaSalida = $fila['fechaSalida'];
         $timestampSalida = strtotime($fechaSalida);
         $fechaFormateadaSalida = date('d/m/Y', $timestampSalida);
+
         $fechaRegreso = $fila['fechaRegreso'];
         $timestampRegreso = strtotime($fechaRegreso);
         $fechaFormateadaRegreso = date('d/m/Y', $timestampRegreso);
-
-
-        //hacer un while para recorrer el resultado de docentes acompañantes del anexoV para agregarlo al array de docentes y lo mismo con los cargos
-        $docentes = ['laurito', 'donati', 'schiro', 'reichert'];
-        $cargos = ['Profesor', 'Profesor', 'Profesor', 'Profesor'];
     }
 ?>
 <!DOCTYPE html>
@@ -183,12 +210,9 @@
                                 Datos del/los docentes/s a cargo Apellido y nombre:
                                 <br>
                                 <span class="fw-normal"><?php 
-                                    echo $fila['apellidoNombreEncargado'];
-                                    echo '<br>';
-                                    for ($i = 0; $i < count($docentes); $i++) {
-                                        echo $docentes[$i] . "<br>";
+                                    foreach ($nombresArray as $nombre) {
+                                        echo $nombre . "<br>";
                                     }
-
                                 ?></span>
                             </div>
                         </div>
@@ -197,13 +221,11 @@
                                 <br>
                                 Cargo
                                 <br>
-                                <span class="fw-normal"><?php if ($fila['cargo'] == 1) {
-                                    echo "Profesor";
-                                    echo '<br>';
-                                    for ($i = 0; $i < count($cargos); $i++) {
-                                        echo $cargos[$i] . "<br>";
+                                <span class="fw-normal"><?php 
+                                    foreach ($cargos as $cargo) {
+                                        echo $cargo . "<br>";
                                     }
-                                } ?></span>
+                                ?></span>
                             </div>
                         </div>
                     </div>
