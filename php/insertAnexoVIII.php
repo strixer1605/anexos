@@ -6,8 +6,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $institucion = isset($_POST['institucion']) ? $_POST['institucion'] : null;
-        $anio = isset($_POST['anio']) ? $_POST['anio'] : null;
-        $division = isset($_POST['division']) ? $_POST['division'] : null;
+        $cursos = isset($_POST['cursos']) ? $_POST['cursos'] : null;
         $area = isset($_POST['area']) ? $_POST['area'] : null;
         $docente = isset($_POST['docente']) ? $_POST['docente'] : null;
         $objetivo = isset($_POST['objetivo']) ? $_POST['objetivo'] : null;
@@ -23,10 +22,6 @@
         $respEvaluacion = isset($_POST['respEvaluacion']) ? $_POST['respEvaluacion'] : null;
         $obsEvaluacion = isset($_POST['obsEvaluacion']) ? $_POST['obsEvaluacion'] : null;
 
-        if (empty($area)) {
-            $area = 'Ninguna';
-        }
-
         // Verificar si ya existe un registro para la salida
         $sqlVerificacion = "SELECT * FROM anexoviii WHERE fkAnexoIV = ?";
         $stmtVerificacion = $conexion->prepare($sqlVerificacion);
@@ -34,12 +29,21 @@
         $stmtVerificacion->execute();
         $result = $stmtVerificacion->get_result();
 
+        $currentArea = 'Ninguna';
+
         if ($result->num_rows > 0) {
-            // Si existe, actualizar
+            $row = $result->fetch_assoc();
+            $currentArea = $row['area'];
+        }
+        
+        if (!empty($area)) {
+            $currentArea = $area;
+        }
+
+        if ($result->num_rows > 0) {
             $sql = "UPDATE anexoviii SET 
                 institucion = ?, 
-                año = ?, 
-                division = ?, 
+                cursos = ?, 
                 area = ?, 
                 docente = ?, 
                 objetivo = ?, 
@@ -62,11 +66,10 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("sssssssssssssssssi", 
-                $institucion, 
-                $anio, 
-                $division, 
-                $area, 
+            $stmt->bind_param("ssssssssssssssssi", 
+                $institucion,
+                $cursos,  
+                $currentArea,
                 $docente, 
                 $objetivo, 
                 $fechaSalida, 
@@ -93,8 +96,8 @@
         } else {
             // Si no existe, insertar
             $sql = "INSERT INTO anexoviii 
-                (fkAnexoIV, institucion, año, division, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (fkAnexoIV, institucion, cursos, area, docente, objetivo, fechaSalida, lugaresVisitar, descripcionPrevias, responsablesPrevias, observacionesPrevias, descripcionDurante, responsablesDurante, observacionesDurante, descripcionEvaluacion, responsablesEvaluacion, observacionesEvaluacion) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $conexion->prepare($sql);
 
@@ -102,11 +105,10 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("isssssssssssssssss", 
+            $stmt->bind_param("issssssssssssssss", 
                 $idSalida, 
                 $institucion, 
-                $anio, 
-                $division, 
+                $cursos, 
                 $area, 
                 $docente, 
                 $objetivo, 

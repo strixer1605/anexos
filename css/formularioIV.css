@@ -116,3 +116,17 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.alerta {
+  font-size: 1.5em; /* Aumenta el tamaño de la fuente */
+  font-weight: bold; /* Negrita */
+  margin: 10px 0; /* Espaciado */
+}
+
+.alerta.verde {
+  color: green; /* Color verde para aprobable */
+}
+
+.alerta.rojo {
+  color: red; /* Color rojo para no aprobable */
+}

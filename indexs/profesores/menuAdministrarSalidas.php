@@ -10,6 +10,7 @@
 
     $dni = $_SESSION['dniProfesor'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

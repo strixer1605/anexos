@@ -1,6 +1,13 @@
 <?php
     session_start();
-    include '../../php/conexion.php';
+    if (!isset($_SESSION['dniProfesor'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+    include('../../php/conexion.php');
+    
+    $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
+    $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 ?>
 
 <!DOCTYPE html>

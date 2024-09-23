@@ -1,123 +1,230 @@
-document.getElementById("formularioSalidas").addEventListener("submit", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
+    
+    document.getElementById("fechaSalida").addEventListener("change", validarFechas);
+    document.getElementById("horaSalida").addEventListener("change", validarFechas);
+    document.getElementById("fechaRegreso").addEventListener("change", validarFechas);
+    document.getElementById("horaRegreso").addEventListener("change", validarFechas);
 
-    var inputs = document.querySelectorAll("input[required], textarea[required]");
-    for (var input of inputs) {
-        if (input.value.trim() === "") {
-            alert("Por favor, complete todos los campos obligatorios.");
-            event.preventDefault(); // Evita el envío del formulario
+    function validateAndSubmitAnexoIV(event) {
+        const fields = [
+            'denominacionProyecto',
+            'lugarVisitar',
+            'fechaSalida',
+            'lugarSalida',
+            'horaSalida',
+            'fechaRegreso',
+            'lugarRegreso',
+            'horaRegreso',
+            'itinerario',
+            'actividades',
+            'cantAlumnos',
+            'cantDocentes',
+            'cantNoDocentes',
+            'totalPersonas',
+            'nombreHospedaje',
+            'domicilioHospedaje',
+            'telefonoHospedaje',
+            'localidadHospedaje',
+            'gastosEstimativos'
+        ];
+    
+        let firstInvalidField = null;
+    
+        for (let field of fields) {
+            const element = document.getElementById(field);
+            if (element && element.value.trim() === '') {
+                firstInvalidField = element;
+                break;
+            }
+        }
+    
+        if (firstInvalidField) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos Incompletos',
+                text: `El campo "${firstInvalidField.previousElementSibling.textContent}" es obligatorio.`,
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById(firstInvalidField).focus();
+                }, 300);
+            });
+            event.preventDefault();
             return;
         }
+
+        var nombreEncargado = document.getElementById("nombreEncargado").value;
+        var nombrePattern = /^[A-Za-z\s]+$/;
+        if (!nombrePattern.test(nombreEncargado)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Nombre Inválido',
+                text: "El nombre del encargado no debe contener números.",
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    document.getElementById("nombreEncargado").scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.getElementById("nombreEncargado").focus();
+                }, 300);
+            });
+            event.preventDefault();
+            return;
+        }
+
+        const checkboxes = document.querySelectorAll(".form-check-input");
+        checkboxes.forEach(function(checkbox) {
+            checkbox.value = checkbox.checked ? "1" : "0";
+        });
+
+        enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!');
     }
+
+    function validarFechas() {
+        var fechaSalida = document.getElementById("fechaSalida").value;
+        var horaSalida = document.getElementById("horaSalida").value;
+        var fechaRegreso = document.getElementById("fechaRegreso").value;
+        var horaRegreso = document.getElementById("horaRegreso").value;
     
-    var telefono = document.getElementById("telefonoInstitucion").value;
-    var telefonoPattern = /^\d{10}$/;
-    if (!telefonoPattern.test(telefono)) {
-        alert("El número de teléfono debe contener exactamente 10 dígitos.");
-        event.preventDefault();
-        return;
-    }
-
-    var numero = document.getElementById("numero").value;
-    var numeroPattern = /^\d+$/;
-    if (!numeroPattern.test(numero)) {
-        alert("El campo 'N°' solo debe contener números.");
-        event.preventDefault();
-        return;
-    }
-
-    const checkboxes = document.querySelectorAll(".form-check-input");
-    checkboxes.forEach(function(checkbox) {
-        checkbox.value = checkbox.checked ? "1" : "0";
-    });
-    
-    if (!confirm("¿Está seguro de que desea enviar el formulario con estos datos?")) {
-        event.preventDefault();
-    }
-});
-
-document.getElementById("fechaSalida").addEventListener("change", validarFechas);
-document.getElementById("horaSalida").addEventListener("change", validarFechas);
-document.getElementById("fechaRegreso").addEventListener("change", validarFechas);
-document.getElementById("horaRegreso").addEventListener("change", validarFechas);
-
-function validarFechas() {
-    var fechaSalida = document.getElementById("fechaSalida").value;
-    var horaSalida = document.getElementById("horaSalida").value;
-    var fechaRegreso = document.getElementById("fechaRegreso").value;
-    var horaRegreso = document.getElementById("horaRegreso").value;
-
-    var fechaHoraActual = new Date();
-    var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
-    var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
-
-    // Validar que la fecha y hora de salida no estén en el pasado
-    if (fechaHoraSalida < fechaHoraActual) {
-        alert("La fecha y hora de salida no pueden ser en el pasado.");
-        document.getElementById("fechaSalida").value = "";
-        document.getElementById("horaSalida").value = "";
-        return;
-    }
-
-    // Validar que la fecha de salida no sea más de un año en el futuro
-    var unAnoEnMilisegundos = 365 * 24 * 60 * 60 * 1000; // Un año en milisegundos
-    if (fechaHoraSalida - fechaHoraActual > unAnoEnMilisegundos) {
-        alert("La fecha de salida no puede ser más de un año en el futuro.");
-        document.getElementById("fechaSalida").value = "";
-        document.getElementById("horaSalida").value = "";
-        return;
-    }
-
-    // Validar que la fecha de regreso sea posterior a la fecha de salida
-    if (fechaHoraRegreso <= fechaHoraSalida) {
-        alert("La fecha y hora de regreso deben ser posteriores a la fecha y hora de salida.");
-        document.getElementById("fechaRegreso").value = "";
-        document.getElementById("horaRegreso").value = "";
-        return;
-    }
-
-    calcularDiferencia();
-}
-
-function calcularDiferencia() {
-    var fechaSalida = document.getElementById("fechaSalida").value;
-    var horaSalida = document.getElementById("horaSalida").value;
-    var fechaRegreso = document.getElementById("fechaRegreso").value;
-    var horaRegreso = document.getElementById("horaRegreso").value;
-
-    if (fechaSalida && horaSalida && fechaRegreso && horaRegreso) {
+        var fechaHoraActual = new Date();
         var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
         var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
-
-        var diferenciaMs = fechaHoraRegreso - fechaHoraSalida;
-        var diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
-
-        if (diferenciaHoras >= 0) {
-            diferenciaHoras.toFixed(2) + " horas";
-            if (diferenciaHoras < 24){
-                ocultarInputs();
+    
+        if (fechaHoraSalida < fechaHoraActual) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fecha Inválida',
+                text: 'La fecha y hora de salida no pueden ser en el pasado.',
+                confirmButtonText: 'Aceptar'
+            });
+            document.getElementById("fechaSalida").value = "";
+            document.getElementById("horaSalida").value = "";
+            return;
+        }
+    
+        var unAnoEnMilisegundos = 365 * 24 * 60 * 60 * 1000; // Un año en milisegundos
+        if (fechaHoraSalida - fechaHoraActual > unAnoEnMilisegundos) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fecha Inválida',
+                text: 'La fecha de salida no puede ser más de un año en el futuro.',
+                confirmButtonText: 'Aceptar'
+            });
+            document.getElementById("fechaSalida").value = "";
+            document.getElementById("horaSalida").value = "";
+            return;
+        }
+    
+        if (fechaHoraRegreso <= fechaHoraSalida) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fecha Inválida',
+                text: 'La fecha y hora de regreso deben ser posteriores a la fecha y hora de salida.',
+                confirmButtonText: 'Aceptar'
+            });
+            document.getElementById("fechaRegreso").value = "";
+            document.getElementById("horaRegreso").value = "";
+            return;
+        }
+    
+        calcularDiferencia();
+    }
+    
+    function calcularDiferencia() {
+        var fechaSalida = document.getElementById("fechaSalida").value;
+        var horaSalida = document.getElementById("horaSalida").value;
+        var fechaRegreso = document.getElementById("fechaRegreso").value;
+        var horaRegreso = document.getElementById("horaRegreso").value;
+    
+        if (fechaSalida && horaSalida && fechaRegreso && horaRegreso) {
+            var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
+            var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
+    
+            var diferenciaMs = fechaHoraRegreso - fechaHoraSalida;
+            var diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
+    
+            if (diferenciaHoras >= 0) {
+                if (diferenciaHoras < 24) {
+                    ocultarInputs();
+                }
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha y Hora Inválidas',
+                    text: 'La fecha y hora de regreso deben ser posteriores a la de salida.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
-        } else {
-            document.getElementById("diferenciaHoras").value = "La fecha y hora de regreso debe ser posterior a la de salida";
         }
     }
-}
+    
+    function ocultarInputs() {
+        var elementos = [
+            document.getElementById("nombreHospedaje"),
+            document.getElementById("domicilioHospedaje"),
+            document.getElementById("telefonoHospedaje"),
+            document.getElementById("localidadHospedaje"),
+            document.getElementById("nH"),
+            document.getElementById("dH"),
+            document.getElementById("tH"),
+            document.getElementById("lH")
+        ];
+    
+        elementos.forEach(function(elemento) {
+            if (elemento) {
+                elemento.style.display = "none";
+                elemento.disabled = true;
+            }
+        });
+    }     
 
-function ocultarInputs() {
-    var elementos = [
-        document.getElementById("nombreHospedaje"),
-        document.getElementById("domicilioHospedaje"),
-        document.getElementById("telefonoHospedaje"),
-        document.getElementById("localidadHospedaje"),
-        document.getElementById("nH"),
-        document.getElementById("dH"),
-        document.getElementById("tH"),
-        document.getElementById("lH")
-    ];
+    function enviarFormulario(formId, actionUrl, successMessage) {
+        var form = document.getElementById(formId);
+        if (!form) return;
 
-    elementos.forEach(function(elemento) {
-        if (elemento) {
-            elemento.style.display = "none";
-            elemento.disabled = true;
-        }
-    });
-}
+        var formData = new FormData(form);
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'success') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                Swal.fire({
+                    icon: 'success',
+                    title: successMessage,
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    if (nextTabId) {
+                        document.getElementById(nextTabId).disabled = false;
+                        $('#' + nextTabId).tab('show');
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar el anexo',
+                    text: data,
+                    confirmButtonText: 'Intentar de nuevo'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en la conexión',
+                text: 'No se pudo conectar al servidor. Por favor intenta de nuevo.',
+                confirmButtonText: 'Ok'
+            });
+        });
+    }
+
+    document.getElementById('cargarAnexoIV').addEventListener('click', validateAndSubmitAnexoIV);
+})

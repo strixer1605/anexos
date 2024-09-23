@@ -38,11 +38,44 @@ document.addEventListener("DOMContentLoaded", function() {
         var nextTabX = "anexo5-tab";
     }
 
+    $('#cargarCurso').on('click', function () {
+        const curso = $('#selectCursos').find(':selected').text();
+        var textCurso = $('#cursos').val();
+        
+        var cursosArray = textCurso.split(',').map(item => item.trim());
+        
+        if (cursosArray.includes(curso)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Curso ya ingresado',
+                text: `El curso "${curso}" ya ha sido agregado.`,
+                showCancelButton: true,
+                confirmButtonText: 'Omitir',
+                cancelButtonText: 'Borrar curso'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return; 
+                } else {
+                    cursosArray = cursosArray.filter(item => item !== curso);
+                    $('#cursos').val(cursosArray.join(', ').trim());
+                    Swal.fire('Borrado', `El curso "${curso}" ha sido eliminado de la lista.`, 'info');
+                }
+            });
+            return; 
+        }
+    
+        if (textCurso) {
+            textCurso += ', ';
+        }
+    
+        textCurso += curso;
+        $('#cursos').val(textCurso.trim());
+    });     
+
     function validateAndSubmitAnexoVIII(event) {
         const fields = [
             'institucion',
-            'anio',
-            'division',
+            'cursos',
             'area',
             'docente',
             'objetivo',
@@ -79,23 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setTimeout(() => {
                     firstInvalidField.focus();
-                }, 500);
-            });
-            event.preventDefault();
-            return;
-        }
-    
-        const anio = document.getElementById('anio');
-        if (anio && (anio.value < 1 || anio.value > 7)) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Año Inválido',
-                text: 'El año debe estar entre 1 y 7.',
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                anio.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => {
-                    anio.focus();
                 }, 500);
             });
             event.preventDefault();
@@ -210,15 +226,15 @@ document.addEventListener("DOMContentLoaded", function() {
     
         // Verificación de teléfonos.
         const telefonos = [
-            { id: 'telefonoTransporte', maxDigits: 12, allowDashes: false },
-            { id: 'telefonoResponsable', maxDigits: 12, allowDashes: false }
+            { id: 'telefonoTransporte', maxDigits: 13, allowDashes: false },
+            { id: 'telefonoResponsable', maxDigits: 13, allowDashes: false }
         ];
     
         for (let telefono of telefonos) {
             const element = document.getElementById(telefono.id);
             if (!element) continue;
             const value = element.value.trim();
-            const regex = telefono.allowDashes ? /^[\d-]{10,12}$/ : /^\d{10,12}$/;
+            const regex = telefono.allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
     
             if (!regex.test(value)) {
                 if (!firstInvalidField) {
@@ -227,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Número de Teléfono Inválido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 12.`,
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 13.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
                     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -383,37 +399,57 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     function validateAndSubmitAnexoX(event) {
-        const fields = [
-            'infraestructura',
-            'hospitales',
-            'mediosAlternativos',
-            'datosOpcionales'
+        const telefonos = [
+            { id: 'hospitalesTelefono', maxDigits: 13, allowDashes: false },
+            { id: 'datosInteresTelefono', maxDigits: 13, allowDashes: false }
         ];
+    
+        for (let telefono of telefonos) {
+            
+            const element = document.getElementById(telefono.id);
+            if (element == null){
+                continue;
+            };
 
-        let firstInvalidField = null;
+            const value = element.value.trim();
+            if (value == ''){
+                continue;
+            };
 
-        for (let field of fields) {
-            const element = document.getElementById(field);
-            if (element && element.value.trim() === '') {
-                if (!firstInvalidField) {
-                    firstInvalidField = element;
-                }
+            const regex = telefono.allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
+    
+            if (!regex.test(value)) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Campo Obligatorio',
-                    text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
+                    title: 'Número de Teléfono Inválido',
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 12.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
-                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        firstInvalidField.focus();
+                        element.focus();
+                    }, 500);
+                });
+                event.preventDefault();
+                return;
+            }
+    
+            if (value.replace(/-/g, '').length > telefono.maxDigits) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Número de Teléfono Excedido',
+                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        element.focus();
                     }, 500);
                 });
                 event.preventDefault();
                 return;
             }
         }
-
         enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', nextTabX);
     }
 

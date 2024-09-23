@@ -1,7 +1,0 @@
-Enviar un correo a la escuela notificando la solicitud de salida
-Crear tabs para la carga de los anexos restantes
-Verificacion de carga de todos los inputs
-Edicion de anexos ()
-Marca de anexos requeridos
-Requerir anexos que se marcaron, para enviar la solicitud a salvado
-Modificar los campos de cantidad de personas en el anexo 4 una vez actualizado el anexo 5

@@ -1,5 +1,12 @@
 <?php
     session_start();
+    if (!isset($_SESSION['dniProfesor'])) {
+        header('Location: ../index.php');
+        exit;
+    }
+    include('../../php/conexion.php');
+
+    $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
     error_reporting(0);
 ?>
@@ -50,7 +57,7 @@
                         <!-- Sección de DNI -->
                         <div class="row mb-4">
                             <div class="col-md-4 col-12">
-                                <label for="dniSearch" class="form-label">DNI:</label>
+                                <label for="dniSearch" class="form-label">Insertar por DNI:</label>
                                 <input type="number" class="form-control" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                             </div>
                             <div class="col-md-4 col-12 mt-md-0 mt-2">
@@ -65,8 +72,8 @@
                         <!-- Sección de Grupos -->
                         <div class="row mb-4">
                             <div class="col-md-8 col-12">
-                                <label for="grupos" class="form-label">Grupos:</label>
-                                <select id="grupos" name="grupos" class="form-control" required>
+                                <label for="grupos" class="form-label">Insertar por grupo:</label>
+                                <select id="grupos" name="grupos" class="form-control" style="cursor: pointer;" required>
                                     <?php include ('../../php/traerGrupos.php'); ?>
                                 </select>
                             </div>
@@ -80,22 +87,23 @@
                             <div class="col-12">
                                 <label for="acompanante" class="form-label">Insertar Acompañante:</label>
                             </div>
-                            <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI" required pattern="\d{8}">
+                            <div class="col-md-2 col-12 mt-2">
+                                <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="text" class="form-control" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido" required>
+                                <input type="text" class="form-control" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido..." required>
+                            </div>
+                            <div class="col-md-2 col-12 mt-2">
+                                <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad" required>
+                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar Acompañante</button>
                             </div>
-                            <div class="col-12 mt-2 d-flex justify-content-center">
-                                <button id="cargarAcompañante" type="button" class="btn btn-success w-50">Cargar Acompañante</button>
-                            </div>
-                            <br><br>
+                            <br>
                             <div id="advice" class="col-12" style="margin-top: 30px;">
 
                             </div>
+                            <p style="margin-top: 5px;"><b>Atención:</b> Este panel es solamente una guía. La aprobación depende del Director de turno.</p>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
                             <button type="button" id="selectAll" class="btn btn-secondary">

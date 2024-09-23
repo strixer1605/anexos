@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-09-2024 a las 20:24:09
+-- Tiempo de generación: 23-09-2024 a las 02:26:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -5526,7 +5526,8 @@ CREATE TABLE `anexoiv` (
 
 INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `lugarVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `cantidadAlumnos`, `cantDocentesAcompañantes`, `cantNoDocentesAcompañantes`, `totalPersonas`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `anexoixHabil`, `anexoxHabil`, `fechaModificacion`) VALUES
 (1, 1, 1, 18, 'la costa', 'E.E.S.T', 1, 'calle 104', 0, 'Viaje a Mar del Plata', 'Mar del plata', '2024-09-18', 'E.E.S.T N°1', '00:00:00', '2024-09-18', 'E.E.S.T N°1', '00:00:00', 'Salida desde la insitucion educativa hacia la ruta con direccion a Mar del Plata', 'scape room Mar del Plata', 18892329, 'salvado', 1, 55, 4, 1, 60, 'ljn', 'lj', 123, 'lkn', '', 1, 1, 1, '2024-09-16 20:42:11'),
-(2, 1, 1, 2, '2', '2', 1, '2', 0, '2', '2', '2024-09-10', '2', '00:00:00', '2024-09-18', '2', '00:00:00', '2', '2', 18892329, '2', 3, 2, 2, 22, 2, '2', '2', 2, '2', '', 0, 1, 0, '2024-09-11 21:42:04');
+(2, 1, 1, 2, '2', '2', 1, '2', 0, '2', '2', '2024-09-10', '2', '00:00:00', '2024-09-18', '2', '00:00:00', '2', '2', 18892329, '2', 3, 2, 2, 22, 2, '2', '2', 2, '2', '', 0, 1, 0, '2024-09-11 21:42:04'),
+(3, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'a', 'a', '0000-00-00', '22', '22:22:00', '2222-02-22', 'a', '22:02:00', 'a', 'a', 18892329, 'Paola Arrua Sosa', 1, 1, 1, 1, 1, '1', '1', 1, '1', '1', 1, 1, 1, '2024-09-23 00:01:12');
 
 -- --------------------------------------------------------
 
@@ -5582,7 +5583,7 @@ CREATE TABLE `anexov` (
 --
 
 INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
-(1, 45822343, 'JOAQUIN EMILIANO SEBASTIAN LORENZO', 18, 3),
+(2, 18892329, 'ARRUA SOSA PAOLA', 41, 2),
 (1, 18892329, 'ARRUA SOSA PAOLA', 41, 2);
 
 -- --------------------------------------------------------
@@ -5641,9 +5642,8 @@ CREATE TABLE `anexovii` (
 CREATE TABLE `anexoviii` (
   `fkAnexoIV` int(11) NOT NULL,
   `institucion` varchar(100) NOT NULL,
-  `año` int(11) NOT NULL,
-  `division` varchar(1) NOT NULL,
-  `area` varchar(200) NOT NULL,
+  `cursos` varchar(200) NOT NULL,
+  `area` varchar(100) NOT NULL,
   `docente` varchar(50) NOT NULL,
   `objetivo` text NOT NULL,
   `fechaSalida` date NOT NULL,
@@ -5663,8 +5663,8 @@ CREATE TABLE `anexoviii` (
 -- Volcado de datos para la tabla `anexoviii`
 --
 
-INSERT INTO `anexoviii` (`fkAnexoIV`, `institucion`, `año`, `division`, `area`, `docente`, `objetivo`, `fechaSalida`, `lugaresVisitar`, `descripcionPrevias`, `responsablesPrevias`, `observacionesPrevias`, `descripcionDurante`, `responsablesDurante`, `observacionesDurante`, `descripcionEvaluacion`, `responsablesEvaluacion`, `observacionesEvaluacion`) VALUES
-(1, 'E.E.S.T 1', 7, 'a', 'Ninguna', 'PAOLA ARRUA SOSA', 'Participar en la planificación y realización de equipos de actividades científicos recreativas. valorando los aportes propios y ajenos en función de los objetivos., Utilizar sus conocimientos previos y adquiridos desde un aprendizaje significativo sobre los elementos físicos y los seres.  promover y valorar el medio ambiente encaminados a conservarlos y mejorarlos., Incorporar hábitos de orden y de las tareas asignadas. fortaleciendo la integración.', '2024-09-18', 'Mar del plata', 's', 'PAOLA ARRUA SOSA ', 's', 's', 'PAOLA ARRUA SOSA ', 's', 's', 'PAOLA ARRUA SOSA ', 's');
+INSERT INTO `anexoviii` (`fkAnexoIV`, `institucion`, `cursos`, `area`, `docente`, `objetivo`, `fechaSalida`, `lugaresVisitar`, `descripcionPrevias`, `responsablesPrevias`, `observacionesPrevias`, `descripcionDurante`, `responsablesDurante`, `observacionesDurante`, `descripcionEvaluacion`, `responsablesEvaluacion`, `observacionesEvaluacion`) VALUES
+(1, 'E.E.S.T 1', '3ºE, 3ºC, 1ºA', 'Biología', 'PAOLA ARRUA SOSA', 'Participar en la planificación y realización de equipos de actividades científicos recreativas. valorando los aportes propios y ajenos en función de los objetivos., Utilizar sus conocimientos previos y adquiridos desde un aprendizaje significativo sobre los elementos físicos y los seres.  promover y valorar el medio ambiente encaminados a conservarlos y mejorarlos., Incorporar hábitos de orden y de las tareas asignadas. fortaleciendo la integración.', '2024-09-18', 'Mar del plata', 's', 'PAOLA ARRUA SOSA ', 's', 's', 'PAOLA ARRUA SOSA ', 's', 's', 'PAOLA ARRUA SOSA ', 's');
 
 -- --------------------------------------------------------
 
@@ -5676,14 +5676,21 @@ CREATE TABLE `anexox` (
   `fkAnexoIV` int(11) NOT NULL,
   `localidadEmpresa` varchar(100) NOT NULL,
   `hospitales` varchar(150) NOT NULL,
-  `hospitalesTelefono` bigint(20) NOT NULL,
+  `hospitalesTelefono` varchar(20) NOT NULL,
   `hospitalesDireccion` varchar(100) NOT NULL,
   `hospitalesLocalidad` varchar(100) NOT NULL,
   `datosInteresNombre` varchar(150) NOT NULL,
-  `datosInteresTelefono` bigint(20) NOT NULL,
+  `datosInteresTelefono` varchar(20) NOT NULL,
   `datosInteresDireccion` varchar(100) NOT NULL,
   `datosInteresLocalidad` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexox`
+--
+
+INSERT INTO `anexox` (`fkAnexoIV`, `localidadEmpresa`, `hospitales`, `hospitalesTelefono`, `hospitalesDireccion`, `hospitalesLocalidad`, `datosInteresNombre`, `datosInteresTelefono`, `datosInteresDireccion`, `datosInteresLocalidad`) VALUES
+(1, '-', 'a', '1122334455', 'a', 'a', 'a', '1122334455', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -56931,7 +56938,7 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT de la tabla `anexoiv`
 --
 ALTER TABLE `anexoiv`
-  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `area`

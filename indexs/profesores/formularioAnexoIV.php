@@ -19,6 +19,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu de Salidas</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/formularioIV.css">
     </head>
@@ -32,7 +33,7 @@
         <div class="container">
             <h2>Cargar Anexo 4</h2>
             <br>
-            <form id="formularioSalidas" class="formulario" action="../../php/insertAnexoIV.php" method="post">
+            <form id="formAnexoIV" class="formulario" action="../../php/insertAnexoIV.php" method="POST">
                 <div class="anexos-section">
                     <label>Anexos a utilizar:</label>
                     <div class="form-check">
@@ -61,32 +62,32 @@
 
                 <div class="mb-5">
                     <label for="region" class="form-label">Región:</label>
-                    <input type="number" class="form-control" id="region" name="region" placeholder="Ingrese la región" required pattern="[A-Za-z\s]+" value="18">
+                    <input type="number" class="form-control" id="region" name="region" placeholder="Ingrese la región" required pattern="[A-Za-z\s]+" value="18" readonly>
                 </div>
 
                 <div class="mb-5">
                     <label for="distrito" class="form-label">Distrito:</label>
-                    <input type="text" class="form-control" id="distrito" name="distrito" placeholder="Ingrese el distrito" required pattern="[A-Za-z\s]+" value="La Costa">
+                    <input type="text" class="form-control" id="distrito" name="distrito" placeholder="Ingrese el distrito" required pattern="[A-Za-z\s]+" value="La Costa" readonly>
                 </div>
 
                 <div class="mb-5">
                     <label for="institucionEducativa" class="form-label">Institución Educativa:</label>
-                    <input type="text" class="form-control" id="institucionEducativa" name="institucionEducativa" placeholder="Ingrese la institución educativa" required pattern="[A-Za-z\s\.]+" value="E.E.S.T.">
+                    <input type="text" class="form-control" id="institucionEducativa" name="institucionEducativa" placeholder="Ingrese la institución educativa" required pattern="[A-Za-z\s\.]+" value="E.E.S.T." readonly>
                 </div>
 
                 <div class="mb-5">
                     <label for="numero" class="form-label">N°:</label>
-                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Ingrese el número" required pattern="\d+" value="1">
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Ingrese el número" required pattern="\d+" value="1" readonly>
                 </div>
 
                 <div class="mb-5">
                     <label for="domicilioInstitucion" class="form-label">Domicilio:</label>
-                    <input type="text" class="form-control" id="domicilioInstitucion" name="domicilio" placeholder="Ingrese el domicilio" required value="Calle 104 y 124">
+                    <input type="text" class="form-control" id="domicilioInstitucion" name="domicilio" placeholder="Ingrese el domicilio" required value="Calle 104 y 124" readonly>
                 </div>
 
                 <div class="mb-5">
                     <label for="telefonoInstitucion" class="form-label">Teléfono:</label>
-                    <input type="number" class="form-control" id="telefonoInstitucion" name="telefono" placeholder="Ingrese el teléfono" required pattern="\d{10}" value="2246420535">
+                    <input type="number" class="form-control" id="telefonoInstitucion" name="telefono" placeholder="Ingrese el teléfono" required pattern="\d{10}" value="2246420535" readonly>
                 </div>
 
                 <div class="mb-5">
@@ -195,10 +196,13 @@
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-success" id="cargar">Cargar</button>
+                    <button type="submit" class="btn btn-success" id="cargarAnexoIV">Cargar</button>
                 </div>
             </form>
         </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../js/anexoIV.js"></script>
     </body>
 </html>
