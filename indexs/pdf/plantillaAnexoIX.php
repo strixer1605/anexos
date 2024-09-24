@@ -1,9 +1,9 @@
 <?php
     session_start();
     if (!$_SESSION['dniProfesor']){
-        header('Location: ../../../index.php');
+        header('Location: ../../index.php');
     } else {
-        include '../../../php/conexion.php';
+        include '../../php/conexion.php';
         $idSalida = $_SESSION['idSalida'];
         $sql = "SELECT * FROM anexoix WHERE fkAnexoIV = $idSalida";
         $resultado = mysqli_query($conexion, $sql);
@@ -41,10 +41,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
+                    <img src="../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
+                    <img src="../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">

@@ -1,23 +1,23 @@
 <?php
     session_start();
     if (!isset($_SESSION['dniProfesor'])) {
-        header('Location: ../index.php');
+        header('Location: ../../index.php');
         exit;
     }
     include('../../php/conexion.php');
-    
-    $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
-    $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
-?>
 
+    echo $_SESSION['dniHijo'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu de Salidas</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
             body {
                 background-color: white;
                 color: #fff;
@@ -81,41 +81,26 @@
                 outline: none; /* Elimina el contorno del enfoque */
             }
         </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-custom">
-            <div class="container-fluid d-flex align-items-center">
-                <a href="menuAdministrarSalidas.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h3>Formularios</h3>
+                <hr>
+                <ul>
+                    <li><a href="formularioAnexosPadres.php" class="btn form-control botones w-100 mb-3">Anexos 6/7</a></li>
+                </ul>
             </div>
-        </nav>
-
-        <div class="container">
-            <h1>
-                <?php
-                    echo $_SESSION['denominacionProyecto'];
-                ?>
-            </h1>
-            <div class="row mt-5">
-                <div class="col-md-6">
-                    <h3>Formularios</h3>
-                    <hr>
-                    <ul>
-                        <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <h3>Documentos (PDF)</h3>
-                    <hr>
-                    <ul>
-                        <li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo 4</a></li>
-                        <li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo 5</a></li>
-                        <li><a href="../pdf/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo 8</a></li>
-                        <li><a href="../pdf/plantillaAnexoIX.php" class="btn form-control botones w-100 mb-3">Anexo 9</a></li>
-                        <li><a href="../pdf/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>
-                    </ul>
-                </div>
+            <div class="col-md-6">
+                <h3>Documentos (PDF)</h3>
+                <hr>
+                <ul>
+                    <li><a href="../pdf/plantillaAnexoVI.html" class="btn form-control botones w-100 mb-3">Anexo 6</a></li>
+                    <li><a href="../pdf/plantillaAnexoVII.html" class="btn form-control botones w-100 mb-3">Anexo 7</a></li>
+                </ul>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+    </div>
+</body>
 </html>
