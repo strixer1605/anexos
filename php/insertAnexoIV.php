@@ -24,10 +24,9 @@
         $dniEncargado = $_POST['dniEncargado'];
         $apellidoNombreEncargado = $_POST['nombreEncargado'];
         $cargo = 1;
-        $cantidadAlumnos = $_POST['cantAlumnos'];
-        $cantDocentesAcompañantes = $_POST['cantDocentes'];
-        $cantNoDocentesAcompañantes = $_POST['cantNoDocentes'];
-        $totalPersonas = $_POST['totalPersonas'];
+        $cantidadAlumnos = 0;
+        $cantDocentesAcompañantes = 1;
+        $cantNoDocentesAcompañantes = 0;
         $nombreHospedaje = $_POST['nombreHospedaje'];
         $domicilioHospedaje = $_POST['domicilioHospedaje'];
         $telefonoHospedaje = $_POST['telefonoHospedaje'];
@@ -41,7 +40,7 @@
             estado, tipoSolicitud, region, distrito, institucionEducativa, numeroInstitucion, domicilioInstitucion,
             telefonoInstitucion, denominacionProyecto, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
-            dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentesAcompañantes, cantNoDocentesAcompañantes,
+            dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentes, cantAcompañantes,
             totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, gastosEstimativos, anexoVIIIHabil, anexoIXHabil, anexoXHabil
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

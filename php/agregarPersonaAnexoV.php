@@ -28,7 +28,6 @@
                 $edad = $diferencia->y;
                 $cargo = $_POST['cargo'];
                 
-                //consulta para verificar que no se repitan los datos
                 $sqlVerificar = "SELECT fkAnexoIV, dni FROM `anexov` WHERE dni = ? AND fkAnexoIV = ?";
                 $stmtVerificar = $conexion->prepare($sqlVerificar);
                 if ($stmtVerificar) {
@@ -38,14 +37,19 @@
                     if ($resultVerificar->num_rows > 0) {
                         echo json_encode(['status' => 'error', 'message' => 'La persona cargada ya está registrada en la salida']);
                     } else {
-                        // Preparar y ejecutar la consulta de inserción
                         $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
                         $stmt = $conexion->prepare($sqlInsert);
                         if ($stmt) {
-                            // Bindear los parámetros: 'i' para integer, 's' para string
                             $stmt->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
                             if ($stmt->execute()) {
-                                // Obtener todos los participantes después de la inserción
+                                $campoActualizar = ($cargo == 2) ? 'cantidadDocentes' : 'cantidadAlumnos';  // cargo 2 para docente, otro valor para alumno
+                                
+                                $sqlUpdate = "UPDATE anexoIV SET $campoActualizar = $campoActualizar + 1 WHERE idAnexoIV = ?";
+                                $stmtUpdate = $conexion->prepare($sqlUpdate);
+                                $stmtUpdate->bind_param('i', $idAnexoIV);
+                                $stmtUpdate->execute();
+                                $stmtUpdate->close();
+                                
                                 $sqlSelect = "SELECT dni, apellidoNombre, edad, cargo FROM anexov WHERE fkAnexoIV = ?";
                                 $stmtSelect = $conexion->prepare($sqlSelect);
                                 $stmtSelect->bind_param('i', $idAnexoIV);
@@ -55,7 +59,6 @@
                                 while ($row = $result->fetch_assoc()) {
                                     $participantes[] = $row; // Guardar cada participante en el array
                                 }
-                                // Devolver la respuesta JSON con el estado y los participantes
                                 echo json_encode(['status' => 'success', 'message' => 'Registro insertado correctamente', 'participantes' => $participantes]);
                                 
                                 $stmtSelect->close();
@@ -65,7 +68,7 @@
                             $stmt->close();
                         } else {
                             echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de la consulta: ' . $conexion->error]);
-                        }
+                        }                        
                     }
                     $stmtVerificar->close();
                 }
@@ -100,41 +103,41 @@
                     if ($resultVerificar->num_rows > 0) {
                         echo json_encode(['status' => 'error', 'message' => 'El acompañante ya está registrado en una de las tablas.']);
                     } else {
-                        // Preparar y ejecutar la consulta de inserción
                         $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
                         $stmtInsert = $conexion->prepare($sqlInsert);
-
+                        
                         if ($stmtInsert) {
-                            // Asignar un cargo correspondiente, puedes modificarlo según tu lógica
-                            $cargo = 4; // Por ejemplo, 4 para acompañante
-
+                            $cargo = 4; // Acompañante
+                        
                             $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
-
+                        
                             if ($stmtInsert->execute()) {
+                                // Actualizar la cantidad de acompañantes en anexoIV
+                                $sqlUpdate = "UPDATE anexoIV SET cantidadAcompañantes = cantidadAcompañantes + 1 WHERE idAnexoIV = ?";
+                                $stmtUpdate = $conexion->prepare($sqlUpdate);
+                                $stmtUpdate->bind_param('i', $idAnexoIV);
+                                $stmtUpdate->execute();
+                                $stmtUpdate->close();
+                        
                                 // Obtener todos los participantes después de la inserción
                                 $sqlSelect = "SELECT dni, apellidoNombre, edad, cargo FROM anexov WHERE fkAnexoIV = ?";
                                 $stmtSelect = $conexion->prepare($sqlSelect);
                                 $stmtSelect->bind_param('i', $idAnexoIV);
                                 $stmtSelect->execute();
                                 $result = $stmtSelect->get_result();
-
+                        
                                 $participantes = [];
                                 while ($row = $result->fetch_assoc()) {
-                                    $participantes[] = $row; // Guardar cada participante en el array
+                                    $participantes[] = $row;
                                 }
-
-                                // Devolver la respuesta JSON con el estado y los participantes
+                        
                                 echo json_encode(['status' => 'success', 'message' => 'Acompañante registrado correctamente', 'participantes' => $participantes]);
-
                                 $stmtSelect->close();
                             } else {
                                 echo json_encode(['status' => 'error', 'message' => 'Error al insertar el registro: ' . $stmtInsert->error]);
                             }
-
                             $stmtInsert->close();
-                        } else {
-                            echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de la consulta de inserción: ' . $conexion->error]);
-                        }
+                        }                        
                     }
                     $stmtVerificar->close();
                 } else {
@@ -177,47 +180,56 @@
                 }
         
                 $consultaExitosa = true;
+                $cantidadInsertada = 0;
+
                 foreach ($personas as $persona) {
-                    // Validar y extraer datos
                     $dni = intval($persona['dni']);
                     $nombreApellido = trim($persona['nombre'] . ' ' . $persona['apellido']);
                     $fechan = $persona['fechan'];
-        
-                    // Validar la fecha de nacimiento
+
                     if (!$fechan || !DateTime::createFromFormat('Y-m-d', $fechan)) {
-                        continue; // Saltar si la fecha no es válida
+                        continue; 
                     }
-        
-                    // Calcular edad
+
                     $fechaActual = date("Y-m-d");
                     $fechaNacimiento = new DateTime($fechan);
                     $fechaHoy = new DateTime($fechaActual);
                     $edad = $fechaHoy->diff($fechaNacimiento)->y;
-        
+
                     $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
                     $stmtInsert = $conexion->prepare($sqlInsert);
                     $cargo = 3;
-                    
+
                     if ($stmtInsert === false) {
                         $consultaExitosa = false;
                         break;
                     }
-        
+
                     $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
-                    
-                    if (!$stmtInsert->execute()) {
+
+                    if ($stmtInsert->execute()) {
+                        $cantidadInsertada++;
+                    } else {
                         $consultaExitosa = false;
                         break;
                     }
-        
+
                     $stmtInsert->close();
                 }
-        
+
                 if ($consultaExitosa) {
+                    // Actualizar la cantidad de alumnos en anexoIV
+                    $sqlUpdate = "UPDATE anexoIV SET cantidadAlumnos = cantidadAlumnos + ? WHERE idAnexoIV = ?";
+                    $stmtUpdate = $conexion->prepare($sqlUpdate);
+                    $stmtUpdate->bind_param('ii', $cantidadInsertada, $idAnexoIV);
+                    $stmtUpdate->execute();
+                    $stmtUpdate->close();
+
                     echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);
                 } else {
                     echo json_encode(['status' => 'error', 'message' => 'Ocurrió un error al insertar las personas.']);
                 }
+
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'No se recibieron personas o la opción no es válida.']);
             }
