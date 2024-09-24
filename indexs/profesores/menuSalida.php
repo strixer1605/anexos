@@ -5,7 +5,7 @@
         exit;
     }
     include('../../php/conexion.php');
-    
+    $idSalida = $_SESSION['idSalida'];
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 ?>
@@ -109,9 +109,7 @@
                     <ul>
                         <li><a href="../pdf/plantillaAnexoIV/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo 4</a></li>
                         <li><a href="../pdf/plantillaAnexoV/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo 5</a></li>
-                        <li><a href="../pdf/plantillaAnexoVIII/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo 8</a></li>
-                        <li><a href="../pdf/plantillaAnexoIX/plantillaAnexoIX.php" class="btn form-control botones w-100 mb-3">Anexo 9</a></li>
-                        <li><a href="../pdf/plantillaAnexoX/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>
+                        <?php include('../../php/menuSalidaTraerPDF.php'); ?>
                     </ul>
                 </div>
             </div>
