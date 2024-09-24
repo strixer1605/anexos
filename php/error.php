@@ -53,7 +53,7 @@
             <div class="icon">❌</div>
             <h1>404</h1>
             <p>Lo sentimos, la página que buscas no se pudo encontrar.</p>
-            <p>Puedes volver al <a href="/">inicio</a> o buscar lo que necesitas en el menú.</p>
+            <p>Puedes volver al <a href="../index.php">inicio</a> o buscar lo que necesitas en el menú.</p>
         </div>
     </body>
 </html>

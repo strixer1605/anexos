@@ -1,24 +1,27 @@
 <?php
     session_start();
 
-    if (isset($_SESSION['dni_profesor'])) {
-        $dni_padre = $_SESSION['dni_profesor'];
-    } elseif (isset($_SESSION['dni_director'])) {
-        $dni_padre = $_SESSION['dni_director'];
-    } elseif (isset($_SESSION['dni_padre'])) {
-        $dni_padre = $_SESSION['dni_padre'];
+    if (!isset($_SESSION['dniProfesor'], $_SESSION['dniPadre'])) {
+        header("Location: ../../index.php");
+
+    } else if (!isset($_SESSION['dniPadre'])) {
+        header("Location: ../../index.php");
+
     } else {
-        header('Location: ../index.php');
-        exit;
-    }
+        include('../../php/conexion.php');
 
-    if (empty($dni_padre)) {
-        header('Location: ../index.php');
-        exit;
-    }
+        $dniPadre = $_SESSION['dniPadre'];
+        $dniHijo = $_GET['dniHijo'];
+        $_SESSION['dniHijo'] = $dniHijo;
+        
+        $sqlAnexoV = "
+        SELECT aiv.idAnexoIV, aiv.denominacionProyecto 
+        FROM anexoiv aiv
+        JOIN anexov av ON av.fkAnexoIV = aiv.idAnexoIV
+        WHERE av.dni = $dniHijo AND aiv.estado = 2";
 
-    $dniAlum = $_GET['dniAlumno'];
-    include('../../modulos/conexion.php');
+        $resultado = mysqli_query($conexion, $sqlAnexoV);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -27,47 +30,75 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Salidas Educativas</title>
-        <link rel="stylesheet" href="../../librerias/bootstrap.css">
-        <link rel="stylesheet" href="../../css/estilos.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-color: white;
+                text-align: center;
+            }
+
+            .btn {
+                display: inline-block; /* Hace que se comporte como un bloque para respetar el ancho */
+                width: 50%; /* Ancho del 50% de la pantalla */
+                font-size: 16px;
+                margin: 10px auto; /* Centra los botones y añade espacio vertical */
+                text-decoration: none;
+                color: #000;
+                background-color: #f8f9fa;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, border-color 0.3s ease;
+            }
+
+            .btn:hover,
+            .btn:focus,
+            .btn:active {
+                background-color: #e2e6ea; /* Cambio de color al pasar el ratón */
+                outline: none; /* Elimina el borde de enfoque */
+            }
+
+            hr {
+                border: 1px solid #D6D0D0;
+                margin: 20px 0;
+            }
+
+            .container-center {
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            ul {
+                padding-left: 0;
+                list-style-type: none;
+                width: 100%; /* Asegura que la lista ocupe el 100% del contenedor */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            ul li {
+                width: 100%; /* Asegura que cada ítem de la lista ocupe el 100% del ancho */
+                display: flex;
+                justify-content: center; /* Centra los botones */
+            }
+        </style>
     </head>
     <body>
-        <br>
-        <div class="col-md-6 contenedor">
-            <br>
-            <?php
-            $Anexo5Hijo = 'SELECT * FROM anexo_v WHERE documento = "' . $dniAlum . '"';
-            $resultadoAnexo5 = mysqli_query($conexion, $Anexo5Hijo);
-
-            if ($resultadoAnexo5 && mysqli_num_rows($resultadoAnexo5) > 0) {
-                while ($rowA5 = mysqli_fetch_assoc($resultadoAnexo5)) {
-                    if (isset($rowA5['fk_anexoIV']) && !empty($rowA5['fk_anexoIV'])) {
-                        $Anexo4Hijo = 'SELECT * FROM anexo_iv WHERE id = "' . $rowA5['fk_anexoIV'] . '"';
-                        $resultadoA4 = mysqli_query($conexion, $Anexo4Hijo);
-
-                        if ($resultadoA4 && mysqli_num_rows($resultadoA4) > 0) {
-                            while ($rowA4 = mysqli_fetch_assoc($resultadoA4)) {
-                                echo '<div class="d-inline-flex align-items-center mt-2">';
-                                echo '<p class="btn border form-control mb-0" style="cursor: text; width: 250px;">' . htmlspecialchars($rowA4['nombre_del_proyecto']) . '</p>';
-                                echo '<a href="../../anexo6/anexo6.php?id=' . htmlspecialchars($rowA4['id']) . '&nombre=' . urlencode($rowA4['nombre_del_proyecto']) . '&dniAlumno='.urlencode($dniAlum).'" class="btn btn-sm btn-success botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Autorización</a>';
-                                echo '<a href="../../anexo7/anexo7.php?id=' . htmlspecialchars($rowA4['id']) . '&nombre=' . urlencode($rowA4['nombre_del_proyecto']) . '&dniAlumno='.urlencode($dniAlum).'" class="btn btn-sm btn-primary botones" style="text-decoration: none; margin-left: 5px; height: auto; font-size:16px; padding:5px;">Ficha Médica</a>';
-                                echo '</div>';
-                            }
-                        } else {
-                            echo 'No se encontró el Anexo IV correspondiente.';
-                        }
-                    } else {
-                        echo 'No se encontró el campo fk_anexoIV en Anexo V.';
+        <div class="container-center">
+            <h3>Documentos (PDF)</h3>
+            <hr style="width: 100%;">
+            <ul>
+                <?php
+                    while ($filaAnexoIV = $fila = $resultado->fetch_assoc()) {  
+                        echo "<li><a href='hijoSalida.php' class='btn border-bottom border-top form-control'> " . $fila['denominacionProyecto'] . "</a></li>";
                     }
-                }
-            } else {
-                echo 'No hay salidas pendientes...';
-            }
-            ?>
+                ?>
+            </ul>
         </div>
 
-        <script src="../../librerias/jquery.js?v=1"></script>
-        <script src="../../librerias/boostrap.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

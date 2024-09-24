@@ -16,16 +16,16 @@
             <?php
                 session_start();
 
-                if (empty($_SESSION['dni_padre'])) {
+                if (empty($_SESSION['dniPadre'])) {
                     header('Location: ../index.php');
                     exit;
                 }
                 
                 include('../../php/conexion.php');
 
-                $dniPadre = $_SESSION['dni_padre'];
+                $dniPadre = $_SESSION['dniPadre'];
 
-                echo $_SESSION['nombre_padre'], " ", $_SESSION['apellido_padre'];
+                echo $_SESSION['nombrePadre'], " ", $_SESSION['apellidoPadre'];
 
                 $hijoSQL = "SELECT `dni_alumnos` FROM `padresalumnos` WHERE dni_padrestutores = '$dniPadre'";
 

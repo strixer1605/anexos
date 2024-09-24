@@ -1,46 +1,76 @@
 <?php
-    session_start();
-    session_unset();
+session_start();
+session_unset();
 
-    include('conexion.php');
-    include('passwordDirector.php');
+include('conexion.php');
+include('passwordDirector.php');
 
-    $dni = mysqli_real_escape_string($conexion, $_POST["dni"]);
-    $password = mysqli_real_escape_string($conexion, $_POST["password"]);
+$dni = mysqli_real_escape_string($conexion, $_POST["dni"]);
+$password = mysqli_real_escape_string($conexion, $_POST["password"]);
 
-    $sql_personal = "SELECT * FROM personal WHERE dni = '$dni'";
-    $result_personal = $conexion->query($sql_personal);
+// Verificar si es el director
+if ($dni == $dniDirector && $password == $password_d) {
+    $_SESSION['dniDirector'] = $dniDirector;
+    header("Location: datosSesion.php");
+    exit;
+}
 
-    $sql_padre = "SELECT * FROM padrestutores WHERE dni = '$dni' AND ocupacion NOT LIKE 'DOCENTE'";
-    $result_padre = $conexion->query($sql_padre);
+// Consulta en la tabla 'personal'
+$sql_personal = "SELECT * FROM personal WHERE dni = '$dni'";
+$result_personal = $conexion->query($sql_personal);
 
-    $conexion->close();
+if ($result_personal->num_rows > 0) {
+    $row_personal = $result_personal->fetch_assoc();
+    
+    // Verificar contraseña del personal
+    if ($password === $row_personal["pass"]) {
+        $_SESSION['dniProfesor'] = $dni;
 
-    if ($dni == $dniDirector && $password == $password_d) {
-        $_SESSION['dniDirector'] = $dniDirector;
+        // Consulta en la tabla 'padrestutores' si es que hay un registro en 'personal'
+        $sql_ProfesorPadre = "SELECT `dni`, `nombre`, `apellido` FROM padrestutores WHERE dni = '$dni'";
+        $result_ProfesorPadre = $conexion->query($sql_ProfesorPadre);
+
+        if ($result_ProfesorPadre && $result_ProfesorPadre->num_rows > 0) {
+            // Si también está en la tabla 'padrestutores', asignamos dniPadre
+            $_SESSION['dniPadre'] = $dni;
+            mysqli_free_result($result_ProfesorPadre); // Liberar el resultado de la consulta de padrestutores
+        }
+
+        // Liberar el resultado de la consulta de personal
+        mysqli_free_result($result_personal);
+        
+        // Redirigir a la página de datos de sesión
         header("Location: datosSesion.php");
         exit;
-    } 
+    }
+}
 
-    if ($result_personal->num_rows > 0) {
-        $row = $result_personal->fetch_assoc();
+// Consulta independiente en la tabla 'padrestutores' si no hay resultado en 'personal'
+$sql_padre = "SELECT * FROM padrestutores WHERE dni = '$dni'";
+$result_padre = $conexion->query($sql_padre);
+
+if ($result_padre->num_rows > 0) {
+    $row_padre = $result_padre->fetch_assoc();
+    
+    // Verificar contraseña del padre/tutor
+    if ($password === $row_padre["contrasena"]) {
+        $_SESSION['dniPadre'] = $dni;
         
-        if ($password === $row["pass"]) {
-            $_SESSION['dniProfesor'] = $dni;
-            header("Location: datosSesion.php");
-            exit;
-        }
-    }
+        // Liberar el resultado de la consulta de padrestutores
+        mysqli_free_result($result_padre);
 
-    if ($result_padre->num_rows > 0) {
-        $row = $result_padre->fetch_assoc();
-        if ($password === $row["contrasena"]) {
-            $_SESSION['dniPadre'] = $dni;
-            header("Location: datosSesion.php");
-            exit;
-        }
+        // Redirigir a la página de datos de sesión
+        header("Location: datosSesion.php");
+        exit;
     }
+}
 
-    header("Location: error.php");
-    exit;
+// Liberar los resultados si aún no se han liberado
+if ($result_personal) mysqli_free_result($result_personal);
+if ($result_padre) mysqli_free_result($result_padre);
+
+// Cerrar la conexión y redirigir a la página de error
+$conexion->close();
+header("Location: error.php");
+exit;
 ?>

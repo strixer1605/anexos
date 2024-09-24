@@ -18,7 +18,7 @@
         exit;
     }
 
-    $dniAlumno = $_GET['dniAlumno'];
+    $dniHijo = $_GET['dniHijo'];
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
         <br>
         <div class="col-md-6 contenedor">
             <br>    
-            <?php echo '<a href="hijos/hijosMenu.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">Salidas Educativas</a>'?>
+            <?php echo '<a href="hijos/hijosMenu.php?dniHijo='.$dniHijo.'" class="btn border-bottom border-top form-control" style="width: 100%;">Salidas Educativas</a>'?>
         </div>
 
         <script src="../librerias/jquery.js?v=1"></script>

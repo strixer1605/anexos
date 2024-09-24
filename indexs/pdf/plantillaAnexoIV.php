@@ -1,9 +1,9 @@
 <?php
     session_start();
     if (!$_SESSION['dniProfesor']){
-        header('Location: ../../../index.php');
+        header('Location: ../../index.php');
     } else {
-        include '../../../php/conexion.php';
+        include '../../php/conexion.php';
         $idSalida = $_SESSION['idSalida'];
 
         $sql = "SELECT 
@@ -68,10 +68,10 @@
         <div class="row d-flex">
             <div class="col-12 d-flex">
                 <div class="col-6 d-flex justify-content-center ">
-                    <img src="../../../imagenes/eest.webp" style="width: 100px; margin-right: 60px;" alt="">
+                    <img src="../../imagenes/eest.webp" style="width: 100px; margin-right: 60px;" alt="">
                 </div>
                 <div style="align-items: center;" class="col-6 d-flex justify-content-end ">
-                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
+                    <img src="../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">

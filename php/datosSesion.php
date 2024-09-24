@@ -25,6 +25,31 @@
         exit;
     }
 
+    elseif (isset($_SESSION['dniProfesor'], $_SESSION['dniPadre'])) {
+        $dniProfesor = $_SESSION['dniProfesor'];
+        $sql_profesor = "SELECT * FROM personal WHERE dni = '$dniProfesor'";
+        $result_profesor = $conexion->query($sql_profesor);
+
+        if ($result_profesor->num_rows > 0) {
+            $row = $result_profesor->fetch_assoc();
+            $_SESSION['nombreDoc'] = $row['nombre'];
+            $_SESSION['apellidoDoc'] = $row['apellido'];
+
+            $_SESSION['nombrePadre'] = $row['nombre'];
+            $_SESSION['apellidoPadre'] = $row['apellido'];
+
+            $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dniProfesor.'"';
+            include('datosHijo.php');
+        } else {
+            header('Location: error.php');
+            exit;
+        }
+
+        $conexion->close();
+        header("Location: ../indexs/profesores/profesores.php");
+        exit;
+    }
+
     elseif (isset($_SESSION['dniProfesor'])) {
         $dniProfesor = $_SESSION['dniProfesor'];
         $sql_profesor = "SELECT * FROM personal WHERE dni = '$dniProfesor'";
@@ -54,8 +79,8 @@
 
         if ($result_padre->num_rows > 0) {
             $row = $result_padre->fetch_assoc();
-            $_SESSION['nombre_padre'] = $row['nombre'];
-            $_SESSION['apellido_padre'] = $row['apellido'];
+            $_SESSION['nombrePadre'] = $row['nombre'];
+            $_SESSION['apellidoPadre'] = $row['apellido'];
 
             $hijoSQL = 'SELECT `dni_alumnos` FROM `padresalumnos` WHERE `dni_padrestutores` = "'.$dniPadre.'"';
             include('datosHijo.php');

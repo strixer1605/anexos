@@ -3,7 +3,7 @@
     $idSalida = $_SESSION['idSalida'];
 
     if(isset($idSalida)) {
-        include '../../../php/conexion.php';
+        include '../../php/conexion.php';
 
         function formatearCampoConExplode($campo, $delimitador = ',') {
             if (!empty($campo)) {
@@ -36,6 +36,32 @@
         $sql = "SELECT * FROM `anexoviii` WHERE fkAnexoIV = $idSalida";
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
+
+        $cursos = $fila['cursos']; // Ejemplo: "3ºE, 3ºC, 1ºA"
+    
+    // Separar los cursos por coma
+    $cursosArray = explode(',', $cursos); // Ejemplo: ["3ºE", "3ºC", "1ºA"]
+
+    // Arrays para almacenar año y división
+    $anio = [];
+    $division = [];
+
+    // Iterar sobre los cursos
+    foreach ($cursosArray as $curso) {
+        // Eliminar espacios
+        $curso = trim($curso);
+
+        // Separar por el símbolo 'º'
+        list($numero, $letra) = explode('º', $curso);
+
+        // Agregar el número al array de años y la letra al array de divisiones
+        $anio[] = $numero;
+        $division[] = $letra;
+    }
+
+    // Convertir los arrays en strings separados por comas
+    $anioString = implode(', ', $anio); // Ejemplo: "3, 3, 1"
+    $divisionString = implode(', ', $division); // Ejemplo: "E, C, A"
 
         // Usar la función para procesar los resultados
         $resultados = procesarResultados($conexion, $idSalida);
@@ -99,10 +125,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
+                    <img src="../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
+                    <img src="../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
@@ -129,10 +155,10 @@
                     <tbody>
                         <td><span><?php echo $fila['institucion'] ?></span></span></td>
                         <td><?php 
-                            echo $fila['año'];
+                            echo $anioString;
                         ?></td>
                         <td><?php 
-                            echo $fila['division'];
+                            echo $divisionString;
                         ?></td>
                         <td><?php 
                             echo $fila['area'];

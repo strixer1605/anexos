@@ -3,7 +3,7 @@
     $idSalida = $_SESSION['idSalida'];
 
     if(isset($idSalida)) {
-        include '../../../php/conexion.php';
+        include '../../php/conexion.php';
 
         $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = $idSalida";
         $resultado = $conexion->query($sql);
@@ -68,10 +68,10 @@
         <div class="row d-flex">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
+                    <img src="../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
+                    <img src="../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
