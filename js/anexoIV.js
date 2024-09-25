@@ -6,6 +6,27 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("horaRegreso").addEventListener("change", validarFechas);
 
     function validateAndSubmitAnexoIV(event) {
+        event.preventDefault();
+
+        const tipoSalida = document.querySelector('input[name="tipoSalida"]:checked');
+        console.log(tipoSalida);
+        if (!tipoSalida) {
+            const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div'); // Asumiendo que están en un <div>
+        
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo no seleccionado',
+                text: 'Por favor selecciona una opción para el tipo de salida.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    tipoSalidaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.querySelector('input[name="tipoSalida"]').focus();
+                }, 300);
+            });
+            return;
+        }
+        
         const fields = [
             'denominacionProyecto',
             'lugarVisitar',
