@@ -151,26 +151,6 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="cantAlumnos" class="form-label">Cantidad de alumnos:</label>
-                    <input type="number" class="form-control" id="cantAlumnos" name="cantAlumnos" placeholder="Ingrese la cantidad de alumnos..." required min="0">
-                </div>
-
-                <div class="mb-5">
-                    <label for="cantDocentes" class="form-label">Cantidad de docentes:</label>
-                    <input type="number" class="form-control" id="cantDocentes" name="cantDocentes" placeholder="Ingrese la cantidad de docentes..." required min="0">
-                </div>
-
-                <div class="mb-5">
-                    <label for="cantNoDocentes" class="form-label">Cantidad de acompañantes:</label>
-                    <input type="number" class="form-control" id="cantNoDocentes" name="cantNoDocentes" placeholder="Ingrese la cantidad de acompañantes..." required min="0">
-                </div>
-
-                <div class="mb-5">
-                    <label for="totalPersonas" class="form-label">Cantidad total de personas:</label>
-                    <input type="number" class="form-control" id="totalPersonas" name="totalPersonas" placeholder="Ingrese la cantidad de personas..." required min="0">
-                </div>
-
-                <div class="mb-5">
                     <label for="nombreHospedaje" id="nH" class="form-label">Nombre del hospedaje:</label>
                     <input type="text" class="form-control" id="nombreHospedaje" name="nombreHospedaje" placeholder="Ingrese el nombre del hospedaje..." required>
                 </div>
@@ -196,7 +176,7 @@
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-success" id="cargarAnexoIV">Cargar</button>
+                    <button type="button" class="btn btn-success" id="cargarAnexoIV">Cargar</button>
                 </div>
             </form>
         </div>

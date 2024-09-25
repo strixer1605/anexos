@@ -1,5 +1,5 @@
 <?php
-    echo $_SESSION['nombreDoc'];
+    session_start();
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -23,7 +23,7 @@
         $actividades = $_POST['actividades'];
         $dniEncargado = $_POST['dniEncargado'];
         $apellidoNombreEncargado = $_POST['nombreEncargado'];
-        $cargo = 1;
+        $cargo = 2;
         $cantidadAlumnos = 0;
         $cantDocentesAcompañantes = 1;
         $cantNoDocentesAcompañantes = 0;
@@ -41,26 +41,27 @@
             telefonoInstitucion, denominacionProyecto, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
             dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentes, cantAcompañantes,
-            totalPersonas, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, gastosEstimativos, anexoVIIIHabil, anexoIXHabil, anexoXHabil
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, gastosEstimativos, anexoVIIIHabil, anexoIXHabil, anexoXHabil
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiissisissssssssssisiiiiississiii",
+                "iiissisissssssssssisiiiississiii",
                 $estado, $tipoSolicitud, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
                 $telefonoInstitucion, $denominacionProyecto, $lugarVisita, $fechaSalida, $lugarSalida,
                 $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades,
                 $dniEncargado, $apellidoNombreEncargado, $cargo, $cantidadAlumnos, $cantDocentesAcompañantes, $cantNoDocentesAcompañantes,
-                $totalPersonas, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje,$gastosEstimativos, $anexo8, $anexo9, $anexo10
+                $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje,$gastosEstimativos, $anexo8, $anexo9, $anexo10
             );
 
             if ($stmt->execute()) {
-                header('Location: ../indexs/profesores/menuAdministrarSalidas.php¿');
+                echo 'success';
                 exit();
             } else {
                 echo "Error: " . $stmt->error;
                 echo "<br> SQL: " . $sql;
             }
+            
 
             $stmt->close();
         } else {
@@ -71,4 +72,5 @@
     } else {
         echo "Método de solicitud no permitido.";
     }
+    ob_end_flush();
 ?>

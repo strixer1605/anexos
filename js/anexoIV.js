@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
+
     document.getElementById("fechaSalida").addEventListener("change", validarFechas);
     document.getElementById("horaSalida").addEventListener("change", validarFechas);
     document.getElementById("fechaRegreso").addEventListener("change", validarFechas);
@@ -38,27 +38,24 @@ document.addEventListener("DOMContentLoaded", function() {
             'horaRegreso',
             'itinerario',
             'actividades',
-            'cantAlumnos',
-            'cantDocentes',
-            'cantNoDocentes',
-            'totalPersonas',
             'nombreHospedaje',
             'domicilioHospedaje',
             'telefonoHospedaje',
             'localidadHospedaje',
             'gastosEstimativos'
         ];
-    
+
         let firstInvalidField = null;
-    
+
+        // Validación de campos vacíos
         for (let field of fields) {
             const element = document.getElementById(field);
             if (element && element.value.trim() === '') {
                 firstInvalidField = element;
                 break;
             }
-        }
-    
+        }        
+
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -68,13 +65,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }).then(() => {
                 setTimeout(() => {
                     firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    document.getElementById(firstInvalidField).focus();
+                    firstInvalidField.focus();
                 }, 300);
             });
-            event.preventDefault();
             return;
         }
 
+        // Validación del nombre encargado
         var nombreEncargado = document.getElementById("nombreEncargado").value;
         var nombrePattern = /^[A-Za-z\s]+$/;
         if (!nombrePattern.test(nombreEncargado)) {
@@ -89,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("nombreEncargado").focus();
                 }, 300);
             });
-            event.preventDefault();
             return;
         }
 
@@ -106,64 +102,92 @@ document.addEventListener("DOMContentLoaded", function() {
         var horaSalida = document.getElementById("horaSalida").value;
         var fechaRegreso = document.getElementById("fechaRegreso").value;
         var horaRegreso = document.getElementById("horaRegreso").value;
-    
+
         var fechaHoraActual = new Date();
-        var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
-        var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
-    
-        if (fechaHoraSalida < fechaHoraActual) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Fecha Inválida',
-                text: 'La fecha y hora de salida no pueden ser en el pasado.',
-                confirmButtonText: 'Aceptar'
-            });
-            document.getElementById("fechaSalida").value = "";
-            document.getElementById("horaSalida").value = "";
-            return;
+
+        // Validación de fecha y hora de salida
+        if (fechaSalida && horaSalida) {
+            var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
+
+            // Verificar si la fecha de salida es en el pasado o actual
+            if (fechaHoraSalida <= fechaHoraActual) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha Inválida',
+                    text: 'La fecha y hora de salida no pueden ser en el pasado o actual.',
+                    confirmButtonText: 'Aceptar'
+                });
+                document.getElementById("fechaSalida").value = "";
+                document.getElementById("horaSalida").value = "";
+                return;
+            }
+
+            // Validar si la fecha de salida es más de un año en el futuro
+            var unAnoEnMilisegundos = 365 * 24 * 60 * 60 * 1000;
+            if (fechaHoraSalida - fechaHoraActual > unAnoEnMilisegundos) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha Inválida',
+                    text: 'La fecha de salida no puede ser más de un año en el futuro.',
+                    confirmButtonText: 'Aceptar'
+                });
+                document.getElementById("fechaSalida").value = "";
+                document.getElementById("horaSalida").value = "";
+                return;
+            }
+
+            // Si la fecha de salida es válida, habilitar la fecha de regreso
+            document.getElementById("fechaRegreso").removeAttribute("disabled");
         }
-    
-        var unAnoEnMilisegundos = 365 * 24 * 60 * 60 * 1000; // Un año en milisegundos
-        if (fechaHoraSalida - fechaHoraActual > unAnoEnMilisegundos) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Fecha Inválida',
-                text: 'La fecha de salida no puede ser más de un año en el futuro.',
-                confirmButtonText: 'Aceptar'
-            });
-            document.getElementById("fechaSalida").value = "";
-            document.getElementById("horaSalida").value = "";
-            return;
+
+        // Validación de fecha y hora de regreso
+        if (fechaRegreso && horaRegreso) {
+            var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
+
+            // Verificar si la fecha de regreso es en el pasado o actual
+            if (fechaHoraRegreso <= fechaHoraActual) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha Inválida',
+                    text: 'La fecha y hora de regreso no pueden ser en el pasado o actual.',
+                    confirmButtonText: 'Aceptar'
+                });
+                document.getElementById("fechaRegreso").value = "";
+                document.getElementById("horaRegreso").value = "";
+                return;
+            }
+
+            // Validar si la fecha de regreso es antes o igual a la de salida
+            if (fechaHoraRegreso <= fechaHoraSalida) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha Inválida',
+                    text: 'La fecha y hora de regreso deben ser posteriores a la fecha y hora de salida.',
+                    confirmButtonText: 'Aceptar'
+                });
+                document.getElementById("fechaRegreso").value = "";
+                document.getElementById("horaRegreso").value = "";
+                return;
+            }
         }
-    
-        if (fechaHoraRegreso <= fechaHoraSalida) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Fecha Inválida',
-                text: 'La fecha y hora de regreso deben ser posteriores a la fecha y hora de salida.',
-                confirmButtonText: 'Aceptar'
-            });
-            document.getElementById("fechaRegreso").value = "";
-            document.getElementById("horaRegreso").value = "";
-            return;
-        }
-    
+
+        // Calcular diferencia de fechas para ocultar inputs si es necesario
         calcularDiferencia();
     }
-    
+
     function calcularDiferencia() {
         var fechaSalida = document.getElementById("fechaSalida").value;
         var horaSalida = document.getElementById("horaSalida").value;
         var fechaRegreso = document.getElementById("fechaRegreso").value;
         var horaRegreso = document.getElementById("horaRegreso").value;
-    
+
         if (fechaSalida && horaSalida && fechaRegreso && horaRegreso) {
             var fechaHoraSalida = new Date(fechaSalida + "T" + horaSalida);
             var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
-    
+
             var diferenciaMs = fechaHoraRegreso - fechaHoraSalida;
             var diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
-    
+
             if (diferenciaHoras >= 0) {
                 if (diferenciaHoras < 24) {
                     ocultarInputs();
@@ -178,7 +202,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
-    
+
+    // Ocultar inputs de hospedaje si la duración es menor a 24 horas
     function ocultarInputs() {
         var elementos = [
             document.getElementById("nombreHospedaje"),
@@ -190,43 +215,39 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("tH"),
             document.getElementById("lH")
         ];
-    
+
         elementos.forEach(function(elemento) {
             if (elemento) {
                 elemento.style.display = "none";
                 elemento.disabled = true;
             }
         });
-    }     
+    }
 
     function enviarFormulario(formId, actionUrl, successMessage) {
         var form = document.getElementById(formId);
         if (!form) return;
-
+    
         var formData = new FormData(form);
-
+    
         fetch(actionUrl, {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
         .then(data => {
+            console.log("Response from server:", data);  // Log the response
             if (data.trim() === 'success') {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
                 Swal.fire({
                     icon: 'success',
                     title: successMessage,
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    if (nextTabId) {
-                        document.getElementById(nextTabId).disabled = false;
-                        $('#' + nextTabId).tab('show');
-                    }
-                });
+                    setTimeout(() => {
+                        window.location.href = '../../indexs/profesores/menuAdministrarSalidas.php';
+                    }, 1000);
+                });                
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -245,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 confirmButtonText: 'Ok'
             });
         });
-    }
+    }       
 
     document.getElementById('cargarAnexoIV').addEventListener('click', validateAndSubmitAnexoIV);
-})
+});
