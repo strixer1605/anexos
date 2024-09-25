@@ -11,5 +11,7 @@
     } else {
         // echo "Conexión exitosa";
     }
-    
+    // Establecer la localización a español
+    $conexion->set_charset("utf8");
+    $conexion->query("SET lc_time_names = 'es_ES'");
 ?>

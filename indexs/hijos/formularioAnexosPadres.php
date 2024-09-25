@@ -6,8 +6,10 @@
     // }
     include('../../php/conexion.php');
 
+    // echo $_SESSION['dniHijo'];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
+    echo $_SESSION['idSalida'];
     error_reporting(0);
 ?>
 <!DOCTYPE html>
@@ -23,33 +25,33 @@
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
-                <a href="menuAdministrarSalidas.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
-            </div>
-        </nav>
+                <button onclick="window.history.back()" class="btn btn-warning ms-auto" style="color: white;">Atrás</button>
+                </div>
+            </nav>
 
         <div class="container mt-4">
             <h2>Menú de Anexos</h2>
+            <medium class="form-text text-muted">Si desea modificar la informacion solo cargue denuevo el formulario.</medium>
+
             <br>
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="anexo5-tab" data-bs-toggle="tab" data-bs-target="#anexo5" type="button" role="tab" aria-controls="anexo5" aria-selected="true">Anexo 6</button>
+                    <button class="nav-link active" id="anexo6-tab" data-bs-toggle="tab" data-bs-target="#anexo6" type="button" role="tab" aria-controls="anexo6" aria-selected="true">Anexo 6</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="anexo8-tab" data-bs-toggle="tab" data-bs-target="#anexo8" type="button" role="tab" aria-controls="anexo8" aria-selected="false">Anexo 7</button>
+                    <button class="nav-link" id="anexo7-tab" data-bs-toggle="tab" data-bs-target="#anexo7" type="button" role="tab" aria-controls="anexo7" aria-selected="false">Anexo 7</button>
                 </li>
             </ul>
 
             <div class="tab-content mt-3" id="myTabContent"> 
-                <!-- Anexo 5 -->
-                <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo5-tab">
+                <!-- Anexo 6 -->
+                <div class="tab-pane fade show active" id="anexo6" role="tabpanel" aria-labelledby="anexo6-tab">
                     <h2>Anexo 6</h2>
                     <br>
-                    <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
-                        <!-- Sección de DNI -->
+                        <?php include('../../php/traerAnexoVI.php') ?>
                         
-                        <center><button type="submit" class="btn btn-success" id="cargarAnexoVI">Cargar Anexo 6</button></center>
-                    </form>
+                        <center><button type="submit" class="btn btn-success mt-2" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                 </div>
                 
                 <!-- Anexo 8 -->
@@ -67,13 +69,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../../js/enviarFormularios.js"></script>
+        <script src="../../js/enviarFormulariosPadres.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
-            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
-            var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
-            var anexoXHabil = "<?php echo $anexoxHabil; ?>";
         </script>
-        <script src="../../js/accionesAnexoV.js"></script>
     </body>
 </html>
