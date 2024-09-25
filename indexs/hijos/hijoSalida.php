@@ -103,8 +103,8 @@
                 <h3>Documentos (PDF)</h3>
                 <hr>
                 <ul>
-                    <li><a href="../pdf/plantillaAnexoVI.html" class="btn form-control botones w-100 mb-3">Anexo 6</a></li>
-                    <li><a href="../pdf/plantillaAnexoVII.html" class="btn form-control botones w-100 mb-3">Anexo 7</a></li>
+                    <li><a href="../pdf/plantillaAnexoVI.php" class="btn form-control botones w-100 mb-3">Anexo 6</a></li>
+                    <li><a href="../pdf/plantillaAnexoVII.php" class="btn form-control botones w-100 mb-3">Anexo 7</a></li>
                 </ul>
             </div>
         </div>

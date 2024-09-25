@@ -1,3 +1,51 @@
+<?php
+    session_start();
+
+    
+    if (isset($_SESSION['dniPadre'])) {
+        include '../../php/conexion.php';
+        
+        $idSalida = $_SESSION['idSalida'];
+        $dniHijo = $_SESSION['dniHijo'];
+        $dniPadre = $_SESSION['dniPadre'];
+
+        $sql = "
+                SELECT 
+                CONCAT(a.apellido, ' ', a.nombre) AS nombreCompleto, -- Concatenar apellido y nombre
+                ax.distrito,
+                CONCAT(ax.institucionEducativa, ' ', ax.numeroInstitucion) AS institucion, -- Concatenar institucionEducativa y numeroInstitucion
+                ax.denominacionProyecto,
+                ax.localidadViaje,
+                DATE_FORMAT(ax.fechaSalida, '%d') AS diaSalida, -- Obtener el día de fechaSalida
+                DATE_FORMAT(ax.fechaSalida, '%M') AS mesSalida, -- Obtener el mes de fechaSalida
+                DATE_FORMAT(ax.fechaRegreso, '%d') AS diaRegreso, -- Obtener solo el día de fechaRegreso
+                DATE_FORMAT(ax.fechaRegreso, '%M') AS mesRegreso, -- Obtener el mes de fechaRegreso
+                av.domicilio,
+                av.altura,
+                av.localidad,
+                t.telefono
+            FROM 
+                anexoiv ax
+            JOIN 
+                anexovi av ON ax.idAnexoIV = av.fkAnexoIV -- Cambiar a fkAnexoIV para hacer el JOIN correcto
+            JOIN 
+                alumnos a ON a.dni = av.dniAlumno -- Cambiar a av.dni para hacer el JOIN correcto
+            JOIN 
+                telefono t ON t.dni = 18892329
+            WHERE 
+                ax.idAnexoIV = 1
+            AND 
+                av.dniAlumno = 47950839
+        ";
+    
+        $resultado = $conexion->query($sql);
+        $fila = $resultado->fetch_assoc();
+
+        $fechaActual = date('d/m/Y');
+
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +62,10 @@
         <div class="row d-flex">
             <div class="col-12 d-flex">
                 <div style="padding-left: 40px;" class="col-6 d-flex justify-content-start">
-                    <img src="../../../imagenes/eest.webp" style="width: 100px;" alt="">
+                    <img src="../../imagenes/eest.webp" style="width: 100px;" alt="">
                 </div>
                 <div class="col-6 d-flex justify-content-end" style="align-items: center;">
-                    <img src="../../../imagenes/logoProvincia.jpg" alt="">
+                    <img src="../../imagenes/logoProvincia.jpg" alt="">
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end mt-5">
@@ -32,23 +80,23 @@
             <div class="row d-flex justify-content-center mt-5">    
                 <div class="col-10">
                     <p>
-                        Por la presente autorizo a mi hijo/a……………………………………… DNI Nº……………………, domiciliado en la…………………………… N°…….. de la localidad de ………….……………, T.E. ………………………… que concurre a la …………………………………….. del distrito ……………………., a participar de la Salida Educativa ……………………………………………. , a realizarse en la localidade de ………………………………………….. partiendo el día…….. del mes de………………. y regresando el ……….. de……………. del presente ciclo lectivo.
+                        Por la presente autorizo a mi hijo/a <?php echo $fila['nombreCompleto'] ?> DNI Nº<?php echo $dniHijo ?>, domiciliado en la <?php echo $fila['domicilio'] ?>N°<?php echo $fila['altura'] ?> de la localidad de <?php echo $fila['localidad'] ?>, T.E.<?php echo $fila['telefono'] ?> que concurre a la <?php echo $fila['institucion'] ?> del distrito <?php echo $fila['distrito'] ?>, a participar de la Salida Educativa <?php echo $fila['denominacionProyecto'] ?>. , a realizarse en la localidade de <?php echo $fila['localidadViaje'] ?> partiendo el día <?php echo $fila['diaSalida'] ?> del mes de <?php echo $fila['mesSalida'] ?> y regresando el <?php echo $fila['diaRegreso'] ?> de <?php echo $fila['mesRegreso'] ?> del presente ciclo lectivo.
                         Dejo constancia de que he sido informado de las características particulares de dicha salida, como así también de los responsables de las actividades a desarrollar, medios de transporte a utilizar y donde se realizaran dichas actividades.
                         Autorizo a los responsables de la salida a disponer cambios con relación  la planificación de las actividades en aspectos acotados, que resulten necesarios, a su solo criterio y sin aviso previo, sobre lo cual me deberán informar y fundamentar al regreso.
                         Autorizo en caso de necesidad y urgencia, a hacer atender al alumno por profesionales médicos y a que se adopten las prescripciones que ellos indiquen, sobre el cual requiero inmediato aviso.
                         Los docentes a cargo del cuidado y vigilancia activa de los menores no serán responsables de los objetos u otros elementos de valor que los mismos puedan llevar.
                     </p>
                     <p>
-                        Lugar: ……………………………………
+                        Lugar: <?php echo $fila['localidad'] ?>
                     </p>
                     <p>
-                        Fecha: ……………………………………
+                        Fecha: <?php echo $fechaActual; ?>
                     </p>
                     <p>
                         Firma y aclaración del Padre, Madre, Tutor o Representante Legal
                     </p>
                     <p>
-                        DNI:………………………………………
+                        DNI:<?php echo $dniPadre ?>
                     </p>
                     <p>
                         Teléfono de Urgencia (consignar varios): Cuando los alumnos que participen sean mayores de edad (18 años), resulta suficiente la autorización firmada por los mismos alumnos
