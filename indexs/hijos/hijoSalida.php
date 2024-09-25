@@ -6,7 +6,14 @@
     }
     include('../../php/conexion.php');
 
-    echo $_SESSION['dniHijo'];
+    if (isset($_SESSION['idSalida'])) {
+        $_SESSION['idSalida'] = $_GET['idSalida'];
+        $idSalida = $_SESSION['idSalida'];
+    } 
+    // else {
+    //     $_SESSION['idSalida'] = $_GET['idSalida'];
+
+    // }
 
 ?>
 <!DOCTYPE html>

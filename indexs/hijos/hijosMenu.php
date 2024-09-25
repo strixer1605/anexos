@@ -93,7 +93,7 @@
             <ul>
                 <?php
                     while ($filaAnexoIV = $fila = $resultado->fetch_assoc()) {  
-                        echo "<li><a href='hijoSalida.php' class='btn border-bottom border-top form-control'> " . $fila['denominacionProyecto'] . "</a></li>";
+                        echo "<li><a href='hijoSalida.php?idSalida=".$fila['idAnexoIV']."' class='btn border-bottom border-top form-control'> " . $fila['denominacionProyecto'] . "</a></li>";
                     }
                 ?>
             </ul>
