@@ -238,19 +238,19 @@
                     <div class="col-12">
                         <div class="fw-bold">
                             Cantidad de docentes acompañantes:
-                            <span class="fw-normal"> <?php echo $fila['cantDocentesAcompañantes'] ?></span>
+                            <span class="fw-normal"> <?php echo $fila['cantDocentes'] ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="fw-bold">
                             Cantidad de no docentes:
-                            <span class="fw-normal"> <?php echo $fila['cantNoDocentesAcompañantes'] ?></span>
+                            <span class="fw-normal"> <?php echo $fila['cantAcompañantes'] ?></span>
                         </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div class="fw-bold">
                             Total de personas:
-                            <span class="fw-normal"> <?php echo $fila['totalPersonas'] ?></span>
+                            <span class="fw-normal"> <?php $totalPersonas = $fila['cantAcompañantes'] + $fila['cantDocentes'] + $fila['cantidadAlumnos']; echo $totalPersonas ?></span>
                         </div>
                     </div>
                     <div class="col-12">

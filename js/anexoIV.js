@@ -9,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
 
         const tipoSalida = document.querySelector('input[name="tipoSalida"]:checked');
-        console.log(tipoSalida);
         if (!tipoSalida) {
-            const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div'); // Asumiendo que están en un <div>
+            const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div');
         
             Swal.fire({
                 icon: 'warning',
@@ -26,9 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-        
+
         const fields = [
             'denominacionProyecto',
+            'localidadViaje',
             'lugarVisitar',
             'fechaSalida',
             'lugarSalida',
@@ -136,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Si la fecha de salida es válida, habilitar la fecha de regreso
             document.getElementById("fechaRegreso").removeAttribute("disabled");
         }
 
@@ -144,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (fechaRegreso && horaRegreso) {
             var fechaHoraRegreso = new Date(fechaRegreso + "T" + horaRegreso);
 
-            // Verificar si la fecha de regreso es en el pasado o actual
             if (fechaHoraRegreso <= fechaHoraActual) {
                 Swal.fire({
                     icon: 'warning',
@@ -157,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // Validar si la fecha de regreso es antes o igual a la de salida
             if (fechaHoraRegreso <= fechaHoraSalida) {
                 Swal.fire({
                     icon: 'warning',
@@ -171,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Calcular diferencia de fechas para ocultar inputs si es necesario
         calcularDiferencia();
     }
 
@@ -203,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Ocultar inputs de hospedaje si la duración es menor a 24 horas
     function ocultarInputs() {
         var elementos = [
             document.getElementById("nombreHospedaje"),
@@ -236,17 +231,17 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => response.text())
         .then(data => {
-            console.log("Response from server:", data);  // Log the response
+            console.log("Response from server:", data);  // Log respuesta
             if (data.trim() === 'success') {
                 Swal.fire({
                     icon: 'success',
                     title: successMessage,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 }).then(() => {
                     setTimeout(() => {
                         window.location.href = '../../indexs/profesores/menuAdministrarSalidas.php';
-                    }, 1000);
+                    }, 500);
                 });                
             } else {
                 Swal.fire({
