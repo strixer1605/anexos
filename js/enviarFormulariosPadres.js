@@ -60,6 +60,9 @@ function validateAndSubmitAnexoVI(event) {
             if (data.success) {
                 // Si el envío fue exitoso, llevar al siguiente tab
                 alert("Insertado correctamente");
+                // Cambiar al tab del Anexo 7
+                const tabAnexo7 = new bootstrap.Tab(document.getElementById('anexo7-tab'));
+                tabAnexo7.show(); // Mostrar el tab del Anexo 7
             } else {
                 // Mostrar mensaje de error si no fue exitoso
                 alert(data.message || 'Ocurrió un error al enviar los datos.');
@@ -113,4 +116,168 @@ document.addEventListener('DOMContentLoaded', function () {
     formFields.forEach(field => {
         field.addEventListener('keydown', handleEnterKey);
     });
+});
+
+//revisar datos obligatorios, sobreescribir variables actuales
+let estadoFormulario = {
+    alergico: 0,
+    aQue: '',
+    sufrioA: 0,
+    sufrioB: 0,
+    sufrioC: 0,
+    medicacion: 0,
+    otrasInput: '',
+    medicacionDetalles: '',
+    indicaciones: '',
+    obraSocial: 0
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formAnexoVII');
+
+    formulario.addEventListener('submit', function(event) {
+        if (!validarFormulario()) {
+            event.preventDefault(); // Evitar el envío si hay errores de validación
+        } else {
+            obtenerDatosFormulario(); // Actualiza el estado y envía los datos
+        }
+    });
+});
+
+// Función de validación del formulario
+function validarFormulario() {
+    let esValido = true;
+
+    const alergicoSi = document.getElementById('alergicoSi');
+    const alergicoNo = document.getElementById('alergicoNo');
+
+    // Validar que al menos uno de los radio buttons esté seleccionado
+    if (!alergicoSi.checked && !alergicoNo.checked) {
+        esValido = false;
+        alert('Debe indicar si es alérgico o no.');
+        alergicoSi.focus(); // Enfocar en el primer radio button
+        alergicoSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return esValido;
+    }
+
+    // Si "Sí" está seleccionado, validar que el campo "aQue" no esté vacío
+    if (alergicoSi.checked) {
+        const aQue = document.getElementById('aQue'); // Obtener el input de "a qué es alérgico"
+        
+        if (aQue.value.trim() === "") {
+            esValido = false;
+            alert('Debe indicar a qué es alérgico.');
+            aQue.focus(); // Enfocar en el campo "aQue"
+            aQue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return esValido;
+        }
+    } else {
+        // Si "No" está seleccionado, asegurar que el campo "aQue" quede vacío
+        document.getElementById('aQue').value = '';  // Limpiar el input
+    }
+
+    const problemasOtras = document.getElementById('otras');
+    if (problemasOtras.checked) {
+        const otrasInput = document.getElementById('otrasInput');
+        if (otrasInput.value.trim() === "") {
+            esValido = false;
+            alert('Debe especificar los otros problemas recientes si ha marcado "d".');
+            otrasInput.focus();
+            otrasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return esValido;
+        }
+    }
+
+    const medicacionSi = document.getElementById('medicacionSi');
+    const medicacionNo = document.getElementById('medicacionNo');
+
+    if (!medicacionSi.checked && !medicacionNo.checked) {
+        esValido = false;
+        alert('Debe indicar si está tomando alguna medicación.');
+        medicacionSi.focus();
+        medicacionSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return esValido;
+    }
+
+    if (medicacionSi.checked) {
+        const medicacionDetalles = document.getElementById('medicacionDetalles');
+        if (medicacionDetalles.value.trim() === "") {
+            esValido = false;
+            alert('Debe indicar qué medicación está tomando.');
+            medicacionDetalles.focus();
+            medicacionDetalles.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return esValido;
+        }
+    }
+
+    const obraSocialSi = document.getElementById('obraSocialSi');
+    const obraSocialNo = document.getElementById('obraSocialNo');
+
+    if (!obraSocialSi.checked && !obraSocialNo.checked) {
+        esValido = false;
+        alert('Debe indicar si tiene obra social.');
+        obraSocialSi.focus();
+        obraSocialSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return esValido;
+    }
+
+    return esValido;
+}
+
+// Función para obtener y actualizar los datos del formulario
+function obtenerDatosFormulario() {
+    const alergicoSi = document.getElementById('alergicoSi');
+    const aQue = document.getElementById('aQue').value;
+
+    // Actualizar el estado del formulario
+    estadoFormulario.alergico = alergicoSi.checked ? 1 : 0;
+    estadoFormulario.aQue = alergicoSi.checked ? aQue : ''; // Si no es alérgico, valor en blanco
+
+    estadoFormulario.sufrioA = document.getElementById('inflamatorios').checked ? 1 : 0;
+    estadoFormulario.sufrioB = document.getElementById('fracturas').checked ? 1 : 0;
+    estadoFormulario.sufrioC = document.getElementById('enfermedades').checked ? 1 : 0;
+
+    // Actualizar el valor de otrasInput basado en el checkbox sufrioD
+    const sufrioD = document.getElementById('otras').checked;
+    estadoFormulario.sufrioD = sufrioD ? 1 : 0; // Se actualiza solo para control interno, no se enviará al servidor
+    estadoFormulario.otrasInput = sufrioD ? document.getElementById('otrasInput').value : ''; // Si sufrioD no está seleccionado, enviar cadena vacía
+
+    // Actualizar medicación, si "No" está seleccionado, establecer los valores en blanco
+    const medicacionSi = document.getElementById('medicacionSi').checked;
+    estadoFormulario.medicacion = medicacionSi ? 1 : 0;
+    estadoFormulario.medicacionDetalles = medicacionSi ? document.getElementById('medicacionDetalles').value : '';
+
+    estadoFormulario.indicaciones = document.getElementById('indicaciones').value;
+
+    // Actualizar obra social, si "No" está seleccionado, el valor queda en blanco
+    const obraSocialSi = document.getElementById('obraSocialSi').checked;
+    estadoFormulario.obraSocial = obraSocialSi ? 1 : 0;
+
+    console.log(estadoFormulario); // Para verificar los datos
+    enviarDatos(estadoFormulario); // Llama a la función para enviar los datos
+}
+
+// Función para enviar los datos al servidor mediante AJAX
+function enviarDatos(datos) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../php/insertAnexoVII.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+        } else {
+            console.error('Error en la solicitud:', xhr.statusText);
+        }
+    };
+
+    xhr.send(JSON.stringify(datos));
+}
+
+// Llamada a la función cuando se hace clic en un botón
+document.getElementById('cargarAnexoVII').addEventListener('click', function(event) {
+    event.preventDefault(); // Evitar el envío por defecto del formulario
+    if (validarFormulario()) {
+        obtenerDatosFormulario(); // Obtiene los datos actualizados y los envía
+    }
 });

@@ -40,7 +40,6 @@
                     <p class="m-0 p-0">Apellido y Nombres Alumno:</p>
                     <p class="m-0 p-0">Apellido y Nombre del Padre, Madre, Tutor o Representante  Legal</p>
                     <span>Dirección</span>
-                    <span>N°</span>
                     <span>Teléfono:</span>
                     <p class="m-0 p-0">Lugar a Viajar:</p>
                 </div>

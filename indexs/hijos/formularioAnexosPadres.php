@@ -6,10 +6,8 @@
     // }
     include('../../php/conexion.php');
 
-    // echo $_SESSION['dniHijo'];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
-    echo $_SESSION['idSalida'];
     error_reporting(0);
 ?>
 <!DOCTYPE html>
@@ -54,14 +52,15 @@
                         <center><button type="submit" class="btn btn-success mt-2" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                 </div>
                 
-                <!-- Anexo 8 -->
-                <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
+                <!-- Anexo 7 -->
+                <div class="tab-pane fade" id="anexo7" role="tabpanel" aria-labelledby="anexo7-tab">
                     <h2>Anexo 7</h2>
                     <br>
-                    <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVII.php" method="POST">
-                        <?php include ("../../php/traerAnexoVII.php"); ?>
-                    </form>
-                    <button type="submit" class="btn btn-success" id="cargarAnexoVII">Cargar Anexo 7</button>
+                    <div id="formAnexoVII">
+                            <?php include ("../../php/traerAnexoVII.php"); ?>
+                        <button type="submit" class="btn btn-success" id="cargarAnexoVII">Cargar Anexo 7</button>
+                    </div>
+
                 </div>
 
             </div>
@@ -69,9 +68,28 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../../js/enviarFormulariosPadres.js"></script>
         <script>
-            var salidaIDSesion = "<?php echo $idSalida; ?>";
+            
+
+            // Mostrar/ocultar inputs de alergias y medicación
+            function toggleAlergiaInput(show) {
+                document.getElementById('alergiaInput').style.display = show ? 'block' : 'none';
+            }
+
+            function toggleMedicacionInput(show) {
+                document.getElementById('medicacionInput').style.display = show ? 'block' : 'none';
+            }
+
+            function toggleOtrasInput() {
+                const otrasCheckbox = document.getElementById('otras');
+                const otrasInput = document.getElementById('otrasInput');
+                otrasInput.style.display = otrasCheckbox.checked ? 'block' : 'none';
+            }
+
+            function toggleObraSocialMensaje(show) {
+                document.getElementById('obraSocialMensaje').style.display = show ? 'block' : 'none';
+            }
         </script>
+        <script src="../../js/enviarFormulariosPadres.js"></script>
     </body>
 </html>
