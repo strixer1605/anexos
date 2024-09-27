@@ -140,11 +140,11 @@ $(document).ready(function(){
             return;
         }        
 
-        if (edadAcompañante > 100) {
+        if (edadAcompañante > 122) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Formato incorrecto',
-                text: 'La edad del acompañante no debe exceder los 100 años.',
+                text: 'La edad del acompañante no debe exceder los 122 años.',
             });
             return;
         }

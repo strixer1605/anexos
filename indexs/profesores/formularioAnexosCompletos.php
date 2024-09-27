@@ -103,7 +103,7 @@
                             <div id="advice" class="col-12" style="margin-top: 30px;">
 
                             </div>
-                            <p style="margin-top: 5px;"><b>Atención:</b> Este panel es solamente una guía. La aprobación depende del Director de turno.</p>
+                            <p style="margin-top: 5px;"><b>Atención:</b> Este panel es solamente una guía, la aprobación depende del Director.</p>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse mb-1">
                             <button type="button" id="selectAll" class="btn btn-secondary">
@@ -174,9 +174,7 @@
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
-            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
             var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
-            var anexoXHabil = "<?php echo $anexoxHabil; ?>";
         </script>
         <script src="../../js/accionesAnexoV.js"></script>
     </body>

@@ -187,6 +187,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (diferenciaHoras >= 0) {
                 if (diferenciaHoras < 24) {
                     ocultarInputs();
+                } else {
+                    mostrarInputs();  // Mostrar los inputs si el viaje es mayor a 24 horas
                 }
             } else {
                 Swal.fire({
@@ -215,6 +217,26 @@ document.addEventListener("DOMContentLoaded", function() {
             if (elemento) {
                 elemento.style.display = "none";
                 elemento.disabled = true;
+            }
+        });
+    }
+
+    function mostrarInputs() {
+        var elementos = [
+            document.getElementById("nombreHospedaje"),
+            document.getElementById("domicilioHospedaje"),
+            document.getElementById("telefonoHospedaje"),
+            document.getElementById("localidadHospedaje"),
+            document.getElementById("nH"),
+            document.getElementById("dH"),
+            document.getElementById("tH"),
+            document.getElementById("lH")
+        ];
+
+        elementos.forEach(function(elemento) {
+            if (elemento) {
+                elemento.style.display = "block";  // O cambiarlo a 'inline' según sea necesario
+                elemento.disabled = false;
             }
         });
     }

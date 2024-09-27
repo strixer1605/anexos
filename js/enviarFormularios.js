@@ -1,41 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var anexo8Div = document.getElementById('anexo8');
+
     var anexo9Div = document.getElementById('anexo9');
-    var anexo10Div = document.getElementById('anexo10');
-
-    var anexo8DivTab = document.getElementById('anexo8-tab');
     var anexo9DivTab = document.getElementById('anexo9-tab');
-    var anexo10DivTab = document.getElementById('anexo10-tab');
-
-    if (anexoVIIIHabil === "0") {
-        if (anexo8Div) anexo8Div.style.display = 'none';
-        if (anexo8DivTab) anexo8DivTab.style.display = 'none';
-    } else if (anexoVIIIHabil === "1") {
-        if (anexoIXHabil === "0") {
-            var nextTabVIII = "anexo10-tab";
-        } else if (anexoIXHabil === "1") {
-            var nextTabVIII = "anexo9-tab";
-        } else if (anexoXHabil === "0") {
-            var nextTabVIII = "anexo5-tab";
-        }
-    }
+    var nextTabVIII
+    var nextTabIX
+    var nextTabX = "anexo5-tab"
 
     if (anexoIXHabil === "0") {
         if (anexo9Div) anexo9Div.style.display = 'none';
         if (anexo9DivTab) anexo9DivTab.style.display = 'none';
+        nextTabVIII = "anexo10-tab"
     } else if (anexoIXHabil === "1") {
-        if (anexoXHabil === "0") {
-            var nextTabIX = "anexo5-tab";
-        } else if (anexoXHabil === "1") {
-            var nextTabIX = "anexo10-tab";
-        }
-    }
-
-    if (anexoXHabil === "0") {
-        if (anexo10Div) anexo10Div.style.display = 'none';
-        if (anexo10DivTab) anexo10DivTab.style.display = 'none';
-    } else if (anexoXHabil === "1") {
-        var nextTabX = "anexo5-tab";
+        nextTabVIII = "anexo9-tab"
+        nextTabIX = "anexo10-tab"
     }
 
     $('#cargarCurso').on('click', function () {
