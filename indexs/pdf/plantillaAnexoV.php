@@ -126,15 +126,15 @@
             <div class="col-12">
                 <table  class="table">
                     <thead>
-                      <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Apellido y Nombre</th>
-                        <th scope="col">Documento</th>
-                        <th scope="col">Alumno</th>
-                        <th scope="col">Edad</th>
-                        <th scope="col">Docente</th>
-                        <th scope="col">No Docente</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">N°</th>
+                            <th scope="col">Apellido y Nombre</th>
+                            <th scope="col">Documento</th>
+                            <th scope="col">Alumno</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Docente</th>
+                            <th scope="col">No Docente</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -171,7 +171,7 @@
                             }
                         ?>
                     </tbody>
-                  </table>
+                </table>
             </div>
             <div class="col-12">
                 <span>La presente planilla tendrá validez para toda tramitación oficial que se realice.</span>
@@ -206,7 +206,7 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: 0.2,
+                    margin: [0.2, 1, 0.2, 1],
                     filename: 'anexoV.pdf',
                     image: {
                         type: 'jpeg',
