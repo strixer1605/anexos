@@ -21,9 +21,6 @@
 
         /* Estos estilos aseguran que no se corten los contenidos */
         @media print {
-            body {
-                -webkit-print-color-adjust: exact;
-            }
             .page-break {
                 display: block;
                 page-break-before: always;
