@@ -2,7 +2,7 @@
     include ('conexion.php');
 
     if (isset($idSalida)) {
-        $sql = "SELECT anexoviiiHabil, anexoixHabil, anexoxHabil FROM anexoiv WHERE idAnexoIV = ?";
+        $sql = "SELECT anexoixHabil FROM anexoiv WHERE idAnexoIV = ?";
         $stmt = $conexion->prepare($sql);
         if ($stmt === false) {
             die('Error preparando la consulta: ' . $conexion->error);
@@ -15,24 +15,20 @@
             
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $anexoviiiHabil = $row['anexoviiiHabil'];
                 $anexoixHabil = $row['anexoixHabil'];
-                $anexoxHabil = $row['anexoxHabil'];
 
-                if ($anexoviiiHabil == 1) {
-                    $sqlAnexoVIII = "SELECT fkAnexoIV FROM anexoviii WHERE fkAnexoIV = ?";
-                    $stmtAnexoVIII = $conexion->prepare($sqlAnexoVIII);
-                    $stmtAnexoVIII->bind_param('i', $idSalida);
-                    $stmtAnexoVIII->execute();
-                    $resultAnexoVIII = $stmtAnexoVIII->get_result();
-                    
-                    if ($resultAnexoVIII->num_rows > 0) {
-                        echo '<li><a href="../pdf/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo 8</a></li>';
-                    } else {
-                        echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo 8 (Sin completar)</a></li>';
-                    }
-                    $stmtAnexoVIII->close();
+                $sqlAnexoVIII = "SELECT fkAnexoIV FROM anexoviii WHERE fkAnexoIV = ?";
+                $stmtAnexoVIII = $conexion->prepare($sqlAnexoVIII);
+                $stmtAnexoVIII->bind_param('i', $idSalida);
+                $stmtAnexoVIII->execute();
+                $resultAnexoVIII = $stmtAnexoVIII->get_result();
+                
+                if ($resultAnexoVIII->num_rows > 0) {
+                    echo '<li><a href="../pdf/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo 8</a></li>';
+                } else {
+                    echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo 8 (Sin completar)</a></li>';
                 }
+                $stmtAnexoVIII->close();
 
                 if ($anexoixHabil == 1) {
                     $sqlAnexoIX = "SELECT fkAnexoIV FROM anexoix WHERE fkAnexoIV = ?";
@@ -49,9 +45,7 @@
                     $stmtAnexoIX->close();
                 }
 
-                if ($anexoxHabil == 1) {
-                    echo '<li><a href="../pdf/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>';
-                }
+                echo '<li><a href="../pdf/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>';
 
             } else {
                 die('Error: No se encontraron resultados.');

@@ -174,9 +174,7 @@
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
-            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
             var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
-            var anexoXHabil = "<?php echo $anexoxHabil; ?>";
         </script>
         <script src="../../js/accionesAnexoV.js"></script>
     </body>

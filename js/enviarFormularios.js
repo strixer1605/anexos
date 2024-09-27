@@ -7,36 +7,40 @@ document.addEventListener("DOMContentLoaded", function() {
     var anexo9DivTab = document.getElementById('anexo9-tab');
     var anexo10DivTab = document.getElementById('anexo10-tab');
 
-    if (anexoVIIIHabil === "0") {
-        if (anexo8Div) anexo8Div.style.display = 'none';
-        if (anexo8DivTab) anexo8DivTab.style.display = 'none';
-    } else if (anexoVIIIHabil === "1") {
-        if (anexoIXHabil === "0") {
-            var nextTabVIII = "anexo10-tab";
-        } else if (anexoIXHabil === "1") {
-            var nextTabVIII = "anexo9-tab";
-        } else if (anexoXHabil === "0") {
-            var nextTabVIII = "anexo5-tab";
-        }
-    }
+    // alert (anexoIXHabil);
+    // console.log(typeof(anexoIXHabil));
+    const nextTab = anexoIXHabil === "1" ? "anexo9-tab" : "anexo10-tab"
+    // if (anexoVIIIHabil === "0") {
+    //     if (anexo8Div) anexo8Div.style.display = 'none';
+    //     if (anexo8DivTab) anexo8DivTab.style.display = 'none';
+    // } else if (anexoVIIIHabil === "1") {
+    //     if (anexoIXHabil === "0") {
+    //         var nextTabVIII = "anexo10-tab";
+    //     } else if (anexoIXHabil === "1") {
+    //         var nextTabVIII = "anexo9-tab";
+    //     } else if (anexoXHabil === "0") {
+    //         var nextTabVIII = "anexo5-tab";
+    //     }
+    // }
 
     if (anexoIXHabil === "0") {
         if (anexo9Div) anexo9Div.style.display = 'none';
         if (anexo9DivTab) anexo9DivTab.style.display = 'none';
-    } else if (anexoIXHabil === "1") {
-        if (anexoXHabil === "0") {
-            var nextTabIX = "anexo5-tab";
-        } else if (anexoXHabil === "1") {
-            var nextTabIX = "anexo10-tab";
-        }
     }
+    // } else if (anexoIXHabil === "1") {
+    //     if (anexoXHabil === "0") {
+    //         var nextTabIX = "anexo5-tab";
+    //     } else if (anexoXHabil === "1") {
+    //         var nextTabIX = "anexo10-tab";
+    //     }
+    // }
 
-    if (anexoXHabil === "0") {
-        if (anexo10Div) anexo10Div.style.display = 'none';
-        if (anexo10DivTab) anexo10DivTab.style.display = 'none';
-    } else if (anexoXHabil === "1") {
-        var nextTabX = "anexo5-tab";
-    }
+    // if (anexoXHabil === "0") {
+    //     if (anexo10Div) anexo10Div.style.display = 'none';
+    //     if (anexo10DivTab) anexo10DivTab.style.display = 'none';
+    // } else if (anexoXHabil === "1") {
+    //     var nextTabX = "anexo5-tab";
+    // }
 
     $('#cargarCurso').on('click', function () {
         const curso = $('#selectCursos').find(':selected').text();
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTabVIII);
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTab);
     }
     
     function validateAndSubmitAnexoIX(event) {
@@ -395,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // }
     
         // Enviar el formulario si todo es válido
-        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', nextTabIX);
+        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', 'anexo10-tab' );
     }
     
     function validateAndSubmitAnexoX(event) {
@@ -450,7 +454,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
         }
-        enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', nextTabX);
+        enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', 'anexo5-tab');
     }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {

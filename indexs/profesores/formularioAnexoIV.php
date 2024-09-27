@@ -37,16 +37,8 @@
                 <div class="anexos-section">
                     <label>Anexos a utilizar:</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="anexo8" name="anexo8" value="true" checked>
-                        <label class="form-check-label" for="anexo8">Anexo 8</label>
-                    </div>
-                    <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="anexo9" name="anexo9" value="true" checked>
                         <label class="form-check-label" for="anexo9">Anexo 9</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="anexo10" name="anexo10" value="true" checked>
-                        <label class="form-check-label" for="anexo10">Anexo 10</label>
                     </div>
                 </div>
 
