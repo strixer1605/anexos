@@ -7,7 +7,7 @@
 
         $institucion = isset($_POST['institucion']) ? $_POST['institucion'] : null;
         $cursos = isset($_POST['cursos']) ? $_POST['cursos'] : null;
-        $area = isset($_POST['area']) ? $_POST['area'] : null;
+        $materias = isset($_POST['materias']) ? $_POST['materias'] : null;
         $docente = isset($_POST['docente']) ? $_POST['docente'] : null;
         $objetivo = isset($_POST['objetivo']) ? $_POST['objetivo'] : null;
         $fechaSalida = isset($_POST['fechaSalida']) ? $_POST['fechaSalida'] : null;
@@ -36,8 +36,8 @@
             $currentArea = $row['area'];
         }
         
-        if (!empty($area)) {
-            $currentArea = $area;
+        if (!empty($materias)) {
+            $currentArea = $materias;
         }
 
         if ($result->num_rows > 0) {
@@ -87,7 +87,7 @@
             );
 
             if ($stmt->execute()) {
-                echo "success";
+                echo 'success';
             } else {
                 echo "Error: " . $stmt->error;
             }
@@ -126,7 +126,7 @@
             );
 
             if ($stmt->execute()) {
-                echo "success";
+                echo 'success';
             } else {
                 echo "Error: " . $stmt->error;
             }

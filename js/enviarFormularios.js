@@ -2,18 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var anexo9Div = document.getElementById('anexo9');
     var anexo9DivTab = document.getElementById('anexo9-tab');
-    var nextTabVIII
-    var nextTabIX
-    var nextTabX
-    nextTabX = "anexo5-tab"
-
+    const nextTab = anexoIXHabil === "1" ? "anexo9-tab" : "anexo10-tab"
+    
     if (anexoIXHabil === "0") {
         if (anexo9Div) anexo9Div.style.display = 'none';
         if (anexo9DivTab) anexo9DivTab.style.display = 'none';
-        nextTabVIII = "anexo10-tab"
-    } else if (anexoIXHabil === "1") {
-        nextTabVIII = "anexo9-tab"
-        nextTabIX = "anexo10-tab"
     }
 
     $('#cargarCurso').on('click', function () {
@@ -48,7 +41,42 @@ document.addEventListener("DOMContentLoaded", function() {
     
         textCurso += curso;
         $('#cursos').val(textCurso.trim());
+    });    
+    
+    $('#cargarMateria').on('click', function () {
+        const materia = $('#selectMaterias').find(':selected').text();
+        var textMateria = $('#materias').val();
+        
+        var materiasArray = textMateria.split(',').map(item => item.trim());
+        
+        if (materiasArray.includes(materia)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Materia ya ingresada',
+                text: `La materia "${materia}" ya ha sido agregada.`,
+                showCancelButton: true,
+                confirmButtonText: 'Omitir',
+                cancelButtonText: 'Borrar materia'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return; 
+                } else {
+                    materiasArray = materiasArray.filter(item => item !== materia);
+                    $('#materias').val(materiasArray.join(', ').trim());
+                    Swal.fire('Borrado', `La materia "${materia}" ha sido eliminada de la lista.`, 'info');
+                }
+            });
+            return; 
+        }
+    
+        if (textMateria) {
+            textMateria += ', ';
+        }
+    
+        textMateria += materia;
+        $('#materias').val(textMateria.trim());
     });     
+
 
     function validateAndSubmitAnexoVIII(event) {
         const fields = [

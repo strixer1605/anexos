@@ -72,26 +72,11 @@
                 <label for="institucion" class="form-label">Institución Educativa:</label>
                 <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="'. htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" readonly>
             </div>';
-            include ('../../php/traerCursos.php');
-            echo '<div class="mb-5">
-                <label for="area" class="form-label">Área:</label>
-                <select class="form-select" id="area" name="area" required>
-                    <option disabled value="' .htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8'). '"selected>'. htmlspecialchars($row['area'], ENT_QUOTES, 'UTF-8') .'</option>
-                    <option value="Biología">Biología</option>
-                    <option value="Fisicoquímica">Fisicoquímica</option>
-                    <option value="Lengua y Literatura">Lengua y Literatura</option>
-                    <option value="Historia">Historia</option>
-                    <option value="Geografía">Geografía</option>
-                    <option value="Matemáticas">Matemáticas</option>
-                    <option value="Educación Física">Educación Física</option>
-                    <option value="Arte">Arte</option>
-                    <option value="Programación">Programación</option>
-                    <option value="Construcción">Construcción</option>
-                    <option value="Turismo">Turismo</option>
-                    <option value="Turismo">Múltiples Áreas</option>
-                </select>
-                <p style="margin-top: 5px; margin-left: 2px;">Nota: Si no selecciona nada, el área quedará en "Ninguna"</p>
-            </div>
+                include ('../../php/traerCursos.php');
+            echo '<div class="mb-5">';
+                include ("../../php/traerMaterias.php");
+            echo '</div>
+        
             <div class="mb-5">
                 <label for="docente" class="form-label">Docente:</label>
                 <input type="text" class="form-control" id="docente" name="docente" placeholder="Ingrese Docente..." value="'. htmlspecialchars($row['docente'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" title="Solo se permiten letras en este campo.">
