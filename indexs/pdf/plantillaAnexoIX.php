@@ -143,7 +143,7 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: 0.4,
+                    margin: [0.2, 1, 0.2, 1],
                     filename: 'anexoIX.pdf',
                     image: {
                         type: 'jpeg',

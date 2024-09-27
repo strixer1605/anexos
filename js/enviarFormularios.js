@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTabVIII);
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTab);
     }
     
     function validateAndSubmitAnexoIX(event) {
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // }
     
         // Enviar el formulario si todo es válido
-        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', nextTabIX);
+        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', 'anexo10-tab' );
     }
     
     function validateAndSubmitAnexoX(event) {
@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
         }
-        enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', nextTabX);
+        enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', 'anexo5-tab');
     }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {

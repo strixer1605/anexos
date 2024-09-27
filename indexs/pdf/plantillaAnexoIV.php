@@ -328,7 +328,7 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: 1,
+                    margin: [0.2, 1, 0.2, 1],
                     filename: 'documento.pdf',
                     image: {
                         type: 'jpeg',

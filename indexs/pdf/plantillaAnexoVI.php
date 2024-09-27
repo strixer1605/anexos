@@ -103,13 +103,14 @@
                     </p>
                 </div>
             </div>
+        </div>
     </div>
     <script>
         document.getElementById("btnCrearPdf").addEventListener("click", function() {
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: 0.2,
+                    margin: [0.2, 1, 0.2, 1],
                     filename: 'anexoVI.pdf',
                     image: {
                         type: 'jpeg',
