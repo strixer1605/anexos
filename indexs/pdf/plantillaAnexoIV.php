@@ -263,7 +263,7 @@
                         <div class="col-6">
                             <div class="fw-bold">
                                 Teléfono:
-                                <span class="fw-normal"> <?php echo $fila['telefonoHospedaje'] ?></span>
+                                <span class="fw-normal"> <?php if ($fila['telefonoHospedaje'] == 0){echo "-";} ?></span>
                             </div>
                         </div>
 
@@ -286,7 +286,7 @@
                     </div>
                     <div class="col-12">
                         <p class="fw-bold" style="width: 500px;">Gastos estimativos de la excursión:
-                            <span class="fw-normal text-break"> <?php echo $fila['gastosEstimativos'] ?></span>
+                            <span class="fw-normal text-break"> <?php echo "$", $fila['gastosEstimativos'] ?></span>
                         </p>
                     </div>
                     <div class="row mb-3">

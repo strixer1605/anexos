@@ -55,15 +55,15 @@
                 <label>Distancia de salida:</label><br>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase1" name="distanciaSalida" value="1" class="radiobutton">
-                    <label for="clase1" class="form-check-label">Dentro del barrio o área geográfica inmediata.</label>
+                    <label for="clase1" class="form-check-label">Dentro del barrio o área geográfica inmediata, con regreso en el día.</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase2" name="distanciaSalida" value="2" class="radiobutton">
-                    <label for="clase2" class="form-check-label">Dentro del Distrito o Distrito limítrofe (Dentro o fuera de la región)</label>
+                    <label for="clase2" class="form-check-label">Dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día.</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase3" name="distanciaSalida" value="3" class="radiobutton">
-                    <label for="clase3" class="form-check-label">Dentro del Distrito con más de 24 horas de duración.</label>
+                    <label for="clase3" class="form-check-label">Dentro del Distrito, con más de 24 horas de duración.</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase4" name="distanciaSalida" value="4" class="radiobutton">
@@ -71,11 +71,11 @@
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase5" name="distanciaSalida" value="5" class="radiobutton">
-                    <label for="clase5" class="form-check-label">Fuera del Distrito por más de 24 de duración (No limítrofe, dentro de la Región)</label>
+                    <label for="clase5" class="form-check-label">Fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región).</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase6" name="distanciaSalida" value="6" class="radiobutton">
-                    <label for="clase6" class="form-check-label">Fuera de la Región, a ciudades de otras Regiones no limitrofes (Regreso en el día).</label>
+                    <label for="clase6" class="form-check-label">Fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día.</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase7" name="distanciaSalida" value="7" class="radiobutton">
@@ -176,13 +176,13 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="dniEncargado" class="form-label">DNI del encargado:</label>
-                    <input type="number" class="form-control" id="dniEncargado" name="dniEncargado" placeholder="Ingrese el DNI del encargado..." required pattern="\d{8,}" value="<?php echo $dniProfesor?>">
+                    <label for="dniEncargado" class="form-label">DNI del docente:</label>
+                    <input type="number" class="form-control" id="dniEncargado" name="dniEncargado" placeholder="Ingrese el DNI del encargado..." required readonly pattern="\d{8,}" value="<?php echo $dniProfesor?>">
                 </div>
 
                 <div class="mb-5">
-                    <label for="nombreEncargado" class="form-label">Nombre del encargado:</label>
-                    <input type="text" class="form-control" id="nombreEncargado" name="nombreEncargado" placeholder="Ingrese el nombre del encargado..." required pattern="[A-Za-z\s]+" value="<?php $nombreFormateadoProfe = ucwords(strtolower($nombreCompletoProfesor)); echo $nombreFormateadoProfe;?>">
+                    <label for="nombreEncargado" class="form-label">Nombre del docente:</label>
+                    <input type="text" class="form-control" id="nombreEncargado" name="nombreEncargado" placeholder="Ingrese el nombre del encargado..." required readonly pattern="[A-Za-z\s]+" value="<?php $nombreFormateadoProfe = ucwords(strtolower($nombreCompletoProfesor)); echo $nombreFormateadoProfe;?>">
                 </div>
 
                 <div class="mb-5">

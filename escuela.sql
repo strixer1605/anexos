@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2024 a las 02:29:42
+-- Tiempo de generación: 28-09-2024 a las 01:58:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -5515,18 +5515,9 @@ CREATE TABLE `anexoiv` (
   `telefonoHospedaje` bigint(20) NOT NULL,
   `localidadHospedaje` varchar(70) NOT NULL,
   `gastosEstimativos` varchar(200) NOT NULL,
-  `anexoviiiHabil` tinyint(1) NOT NULL,
   `anexoixHabil` tinyint(1) NOT NULL,
-  `anexoxHabil` tinyint(1) NOT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoiv`
---
-
-INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `localidadViaje`, `lugarVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `cantidadAlumnos`, `cantDocentes`, `cantAcompañantes`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `anexoixHabil`, `anexoxHabil`, `fechaModificacion`) VALUES
-(1, 1, 1, 2, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'AAAAAAAAAAA', 'AAAAAAAAAAAAAA', 'AAAAAAAAAAAA', '2025-04-20', 'a', '01:02:00', '2025-06-20', 'a', '22:02:00', 'a', 'a', 18892329, 'Paola Arrua Sosa', 2, 0, 1, 0, 'a', 'a', 1122334455, 'a', '1', 1, 1, 1, '2024-09-26 00:27:53');
 
 -- --------------------------------------------------------
 
@@ -5623,7 +5614,7 @@ CREATE TABLE `anexoviii` (
   `fkAnexoIV` int(11) NOT NULL,
   `institucion` varchar(100) NOT NULL,
   `cursos` varchar(200) NOT NULL,
-  `area` varchar(100) NOT NULL,
+  `area` text NOT NULL,
   `docente` varchar(50) NOT NULL,
   `objetivo` text NOT NULL,
   `fechaSalida` date NOT NULL,
@@ -42630,7 +42621,7 @@ CREATE TABLE `materias` (
 --
 
 INSERT INTO `materias` (`id`, `nombre`, `abreviatura`, `estado`, `resumen`) VALUES
-(1, 'ANALISIS MATEMATICO', 'ANMAT', 'H', 'ANAL. MAT.'),
+(1, 'ANALISIS MATEMATICO', 'ANMAT', 'H', 'ANAL. MAS.'),
 (2, 'EDUCACIÓN ARTÍSTICA', 'ART', 'H', 'ED. ARTISTICA'),
 (3, 'ARTE', 'ARTE', 'H', 'ARTE'),
 (4, 'BASE DE DATOS', 'BADA', 'H', 'BASE DE DATOS'),
@@ -56929,7 +56920,7 @@ ALTER TABLE `telefono`
 -- AUTO_INCREMENT de la tabla `anexoiv`
 --
 ALTER TABLE `anexoiv`
-  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `area`

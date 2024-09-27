@@ -29,10 +29,10 @@
         $cantidadAlumnos = 0;
         $cantDocentes = 1;
         $cantAcompañantes = 0;
-        $nombreHospedaje = $_POST['nombreHospedaje'];
-        $domicilioHospedaje = $_POST['domicilioHospedaje'];
-        $telefonoHospedaje = $_POST['telefonoHospedaje'];
-        $localidadHospedaje = $_POST['localidadHospedaje'];
+        $nombreHospedaje = !empty($_POST['nombreHospedaje']) ? $_POST['nombreHospedaje'] : '-';
+        $domicilioHospedaje = !empty($_POST['domicilioHospedaje']) ? $_POST['domicilioHospedaje'] : '-';
+        $telefonoHospedaje = !empty($_POST['telefonoHospedaje']) ? $_POST['telefonoHospedaje'] : '-';
+        $localidadHospedaje = !empty($_POST['localidadHospedaje']) ? $_POST['localidadHospedaje'] : '-';
         $gastosEstimativos = $_POST['gastosEstimativos'];
         $anexo9 = isset($_POST['anexo9']) ? 1 : 0;
 
