@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var anexo9DivTab = document.getElementById('anexo9-tab');
     var nextTabVIII
     var nextTabIX
-    var nextTabX = "anexo5-tab"
+    var nextTabX
+    nextTabX = "anexo5-tab"
 
     if (anexoIXHabil === "0") {
         if (anexo9Div) anexo9Div.style.display = 'none';
