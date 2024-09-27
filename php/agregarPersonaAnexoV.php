@@ -42,7 +42,7 @@
                         if ($stmt) {
                             $stmt->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
                             if ($stmt->execute()) {
-                                $campoActualizar = ($cargo == 2) ? 'cantidadDocentes' : 'cantidadAlumnos';  // cargo 2 para docente, otro valor para alumno
+                                $campoActualizar = ($cargo == 2) ? 'cantDocentes' : 'cantidadAlumnos';  // cargo 2 para docente, otro valor para alumno
                                 
                                 $sqlUpdate = "UPDATE anexoIV SET $campoActualizar = $campoActualizar + 1 WHERE idAnexoIV = ?";
                                 $stmtUpdate = $conexion->prepare($sqlUpdate);
