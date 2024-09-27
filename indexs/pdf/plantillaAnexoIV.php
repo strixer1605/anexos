@@ -117,7 +117,7 @@
                                 <span class="fw-normal"> <?php echo $fila['institucionEducativa'] ?></span>
                             </div>
                         </div>
-                        <div class="col-6 d-flex justify-content-center">
+                        <div class="col-6">
                             <div id="dataNumero" class="fw-bold">
                                 N°
                                 <span class="fw-normal"> <?php echo $fila['numeroInstitucion'] ?></span>
@@ -131,7 +131,7 @@
                                 <span class="fw-normal"><?php echo $fila['domicilioInstitucion'] ?></span>
                             </div>
                         </div>
-                        <div class="col-6 d-flex justify-content-center">
+                        <div class="col-6">
                             <div id="dataTelefono" class="fw-bold">
                                 Teléfono:
                                 <span class="fw-normal"><?php echo $fila['telefonoInstitucion'] ?></span>
@@ -253,32 +253,36 @@
                             <span class="fw-normal"> <?php $totalPersonas = $fila['cantAcompañantes'] + $fila['cantDocentes'] + $fila['cantidadAlumnos']; echo $totalPersonas ?></span>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <p class="fw-bold">Deberán alojarse en:</p>
-                    </div>
-                    <div class="col-12">
-                        <div class="fw-bold">
-                            Nombre del hotel, camping, etc:
-                            <span class="fw-normal"> <?php echo $fila['nombreHospedaje'] ?></span>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="fw-bold">
+                                Hospedaje:
+                                <span class="fw-normal"> <?php echo $fila['nombreHospedaje'] ?></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="fw-bold">
-                            Teléfono:
-                            <span class="fw-normal"> <?php echo $fila['telefonoHospedaje'] ?></span>
+                        <div class="col-6">
+                            <div class="fw-bold">
+                                Teléfono:
+                                <span class="fw-normal"> <?php echo $fila['telefonoHospedaje'] ?></span>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="col-12">
-                        <div class="fw-bold">
-                            Domicilio:
-                            <span class="fw-normal"> <?php echo $fila['domicilioHospedaje'] ?></span>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="fw-bold">
+                                Domicilio:
+                                <span class="fw-normal"> <?php echo $fila['domicilioHospedaje'] ?></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="fw-bold">
-                            Localidad:
-                            <span class="fw-normal"> <?php echo $fila['localidadHospedaje'] ?></span>
+                        <div class="col-6">
+                            <div class="fw-bold">
+                                Localidad:
+                                <span class="fw-normal"> <?php echo $fila['localidadHospedaje'] ?></span>
+                            </div>
                         </div>
+
                     </div>
                     <div class="col-12">
                         <p class="fw-bold" style="width: 500px;">Gastos estimativos de la excursión:

@@ -85,7 +85,7 @@
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
-                <a href="menuAdministrarSalidas.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+                <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
             </div>
         </nav>
 
