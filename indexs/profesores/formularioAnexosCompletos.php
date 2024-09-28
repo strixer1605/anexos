@@ -86,7 +86,7 @@
                         <!-- Sección de Acompañante -->
                         <div class="row mb-4">
                             <div class="col-12">
-                                <label for="acompanante" class="form-label">Insertar Acompañante:</label>
+                                <label for="acompanante" class="form-label">Insertar no docente:</label>
                             </div>
                             <div class="col-md-2 col-12 mt-2">
                                 <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
@@ -98,7 +98,7 @@
                                 <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
                             </div>
                             <div class="col-md-4 col-12 mt-2">
-                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar Acompañante</button>
+                                <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar no docente</button>
                             </div>
                             <br>
                             <div id="advice" class="col-12" style="margin-top: 30px;">
