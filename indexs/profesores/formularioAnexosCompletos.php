@@ -8,6 +8,7 @@
 
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
+    echo $idSalida;
     error_reporting(0);
 ?>
 <!DOCTYPE html>

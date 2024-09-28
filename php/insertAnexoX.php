@@ -10,10 +10,10 @@
         $hospitalesTelefono = !empty($_POST['hospitalesTelefono']) ? $_POST['hospitalesTelefono'] : '-';
         $hospitalesDireccion = !empty($_POST['hospitalesDireccion']) ? $_POST['hospitalesDireccion'] : '-';
         $hospitalesLocalidad = !empty($_POST['hospitalesLocalidad']) ? $_POST['hospitalesLocalidad'] : '-';
-        $datosInteres = !empty($_POST['datosInteres']) ? $_POST['datosInteres'] : '-';
-        $datosInteresTelefono = !empty($_POST['datosInteresTelefono']) ? $_POST['datosInteresTelefono'] : '-';
-        $datosInteresDireccion = !empty($_POST['datosInteresDireccion']) ? $_POST['datosInteresDireccion'] : '-';
-        $datosInteresLocalidad = !empty($_POST['datosInteresLocalidad']) ? $_POST['datosInteresLocalidad'] : '-';
+        $datosInteres = !empty($_POST['datosInteres']) ? $_POST['datosInteres'] : '';
+        $datosInteresTelefono = !empty($_POST['datosInteresTelefono']) ? $_POST['datosInteresTelefono'] : '';
+        $datosInteresDireccion = !empty($_POST['datosInteresDireccion']) ? $_POST['datosInteresDireccion'] : '';
+        $datosInteresLocalidad = !empty($_POST['datosInteresLocalidad']) ? $_POST['datosInteresLocalidad'] : '';
 
         // Verificar si ya existe un registro para la salida en anexox
         $sqlVerificacion = "SELECT * FROM anexox WHERE fkAnexoIV = ?";

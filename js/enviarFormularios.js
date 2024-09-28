@@ -406,58 +406,99 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function validateAndSubmitAnexoX(event) {
         const telefonos = [
-            { id: 'hospitalesTelefono', maxDigits: 13, allowDashes: false },
-            { id: 'datosInteresTelefono', maxDigits: 13, allowDashes: false }
+            { id: 'hospitalesTelefono', maxDigits: 13 },
+            { id: 'datosInteresTelefono', maxDigits: 13 }
         ];
     
-        for (let telefono of telefonos) {
-            
-            const element = document.getElementById(telefono.id);
-            if (element == null){
-                continue;
-            };
-
-            const value = element.value.trim();
-            if (value == ''){
-                continue;
-            };
-
-            const regex = telefono.allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
+        const requiredFields = [
+            'localidadEmpresa',
+            'hospitales',
+            'hospitalesTelefono',
+            'hospitalesDireccion',
+            'hospitalesLocalidad'
+        ];
     
-            if (!regex.test(value)) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Número de Teléfono Inválido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 12.`,
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setTimeout(() => {
-                        element.focus();
-                    }, 500);
-                });
-                event.preventDefault();
-                return;
+        // Verificar si hay datos de interés ingresados
+        const datosInteres = document.getElementById('datosInteres');
+        const datosInteresValue = datosInteres ? datosInteres.value.trim() : '';
+        const camposDatosInteres = [
+            'datosInteresTelefono',
+            'datosInteresDireccion',
+            'datosInteresLocalidad'
+        ];
+    
+        // Si hay valor en "Datos de Interés", asegurarse de que los campos relacionados sean obligatorios
+        if (datosInteresValue) {
+            for (let fieldId of camposDatosInteres) {
+                const element = document.getElementById(fieldId);
+                if (element && element.value.trim() === '') {
+                    showAlertAndFocus(fieldId, 'Campo Obligatorio', `El campo "${document.querySelector(`label[for=${fieldId}]`).textContent}" es obligatorio.`);
+                    event.preventDefault();
+                    return;
+                }
             }
+        }
     
-            if (value.replace(/-/g, '').length > telefono.maxDigits) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Número de Teléfono Excedido',
-                    text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`,
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setTimeout(() => {
-                        element.focus();
-                    }, 500);
-                });
+        // Validación de campos requeridos
+        for (let fieldId of requiredFields) {
+            const element = document.getElementById(fieldId);
+            if (element && element.value.trim() === '') {
+                showAlertAndFocus(fieldId, 'Campo Obligatorio', `El campo "${document.querySelector(`label[for=${fieldId}]`).textContent}" es obligatorio.`);
                 event.preventDefault();
                 return;
             }
         }
+    
+        // Validación de teléfonos
+        for (let telefono of telefonos) {
+            const element = document.getElementById(telefono.id);
+            if (element == null) {
+                continue;
+            }
+    
+            const value = element.value.trim();
+            if (value === '') {
+                continue;
+            }
+    
+            // Verifica que el número sea mayor a 0
+            if (parseInt(value) <= 0) {
+                showAlertAndFocus(telefono.id, 'Número de Teléfono Inválido', `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números y ser mayor a 0.`);
+                event.preventDefault();
+                return;
+            }
+    
+            // Verifica la longitud del número
+            if (value.length > telefono.maxDigits) {
+                showAlertAndFocus(telefono.id, 'Número de Teléfono Excedido', `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`);
+                event.preventDefault();
+                return;
+            }
+        }
+    
+        // Descomentar la siguiente línea para enviar el formulario
         enviarFormulario('formAnexoX', '../../php/insertAnexoX.php', 'Anexo 10 cargado correctamente!', 'anexo5-tab');
     }
+    
+    // Función para mostrar la alerta y hacer foco en el campo correspondiente
+    function showAlertAndFocus(fieldId, title, text) {
+        Swal.fire({
+            icon: 'warning',
+            title: title,
+            text: text,
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            const element = document.getElementById(fieldId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    element.focus();
+                }, 500);
+            }
+        });
+    }
+
+    
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
         var form = document.getElementById(formId);
