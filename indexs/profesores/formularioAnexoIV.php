@@ -16,7 +16,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu de Salidas</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -137,7 +136,8 @@
 
                 <div class="mb-5">
                     <label for="fechaSalida" class="form-label">Fecha de Salida:</label>
-                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required>
+                    <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required disabled>
+                    <p style="margin-top: 5px;"><b>ATENCIÓN:</b> En el caso de haber una diferencia mínima de 5 dias entre la salida y la fecha actual, tenga en cuenta de que deberá presentar los papeles hoy hasta las 12:00. Si se excede el horario, se inhabilitará la salida y deberá empezar una nueva.</p>
                 </div>
 
                 <div class="mb-5">
@@ -147,12 +147,12 @@
 
                 <div class="mb-5">
                     <label for="horaSalida" class="form-label">Hora de Salida:</label>
-                    <input type="time" class="form-control" id="horaSalida" name="horaSalida" required>
+                    <input type="time" class="form-control" id="horaSalida" name="horaSalida" required disabled>
                 </div>
 
                 <div class="mb-5">
                     <label for="fechaRegreso" class="form-label">Fecha de Regreso:</label>
-                    <input type="date" class="form-control" id="fechaRegreso" name="fechaRegreso" required>
+                    <input type="date" class="form-control" id="fechaRegreso" name="fechaRegreso" required disabled>
                 </div>
 
                 <div class="mb-5">
@@ -162,7 +162,7 @@
 
                 <div class="mb-5">
                     <label for="horaRegreso" class="form-label">Hora de Regreso:</label>
-                    <input type="time" class="form-control" id="horaRegreso" name="horaRegreso" required>
+                    <input type="time" class="form-control" id="horaRegreso" name="horaRegreso" required disabled>
                 </div>
 
                 <div class="mb-5">
@@ -210,15 +210,20 @@
                     <input type="text" class="form-control" id="gastosEstimativos" name="gastosEstimativos" placeholder="Ingrese los gastos estimativos o como solventarlos..." required>
                 </div>
 
+                <div class="mb-5">
+                    <input type="datetime-local" class="form-control" id="fechaLimite" name="fechaLimite" required>
+                </div>
+
                 <div class="d-grid gap-2 d-md-flex justify-content-center">
                     <button type="button" class="btn btn-success" id="cargarAnexoIV">Cargar Anexo 4</button>
                 </div>
             </form>
         </div>
         
+        <script src="https://cdn.jsdelivr.net/npm/date-fns@4.1/cdn.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../../js/anexoIV.js"></script>
+        <script src="../../js/anexoIV.js"></script>    
     </body>
 </html>

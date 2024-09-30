@@ -498,8 +498,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    
-
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
         var form = document.getElementById(formId);
         if (!form) return;

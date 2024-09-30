@@ -26,32 +26,30 @@
         $dniEncargado = $_POST['dniEncargado'];
         $apellidoNombreEncargado = $_POST['nombreEncargado'];
         $cargo = 2;
-        $cantidadAlumnos = 0;
-        $cantDocentes = 1;
-        $cantAcompañantes = 0;
         $nombreHospedaje = !empty($_POST['nombreHospedaje']) ? $_POST['nombreHospedaje'] : '-';
         $domicilioHospedaje = !empty($_POST['domicilioHospedaje']) ? $_POST['domicilioHospedaje'] : '-';
         $telefonoHospedaje = !empty($_POST['telefonoHospedaje']) ? $_POST['telefonoHospedaje'] : '-';
         $localidadHospedaje = !empty($_POST['localidadHospedaje']) ? $_POST['localidadHospedaje'] : '-';
         $gastosEstimativos = $_POST['gastosEstimativos'];
         $anexo9 = isset($_POST['anexo9']) ? 1 : 0;
+        $fechaLimite = $_POST['fechaLimite'];
 
         $sql = "INSERT INTO anexoiv (
             estado, tipoSolicitud, distanciaSalida, region, distrito, institucionEducativa, numeroInstitucion, domicilioInstitucion,
             telefonoInstitucion, denominacionProyecto, localidadViaje, lugarVisita, fechaSalida, lugarSalida,
             horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
-            dniEncargado, apellidoNombreEncargado, cargo, cantidadAlumnos, cantDocentes, cantAcompañantes,
-            nombreHospedaje, domicilioHospedaje, telefonoHospedaje, localidadHospedaje, gastosEstimativos, anexoIXHabil
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            dniEncargado, apellidoNombreEncargado, cargo, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, 
+            localidadHospedaje, gastosEstimativos, anexoIXHabil, fechaLimite
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiiissisisssssssssssisiiiississi",
+                "iiiissisisssssssssssisississis",
                 $estado, $tipoSolicitud, $distanciaSalida, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
                 $telefonoInstitucion, $denominacionProyecto, $localidadViaje, $lugarVisita, $fechaSalida, $lugarSalida,
                 $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades,
-                $dniEncargado, $apellidoNombreEncargado, $cargo, $cantidadAlumnos, $cantDocentes, $cantAcompañantes,
-                $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, $localidadHospedaje,$gastosEstimativos, $anexo9
+                $dniEncargado, $apellidoNombreEncargado, $cargo, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, 
+                $localidadHospedaje,$gastosEstimativos, $anexo9, $fechaLimite
             );
 
             if ($stmt->execute()) {
