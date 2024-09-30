@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const fields = [
             'institucion',
             'cursos',
-            'area',
+            'materias',
             'docente',
             'objetivo',
             'fechaSalida',
@@ -500,9 +500,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
         var form = document.getElementById(formId);
+        console.log(form);
         if (!form) return;
 
         var formData = new FormData(form);
+        console.log(formData);
 
         fetch(actionUrl, {
             method: 'POST',

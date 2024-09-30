@@ -1,7 +1,6 @@
 <?php
     $sqlMaterias = "SELECT `id`, `nombre` FROM `materias` WHERE estado = 'H'";
     $resultMaterias = $conexion->query($sqlMaterias);
-
     echo '<div class="mb-5">
             <label for="materias" class="form-label">Seleccionar materias de la salida</label>
             <br>

@@ -29,7 +29,7 @@
         $stmtVerificacion->execute();
         $result = $stmtVerificacion->get_result();
 
-        $currentArea = 'Ninguna';
+        $currentArea = '';
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -109,7 +109,7 @@
                 $idSalida, 
                 $institucion, 
                 $cursos, 
-                $area, 
+                $materias, 
                 $docente, 
                 $objetivo, 
                 $fechaSalida, 

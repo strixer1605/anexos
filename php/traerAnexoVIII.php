@@ -41,7 +41,7 @@
                             'institucion' => $rowAnexoIV['institucionEducativa'] . ' ' . $rowAnexoIV['numeroInstitucion'],
                             'año' => '',
                             'division' => '',
-                            'area' => 'Ninguna',
+                            'area' => '',
                             'docente' => $nombreDoc . ' ' . $apellidoDoc,
                             'objetivo' => '',
                             'fechaSalida' => $rowAnexoIV['fechaSalida'],
@@ -72,7 +72,7 @@
                 <label for="institucion" class="form-label">Institución Educativa:</label>
                 <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="'. htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" readonly>
             </div>';
-                include ('../../php/traerCursos.php');
+            include ('../../php/traerCursos.php');
             echo '<div class="mb-5">';
                 include ("../../php/traerMaterias.php");
             echo '</div>
