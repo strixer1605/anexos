@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2024 a las 01:58:34
+-- Tiempo de generación: 30-09-2024 a las 02:24:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -5507,17 +5507,24 @@ CREATE TABLE `anexoiv` (
   `dniEncargado` int(11) NOT NULL,
   `apellidoNombreEncargado` varchar(70) NOT NULL,
   `cargo` int(11) NOT NULL,
-  `cantidadAlumnos` int(11) NOT NULL,
-  `cantDocentes` int(11) NOT NULL,
-  `cantAcompañantes` int(11) NOT NULL,
   `nombreHospedaje` varchar(70) NOT NULL,
   `domicilioHospedaje` varchar(70) NOT NULL,
   `telefonoHospedaje` bigint(20) NOT NULL,
   `localidadHospedaje` varchar(70) NOT NULL,
   `gastosEstimativos` varchar(200) NOT NULL,
   `anexoixHabil` tinyint(1) NOT NULL,
+  `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexoiv`
+--
+
+INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `localidadViaje`, `lugarVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoixHabil`, `fechaLimite`, `fechaModificacion`) VALUES
+(1, 1, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST1', 'TEST1', 'TEST1', '2025-05-20', 'TEST1', '22:02:00', '2025-05-20', 'TEST1', '23:00:00', 'TEST1', 'TEST1', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', '1000', 1, NULL, '2024-09-28 22:43:53'),
+(2, 1, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST10', 'TEST10', 'TEST10', '2024-11-20', 'TEST10', '10:00:00', '2024-11-20', 'TEST10', '12:00:00', 'TEST10', 'TEST10', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', '1', 1, '2024-11-12 12:00:00', '2024-09-28 22:37:29'),
+(3, 1, 1, 8, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST20', 'TEST20', 'TEST20', '2024-11-09', 'TEST20', '20:00:00', '2024-11-11', 'TEST20', '10:00:00', 'TEST20', 'TEST20', 18892329, 'Paola Arrua Sosa', 2, 'TEST20', 'TEST20', 1122334455, 'TEST20', '1', 1, '0002-09-27 12:00:00', '2024-09-30 00:21:21');
 
 -- --------------------------------------------------------
 
@@ -5560,6 +5567,30 @@ CREATE TABLE `anexov` (
   `edad` tinyint(4) NOT NULL,
   `cargo` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexov`
+--
+
+INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
+(2, 18892329, 'ARRUA SOSA PAOLA', 41, 2),
+(1, 18892329, 'ARRUA SOSA PAOLA', 41, 2),
+(1, 52613532, 'LIONEL MATIAS ZWTZIG', 12, 3),
+(1, 52012146, 'MATIAS EZEQUIEL RESQUIN', 12, 3),
+(1, 52587238, 'MARTINA ALEGRA JUNCO', 12, 3),
+(1, 51332039, 'THIAGO PEDROZO CACERES', 12, 3),
+(1, 50979117, 'MARTIN BENJAMIN GABOTTO BENITEZ', 13, 3),
+(1, 52012060, 'JUAN SEBASTIAN GARCIA LOPEZ', 12, 3),
+(1, 57161146, 'MORELLA MONGE MONTENEGRO', 12, 3),
+(1, 52037216, 'VICTORIA LIN', 12, 3),
+(1, 50979155, 'KAMILA ORIANA AGOSTINI', 13, 3),
+(1, 52034631, 'LUNA PROVAZZA', 12, 3),
+(1, 50979186, 'MALENA VICTORIA CEJAS', 13, 3),
+(1, 52122161, 'MORA AGOSTINA ADAMI', 12, 3),
+(1, 50245437, 'ELIAS MARTINEZ', 13, 3),
+(1, 52030504, 'SALVADOR MUÑOZ', 12, 3),
+(1, 50225351, 'Juan Ignacio ROSSI', 14, 3),
+(1, 51430680, 'Santiago Silvestri', 13, 3);
 
 -- --------------------------------------------------------
 
@@ -56920,7 +56951,7 @@ ALTER TABLE `telefono`
 -- AUTO_INCREMENT de la tabla `anexoiv`
 --
 ALTER TABLE `anexoiv`
-  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `area`
