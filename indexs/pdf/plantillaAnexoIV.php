@@ -31,7 +31,7 @@
         $nombresArray = explode("\n", $nombresConcatenados);
 
         // Crear un array de cargos con 'profesor' para cada nombre
-        $cargos = array_fill(0, count($nombresArray), 'profesor');
+        $cargos = array_fill(0, count($nombresArray), 'Profesor');
 
 
         //formatear fechas de regreso y salida de YY-MM-DD A DD-MM-YY

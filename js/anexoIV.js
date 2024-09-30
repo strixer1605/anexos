@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // Función que valida y habilita/oculta campos según la distancia seleccionada
     function validarDistanciaSalida() {
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked').value;
         
@@ -51,12 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
             mostrarInputs();
         }
     }
+
     let fechasValidas = [];
+    
     function calcularTiempoLimite() {
         const fechaSalidaInput = document.getElementById('fechaSalida').value;
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked').value;
         let diasARestar = 0;
-
+    
         // Asignación de los días a restar según la distancia seleccionada
         if (distanciaSeleccionada == 1) {
             diasARestar = 5;
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (distanciaSeleccionada == 8 || distanciaSeleccionada == 9) {
             diasARestar = 30;
         }
-
+    
         // Validar que se haya seleccionado una fecha de salida
         if (!fechaSalidaInput) {
             Swal.fire({
@@ -78,29 +79,30 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
-        const fechaSalida = new Date(fechaSalidaInput);
-        const fechaLimite = restarDiasDesdeFecha(fechaSalida, diasARestar); // Fecha límite
-
-        // Definir feriados
+    
+        // Parsear la fecha de salida desde el input (en formato YYYY-MM-DD)
+        const fechaSalida = dateFns.parseISO(fechaSalidaInput);
+    
+        const fechaLimite = dateFns.subDays(fechaSalida, diasARestar); // Fecha límite
+    
         const feriados = [
             "01-01", "24-03", "02-04", "01-05", 
             "25-05", "20-06", "09-07", "08-12", "25-12"
         ];
-
+    
         // Función para verificar si una fecha es feriado
         function esFeriado(fecha) {
             const diaMes = dateFns.format(fecha, 'dd-MM');
             return feriados.includes(diaMes);
         }
-
+    
+        fechasValidas = [];
         let fecha = fechaSalida;
-
+    
         // Mientras necesitemos más fechas válidas y no hayamos alcanzado la fecha límite
         while (fechasValidas.length < diasARestar && fecha >= fechaLimite) {
             // Verificar que la fecha no sea fin de semana ni feriado
             if (!dateFns.isWeekend(fecha) && !esFeriado(fecha)) {
-                // Si es un día hábil, lo agregamos
                 fechasValidas.push(dateFns.format(fecha, 'yyyy-MM-dd'));
             } else {
                 // Fecha excluida por ser fin de semana o feriado
@@ -108,8 +110,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             // Retroceder un día
             fecha = dateFns.subDays(fecha, 1);
-        }
-
+        }   
+    
         // Si no hay suficientes fechas válidas, seguir retrocediendo
         while (fechasValidas.length < diasARestar) {
             fecha = dateFns.subDays(fecha, 1);
@@ -117,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 fechasValidas.push(dateFns.format(fecha, 'yyyy-MM-dd'));
             }
         }
-
+    
         if (fechaSalidaInput && distanciaSeleccionada) {
             const primeraFechaValida = fechasValidas[fechasValidas.length - 1];
             const fechaLimiteInput = primeraFechaValida + "T12:00"; 
@@ -125,33 +127,12 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("fechaLimite").value = fechaLimiteInput;
             console.log('Fechas válidas:', fechasValidas);
         }
-        // confirmarFechaValida()
     }
     
-    // function confirmarFechaValida(){
-    //     const ultimaFechaValida = new Date(fechasValidas[fechasValidas.length - 1]);
-    //     const fechaCalculo = new Date();
-
-    //     if (ultimaFechaValida <= fechaCalculo) {
-    //         Swal.fire({
-    //             icon: 'warning',
-    //             title: 'Atención',
-    //             text: 'Error de cálculo: La fecha de salida que usted ha ingresado debe ser más lejana para cumplir con la Reforma Provincial.',
-    //             confirmButtonText: 'Aceptar'
-    //         }).then(() => {
-    //             setTimeout(() => {
-    //                 limpiarCampos();
-    //             }, 300);
-    //         });
-    //         return;
-    //     }
-    // }
-
     function restarDiasDesdeFecha(fecha, diasARestar) {
-        let fechaObjetivo = new Date(fecha);
-        fechaObjetivo.setDate(fechaObjetivo.getDate() - diasARestar);
-        return fechaObjetivo;
-    }
+        // Utilizar la función de date-fns para restar días
+        return dateFns.subDays(fecha, diasARestar);
+    }    
 
     function validateAndSubmitAnexoIV(event) {
         
@@ -341,8 +322,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked')?.value;
     
-        const opcionesMenos24Horas = ["1", "2", "4", "6"];
-    
         // Validar si la fecha de salida es al menos 5 días después de la fecha actual
         if (diferenciaMinimaDias < 5) {
             Swal.fire({
@@ -355,6 +334,8 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return false; // Retorna falso para indicar fallo en la validación
         }
+
+        const opcionesMenos24Horas = ["1", "2", "4", "6"];
         
         // if (dateFns.isWeekend(fechaHoraActual)) {
         //     Swal.fire({
@@ -366,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //         limpiarCampos();  // Limpiar los campos si se selecciona una fecha no válida
         //     });
         //     return false; // Fecha de salida en fin de semana, detener la validación
-        // }
+        // }    
     
         // Validaciones de tiempo de salida y regreso
         if (opcionesMenos24Horas.includes(distanciaSeleccionada)) {
