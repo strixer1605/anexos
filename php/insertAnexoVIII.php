@@ -1,26 +1,27 @@
 <?php
     session_start();
     $idSalida = $_SESSION['idSalida'];
+    // $docenteSession = $_SESSION['nombreCompleto'];
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $institucion = isset($_POST['institucion']) ? $_POST['institucion'] : null;
-        $cursos = isset($_POST['cursos']) ? $_POST['cursos'] : null;
-        $materias = isset($_POST['materias']) ? $_POST['materias'] : null;
-        $docente = isset($_POST['docente']) ? $_POST['docente'] : null;
-        $objetivo = isset($_POST['objetivo']) ? $_POST['objetivo'] : null;
-        $fechaSalida = isset($_POST['fechaSalida']) ? $_POST['fechaSalida'] : null;
-        $lugaresVisitar = isset($_POST['lugaresVisitar']) ? $_POST['lugaresVisitar'] : null;
-        $descPrevia = isset($_POST['descPrevia']) ? $_POST['descPrevia'] : null;
-        $respPrevia = isset($_POST['respPrevia']) ? $_POST['respPrevia'] : null;
-        $obsPrevia = isset($_POST['obsPrevia']) ? $_POST['obsPrevia'] : null;
-        $descDurante = isset($_POST['descDurante']) ? $_POST['descDurante'] : null;
-        $respDurante = isset($_POST['respDurante']) ? $_POST['respDurante'] : null;
-        $obsDurante = isset($_POST['obsDurante']) ? $_POST['obsDurante'] : null;
-        $descEvaluacion = isset($_POST['descEvaluacion']) ? $_POST['descEvaluacion'] : null;
-        $respEvaluacion = isset($_POST['respEvaluacion']) ? $_POST['respEvaluacion'] : null;
-        $obsEvaluacion = isset($_POST['obsEvaluacion']) ? $_POST['obsEvaluacion'] : null;
+        $institucion = $_POST['institucion'] ?? null;
+        $cursos = $_POST['cursos'] ?? null;
+        $materias = $_POST['materias'] ?? null;
+        $docente = $_POST['docente'] ?? null;
+        $objetivo = $_POST['objetivo'] ?? null;
+        $fechaSalida = $_POST['fechaSalida'] ?? null;
+        $lugaresVisitar = $_POST['lugaresVisitar'] ?? null;
+        $descPrevia = $_POST['descPrevia'] ?? null;
+        $respPrevia = $_POST['respPrevia'] ?? null;
+        $obsPrevia = $_POST['obsPrevia'] ?? null;
+        $descDurante = $_POST['descDurante'] ?? null;
+        $respDurante = $_POST['respDurante'] ?? null;
+        $obsDurante = $_POST['obsDurante'] ?? null;
+        $descEvaluacion = $_POST['descEvaluacion'] ?? null;
+        $respEvaluacion = $_POST['respEvaluacion'] ?? null;
+        $obsEvaluacion = $_POST['obsEvaluacion'] ?? null;
 
         // Verificar si ya existe un registro para la salida
         $sqlVerificacion = "SELECT * FROM anexoviii WHERE fkAnexoIV = ?";
