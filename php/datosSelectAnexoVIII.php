@@ -64,7 +64,7 @@ while ($filaProfe = $resultado->fetch_assoc()) {
             </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <button type="button" class="btn btn-primary" onclick="cargarDescripcion()">Cargar Descripción</button>
+                        <button type="button" class="btn btn-primary" id="cargarDescripcion">Cargar Descripción</button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -112,6 +112,10 @@ while ($filaProfe = $resultado->fetch_assoc()) {
     <div class="etapa">
         <h2>Etapa Previa</h2>
         <div class="mb-5">
+            <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
+            <textarea class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones..." required><?php echo htmlspecialchars($row['observaciones'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+        </div>
+        <div class="mb-5">
             <label for="descPrevia" class="form-label">Descripción Previa:</label>
             <textarea class="form-control" id="descPrevia" placeholder="Ingrese la descripción más arriba..." name="descPrevia" readonly><?php echo $row['descripcionPrevias']; ?></textarea>
         </div>
@@ -126,6 +130,10 @@ while ($filaProfe = $resultado->fetch_assoc()) {
     <!-- Etapa: Durante -->
     <div class="etapa">
         <h2>Etapa Durante</h2>
+        <div class="mb-5">
+            <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
+            <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required><?php echo htmlspecialchars($row['observacionesDurante'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+        </div>
         <div class="mb-5">
             <label for="descDurante" class="form-label">Descripción Durante:</label>
             <textarea class="form-control" id="descDurante" placeholder="Ingrese la descripción más arriba..." name="descDurante" readonly><?php echo $row['descripcionDurante']; ?></textarea>
@@ -142,6 +150,10 @@ while ($filaProfe = $resultado->fetch_assoc()) {
     <div class="etapa">
         <h2>Etapa de Evaluación</h2>
         <div class="mb-5">
+            <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
+            <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required><?php echo htmlspecialchars($row['observacionesEvaluacion'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+        </div>
+        <div class="mb-5">
             <label for="descEvaluacion" class="form-label">Descripción Evaluación:</label>
             <textarea class="form-control" id="descEvaluacion" placeholder="Ingrese la descripción más arriba..." name="descEvaluacion" readonly><?php echo $row['descripcionEvaluacion']; ?></textarea>
         </div>
@@ -152,8 +164,20 @@ while ($filaProfe = $resultado->fetch_assoc()) {
             <p style="margin-top: 5px; margin-left: 2px;">Nota: Para ingresar otro docente, debe separarlo por comas.</p>    
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 
     <script>
+        $(document).on('click', '#cargarDescripcion', function() {
+            cargarDescripcion();
+        })
+
+        document.getElementById('descripcionInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Evitar el envío de formularios si está dentro de uno
+                cargarDescripcion(); // Llamar a la función
+            }
+        });
         // Función para cargar la descripción en el campo correspondiente
         function cargarDescripcion() {
             const descripcion = document.getElementById('descripcionInput').value;
@@ -183,6 +207,7 @@ while ($filaProfe = $resultado->fetch_assoc()) {
             document.getElementById('descripcionInput').value = '';
         }
 
+        
         // Función para cargar responsables en el textarea correspondiente
         function cargarResponsable() {
         const responsableSeleccionado = document.getElementById('respSelect').value;

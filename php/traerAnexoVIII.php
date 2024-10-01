@@ -90,23 +90,6 @@
             <div class="mb-5">
                 <label for="lugaresVisitar" class="form-label">Lugares a visitar:</label>
                 <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares..." value="'. htmlspecialchars($row['lugaresVisitar'], ENT_QUOTES, 'UTF-8') .'" required readonly>
-            </div>
-            
-            <div class="mb-5">
-                <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
-                <textarea class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones..." required>'. htmlspecialchars($row['observacionesPrevias'], ENT_QUOTES, 'UTF-8') .'</textarea>
-            </div>
-            
-            
-            <div class="mb-5">
-                <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
-                <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required>'. htmlspecialchars($row['observacionesDurante'], ENT_QUOTES, 'UTF-8') .'</textarea>
-            </div>
-            
-
-            <div class="mb-5">
-                <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
-                <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required>'. htmlspecialchars($row['observacionesEvaluacion'], ENT_QUOTES, 'UTF-8') .'</textarea>
             </div>';
             include 'datosSelectAnexoVIII.php';
         } else {
