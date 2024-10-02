@@ -1,32 +1,43 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("fechaSalida").addEventListener("change", function(){
-        validarDistanciaSalida();
-        verificarRequisitosYCalcular();
-        validarFechas();
-    });
-    document.getElementById("horaSalida").addEventListener("change", function(){
-        validarDistanciaSalida();
-        verificarRequisitosYCalcular();
-        validarFechas();
-    });
-    document.getElementById("fechaRegreso").addEventListener("change", function(){
-        validarFechas();
-        validarDistanciaSalida();
-        verificarRequisitosYCalcular();
-    });
-    document.getElementById("horaRegreso").addEventListener("change", function(){
-        verificarRequisitosYCalcular();
-        validarDistanciaSalida();
-        validarFechas();
+    let timeoutId;  // ID del timeout
+
+    // Función para activar la validación con retraso (debouncing)
+    function activarValidacionConRetraso() {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+            verificarRequisitosYCalcular();
+            validarFechas();
+        }, 2500);
+    }
+
+    document.getElementById("fechaSalida").addEventListener("blur", function(){
+        console.log("Hola")
+        if (this.value.length === 10) {  
+            activarValidacionConRetraso();
+        }
     });
     
+    document.getElementById("horaSalida").addEventListener("change", function(){
+        activarValidacionConRetraso();
+    });
+
+    document.getElementById("fechaRegreso").addEventListener("input", function(){
+        if (this.value.length === 10) {
+            activarValidacionConRetraso();
+        }
+    });
+
+    document.getElementById("horaRegreso").addEventListener("change", function(){
+        activarValidacionConRetraso();
+    });
+
     document.querySelectorAll('input[name="distanciaSalida"]').forEach(function (radio) {
         radio.addEventListener('change', function() {
             validarDistanciaSalida();
-            verificarRequisitosYCalcular();
         });
     });
-    
+
     function verificarRequisitosYCalcular() {
         const fechaSalidaInput = document.getElementById("fechaSalida").value;
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked')?.value;
@@ -66,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (distanciaSeleccionada > 2 && distanciaSeleccionada <= 7) {
             diasARestar = 20;
         } else if (distanciaSeleccionada == 8 || distanciaSeleccionada == 9) {
-            diasARestar = 30;
+            diasARestar = 45;
         }
     
         // Validar que se haya seleccionado una fecha de salida
@@ -82,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         // Parsear la fecha de salida desde el input (en formato YYYY-MM-DD)
         const fechaSalida = dateFns.parseISO(fechaSalidaInput);
+        const fechaActual = new Date();
     
         const fechaLimite = dateFns.subDays(fechaSalida, diasARestar); // Fecha límite
     
@@ -105,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!dateFns.isWeekend(fecha) && !esFeriado(fecha)) {
                 fechasValidas.push(dateFns.format(fecha, 'yyyy-MM-dd'));
             } else {
-                // Fecha excluida por ser fin de semana o feriado
                 console.log(`Fecha excluida: ${dateFns.format(fecha, 'yyyy-MM-dd')}`);
+                console.log(fechasValidas)
             }
             // Retroceder un día
             fecha = dateFns.subDays(fecha, 1);
@@ -119,16 +131,30 @@ document.addEventListener("DOMContentLoaded", function() {
                 fechasValidas.push(dateFns.format(fecha, 'yyyy-MM-dd'));
             }
         }
-    
+
+        const primeraFechaValida = fechasValidas[fechasValidas.length - 1];
+        const fechaPrimeraValida = dateFns.parseISO(primeraFechaValida);
+        
+        if (fechaPrimeraValida < new Date()) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fecha de salida muy cercana',
+                text: 'Ha ingresado una fecha de salida que no cumple con la Resolución Provincial (Días de entrega previos). Por favor, seleccione una fecha de salida más lejana. ATENCION: Las fechas se borraran.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                limpiarCampos();
+            });
+            return;
+        }
+
         if (fechaSalidaInput && distanciaSeleccionada) {
-            const primeraFechaValida = fechasValidas[fechasValidas.length - 1];
             const fechaLimiteInput = primeraFechaValida + "T12:00"; 
             
             document.getElementById("fechaLimite").value = fechaLimiteInput;
             console.log('Fechas válidas:', fechasValidas);
         }
     }
-    
+
     function restarDiasDesdeFecha(fecha, diasARestar) {
         // Utilizar la función de date-fns para restar días
         return dateFns.subDays(fecha, diasARestar);
@@ -254,22 +280,26 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Validación de telefonoHospedaje
-        var telefonoHospedaje = document.getElementById("telefonoHospedaje").value;
-        var telefonoPattern = /^[\d\-\+\(\)\s]+$/;
-        if (telefonoHospedaje && !telefonoPattern.test(telefonoHospedaje)) {
+        var telefonoHospedaje = document.getElementById("telefonoHospedaje");
+        var telefonoValue = telefonoHospedaje.value.trim();
+        var allowDashes = telefonoHospedaje.dataset.allowDashes === "true";
+        const regex = allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
+        
+        if (telefonoValue && !regex.test(telefonoValue)) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Teléfono Inválido',
-                text: 'El teléfono del hospedaje solo puede contener números y los siguientes caracteres: +, -, (, ), espacio.',
+                title: 'Número de Teléfono Inválido',
+                text: `El campo "${document.querySelector(`label[for=${telefonoHospedaje.id}]`).textContent}" debe contener solo números, con un máximo de 13 caracteres.`,
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 setTimeout(() => {
-                    document.getElementById("telefonoHospedaje").scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    document.getElementById("telefonoHospedaje").focus();
+                    telefonoHospedaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    telefonoHospedaje.focus();
                 }, 300);
             });
+            event.preventDefault();
             return;
-        }
+        }        
     
         // Validación de gastos estimativos (solo números y punto decimal)
         var gastosEstimativos = document.getElementById("gastosEstimativos").value;
@@ -295,7 +325,6 @@ document.addEventListener("DOMContentLoaded", function() {
             checkbox.value = checkbox.checked ? "1" : "0";
         });
 
-        // confirmarFechaValida()
         enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!');
     }
 
@@ -305,7 +334,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const fechaRegreso = document.getElementById("fechaRegreso").value;
         const horaRegreso = document.getElementById("horaRegreso").value;
     
-        // Si alguna fecha o hora está vacía, retornamos true para permitir el envío
         if (!fechaSalida || !horaSalida || !fechaRegreso || !horaRegreso) return true;
     
         const fechaHoraActual = new Date();
@@ -323,31 +351,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked')?.value;
     
         // Validar si la fecha de salida es al menos 5 días después de la fecha actual
-        if (diferenciaMinimaDias < 5) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Duración Inválida',
-                text: 'La diferencia entre la fecha actual y la fecha de la salida debe ser de al menos 5 días.',
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                limpiarCampos();
-            });
-            return false; // Retorna falso para indicar fallo en la validación
-        }
-
-        const opcionesMenos24Horas = ["1", "2", "4", "6"];
-        
-        // if (dateFns.isWeekend(fechaHoraActual)) {
+        // if (diferenciaMinimaDias < 5) {
         //     Swal.fire({
         //         icon: 'warning',
-        //         title: 'Carga inhabilitada',
-        //         text: 'La salidas no pueden cargarse los fines de semana, inténtelo el próximo Lunes.',
+        //         title: 'Duración Inválida',
+
         //         confirmButtonText: 'Aceptar'
         //     }).then(() => {
-        //         limpiarCampos();  // Limpiar los campos si se selecciona una fecha no válida
+        //         limpiarCampos();
         //     });
-        //     return false; // Fecha de salida en fin de semana, detener la validación
-        // }    
+        //     return false; // Retorna falso para indicar fallo en la validación
+        // }
+
+        const opcionesMenos24Horas = ["1", "2", "4", "6"];
     
         // Validaciones de tiempo de salida y regreso
         if (opcionesMenos24Horas.includes(distanciaSeleccionada)) {
@@ -395,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
                 icon: 'warning',
                 title: 'Fecha Inválida',
-                text: 'La fecha de salida no puede ser más de un año en el futuro y debe estar entre 2024 y 2100. ATENCION: Las fechas se borraran, ingrese fechas válidas.',
+                text: 'La fecha de salida no puede ser más de un año en el futuro. ATENCION: Las fechas se borraran, ingrese fechas válidas.',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 limpiarCampos();
@@ -473,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         elementos.forEach(function(elemento) {
             if (elemento) {
-                elemento.style.display = "";  // Asegura que los inputs se muestran correctamente
+                elemento.style.display = "";
                 elemento.disabled = false;
             }
         });
@@ -484,7 +500,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!form) return;
     
         var formData = new FormData(form);
-    
+        var fechaAlert = document.getElementById("fechaLimite").value;
+        
         fetch(actionUrl, {
             method: 'POST',
             body: formData
@@ -496,13 +513,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     icon: 'success',
                     title: successMessage,
-                    showConfirmButton: false,
-                    timer: 1000
+                    text: `Tiene hasta ${fechaAlert} para completar y enviar el proyecto entero.`,
+                    confirmButtonText: 'OK'
                 }).then(() => {
-                    setTimeout(() => {
-                        window.location.replace('../../indexs/profesores/menuAdministrarSalidas.php');
-                    }, 500);
-                });                
+                    window.location.replace('../../indexs/profesores/menuAdministrarSalidas.php');
+                });
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -511,7 +526,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     confirmButtonText: 'Intentar de nuevo'
                 });
             }
-        })
+        })        
         .catch(error => {
             console.error('Error:', error);
             Swal.fire({
