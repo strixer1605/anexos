@@ -70,6 +70,7 @@ label {
 .form-check-label {
   margin-left: 5px;
   font-weight: normal;
+  font-size: 18px;
 }
 
 .btn-success {

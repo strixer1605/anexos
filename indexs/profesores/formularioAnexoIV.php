@@ -54,39 +54,39 @@
                 <label>Distancia de salida:</label><br>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase1" name="distanciaSalida" value="1" class="radiobutton">
-                    <label for="clase1" class="form-check-label">Dentro del barrio o área geográfica inmediata, con regreso en el día.</label>
+                    <label for="clase1" class="form-check-label">Dentro del barrio o área geográfica inmediata, con regreso en el día. (5 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase2" name="distanciaSalida" value="2" class="radiobutton">
-                    <label for="clase2" class="form-check-label">Dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día.</label>
+                    <label for="clase2" class="form-check-label">Dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día. (15 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase3" name="distanciaSalida" value="3" class="radiobutton">
-                    <label for="clase3" class="form-check-label">Dentro del Distrito, con más de 24 horas de duración.</label>
+                    <label for="clase3" class="form-check-label">Dentro del Distrito, con más de 24 horas de duración. (20 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase4" name="distanciaSalida" value="4" class="radiobutton">
-                    <label for="clase4" class="form-check-label">Fuera del Distrito, no limítrofe, con regreso en el día.</label>
+                    <label for="clase4" class="form-check-label">Fuera del Distrito, no limítrofe, con regreso en el día. (20 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase5" name="distanciaSalida" value="5" class="radiobutton">
-                    <label for="clase5" class="form-check-label">Fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región).</label>
+                    <label for="clase5" class="form-check-label">Fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región). (20 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase6" name="distanciaSalida" value="6" class="radiobutton">
-                    <label for="clase6" class="form-check-label">Fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día.</label>
+                    <label for="clase6" class="form-check-label">Fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día. (20 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase7" name="distanciaSalida" value="7" class="radiobutton">
-                    <label for="clase7" class="form-check-label">Fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración)</label>
+                    <label for="clase7" class="form-check-label">Fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración). (20 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase8" name="distanciaSalida" value="8" class="radiobutton">
-                    <label for="clase8" class="form-check-label">Fuera de la Provincia de Buenos Aires.</label>
+                    <label for="clase8" class="form-check-label">Fuera de la Provincia de Buenos Aires. (45 días previos)</label>
                 </div>
                 <div class="form-check-radio mb-2">
                     <input type="radio" id="clase9" name="distanciaSalida" value="9" class="radiobutton">
-                    <label for="clase9" class="form-check-label">Fuera del País.</label>
+                    <label for="clase9" class="form-check-label">Fuera del País. (45 días previos)</label>
                 </div>
                 <br>
                 <div class="mb-5 d-none">
@@ -137,8 +137,13 @@
                 <div class="mb-5">
                     <label for="fechaSalida" class="form-label">Fecha de Salida:</label>
                     <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required disabled>
-                    <p style="margin-top: 5px;"><b>ATENCIÓN:</b> En el caso de haber una diferencia mínima de 5 dias entre la salida y la fecha actual, tenga en cuenta de que deberá presentar los papeles hoy hasta las 12:00. Si se excede el horario, se inhabilitará la salida y deberá empezar una nueva.</p>
+                    <p style="margin-top: 5px;"><b>ATENCIÓN:</b> Tenga en cuenta de que si usted está en la fecha límite, tiene hasta las 12:00 del mediodía para presentar el proyecto. Si no cumple con los plazos de la Reforma Provincial, se inhabilitará la salida y deberá empezar una nueva.</p>
                 </div>
+
+                <div class="mb-5">
+                    <label for="fechaLimite" class="form-label">Fecha límite (Cálculo automático):</label>
+                    <input type="datetime-local" class="form-control" id="fechaLimite" name="fechaLimite" required readonly>
+                </div>  
 
                 <div class="mb-5">
                     <label for="lugarSalida" class="form-label">Lugar de Salida:</label>
@@ -207,11 +212,7 @@
 
                 <div class="mb-5">
                     <label for="gastosEstimativos" id="gE" class="form-label">Gastos Estimativos:</label>
-                    <input type="text" class="form-control" id="gastosEstimativos" name="gastosEstimativos" placeholder="Ingrese los gastos estimativos o como solventarlos..." required>
-                </div>
-
-                <div class="mb-5">
-                    <input type="datetime-local" class="form-control" id="fechaLimite" name="fechaLimite" required>
+                    <textarea type="text" class="form-control" id="gastosEstimativos" name="gastosEstimativos" placeholder="Ingrese los gastos estimativos o como solventarlos..." required></textarea>
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-center">
