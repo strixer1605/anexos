@@ -1,4 +1,5 @@
 <?php
+    // header('Content-Type: application/json');
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     include ('conexion.php');
 
@@ -36,19 +37,15 @@
                     $resultVerificar = $stmtVerificar->get_result();
                     if ($resultVerificar->num_rows > 0) {
                         echo json_encode(['status' => 'error', 'message' => 'La persona cargada ya está registrada en la salida']);
-                    } else {
+                    } else{
+
                         $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
+
                         $stmt = $conexion->prepare($sqlInsert);
+
                         if ($stmt) {
                             $stmt->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
                             if ($stmt->execute()) {
-                                $campoActualizar = ($cargo == 2) ? 'cantDocentes' : 'cantidadAlumnos';  // cargo 2 para docente, otro valor para alumno
-                                
-                                $sqlUpdate = "UPDATE anexoIV SET $campoActualizar = $campoActualizar + 1 WHERE idAnexoIV = ?";
-                                $stmtUpdate = $conexion->prepare($sqlUpdate);
-                                $stmtUpdate->bind_param('i', $idAnexoIV);
-                                $stmtUpdate->execute();
-                                $stmtUpdate->close();
                                 
                                 $sqlSelect = "SELECT dni, apellidoNombre, edad, cargo FROM anexov WHERE fkAnexoIV = ?";
                                 $stmtSelect = $conexion->prepare($sqlSelect);
@@ -60,6 +57,7 @@
                                     $participantes[] = $row; // Guardar cada participante en el array
                                 }
                                 echo json_encode(['status' => 'success', 'message' => 'Registro insertado correctamente', 'participantes' => $participantes]);
+
                                 
                                 $stmtSelect->close();
                             } else {
@@ -101,7 +99,7 @@
                     $resultVerificar = $stmtVerificar->get_result();
 
                     if ($resultVerificar->num_rows > 0) {
-                        echo json_encode(['status' => 'error', 'message' => 'El acompañante ya está registrado en una de las tablas.']);
+                        echo json_encode(['status' => 'error', 'message' => 'El acompañante ya está registrado en la salida o pertenece a la institución.']);
                     } else {
                         $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
                         $stmtInsert = $conexion->prepare($sqlInsert);
@@ -112,13 +110,6 @@
                             $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
                         
                             if ($stmtInsert->execute()) {
-                                // Actualizar la cantidad de acompañantes en anexoIV
-                                $sqlUpdate = "UPDATE anexoIV SET cantidadAcompañantes = cantidadAcompañantes + 1 WHERE idAnexoIV = ?";
-                                $stmtUpdate = $conexion->prepare($sqlUpdate);
-                                $stmtUpdate->bind_param('i', $idAnexoIV);
-                                $stmtUpdate->execute();
-                                $stmtUpdate->close();
-                        
                                 // Obtener todos los participantes después de la inserción
                                 $sqlSelect = "SELECT dni, apellidoNombre, edad, cargo FROM anexov WHERE fkAnexoIV = ?";
                                 $stmtSelect = $conexion->prepare($sqlSelect);
@@ -155,7 +146,7 @@
                 $personas = $data['personas'];
                 $idAnexoIV = $_SESSION['idSalida'];
                 $personasDuplicadas = [];
-                
+        
                 // --------- Fase de verificación (antes de cualquier inserción) ---------
                 foreach ($personas as $persona) {
                     $dni = intval($persona['dni']);
@@ -165,14 +156,14 @@
                     $stmtVerificar->bind_param('ii', $dni, $idAnexoIV);
                     $stmtVerificar->execute();
                     $resultVerificar = $stmtVerificar->get_result();
-                    
+        
                     if ($resultVerificar->num_rows > 0) {
                         $personasDuplicadas[] = $dni;
                     }
-                    
+        
                     $stmtVerificar->close();
                 }
-                
+        
                 // Si hay personas duplicadas
                 if (count($personasDuplicadas) > 0) {
                     echo json_encode(['status' => 'error', 'message' => 'Algunas personas ya están registradas en la salida.']);
@@ -180,59 +171,49 @@
                 }
         
                 $consultaExitosa = true;
-                $cantidadInsertada = 0;
-
+        
                 foreach ($personas as $persona) {
                     $dni = intval($persona['dni']);
                     $nombreApellido = trim($persona['nombre'] . ' ' . $persona['apellido']);
                     $fechan = $persona['fechan'];
-
+        
                     if (!$fechan || !DateTime::createFromFormat('Y-m-d', $fechan)) {
                         continue; 
                     }
-
+        
                     $fechaActual = date("Y-m-d");
                     $fechaNacimiento = new DateTime($fechan);
                     $fechaHoy = new DateTime($fechaActual);
                     $edad = $fechaHoy->diff($fechaNacimiento)->y;
-
+        
                     $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
                     $stmtInsert = $conexion->prepare($sqlInsert);
                     $cargo = 3;
-
+        
                     if ($stmtInsert === false) {
                         $consultaExitosa = false;
                         break;
                     }
-
+        
                     $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
-
-                    if ($stmtInsert->execute()) {
-                        $cantidadInsertada++;
-                    } else {
+        
+                    if (!$stmtInsert->execute()) {
                         $consultaExitosa = false;
                         break;
                     }
-
+        
                     $stmtInsert->close();
                 }
-
+        
                 if ($consultaExitosa) {
-                    // Actualizar la cantidad de alumnos en anexoIV
-                    $sqlUpdate = "UPDATE anexoIV SET cantidadAlumnos = cantidadAlumnos + ? WHERE idAnexoIV = ?";
-                    $stmtUpdate = $conexion->prepare($sqlUpdate);
-                    $stmtUpdate->bind_param('ii', $cantidadInsertada, $idAnexoIV);
-                    $stmtUpdate->execute();
-                    $stmtUpdate->close();
-
                     echo json_encode(['status' => 'success', 'message' => 'Todas las personas procesadas correctamente.']);
                 } else {
                     echo json_encode(['status' => 'error', 'message' => 'Ocurrió un error al insertar las personas.']);
                 }
-
+        
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'No se recibieron personas o la opción no es válida.']);
             }
-        break;    
+            break;
     }
 ?>

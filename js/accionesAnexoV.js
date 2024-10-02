@@ -122,14 +122,15 @@ $(document).ready(function(){
             return;
         }
 
-        if (!/^\d{8}$/.test(dniAcompañante)) {
+        if (!/^\d{7,8}$/.test(dniAcompañante)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Formato incorrecto',
-                text: 'El DNI debe tener 8 dígitos.',
+                text: 'El DNI debe tener entre 7 y 8 dígitos.',
             });
             return;
         }
+
 
         if (/\d/.test(nombreAcompañante)) { 
             Swal.fire({
