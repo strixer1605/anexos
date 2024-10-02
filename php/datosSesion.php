@@ -34,7 +34,7 @@
             $row = $result_profesor->fetch_assoc();
             $_SESSION['nombreDoc'] = $row['nombre'];
             $_SESSION['apellidoDoc'] = $row['apellido'];
-
+            
             $_SESSION['nombrePadre'] = $row['nombre'];
             $_SESSION['apellidoPadre'] = $row['apellido'];
 

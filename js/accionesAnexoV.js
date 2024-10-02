@@ -122,14 +122,15 @@ $(document).ready(function(){
             return;
         }
 
-        if (!/^\d{8}$/.test(dniAcompañante)) {
+        if (!/^\d{7,8}$/.test(dniAcompañante)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Formato incorrecto',
-                text: 'El DNI debe tener 8 dígitos.',
+                text: 'El DNI debe tener entre 7 y 8 dígitos.',
             });
             return;
         }
+
 
         if (/\d/.test(nombreAcompañante)) { 
             Swal.fire({
@@ -323,21 +324,22 @@ $(document).ready(function(){
             success: function(response) {
                 const pasajeros = JSON.parse(response);
                 let tablaHTML = '';
-                
-                let cantidadMenores = 0;     
+    
+                let cantidadMenores = 0;
                 let cantidadSemiMayores = 0;
                 let cantidadMayores = 0;
                 let cantidadDocentes = 0;
                 let cantidadNoDocentes = 0;
                 let total = pasajeros.length;
                 let indice = 0;
-                
+    
                 pasajeros.forEach(function(pasajero) {
                     let pasajeroEdad = pasajero.edad;
                     let alumno = '';
                     let docente = '';
                     let noDocente = '';
-            
+    
+                    // Clasificación de los pasajeros por edad
                     if (pasajeroEdad < 16) {
                         cantidadMenores += 1;
                     } else if (pasajeroEdad >= 16 && pasajeroEdad < 18) {
@@ -345,21 +347,22 @@ $(document).ready(function(){
                     } else if (pasajeroEdad >= 18 && parseInt(pasajero.cargo) != 2 && parseInt(pasajero.cargo) != 4) {
                         cantidadMayores += 1;
                     }
-            
+    
+                    // Clasificación por cargo (docente/no docente)
                     if (parseInt(pasajero.cargo) === 2) {
                         cantidadDocentes += 1;
                     }
                     if (parseInt(pasajero.cargo) === 4) {
                         cantidadNoDocentes += 1;
                     }
-            
+    
                     indice += 1;
                     switch (parseInt(pasajero.cargo)) {
                         case 2: docente = 'X'; break;
                         case 3: alumno = 'X'; break;
                         case 4: noDocente = 'X'; break;
                     }
-            
+    
                     tablaHTML += `<tr>
                                     <td>${indice}</td>
                                     <td>${pasajero.apellidoNombre}</td>
@@ -373,20 +376,30 @@ $(document).ready(function(){
                                     </td>
                                 </tr>`;
                 });
-            
-                let docentesMenores = Math.ceil(cantidadMenores / 12); 
-                let docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15);  
-                let docentesMayores = cantidadMayores > 0 ? 1 : 0; 
-            
-                if (cantidadMenores % 12 !== 0 && cantidadMenores < 12) {
-                    let sobrantesMenores = cantidadMenores % 12;
-                    cantidadSemiMayores += sobrantesMenores;
-                    docentesMenores = Math.floor(cantidadMenores / 12);
-                    docentesSemiMayores = Math.ceil(cantidadSemiMayores / 15);
+    
+                // Calcular la cantidad de docentes requeridos
+                let docentesMenores = Math.floor(cantidadMenores / 12); // 1 docente cada 12 menores
+                let docentesSemiMayores = Math.floor(cantidadSemiMayores / 15); // 1 docente cada 15 semi-mayores
+    
+                // Verificar si sobran alumnos que no llegan a formar un grupo completo
+                let sobrantesMenores = cantidadMenores % 12;
+                let sobrantesSemiMayores = cantidadSemiMayores % 15;
+    
+                // Si sobran alumnos, sumarlos para requerir un docente adicional
+                if (sobrantesMenores > 0) {
+                    docentesMenores += 1;
                 }
-            
+                if (sobrantesSemiMayores > 0) {
+                    docentesSemiMayores += 1;
+                }
+    
+                // Siempre al menos 1 docente para mayores
+                let docentesMayores = cantidadMayores > 0 ? 1 : 0;
+    
+                // Calcular el total de docentes requeridos
                 let totalDocentesRequeridos = docentesMenores + docentesSemiMayores + docentesMayores;
-            
+    
+                // Advertencia si faltan docentes
                 if (totalDocentesRequeridos > 5) {
                     Swal.fire({
                         icon: "warning",
@@ -394,14 +407,15 @@ $(document).ready(function(){
                         text: "Se recomienda agregar más docentes debido a la cantidad de alumnos.",
                     });
                 }
-            
+    
                 let alertaHtml = '';
                 if (cantidadDocentes < totalDocentesRequeridos) {
                     alertaHtml = '<p class="alerta rojo">Anexo 5 no aprobable (Recomendación)</p>';
                 } else {
                     alertaHtml = '<p class="alerta verde">Anexo 5 aprobable</p>';
                 }
-                
+    
+                // Mostrar el cálculo de docentes y alerta
                 let calculoDocentes = `
                     <h6>Cantidad de personas: ${total}</h6>
                     <h6>Menores de 16: ${cantidadMenores}</h6>
@@ -411,7 +425,7 @@ $(document).ready(function(){
                     <h6>Docentes recomendados: ${totalDocentesRequeridos}</h6>
                     <h6>Docentes actuales: ${cantidadDocentes}</h6>
                 `;
-                
+    
                 $('#advice').html(alertaHtml + calculoDocentes);
                 $('#tablaParticipantes').html(tablaHTML);
             },
@@ -423,5 +437,6 @@ $(document).ready(function(){
                 });
             }
         });
-    }    
+    }
+        
 });
