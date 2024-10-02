@@ -53,16 +53,32 @@
         GROUP BY aiv.idAnexoIV;
         ";
         
-        // Mostrar los nombres separados
-        // foreach ($nombres_array as $nombre) {
-        //     echo $nombre . "<br>";
-        // }
-
-    
+        
+        // Obtener telefonos de los docentes
         // Ejecutar la consulta
         $result = $conexion->query($sql);
         $fila = $result->fetch_assoc();
         
+        $sqlTelefonos = "
+            SELECT t.telefono 
+            FROM telefono t
+            INNER JOIN anexov a ON t.dni = a.dni
+            WHERE a.fkAnexoIV = ?
+        ";
+
+        // Preparar y ejecutar la consulta
+        $stmt = $conexion->prepare($sqlTelefonos);
+        $stmt->bind_param('i', $idSalida);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Obtener resultados
+        $telefonos = [];
+        while ($row = $result->fetch_assoc()) {
+            $telefonos[] = $row['telefono'];
+        }
+
+        $stmt->close();
 
         //poner en columna los nombres de docentes a cargo
         $nombres = $fila['nombresConcatenados'];
@@ -134,40 +150,40 @@
             
             <!-- Cuerpo PDF -->
             <!-- Datos salida -->
-             <div class="col-12 mb-3">
-                 <div class="col-12">
-                     <div class="col-12">
-                         <span>Nombre del Proyecto de salida</span>
-                     </div>
-                     <div class="col-12">
-                         <p class="fw-bold margenDato"><?php echo $fila['denominacionProyecto'] ?></p>
-                     </div>
-                 </div>
-                 <div class="col-12">
-                     <div class="col-12">
-                         <span>Lugar, Día y hora de salida</span>
-                     </div>
-                     <div class="col-12">
-                         <p class="fw-bold margenDato"><?php echo $fila['salida'] ?></p>
-                     </div>
-                 </div>
-                 <div class="col-12">
-                     <div class="col-12">
-                         <span>Lugar, Día y hora de regreso</span>
-                     </div>
-                     <div class="col-12">
-                         <p class="fw-bold margenDato"><?php echo $fila['regreso'] ?></p>
-                     </div>
-                 </div>
-                 <div class="col-12">
-                     <div class="col-12">
-                         <span>Lugares a visitar</span>
-                     </div>
-                     <div class="col-12">
-                         <p class="fw-bold margenDato"><?php echo $fila['lugarVisita'] ?></p>
-                     </div>
-                 </div>
-             </div>
+            <div class="col-12 mb-3">
+                <div class="col-12">
+                    <div class="col-12">
+                        <span>Nombre del Proyecto de salida</span>
+                    </div>
+                    <div class="col-12">
+                        <p class="fw-bold margenDato"><?php echo $fila['denominacionProyecto'] ?></p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-12">
+                        <span>Lugar, Día y hora de salida</span>
+                    </div>
+                    <div class="col-12">
+                        <p class="fw-bold margenDato"><?php echo $fila['salida'] ?></p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-12">
+                        <span>Lugar, Día y hora de regreso</span>
+                    </div>
+                    <div class="col-12">
+                        <p class="fw-bold margenDato"><?php echo $fila['regreso'] ?></p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-12">
+                        <span>Lugares a visitar</span>
+                    </div>
+                    <div class="col-12">
+                        <p class="fw-bold margenDato"><?php echo $fila['lugarVisita'] ?></p>
+                    </div>
+                </div>
+            </div>
 
             <!-- Datos estadia -->
             <div class="col-12 mb-3">
@@ -207,9 +223,9 @@
                     </div>
                     <div class="col-6 fw-bold">
                     <?php
-                        // foreach ($telefonos_array as $telefono) {
-                        //     echo htmlspecialchars($telefono) . "<br>"; // Muestra cada teléfono en una nueva línea
-                        // }
+                        foreach ($telefonos as $telefono) {
+                            echo htmlspecialchars($telefono) . "<br>"; // Muestra cada teléfono en una nueva línea
+                        }
                     ?>
                     </div>
                 </div>
@@ -267,8 +283,7 @@
                     </div>
                 </div>
             </div>
-           
-           
+
             <!-- Otros datos de interes -->
             <div class="col-12 mb-3">
                 <div class="col-12">
