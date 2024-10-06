@@ -6,12 +6,12 @@
         $estado = 1;
         $tipoSolicitud = intval($_POST['tipoSalida']);
         $distanciaSalida = intval($_POST['distanciaSalida']);
-        $region = $_POST['region'];
-        $distrito = $_POST['distrito'];
-        $institucionEducativa = $_POST['institucionEducativa'];
-        $numeroInstitucion = $_POST['numero'];
-        $domicilioInstitucion = $_POST['domicilio'];
-        $telefonoInstitucion = $_POST['telefono'];
+        $region = 18;
+        $distrito = "La Costa";
+        $institucionEducativa = "E.E.S.T.";
+        $numeroInstitucion = 1;
+        $domicilioInstitucion = "Calle 104 y 124";
+        $telefonoInstitucion = 2246420535;
         $denominacionProyecto = $_POST['denominacionProyecto'];
         $localidadViaje = $_POST['localidadViaje'];
         $lugarVisita = $_POST['lugarVisitar'];
@@ -31,7 +31,7 @@
         $telefonoHospedaje = !empty($_POST['telefonoHospedaje']) ? $_POST['telefonoHospedaje'] : '-';
         $localidadHospedaje = !empty($_POST['localidadHospedaje']) ? $_POST['localidadHospedaje'] : '-';
         $gastosEstimativos = $_POST['gastosEstimativos'];
-        $anexo9 = isset($_POST['anexo9']) ? 1 : 0;
+        $anexo9 = intval($_POST['anexo9']);
         $fechaLimite = $_POST['fechaLimite'];
 
         $sql = "INSERT INTO anexoiv (

@@ -1,12 +1,132 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Llama a la función cuando se carga la página / redimensiona la ventana
+    window.onload = ajustarTextoLabel;
+    window.onresize = ajustarTextoLabel;
+
     document.querySelectorAll('input[name="distanciaSalida"]').forEach(function (radio) {
         radio.addEventListener('change', function() {
             validarDistanciaSalida();
         });
     });
-    
+
+    const limite = document.getElementById('fechaLimite');
+    limite.addEventListener('keydown', function (event) {
+        event.preventDefault();
+    }); 
+
+
+    function ajustarTextoLabel() {    const width = window.innerWidth;
+        const labels = document.getElementsByClassName('text');  // Devuelve una colección
+        // Cambiar el texto según el ancho de la ventana
+        if (width < 920) {
+            labels[0].textContent = "Dentro del barrio.";
+            labels[1].textContent = "Dentro Distrito (1)";
+            labels[2].textContent = "Dentro Distrito (2)";
+            labels[3].textContent = "Fuera Distrito (1)";
+            labels[4].textContent = "Fuera Distrito (2)";
+            labels[5].textContent = "Fuera Región (1)";
+            labels[6].textContent = "Fuera Región (2)";
+            labels[7].textContent = "Fuera Provincia";
+            labels[8].textContent = "Fuera del País";
+        } else {
+            labels[0].textContent = "Dentro del barrio o área geográfica inmediata, con regreso en el día";
+            labels[1].textContent = "Dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día.";
+            labels[2].textContent = "Dentro del Distrito, con más de 24 horas de duración.";
+            labels[3].textContent = "Fuera del Distrito, no limítrofe, con regreso en el día.";
+            labels[4].textContent = "Fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región).";
+            labels[5].textContent = "Fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día.";
+            labels[6].textContent = "Fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración).";
+            labels[7].textContent = "Fuera de la Provincia de Buenos Aires.";
+            labels[8].textContent = "Fuera del País.";
+        }
+    }
+
     function validarDistanciaSalida() {
+        const width = window.innerWidth;
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked').value;
+    
+        let alertMessage;
+    
+        if (width < 920) {
+            switch(distanciaSeleccionada) {
+                case "1":
+                    alertMessage = 'Salida dentro del barrio o área geográfica inmediata, con regreso en el día. (5 días previos de entrega)';
+                    break;
+                case "2":
+                    alertMessage = 'Salida dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día. (15 días previos de entrega)';
+                    break;
+                case "3":
+                    alertMessage = 'Salida dentro del Distrito, con más de 24 horas de duración. (20 días previos de entrega)';
+                    break;
+                case "4":
+                    alertMessage = 'Salida fuera del Distrito, no limítrofe, con regreso en el día. (20 días previos de entrega)';
+                    break;
+                case "5":
+                    alertMessage = 'Salida fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región). (20 días previos de entrega)';
+                    break;
+                case "6":
+                    alertMessage = 'Salida fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día. (20 días previos de entrega)';
+                    break;
+                case "7":
+                    alertMessage = 'Salida fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración). (20 días previos de entrega)';
+                    break;
+                case "8":
+                    alertMessage = 'Salida con 45 días previos de entrega.';
+                    break;
+                case "9":
+                    alertMessage = 'Salida con 45 días previos de entrega.';
+                    break;
+                default:
+                    alertMessage = 'Opción no válida';
+                    return; // Detener la ejecución si no hay opción válida
+            }
+            Swal.fire({
+                icon: 'info', // Cambiar a 'info' para mostrar un icono informativo
+                title: 'Descripción',
+                text: alertMessage,
+                confirmButtonText: 'OK' // Texto del botón de confirmación
+            });
+        } else {
+            switch(distanciaSeleccionada) {
+                case "1":
+                    alertMessage = 'Esta salida necesita 5 días previos de entrega.';
+                    break;
+                case "2":
+                    alertMessage = 'Esta salida necesita 15 días previos de entrega.';
+                    break;
+                case "3":
+                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    break;
+                case "4":
+                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    break;
+                case "5":
+                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    break;
+                case "6":
+                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    break;
+                case "7":
+                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    break;
+                case "8":
+                    alertMessage = 'Esta salida necesita 45 días previos de entrega.';
+                    break;
+                case "9":
+                    alertMessage = 'Esta salida necesita 45 días previos de entrega.';
+                    break;
+                default:
+                    alertMessage = 'Opción no válida';
+                    return; // Detener la ejecución si no hay opción válida
+            }
+            Swal.fire({
+                icon: 'info', // Cambiar a 'info' para mostrar un icono informativo
+                title: 'Atención',
+                text: alertMessage,
+                confirmButtonText: 'OK' // Texto del botón de confirmación
+            });
+        }
+    
         document.getElementById("fechaSalida").disabled = false;
         document.getElementById("horaSalida").disabled = false;
         document.getElementById("fechaRegreso").disabled = false;
@@ -17,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             mostrarInputs();
         }
-    }
+    }    
     
     document.getElementById("fechaSalida").addEventListener("blur", function(){
         calcularTiempoLimite();
@@ -293,8 +413,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function validarAnexoIV(event) {
         event.preventDefault();
+
+        const anexo9 = document.querySelector('input[name="anexo9"]:checked');
+        if (!anexo9) {
+            const tipoSalidaContainer = document.querySelector('input[name="anexo9"]').closest('div');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo no seleccionado',
+                text: 'Por favor indique si va a utilizar el Anexo IX.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    tipoSalidaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.querySelector('input[name="anexo9"]').focus();
+                }, 300);
+            });
+            return;
+        }
+
         const tipoSalida = document.querySelector('input[name="tipoSalida"]:checked');
-        
         if (!tipoSalida) {
             const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div');
             Swal.fire({

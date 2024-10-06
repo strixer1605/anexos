@@ -5,8 +5,8 @@
         exit;
     }
     include('../../php/conexion.php');
-    echo $_SESSION['dniProfesor'];
-    echo $_SESSION['dniPadre'];
+    // echo $_SESSION['dniProfesor'];
+    // echo $_SESSION['dniPadre'];
     
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2024 a las 01:39:50
+-- Tiempo de generación: 07-10-2024 a las 00:16:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -5516,14 +5516,6 @@ CREATE TABLE `anexoiv` (
   `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoiv`
---
-
-INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `localidadViaje`, `lugarVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoixHabil`, `fechaLimite`, `fechaModificacion`) VALUES
-(1, 1, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'a', 'a', 'a', '2024-10-20', 'a', '20:00:00', '2024-10-20', 'a', '21:00:00', 'a', 'a', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'a', 1, '2024-10-11 12:00:00', '2024-10-02 23:15:11'),
-(2, 1, 2, 3, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', '2024-11-30', 'TEST2', '20:00:00', '2025-02-28', 'TEST2', '20:00:00', 'TEST2', 'TEST2', 18892329, 'Paola Arrua Sosa', 2, 'TEST2', 'TEST2', 1122334455, 'TEST2', 'TEST2', 1, '2024-11-04 12:00:00', '2024-10-02 23:19:29');
 
 -- --------------------------------------------------------
 
@@ -56926,7 +56918,7 @@ ALTER TABLE `telefono`
 -- AUTO_INCREMENT de la tabla `anexoiv`
 --
 ALTER TABLE `anexoiv`
-  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `area`

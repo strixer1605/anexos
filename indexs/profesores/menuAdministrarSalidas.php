@@ -50,7 +50,7 @@
                     </ul>
                 </div>
             </div>
-            <button class="btn-primary form-control botones w-100 mb-5">Histórico de mis salidas</button>
+            <a href="historico.php" class="btn-primary form-control botones w-100 mb-5">Histórico de mis salidas</a>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
