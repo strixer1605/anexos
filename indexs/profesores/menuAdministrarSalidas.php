@@ -50,6 +50,7 @@
                     </ul>
                 </div>
             </div>
+            <br><br>
             <a href="historico.php" class="btn-primary form-control botones w-100 mb-5">Histórico de mis salidas</a>
         </div>
 

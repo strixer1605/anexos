@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!$_SESSION['dniProfesor']){
+    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])){
         header('Location: ../../index.php');
     } else {
         include '../../php/conexion.php';

@@ -1,6 +1,6 @@
 <?php 
     include 'conexion.php';
-    $sql = "SELECT * FROM `anexoiv` WHERE 1";
+    $sql = "SELECT * FROM `anexoiv` WHERE estado != 1";
     $result = mysqli_query($conexion, $sql);
 
     if (!$result) {

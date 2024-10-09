@@ -1,7 +1,8 @@
 <?php
     session_start();
-    if(!$_SESSION['dniProfesor']) {
+    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector']) && !isset($_SESSION['dniPadre'])) {
         header('Location: ../../index.php');
+        exit; // Asegúrate de salir después de redirigir
     } else {
         $idSalida = $_SESSION['idSalida'];
         include '../../php/conexion.php';
@@ -145,7 +146,7 @@
                 <p class="m-0 p-0 fw-bold">ANEXO X</p>
             </div>
             <div class="col-12 mb-4 d-flex justify-content-center">
-                <p class="fw-bold m-0 p-0">PLANILLA INFORMATIVA PARA ALUMNOS</p>
+                <p class="fw-bold m-0 p-0">PLANILLA INFORMATIVA PARA PADRES</p>
             </div>
             
             <!-- Cuerpo PDF -->
@@ -195,7 +196,7 @@
                         <span class="fw-bold">Hostel:</span> <span><?php echo $fila['nombreHospedaje'] ?></span>
                     </div>
                     <div class="col-6">
-                        <span class="fw-bold">Teléfono:</span> <span><?php echo $fila['telefonoHospedaje'] ?></span>
+                        <span class="fw-bold">Teléfono:</span> <span><?php if($fila['telefonoHospedaje']==0){echo "-";}else{echo $fila['telefonoHospedaje'];}?></span>
                     </div>
                 </div>
                 <div class="col-12 d-flex">
@@ -217,8 +218,8 @@
                     <div class="col-6 fw-bold">
                     <?php
                         foreach ($nombres_array as $nombre) {
-                                echo $nombre . "<br>";
-                            }
+                            echo $nombre . "<br>";
+                        }
                     ?>
                     </div>
                     <div class="col-6 fw-bold">

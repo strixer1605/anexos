@@ -1,4 +1,4 @@
-*{
+* {
     font-family: "Montserrat", sans-serif;
 }
 
@@ -85,9 +85,28 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 576px) {
+/* Botón de histórico responsivo */
+#historicoButton {
+    width: 25%; /* Tamaño predeterminado */
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#historicoButton:hover {
+    background-color: #4d80e5;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
     .registration-form form {
-        padding: 50px 20px;
+        padding: 50px 20px; /* Ajustar el padding para pantallas pequeñas */
     }
 
     .registration-form .form-icon {
@@ -96,16 +115,17 @@ body {
         font-size: 30px;
         line-height: 70px;
     }
+
+    #historicoButton {
+        width: 100%; /* Botón ocupa el 100% del ancho en pantallas pequeñas */
+        font-size: 16px; /* Ajuste del tamaño del texto */
+    }
 }
 
-.form-group-flex {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .form-group-flex {
-      flex-direction: column;
-  }
+@media (max-width: 576px) {
+    #historicoButton {
+        width: 100%; /* Asegura que en pantallas muy pequeñas también ocupe el ancho completo */
+        padding: 10px 15px;
+        font-size: 14px; /* Reducción del tamaño del texto para mejor visibilidad */
+    }
 }

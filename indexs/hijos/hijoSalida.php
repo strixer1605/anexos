@@ -45,6 +45,7 @@
                     <hr>
                     <ul>
                         <?php include('../../php/hijosPDFTraer.php'); ?>
+                        <li><a href="../pdf/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>
                     </ul>
                 </div>
             </div>

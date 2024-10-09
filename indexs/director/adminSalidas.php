@@ -42,7 +42,7 @@
                     <div class="container-fluid d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                             <img src="../../imagenes/eest.webp" style="height:70px;">
-                            <a class="navbar-brand" id="title" style="color: white; font-size:25px; margin-left: 30px;">Aprobar Salidas Educativas</a>
+                            <a class="navbar-brand" id="title" style="color: white; font-size:25px; margin-left: 15px;">Salidas activas</a>
                         </div>
                     </div>
                 </nav>
@@ -58,24 +58,23 @@
                                         <th>Lugar a Visitar</th>
                                         <th>Fecha de Salida</th>
                                         <th>Fecha de Regreso</th>
-                                        <th>¿Más De 24hs?</th>
+                                        <th>¿Menos De 24hs?</th>
                                         <th>¿Anexo IX?</th>
                                         <th>¿Anexos Completos?</th>
+                                        <th>Fecha Límite</th>
                                         <th>Documento (PDF)</th>
-                                        <th>Aprobar</th>
-                                        <th>Desaprobar</th>
+                                        <th>Gestionar</th>
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody id="proyectosTabla">
-                                    <?php include("../../php/tablaAdminSalidas.php"); ?>
                                 </tbody>
                             </table>
                         </div>    
                     </div>
                 </div>
                 <br>
-                <div class="form-group d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
                     <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Histórico Salidas</a>
                 </div>
             </form>
@@ -86,6 +85,6 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../../js/anexoIV.js"></script>    
+        <script src="../../js/adminSalidas.js"></script>    
     </body>
 </html>

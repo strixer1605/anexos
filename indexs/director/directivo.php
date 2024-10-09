@@ -20,7 +20,7 @@
     </head>
     <body>
 
-        <a href="../modulos/logout.php" class="btn btn-danger">Cerrar sesión</a>
+        <a href="../../php/logout.php" class="btn btn-danger">Cerrar sesión</a>
         <div class="row justify-content-center">
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>
@@ -31,16 +31,37 @@
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Hijos a Cargo</h2>
                 <div class="col-12 text-center mt-4">
-                    <?php if (!empty($hijos)): ?>
-                        <?php foreach ($hijos as $hijo): ?>
-                            <a href="../salidasHijos.php?dniAlumno=<?= $hijo['dni'] ?>" class="btn border-bottom border-top form-control" style="width: 100%;"><?= $hijo['apellido'] . ' ' . $hijo['nombre'] ?></a><br><br>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No hay hijos asociados.</p>
-                    <?php endif; ?>
-                    <?php if ($error): ?>
-                        <p><?= $error ?></p>
-                    <?php endif; ?>
+                    <?php
+                        include('../../php/conexion.php');
+
+                        $dniPadre = $_SESSION['dniDirector'];
+
+                        $hijoSQL = "SELECT `dni_alumnos` FROM `padresalumnos` WHERE dni_padrestutores = '$dniPadre'";
+
+                        $resultadoHijos = mysqli_query($conexion, $hijoSQL);
+                        if ($resultadoHijos) {
+                            while ($filaHijo = mysqli_fetch_assoc($resultadoHijos)) {
+
+                                $dniAlumno = $filaHijo['dni_alumnos'];
+
+                                $alumnoSQL = "SELECT `nombre`, `apellido` FROM `alumnos` WHERE dni = '$dniAlumno'";
+                                $resultadoAlumno = mysqli_query($conexion, $alumnoSQL);
+
+                                if ($resultadoAlumno) {
+                                    while ($datosAlumno = mysqli_fetch_assoc($resultadoAlumno)) {
+                                        $nombreAlumno = $datosAlumno['nombre'];
+                                        $apellidoAlumno = $datosAlumno['apellido'];
+
+                                        echo '<a href="../../php/traerDatosHijoSalida.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">'.$apellidoAlumno.' '.$nombreAlumno.'</a><br><br>';
+                                    }
+                                } else {
+                                    echo "Error al obtener datos del alumno";
+                                }
+                            }
+                        } else {
+                            echo "Error al obtener DNIs de los alumnos asociados al padre";
+                        }
+                    ?>
                 </div>
             </div>
         </div>

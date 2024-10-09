@@ -7,6 +7,20 @@
     include('../../php/conexion.php');
     $idSalida = $_SESSION['idSalida'];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+
+    // Consulta para obtener el estado de la salida
+    $query = "SELECT estado FROM anexoiv WHERE idAnexoIV = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $idSalida);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $estadoSalida = null;
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $estadoSalida = $row['estado']; // Asumiendo que 'estado' es el nombre de la columna
+    }
+    $stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +46,17 @@
                 ?>
             </h1>
             <div class="row mt-5">
-                <div class="col-md-6">
-                    <h3>Formularios</h3>
-                    <hr>
-                    <ul>
-                        <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
+                <?php if ($estadoSalida != 3): // Mostrar formularios si el estado no es 3 ?>
+                    <div class="col-md-6">
+                        <h3>Formularios</h3>
+                        <hr>
+                        <ul>
+                            <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="<?php echo ($estadoSalida == 3) ? 'col-md-12' : 'col-md-6'; // Ocupa el 100% si el estado es 3 ?>">
                     <h3>Documentos (PDF)</h3>
                     <hr>
                     <ul>

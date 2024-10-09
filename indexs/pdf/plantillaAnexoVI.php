@@ -2,7 +2,7 @@
     session_start();
 
     
-    if (isset($_SESSION['dniPadre'])) {
+    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])) {
         include '../../php/conexion.php';
         
         $idSalida = $_SESSION['idSalida'];

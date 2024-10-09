@@ -16,7 +16,7 @@
     include('../../php/conexion.php');
 
     $dniHijo = $_SESSION['dniAlumno'];
-
+    // echo $dniHijo;
     $sqlAnexoV = "
     SELECT aiv.idAnexoIV, aiv.denominacionProyecto 
     FROM anexoiv aiv

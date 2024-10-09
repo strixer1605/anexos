@@ -1,68 +1,53 @@
 <?php
-    if (empty($_SESSION['dniDirector'])) {
+    session_start();
+    if (!isset($_SESSION['dniDirector'])) {
         header('Location: ../index.php');
         exit;
     }
-    
-    include('../../php/conexion.php');
-    
-    $sql = "SELECT * FROM anexoiv";
+
+    include('conexion.php');
+
+    $sql = "SELECT * FROM anexoiv WHERE estado = 1";
     $anexoiv = mysqli_query($conexion, $sql);
-    
+
+    $salidas = [];
+
     while ($resp = mysqli_fetch_assoc($anexoiv)) {
-        echo '<tr class="col-12 text-center">';
-        echo '<td>' . $resp['idAnexoIV'] . '</td>';
-        echo '<td>' . $resp['denominacionProyecto'] . '</td>';
-        echo '<td>' . $resp['tipoSolicitud'] . '</td>';
-        echo '<td>' . $resp['lugarVisita'] . '</td>';
-        echo '<td>' . $resp['fechaSalida'] . '</td>';
-        echo '<td>' . $resp['fechaRegreso'] . '</td>';
-    
-        // Consulta para la distancia (diferencia de horas)
+        // Distancia (más de 24 horas)
         $distanciaHoras = "SELECT distanciaSalida FROM anexoiv WHERE idAnexoIV = '".$resp['idAnexoIV']."'";
         $distanciaHorasRespuesta = mysqli_query($conexion, $distanciaHoras);
-    
-        if ($distanciaHorasRespuesta && mysqli_num_rows($distanciaHorasRespuesta) > 0) {
-            $distancia = mysqli_fetch_assoc($distanciaHorasRespuesta)['distanciaSalida'];
-            if (in_array($distancia, [1, 2, 4, 6])) {
-                echo '<td>Si</td>';
-            } else {
-                echo '<td>No</td>';
-            }
-        }
-    
-        // Anexo 9 (Consulta habilitación de Anexo IX)
+        $distancia = mysqli_fetch_assoc($distanciaHorasRespuesta)['distanciaSalida'];
+        $masDe24hs = in_array($distancia, [1, 2, 4, 6]) ? 'Si' : 'No';
+
+        // Anexo IX habilitación
         $anexoixHabilsql = "SELECT anexoixHabil FROM anexoiv WHERE idAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoixHabilresponse = mysqli_query($conexion, $anexoixHabilsql);
-        
-        if ($anexoixHabilresponse && mysqli_num_rows($anexoixHabilresponse) > 0) {
-            $anexoixHabil = mysqli_fetch_assoc($anexoixHabilresponse)['anexoixHabil'];
-            if ($anexoixHabil == 1) {
-                echo '<td>Si</td>';
-            } else {
-                echo '<td>No</td>';
-            }
-        }
-    
-        // Verificación de anexos V, VIII, X
+        $anexoixHabil = mysqli_fetch_assoc($anexoixHabilresponse)['anexoixHabil'] == 1 ? 'Si' : 'No';
+
+        // Verificación de anexos completos
         $sqlAnexoV = "SELECT * FROM anexov WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoVResponse = mysqli_query($conexion, $sqlAnexoV);
         $sqlAnexoVIII = "SELECT * FROM anexoviii WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoVIIIResponse = mysqli_query($conexion, $sqlAnexoVIII);
         $sqlAnexoX = "SELECT * FROM anexox WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoXResponse = mysqli_query($conexion, $sqlAnexoX);
-    
-        // Comprobar si todas las consultas tienen exactamente un resultado
-        if (
-            mysqli_num_rows($anexoVResponse) >= 1 &&
-            mysqli_num_rows($anexoVIIIResponse) == 0 &&
-            mysqli_num_rows($anexoXResponse) == 0
-        ) {
-            echo '<td>Si</td>';
-        } else {
-            echo '<td>No</td>';
-        }
-    
-        echo '</tr>';
-    }    
+
+        $anexosCompletos = (mysqli_num_rows($anexoVResponse) >= 1 && mysqli_num_rows($anexoVIIIResponse) == 0 && mysqli_num_rows($anexoXResponse) == 0) ? 'Si' : 'No';
+
+        // Salida array
+        $salidas[] = [
+            'idAnexoIV' => $resp['idAnexoIV'],
+            'denominacionProyecto' => $resp['denominacionProyecto'],
+            'tipoSolicitud' => $resp['tipoSolicitud'],
+            'lugarVisita' => $resp['lugarVisita'],
+            'fechaSalida' => $resp['fechaSalida'],
+            'fechaRegreso' => $resp['fechaRegreso'],
+            'masDe24hs' => $masDe24hs,
+            'anexoixHabil' => $anexoixHabil,
+            'anexosCompletos' => $anexosCompletos,
+            'fechaLimite' => $resp['fechaLimite'],
+        ];
+    }
+
+    echo json_encode($salidas);
 ?>
