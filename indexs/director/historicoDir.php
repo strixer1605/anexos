@@ -1,15 +1,14 @@
 <?php
     session_start();
     error_reporting(0);
-    if (!isset($_SESSION['dniProfesor'])) {
+    if (!isset($_SESSION['dniDirector'])) {
         header('Location: ../index.php');
         exit;
     }
     include('../../php/conexion.php');
     
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
-    $idSalida = $_SESSION['idSalida'];
-    $dni = $_SESSION['dniProfesor'];
+    $dni = $_SESSION['dniDirector'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +28,7 @@
         <div class="container">
             <div class="row mt-5 justify-content-center">
                 <div class="col-md">
-                    <h1>Histórico de mis salidas</h1>
+                    <h1>Histórico de salidas educativas</h1>
                     <hr>
                     <table class="table table-striped table-bordered text-center">
                         <thead>
@@ -47,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php include('../../php/traerHistoricoSalidas.php'); ?>
+                            <?php include('../../php/traerHistoricoDir.php'); ?>
                         </tbody>
                     </table>
                 </div>

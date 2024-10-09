@@ -21,7 +21,7 @@
         }
 
         $conexion->close();        
-        header("Location: ../indexs/director/directivos.php");
+        header("Location: ../indexs/director/directivo.php");
         exit;
     }
 

@@ -6,7 +6,6 @@
     }
     include('../../php/conexion.php');
     $idSalida = $_SESSION['idSalida'];
-    $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 ?>
 

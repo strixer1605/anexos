@@ -5,8 +5,6 @@
         exit;
     }
     include('../../php/conexion.php');
-    // echo $_SESSION['dniProfesor'];
-    // echo $_SESSION['dniPadre'];
     
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
@@ -36,7 +34,7 @@
                     <div class="col-12 text-center mt-4">
                         <?php if (!empty($hijos)): ?>
                             <?php foreach ($hijos as $hijo): ?>
-                                <a href="../salidasHijos.php?dniHijo=<?= $hijo['dni'] ?>" class="btn border-bottom border-top form-control" style="width: 100%;"><?= $hijo['apellido'] . ' ' . $hijo['nombre'] ?></a><br><br>
+                                <a href="../../php/traerDatosHijoSalida.php?<?= $hijo['dni'] ?>" class="btn border-bottom border-top form-control" style="width: 100%;"><?= $hijo['apellido'] . ' ' . $hijo['nombre'] ?></a><br><br>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p>No hay hijos asociados.</p>

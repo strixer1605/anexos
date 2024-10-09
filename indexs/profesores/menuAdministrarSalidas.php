@@ -39,7 +39,7 @@
                     <h3 class="subtitulo">Salidas Aprobadas</h3>
                     <hr>
                     <ul>
-                        <li><a class="btn form-control botones w-100 mb-3">Salida 2</a></li>
+                        <?php include('../../php/traerSalidasAprobadasProfesor.php'); ?>
                     </ul>
                 </div>
                 <div class="col-md-6">

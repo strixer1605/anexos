@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['dni_director'])) {
+    if (!isset($_SESSION['dniDirector'])) {
         header('Location: ../index.php');
         exit;
     }
@@ -25,7 +25,7 @@
             <div class="col-6">
                 <h2 class="col-12 text-center mt-4">Opciones</h2>
                 <div class="col-12 text-center mt-4">
-                    <a href="aprobar.php" class="btn border-bottom border-top form-control" style="width: 100%;">Administrar Salidas Educativas</a>
+                    <a href="adminSalidas.php" class="btn border-bottom border-top form-control" style="width: 100%;">Administrar Salidas Educativas</a>
                 </div>
             </div>
             <div class="col-6">

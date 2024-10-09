@@ -43,7 +43,7 @@
                                 $nombreAlumno = $datosAlumno['nombre'];
                                 $apellidoAlumno = $datosAlumno['apellido'];
 
-                                echo '<a href="../salidasHijos.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">'.$apellidoAlumno.' '.$nombreAlumno.'</a><br><br>';
+                                echo '<a href="../../php/traerDatosHijoSalida.php?dniAlumno='.$dniAlumno.'" class="btn border-bottom border-top form-control" style="width: 100%;">'.$apellidoAlumno.' '.$nombreAlumno.'</a><br><br>';
                             }
                         } else {
                             echo "Error al obtener datos del alumno";
