@@ -1,282 +1,294 @@
-<?php
+<?php 
 session_start();
-
-$idSalida = $_SESSION['idSalida'];
 include 'conexion.php';
-$sqlProfesSalida = "SELECT `dni`, `apellidoNombre` FROM `anexov` WHERE fkAnexoIV = $idSalida AND cargo = 2";
-$resultado = mysqli_query($conexion, $sqlProfesSalida);
-$profesores = [];
-while ($filaProfe = $resultado->fetch_assoc()) {
-    $profesores[] = $filaProfe; // Guardamos los profesores en un array
-}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gestión de Descripciones</title>
     <style>
-    .etapa {
-        background-color: #EDEDED;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
+        .section {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.section-title {
+    font-weight: bold;
+}
+
+.input-container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en la línea */
+    justify-content: space-between; /* Para distribuir bien el contenido */
+}
+
+.input-container input {
+    flex: 1 1 auto; /* Hace que el input ocupe todo el ancho disponible */
+    min-width: 200px; /* Asegura que el input tenga un tamaño mínimo */
+}
+
+.input-container button {
+    flex: 0 0 auto; /* El botón ocupa el espacio necesario sin flexibilidad */
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.btn-agregar {
+    margin-top: 10px;
+}
+
+.btn-warning {
+    margin-right: 10px;
+}
+
+.anexo8 {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .input-container {
+        flex-direction: column; /* Coloca los elementos uno debajo del otro */
+        align-items: stretch; /* Alinea los elementos para que ocupen todo el ancho */
     }
 
-    h2 {
-        margin-bottom: 15px;
+    .input-container button {
+        margin-left: 0; /* Elimina el margen izquierdo del botón en móviles */
+        margin-top: 10px; /* Añade espacio superior en móviles */
+        width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
     }
+}
 
-    textarea {
-        background-color: #e9ecef;
-        color: #495057;
-    }
-</style>
-
+    </style>
 </head>
-<body>    
-    <!-- Nueva sección de Objetivo -->
-    <div class="mb-5">
-        <label for="objetivo" class="form-label">Objetivo:</label>
-        <input type="text" class="form-control" id="objetivo" name="objetivo" placeholder="Ingrese el objetivo..." 
-        value="<?php echo htmlspecialchars($row['objetivo'], ENT_QUOTES, 'UTF-8'); ?>" required readonly>
+<body>
+    <!-- Sección de Objetivo -->
+    <div id="seccionObjetivos" class="section">
+        <div class="section-title">Objetivos</div>
+        <div id="objetivoContainer" class="input-container">
+            <input type="text" id="inputObjetivos" class="form-control" placeholder="Escribe un objetivo">
+            <button class="btn btn-primary btn-agregar" type="button" inputId="inputObjetivos">Agregar</button>
+        </div>
+        <div id="objetivos" name="objetivo" class="contenedorInputs" data-input-id="inputObjetivos" data-label="Objetivos"></div>
     </div>
 
-    <div class="row mb-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="descripcionInput" class="column-label">Ingrese la Descripción:</label>
-                    <input type="text" class="form-control" id="descripcionInput" placeholder="Ingrese Descripción...">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="descripcionSelect" class="column-label">Seleccione la etapa:</label>
-                    <select class="form-control" id="descripcionSelect">
-                        <option value="objetivo">Objetivo</option>
-                        <option value="previas">Previa</option>
-                        <option value="durante">Durante</option>
-                        <option value="evaluacion">Evaluación</option>
-                    </select>
-                </div>
-            </div>
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <button type="button" class="btn btn-primary" id="cargarDescripcion">Cargar Descripción</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <button type="button" class="btn btn-secondary" onclick="toggleEditable()">Habilitar/Deshabilitar Edición</button>
-                        <label for="estadoTT" id="estadoTT">Deshabilitado</label>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <!-- Seleccionar responsable -->
-    <div class="row mb-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="respSelect" class="form-label">Seleccione Responsable:</label>
-                    <select class="form-control" id="respSelect">
-                        <?php foreach ($profesores as $profesor): ?>
-                            <option value="<?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>">
-                                <?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>
-                            </option>
-                        <?php endforeach; ?>
-                        <option value="Todos los docentes participantes de la salida">Todos los docentes participantes de la salida</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="seccionSelect" class="form-label">Seleccione Sección:</label>
-                    <select class="form-control" id="seccionSelect">
-                        <option value="previas">Previa</option>
-                        <option value="durante">Durante</option>
-                        <option value="evaluacion">Evaluación</option>
-                    </select>
-                </div>
-            </div>
-                <div class="col-md-6">
-                    <div class="mb-5">
-                        <button type="button" class="btn btn-success" onclick="cargarResponsable()">Cargar Responsable</button>
-                    </div>
-                </div>
-            </div>
-    </div>
-
-    <div class="etapa">
-        <h2>Etapa Previa</h2>
+    <!-- Sección de Descripción Previa -->
+    <div id="seccionDescripcionPrevia" class="section">
+        <h3>Etapa previa</h3>
         <div class="mb-5">
             <label for="obsPrevia" class="form-label">Observaciones (Previamente):</label>
-            <textarea class="form-control" id="obsPrevia" name="obsPrevia" placeholder="Ingrese Observaciones..." required><?php echo htmlspecialchars($row['observaciones'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+            <textarea class="form-control" name="obsPrevia" id="obsPrevia" placeholder="Ingrese Observaciones..." required></textarea>
         </div>
-        <div class="mb-5">
-            <label for="descPrevia" class="form-label">Descripción Previa:</label>
-            <textarea class="form-control" id="descPrevia" placeholder="Ingrese la descripción más arriba..." name="descPrevia" readonly><?php echo $row['descripcionPrevias']; ?></textarea>
+        <div class="section-title">Descripción Previa</div>
+        <div class="input-container">
+            <input type="text" id="inputDescripcionPrevia" class="form-control" placeholder="Escribe una descripción previa">
+            <button class="btn btn-primary btn-agregar" type="button" inputId="inputDescripcionPrevia">Agregar</button>
         </div>
-        
-        <div class="mb-5">
-            <label for="respPrevia" class="form-label">Responsables (Previamente):</label>
-            <textarea class="form-control" id="respPrevia" name="respPrevia" placeholder="Ingrese Responsables..." required readonly><?php echo htmlspecialchars($row['responsablesPrevias'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-            <p style="margin-top: 5px; margin-left: 2px;">Nota: Para ingresar otro docente, debe separarlo por comas.</p>    
+        <div id="descPrevia" class="contenedorInputs" data-input-id="inputDescripcionPrevia" data-label="Descripción previa"></div>
+
+        <label for="respSelectPrevia" class="form-label">Seleccione Responsable:</label>
+        <select class="form-control mb-3" id="respSelectPrevia" onchange="agregarResponsable('respSelectPrevia', 'contenedorRespPrevia', 'responsablesPrevia')">
+            <option value="">Seleccione un docente</option>
+            <?php foreach ($profesores as $profesor): ?>
+                <option value="<?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <div id="contenedorRespPrevia" class="contenedorInputsResponsables">
+            <div class="input-container">
+                <input type="text" disabled class="form-control anexo8" value="<?php echo $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc']; ?>">
+            </div>
+            <input type="hidden" name="responsablesPrevia" value="<?php echo htmlspecialchars($_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc'], ENT_QUOTES, 'UTF-8'); ?>">
         </div>
     </div>
 
-    <!-- Etapa: Durante -->
-    <div class="etapa">
-        <h2>Etapa Durante</h2>
+    <!-- Repetir el mismo proceso para las otras secciones (Durante y Evaluación) -->
+    <!-- Sección de Descripción Durante -->
+    <div id="seccionDescripcionDurante" class="section">
+        <h3>Etapa durante</h3>
         <div class="mb-5">
             <label for="obsDurante" class="form-label">Observaciones (Durante):</label>
-            <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required><?php echo htmlspecialchars($row['observacionesDurante'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+            <textarea class="form-control" id="obsDurante" name="obsDurante" placeholder="Ingrese Observaciones..." required></textarea>
         </div>
-        <div class="mb-5">
-            <label for="descDurante" class="form-label">Descripción Durante:</label>
-            <textarea class="form-control" id="descDurante" placeholder="Ingrese la descripción más arriba..." name="descDurante" readonly><?php echo $row['descripcionDurante']; ?></textarea>
+        <div class="section-title">Descripción Durante</div>
+        <div class="input-container">
+            <input type="text" id="inputDescripcionDurante" class="form-control" placeholder="Escribe una descripción durante">
+            <button class="btn btn-primary btn-agregar" type="button" inputid="inputDescripcionDurante">Agregar</button>
         </div>
-        
-        <div class="mb-5">
-            <label for="respDurante" class="form-label">Responsables (Durante):</label>
-            <textarea class="form-control" id="respDurante" name="respDurante" placeholder="Ingrese Responsables..." required readonly><?php echo htmlspecialchars($row['responsablesDurante'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-            <p style="margin-top: 5px; margin-left: 2px;">Nota: Para ingresar otro docente, debe separarlo por comas.</p>    
+        <div id="descDurante" class="contenedorInputs" data-input-id="inputDescripcionDurante" data-label="Descripción durante"></div>
+
+        <label for="respSelectDurante" class="form-label">Seleccione Responsable:</label>
+        <select class="form-control mb-3" id="respSelectDurante" onchange="agregarResponsable('respSelectDurante', 'contenedorRespDurante', 'responsablesDurante')">
+            <option value="">Seleccione un docente</option>
+            <?php foreach ($profesores as $profesor): ?>
+                <option value="<?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <div id="contenedorRespDurante" class="contenedorInputsResponsables">
+            <div class="input-container">
+                <input type="text" disabled class="form-control anexo8" value="<?php echo $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc']; ?>">
+            </div>
+            <input type="hidden" name="responsablesDurante" value="<?php echo htmlspecialchars($_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc'], ENT_QUOTES, 'UTF-8'); ?>">
         </div>
     </div>
 
-    <!-- Etapa: Evaluación -->
-    <div class="etapa">
-        <h2>Etapa de Evaluación</h2>
+    <!-- Sección de Evaluación -->
+    <div id="seccionDescripcionEvaluacion" class="section">
+        <h3>Etapa de Evaluación</h3>
         <div class="mb-5">
             <label for="obsEvaluacion" class="form-label">Observaciones (Evaluación):</label>
-            <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required><?php echo htmlspecialchars($row['observacionesEvaluacion'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+            <textarea class="form-control" id="obsEvaluacion" name="obsEvaluacion" placeholder="Ingrese Observaciones" required></textarea>
         </div>
-        <div class="mb-5">
-            <label for="descEvaluacion" class="form-label">Descripción Evaluación:</label>
-            <textarea class="form-control" id="descEvaluacion" placeholder="Ingrese la descripción más arriba..." name="descEvaluacion" readonly><?php echo $row['descripcionEvaluacion']; ?></textarea>
+        <div class="section-title">Descripción evaluación</div>
+        <div class="input-container">
+            <input type="text" id="inputDescripcionEvaluacion" class="form-control" placeholder="Escribe una evaluación">
+            <button class="btn btn-primary btn-agregar" type="button" inputid="inputDescripcionEvaluacion">Agregar</button>
         </div>
-        
-        <div class="mb-5">
-            <label for="respEvaluacion" class="form-label">Responsables (Evaluación):</label>
-            <textarea class="form-control" id="respEvaluacion" name="respEvaluacion" placeholder="Ingrese Responsables..." required readonly><?php echo htmlspecialchars($row['responsablesEvaluacion'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-            <p style="margin-top: 5px; margin-left: 2px;">Nota: Para ingresar otro docente, debe separarlo por comas.</p>    
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <div id="descEvaluacion" class="contenedorInputs" data-input-id="inputDescripcionEvaluacion" data-label="Descripción evaluación"></div>
 
+        <label for="respSelectEvaluacion" class="form-label">Seleccione Responsable:</label>
+        <select class="form-control mb-3" id="respSelectEvaluacion" onchange="agregarResponsable('respSelectEvaluacion', 'contenedorRespEvaluacion', 'responsablesEvaluacion')">
+            <option value="">Seleccione un docente</option>
+            <?php foreach ($profesores as $profesor): ?>
+                <option value="<?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($profesor['apellidoNombre'], ENT_QUOTES, 'UTF-8'); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <div id="contenedorRespEvaluacion" class="contenedorInputsResponsables">
+            <div class="input-container">
+                <input type="text" disabled class="form-control anexo8" value="<?php echo $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc']; ?>">
+            </div>
+            <input type="hidden" name="responsablesEvaluacion" value="<?php echo htmlspecialchars($_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc'], ENT_QUOTES, 'UTF-8'); ?>">
+        </div>
+
+    </div>
+
+    <button type="button" class="btn btn-success" id="valores">Mostrar Valores</button>
 
     <script>
-        $(document).on('click', '#cargarDescripcion', function() {
-            cargarDescripcion();
-        })
+        var nombreDocente = "<?php echo $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc']; ?>";
 
-        document.getElementById('descripcionInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Evitar el envío de formularios si está dentro de uno
-                cargarDescripcion(); // Llamar a la función
-            }
-        });
-        // Función para cargar la descripción en el campo correspondiente
-        function cargarDescripcion() {
-            const descripcion = document.getElementById('descripcionInput').value;
-            const etapaSeleccionada = document.getElementById('descripcionSelect').value;
+        function agregarResponsable(selectId, contenedorId, hiddenInputName) {
+            const select = document.getElementById(selectId);
+            const seleccionado = select.options[select.selectedIndex].value;
 
-            if (!descripcion) {
-                alert('Debe ingresar una descripción.');
-                return;
-            }
+            if (seleccionado) {
+                // Verificar si el responsable ya está agregado
+                const existe = Array.from(document.querySelectorAll(`#${contenedorId} input.form-control`))
+                    .some(input => input.value === seleccionado);
 
-            let textareaId;
-            if (etapaSeleccionada === 'objetivo') {
-                textareaId = 'objetivo';
-            } else if (etapaSeleccionada === 'previas') {
-                textareaId = 'descPrevia';
-            } else if (etapaSeleccionada === 'durante') {
-                textareaId = 'descDurante';
-            } else if (etapaSeleccionada === 'evaluacion') {
-                textareaId = 'descEvaluacion';
-            }
+                if (!existe) {
+                    const inputContainer = document.createElement('div');
+                    inputContainer.classList.add('input-container');
 
-            // Agregar la descripción en el textarea seleccionado
-            const textarea = document.getElementById(textareaId);
-            textarea.value += descripcion + ",";
+                    const nuevoInput = document.createElement('input');
+                    nuevoInput.type = 'text';
+                    nuevoInput.value = seleccionado;
+                    nuevoInput.disabled = true;
+                    nuevoInput.classList.add('form-control');
+                    nuevoInput.classList.add('anexo8');
 
-            // Vaciar el input después de cargar
-            document.getElementById('descripcionInput').value = '';
-        }
+                    let hiddenInput = document.querySelector(`input[name="${hiddenInputName}"]`);
+                    if (!hiddenInput) {
+                        hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = hiddenInputName;
+                        hiddenInput.value = seleccionado;
+                        document.getElementById(contenedorId).appendChild(hiddenInput);
+                    } else {
+                        hiddenInput.value += (hiddenInput.value ? ', ' : '') + seleccionado;
+                    }
 
-        
-        // Función para cargar responsables en el textarea correspondiente
-        function cargarResponsable() {
-        const responsableSeleccionado = document.getElementById('respSelect').value;
-        const seccionSeleccionada = document.getElementById('seccionSelect').value;
-    
-        let textareaId;
-        if (seccionSeleccionada === 'previas') {
-            textareaId = 'respPrevia';
-        } else if (seccionSeleccionada === 'durante') {
-            textareaId = 'respDurante';
-        } else if (seccionSeleccionada === 'evaluacion') {
-            textareaId = 'respEvaluacion';
-        }
-    
-        // Obtener el textarea seleccionado
-        const textarea = document.getElementById(textareaId);
-        let responsablesArray = textarea.value.split(',').map(item => item.trim());
-    
-        if (responsablesArray.includes(responsableSeleccionado)) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Responsable ya ingresado',
-                text: `El responsable "${responsableSeleccionado}" ya ha sido agregado.`,
-                showCancelButton: true,
-                confirmButtonText: 'Omitir',
-                cancelButtonText: 'Borrar responsable'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    return; 
-                } else {
-                    // Filtrar el responsable seleccionado
-                    responsablesArray = responsablesArray.filter(item => item !== responsableSeleccionado);
-                    textarea.value = responsablesArray.join(', ').trim();
-                    Swal.fire('Borrado', `El responsable "${responsableSeleccionado}" ha sido eliminado de la lista.`, 'info');
+                    const eliminarButton = document.createElement('button');
+                    eliminarButton.innerText = "Eliminar";
+                    eliminarButton.type = "button";
+                    eliminarButton.classList.add("btn", "btn-danger");
+                    eliminarButton.onclick = function () {
+                        eliminarResponsable(inputContainer, hiddenInput, seleccionado);
+                    };
+
+                    inputContainer.appendChild(nuevoInput);
+                    inputContainer.appendChild(eliminarButton);
+                    document.getElementById(contenedorId).appendChild(inputContainer);
                 }
-            });
-            return; 
+            }
         }
-    
-        // Agregar el responsable en el textarea seleccionado
-        textarea.value += responsableSeleccionado + ",";
-    
-        // Limpiar el select de responsable
-        document.getElementById('respSelect').selectedIndex = 0; // Vuelve al primer elemento
+
+        function eliminarResponsable(inputContainer, hiddenInput, valorResponsable) {
+            const responsables = hiddenInput.value.split(',').map(v => v.trim());
+            const nuevoValor = responsables.filter(v => v !== valorResponsable).join(', ');
+
+            hiddenInput.value = nuevoValor;
+            inputContainer.remove();
+        }
+
+        document.getElementById('valores').addEventListener('click', function () {
+            const objetivos = document.querySelectorAll("#objetivos input");
+            objetivos.forEach(input => console.log('Objetivo:', input.value));
+
+            const descPrevia = document.querySelectorAll("#descPrevia input");
+            descPrevia.forEach(input => console.log('Descripción Previa:', input.value));
+
+            const descDurante = document.querySelectorAll("#descDurante input");
+            descDurante.forEach(input => console.log('Descripción Durante:', input.value));
+
+            const descEvaluacion = document.querySelectorAll("#descEvaluacion input");
+            descEvaluacion.forEach(input => console.log('Descripción Evaluación:', input.value));
+
+            console.log("Responsables Previa:", document.querySelector('input[name="responsablesPrevia"]').value);
+            console.log("Responsables Durante:", document.querySelector('input[name="responsablesDurante"]').value);
+            console.log("Responsables Evaluación:", document.querySelector('input[name="responsablesEvaluacion"]').value);
+        });
+
+
+//ver si se envian bien los docentes y recibirlos
+
+    function actualizarListaProfesores(selectId) {
+        const select = document.getElementById(selectId);
+        select.innerHTML = '<option value="">Seleccione un docente</option>'; // Reiniciar el select
+
+        // Realizar una solicitud AJAX para obtener la lista de profesores
+        fetch('../../php/obtenerProfesores.php')
+            .then(response => response.json())
+            .then(data => {
+                // Llenar el select con los nuevos profesores
+                data.forEach(profesor => {
+                    const option = document.createElement('option');
+                    option.value = profesor.apellidoNombre;
+                    option.textContent = profesor.apellidoNombre;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al obtener los profesores:', error));
     }
 
-        // Función para habilitar o deshabilitar la edición de las áreas de texto
-        function toggleEditable() {
-            const textareas = document.querySelectorAll('textarea:not(#obsPrevia, #obsDurante, #obsEvaluacion)'); // Excluir los textareas de observaciones
-            const objetivoInput = document.getElementById('objetivo');
-            const estadoTT = document.getElementById('estadoTT');
-            let allEditable = true;
+    // Llamar a la función al cargar la página o cada vez que se actualicen los datos en el primer tab
+    document.addEventListener('DOMContentLoaded', () => {
+        // Obtener los elementos select
+        const selectPrevia = document.getElementById('respSelectPrevia');
+        const selectDurante = document.getElementById('respSelectDurante');
+        const selectEvaluacion = document.getElementById('respSelectEvaluacion');
 
-            textareas.forEach(textarea => {
-                textarea.readOnly = !textarea.readOnly;  // Cambia el estado de readonly
-                if (textarea.readOnly) {
-                    allEditable = false;  // Si al menos un textarea es readonly, no están todos habilitados
-                }
-            });
+        // Función para actualizar la lista de profesores
+        const actualizarSelect = (selectId) => {
+            actualizarListaProfesores(selectId);
+        };
 
-            // Cambiar el estado de readonly para el input de objetivo
-            objetivoInput.readOnly = !objetivoInput.readOnly;
-            if (objetivoInput.readOnly) {
-                allEditable = false;  // Asegurarse de que la variable se actualice
-            }
-
-            // Actualizar el estado del texto
-            estadoTT.textContent = allEditable ? "Habilitado" : "Deshabilitado";
-        }
-    </script>
+        // Agregar eventos de clic a cada select
+        selectPrevia.addEventListener('click', () => actualizarSelect('respSelectPrevia'));
+        selectDurante.addEventListener('click', () => actualizarSelect('respSelectDurante'));
+        selectEvaluacion.addEventListener('click', () => actualizarSelect('respSelectEvaluacion'));
+    });
+</script>
 </body>
 </html>

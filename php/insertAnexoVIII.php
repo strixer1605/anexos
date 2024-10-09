@@ -10,17 +10,17 @@
         $cursos = $_POST['cursos'] ?? null;
         $materias = $_POST['materias'] ?? null;
         $docente = $_POST['docente'] ?? null;
-        $objetivo = $_POST['objetivo'] ?? null;
+        $objetivo = $_POST['inputObjetivos'] ?? null;
         $fechaSalida = $_POST['fechaSalida'] ?? null;
         $lugaresVisitar = $_POST['lugaresVisitar'] ?? null;
-        $descPrevia = $_POST['descPrevia'] ?? null;
-        $respPrevia = $_POST['respPrevia'] ?? null;
+        $descPrevia = $_POST['inputDescripcionPrevia'] ?? null;
+        $respPrevia = $_POST['responsablesPrevia'] ?? null;
         $obsPrevia = $_POST['obsPrevia'] ?? null;
-        $descDurante = $_POST['descDurante'] ?? null;
-        $respDurante = $_POST['respDurante'] ?? null;
+        $descDurante = $_POST['inputDescripcionDurante'] ?? null;
+        $respDurante = $_POST['responsablesDurante'] ?? null;
         $obsDurante = $_POST['obsDurante'] ?? null;
-        $descEvaluacion = $_POST['descEvaluacion'] ?? null;
-        $respEvaluacion = $_POST['respEvaluacion'] ?? null;
+        $descEvaluacion = $_POST['inputDescripcionEvaluacion'] ?? null;
+        $respEvaluacion = $_POST['responsablesEvaluacion'] ?? null;
         $obsEvaluacion = $_POST['obsEvaluacion'] ?? null;
 
         // Verificar si ya existe un registro para la salida
