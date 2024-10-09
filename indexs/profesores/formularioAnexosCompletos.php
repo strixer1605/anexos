@@ -1,16 +1,50 @@
 <?php
     session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     if (!isset($_SESSION['dniProfesor'])) {
         header('Location: ../index.php');
         exit;
     }
+
     include('../../php/conexion.php');
+    if ($conexion->connect_error) {
+        die("Conexión fallida: " . $conexion->connect_error);
+    }
 
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
-    // echo $idSalida;
-    error_reporting(0);
+    if (!isset($idSalida)) {
+        die("No se encontró idSalida en la sesión.");
+    }
+
+    $query = "SELECT estado FROM anexoiv WHERE idAnexoIV = ?";
+    $stmt = $conexion->prepare($query);
+    if (!$stmt) {
+        die("Error en la preparación de la consulta: " . $conexion->error);
+    }
+
+    $stmt->bind_param("i", $idSalida);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result) {
+        if ($row = $result->fetch_assoc()) {
+            if ($row['estado'] == 3) {
+                // Si el estado es 3, redirige a menuSalidas
+                header('Location: menuAdministrarSalidas.php');
+                exit;
+            } else {
+                echo "El estado no es 3. Estado actual: " . $row['estado'];
+            }
+        } else {
+            echo "No se encontraron resultados.";
+        }
+    } else {
+        echo "Error en la consulta: " . $conexion->error;
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
