@@ -78,52 +78,251 @@ document.addEventListener("DOMContentLoaded", function() {
     });     
 
 
+    let agregarBotones = document.querySelectorAll('.btn-agregar');
+
+    // Objeto para almacenar los valores
+    const seccionesValores = {
+        objetivos: [],
+        descripcionPrevia: [],
+        descripcionDurante: [],
+        evaluacion: [],
+        responsablesPrevia: [],
+        responsablesDurante: [],
+        responsablesEvaluacion: []
+    };
+
+    const responsableHardcodeado = nombreDocente;
+    if (responsableHardcodeado) {
+        seccionesValores.responsablesPrevia.push(responsableHardcodeado);
+        seccionesValores.responsablesDurante.push(responsableHardcodeado);
+        seccionesValores.responsablesEvaluacion.push(responsableHardcodeado);
+    }
+    
+    // Recorre todos los botones y agrega el evento 'click' a cada uno
+    agregarBotones.forEach(boton => {
+        boton.onclick = () => {
+            let inputId = boton.getAttribute('inputid'); // Obtiene el atributo 'inputid'
+            agregarValor(inputId);
+        };
+    });
+    
+    // Función que toma el id del input y agrega su valor a la sección correspondiente
+    function agregarValor(inputId) {
+        const valor = document.getElementById(inputId).value.trim(); // Obtener y limpiar el valor del input
+        if (valor) {
+            const contenedorSeccion = document.querySelector(`#${inputId.replace('input', 'seccion')} .contenedorInputs`);
+    
+            // Verificar si el valor ya existe
+            const valoresExistentes = Array.from(contenedorSeccion.querySelectorAll('input.form-control.anexo8')).map(input => input.value);
+            if (valoresExistentes.includes(valor)) {
+                alert('Este valor ya ha sido agregado.'); // O usar una alerta más estilizada.
+                return;
+            }
+    
+            // Verificar si ya existe el campo oculto
+            let hiddenInput = contenedorSeccion.querySelector(`input[name="${inputId}"]`);
+            if (!hiddenInput) {
+                // Crear el campo oculto para enviar el valor en el formulario
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = inputId; // Nombre relacionado con la sección
+                hiddenInput.value = valor; // Establecer el valor del campo oculto
+                contenedorSeccion.appendChild(hiddenInput); // Añadir el campo oculto a la sección
+            } else {
+                // Actualizar el valor del campo oculto concatenando el nuevo valor
+                hiddenInput.value += (hiddenInput.value ? ', ' : '') + valor; // Agregar el nuevo valor separado por coma
+            }
+    
+            const inputContainer = document.createElement('div'); // Crear un contenedor para el nuevo input
+            inputContainer.classList.add('input-container');
+    
+            // Crear el input que contendrá el valor agregado
+            const nuevoInput = document.createElement('input');
+            nuevoInput.type = 'text';
+            nuevoInput.value = valor;
+            nuevoInput.disabled = true; // Deshabilitar el input por defecto
+            nuevoInput.classList.add('form-control');
+            nuevoInput.classList.add('anexo8');
+    
+            // Botón para editar/guardar el valor
+            const editarButton = document.createElement('button');
+            editarButton.textContent = 'Editar';
+            editarButton.setAttribute('type', 'button');
+            editarButton.setAttribute('class', 'btn btn-warning');
+            editarButton.onclick = function() {
+                if (nuevoInput.disabled) {
+                    nuevoInput.disabled = false; // Habilitar el input
+                    editarButton.textContent = 'Guardar'; // Cambiar texto del botón a "Guardar"
+                } else {
+                    nuevoInput.disabled = true; // Deshabilitar el input
+                    editarButton.textContent = 'Editar'; // Cambiar texto del botón a "Editar"
+                    // Aquí no es necesario actualizar el hiddenInput ya que sólo agregamos un nuevo valor.
+                }
+            };
+    
+            // Botón para eliminar el input
+            const eliminarButton = document.createElement('button');
+            eliminarButton.textContent = 'Eliminar';
+            eliminarButton.setAttribute('type', 'button');
+            eliminarButton.setAttribute('class', 'btn btn-danger');
+            eliminarButton.onclick = function() {
+                inputContainer.remove(); // Eliminar el contenedor
+                // Actualizar el valor del campo oculto al eliminar un input
+                hiddenInput.value = Array.from(contenedorSeccion.querySelectorAll('input.form-control.anexo8'))
+                    .map(input => input.value)
+                    .join(', '); // Reagrupar los valores
+            };
+    
+            // Añadir el input y los botones al contenedor
+            inputContainer.appendChild(nuevoInput);
+            inputContainer.appendChild(editarButton);
+            inputContainer.appendChild(eliminarButton);
+    
+            // Agregar el nuevo contenedor a la sección correspondiente
+            contenedorSeccion.appendChild(inputContainer);
+    
+            // Limpiar el input original
+            document.getElementById(inputId).value = '';
+        }
+    }
+    
+    
+    
+    
+    // Agregar evento al botón 'valores' para capturar los datos de los responsables
+    document.getElementById('valores').addEventListener('click', function() {
+        // Limpiar los arrays de responsables antes de llenarlos
+        seccionesValores.responsablesPrevia = [];
+        seccionesValores.responsablesDurante = [];
+        seccionesValores.responsablesEvaluacion = [];
+        
+        // Obtener los valores de los contenedores de responsables
+        const contenedorRespPrevia = document.getElementById('contenedorRespPrevia');
+        const contenedorRespDurante = document.getElementById('contenedorRespDurante');
+        const contenedorRespEvaluacion = document.getElementById('contenedorRespEvaluacion');
+
+        // Capturar los valores de los inputs en contenedorRespPrevia
+        const inputsPrevia = contenedorRespPrevia.querySelectorAll('input.anexo8');
+        inputsPrevia.forEach(input => {
+            if (input.value) {
+                seccionesValores.responsablesPrevia.push(input.value);
+            }
+        });
+
+        // Capturar los valores de los inputs en contenedorRespDurante
+        const inputsDurante = contenedorRespDurante.querySelectorAll('input.anexo8');
+        inputsDurante.forEach(input => {
+            if (input.value) {
+                seccionesValores.responsablesDurante.push(input.value);
+            }
+        });
+
+        // Capturar los valores de los inputs en contenedorRespEvaluacion
+        const inputsEvaluacion = contenedorRespEvaluacion.querySelectorAll('input.anexo8');
+        inputsEvaluacion.forEach(input => {
+            if (input.value) {
+                seccionesValores.responsablesEvaluacion.push(input.value);
+            }
+        });
+
+        // Mostrar en consola los valores
+        console.log("Objetivos:", seccionesValores.objetivos);
+        console.log("Descripción Previa:", seccionesValores.descripcionPrevia);
+        console.log("Responsables Descripción Previa:", seccionesValores.responsablesPrevia);
+        console.log("Descripción Durante:", seccionesValores.descripcionDurante);
+        console.log("Responsables Descripción Durante:", seccionesValores.responsablesDurante);
+        console.log("Descripción Evaluación:", seccionesValores.evaluacion);
+        console.log("Responsables Evaluación:", seccionesValores.responsablesEvaluacion);
+    });
+
+
     function validateAndSubmitAnexoVIII(event) {
         const fields = [
             'institucion',
             'cursos',
             'materias',
             'docente',
-            'objetivo',
             'fechaSalida',
             'lugaresVisitar',
-            'descPrevia',
-            'respPrevia',
+            'objetivos',       // Div para objetivos
             'obsPrevia',
-            'descDurante',
-            'respDurante',
+            'descPrevia',
             'obsDurante',
-            'descEvaluacion',
-            'respEvaluacion',
-            'obsEvaluacion'
+            'descDurante',
+            'obsEvaluacion',
+            'descEvaluacion'
         ];
-    
+
         let firstInvalidField = null;
-    
+        let associatedDiv = null;
+
         for (let field of fields) {
             const element = document.getElementById(field);
-            if (element && element.value.trim() === '') {
-                firstInvalidField = element;
-                break;
+
+            // Verificar si es un input o textarea
+            if (element && (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA')) {
+                if (element.value.trim() === '') {
+                    firstInvalidField = element;
+                    break;
+                }
+            } 
+            // Verificar si es un div y validar si tiene contenido
+            else if (element && element.tagName === 'DIV') {
+                if (element.textContent.trim() === '') {
+                    associatedDiv = element;  // Guardar el div vacío
+
+                    // Buscar el input asociado al div usando data-input-id
+                    const relatedInputId = element.getAttribute('data-input-id');
+                    const relatedInput = relatedInputId ? document.getElementById(relatedInputId) : null;
+
+                    // Si existe un input asociado, hacemos foco en ese input
+                    if (relatedInput) {
+                        firstInvalidField = relatedInput;
+                    } else {
+                        firstInvalidField = element;  // Si no hay input asociado, marcar el div
+                    }
+                    break;
+                }
             }
         }
-    
+
         if (firstInvalidField) {
+            let fieldLabel = '';
+
+            // Si el campo es un div, obtenemos el label de `data-label`
+            if (associatedDiv) {
+                fieldLabel = associatedDiv.getAttribute('data-label') || 'Campo desconocido';
+            } 
+            // Si es un input o textarea, obtenemos el texto del label anterior (previousElementSibling)
+            else if (firstInvalidField.tagName === 'INPUT' || firstInvalidField.tagName === 'TEXTAREA') {
+                const previousElement = firstInvalidField.previousElementSibling;
+                if (previousElement && previousElement.textContent) {
+                    fieldLabel = previousElement.textContent;
+                } else {
+                    fieldLabel = 'Campo desconocido';
+                }
+            }
+
             Swal.fire({
                 icon: 'warning',
                 title: 'Campos Incompletos',
-                text: `El campo "${firstInvalidField.previousElementSibling.textContent}" es obligatorio.`,
+                text: `El campo "${fieldLabel}" es obligatorio.`,
                 confirmButtonText: 'Aceptar'
             }).then(() => {
+                // Desplazar hacia el campo no válido
                 firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => {
-                    firstInvalidField.focus();
-                }, 500);
+
+                // Si es un input o textarea, hacemos foco
+                if (firstInvalidField.tagName === 'INPUT' || firstInvalidField.tagName === 'TEXTAREA') {
+                    setTimeout(() => {
+                        firstInvalidField.focus();
+                    }, 500);
+                }
             });
             event.preventDefault();
             return;
         }
-    
+
         enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo 8 cargado correctamente!', nextTab);
     }
     
