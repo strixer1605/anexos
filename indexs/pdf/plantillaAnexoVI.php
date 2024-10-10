@@ -2,11 +2,11 @@
     session_start();
 
     
-    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])) {
+    if (isset($_SESSION['dniProfesor']) || isset($_SESSION['dniPadre']) ) {
         include '../../php/conexion.php';
         
         $idSalida = $_SESSION['idSalida'];
-        $dniHijo = $_SESSION['dniHijo'];
+        $dniAlumno = $_SESSION['dniAlumno'];
         $dniPadre = $_SESSION['dniPadre'];
 
         $sql = "
@@ -31,17 +31,17 @@
             JOIN 
                 alumnos a ON a.dni = av.dniAlumno -- Cambiar a av.dni para hacer el JOIN correcto
             JOIN 
-                telefono t ON t.dni = 18892329
+                telefono t ON t.dni = $dniPadre
             WHERE 
-                ax.idAnexoIV = 1
+                ax.idAnexoIV = $idSalida
             AND 
-                av.dniAlumno = 47950839
+                av.dniAlumno = $dniAlumno
         ";
     
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
 
-        $fechaActual = date('d/m/Y');
+        $fechaActual = date('d/m/Y');        
 
     }
     
@@ -80,7 +80,7 @@
             <div class="row d-flex justify-content-center mt-5">    
                 <div class="col-10">
                     <p>
-                        Por la presente autorizo a mi hijo/a <?php echo $fila['nombreCompleto'] ?> DNI Nº<?php echo $dniHijo ?>, domiciliado en la <?php echo $fila['domicilio'] ?>N°<?php echo $fila['altura'] ?> de la localidad de <?php echo $fila['localidad'] ?>, T.E.<?php echo $fila['telefono'] ?> que concurre a la <?php echo $fila['institucion'] ?> del distrito <?php echo $fila['distrito'] ?>, a participar de la Salida Educativa <?php echo $fila['denominacionProyecto'] ?>. , a realizarse en la localidade de <?php echo $fila['localidadViaje'] ?> partiendo el día <?php echo $fila['diaSalida'] ?> del mes de <?php echo $fila['mesSalida'] ?> y regresando el <?php echo $fila['diaRegreso'] ?> de <?php echo $fila['mesRegreso'] ?> del presente ciclo lectivo.
+                        Por la presente autorizo a mi hijo/a <?php echo $fila['nombreCompleto'] ?> DNI Nº<?php echo $dniAlumno ?>, domiciliado en la <?php echo $fila['domicilio'] ?>N°<?php echo $fila['altura'] ?> de la localidad de <?php echo $fila['localidad'] ?>, T.E.<?php echo $fila['telefono'] ?> que concurre a la <?php echo $fila['institucion'] ?> del distrito <?php echo $fila['distrito'] ?>, a participar de la Salida Educativa <?php echo $fila['denominacionProyecto'] ?>. , a realizarse en la localidade de <?php echo $fila['localidadViaje'] ?> partiendo el día <?php echo $fila['diaSalida'] ?> del mes de <?php echo $fila['mesSalida'] ?> y regresando el <?php echo $fila['diaRegreso'] ?> de <?php echo $fila['mesRegreso'] ?> del presente ciclo lectivo.
                         Dejo constancia de que he sido informado de las características particulares de dicha salida, como así también de los responsables de las actividades a desarrollar, medios de transporte a utilizar y donde se realizaran dichas actividades.
                         Autorizo a los responsables de la salida a disponer cambios con relación  la planificación de las actividades en aspectos acotados, que resulten necesarios, a su solo criterio y sin aviso previo, sobre lo cual me deberán informar y fundamentar al regreso.
                         Autorizo en caso de necesidad y urgencia, a hacer atender al alumno por profesionales médicos y a que se adopten las prescripciones que ellos indiquen, sobre el cual requiero inmediato aviso.
