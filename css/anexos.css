@@ -48,20 +48,20 @@ body {
 }
 
 /* Button */
-.registration-form .create-account {
+.registration-form .cargar {
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 18px;
-    font-weight: bold;
-    background-color: #5791ff;
+    /* font-weight: bold; */
+    background-color: #1aa321;
     border: none;
     color: white;
     margin-top: 20px;
     transition: background-color 0.3s ease;
 }
 
-.registration-form .create-account:hover {
-    background-color: #4d80e5;
+.registration-form .cargar:hover {
+    background-color: #35c710;
 }
 
 /* Labels and headings */

@@ -190,7 +190,9 @@
                             <br>
                             <?php include ("../../php/traerAnexoIX.php"); ?>
                         </form>
-                        <button type="submit" class="btn btn-success" id="cargarAnexoIX">Cargar Anexo 9</button>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="submit" class="cargar" id="cargarAnexoIX">Cargar Anexo 9</button>
+                        </div>
                     </div>
 
                     <!-- Anexo 10 -->
@@ -201,8 +203,8 @@
                             <br>
                             <?php include ("../../php/traerAnexoX.php"); ?>
                         </form>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-block create-account" id="cargarAnexoX">Cargar Anexo 10</button>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="submit" class="btn btn-block cargar" id="cargarAnexoX">Cargar Anexo 10</button>
                         </div>
                     </div>
                 </div>
