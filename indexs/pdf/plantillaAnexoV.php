@@ -1,9 +1,9 @@
 <?php
-    session_start();
+    include '../../php/verificarSessionPDF.php';
+
     $idSalida = $_SESSION['idSalida'];
 
     if(isset($idSalida)) {
-        include '../../php/conexion.php';
 
         $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = $idSalida";
         $resultado = $conexion->query($sql);
@@ -14,8 +14,6 @@
 
         $fechaSalida = date("d/m/Y", strtotime($filaAnexoIV['fechaSalida']));
         $fechaRegreso = date("d/m/Y", strtotime($filaAnexoIV['fechaRegreso']));
-    } else {
-        echo "no hay nada";
     }
 
 ?>

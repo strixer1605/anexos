@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    include '../../php/verificarSessionPDF.php';
+
     $idSalida = $_SESSION['idSalida'];
 
     if(isset($idSalida)) {

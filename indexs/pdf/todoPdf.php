@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    include '../../php/verificarSessionDirector.php';
     $_SESSION['idSalida'] = 2;
     error_reporting(0);
 ?>

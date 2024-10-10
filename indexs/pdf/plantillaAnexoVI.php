@@ -1,50 +1,44 @@
 <?php
-    session_start();
+    include '../../php/verificarSessionPDF.php';
 
     
-    if (isset($_SESSION['dniProfesor']) || isset($_SESSION['dniPadre']) ) {
-        include '../../php/conexion.php';
-        
-        $idSalida = $_SESSION['idSalida'];
-        $dniAlumno = $_SESSION['dniAlumno'];
-        $dniPadre = $_SESSION['dniPadre'];
+    $idSalida = $_SESSION['idSalida'];
+    $dniAlumno = $_SESSION['dniAlumno'];
+    $dniPadre = $_SESSION['dniPadre'];
 
-        $sql = "
-                SELECT 
-                CONCAT(a.apellido, ' ', a.nombre) AS nombreCompleto, -- Concatenar apellido y nombre
-                ax.distrito,
-                CONCAT(ax.institucionEducativa, ' ', ax.numeroInstitucion) AS institucion, -- Concatenar institucionEducativa y numeroInstitucion
-                ax.denominacionProyecto,
-                ax.localidadViaje,
-                DATE_FORMAT(ax.fechaSalida, '%d') AS diaSalida, -- Obtener el día de fechaSalida
-                DATE_FORMAT(ax.fechaSalida, '%M') AS mesSalida, -- Obtener el mes de fechaSalida
-                DATE_FORMAT(ax.fechaRegreso, '%d') AS diaRegreso, -- Obtener solo el día de fechaRegreso
-                DATE_FORMAT(ax.fechaRegreso, '%M') AS mesRegreso, -- Obtener el mes de fechaRegreso
-                av.domicilio,
-                av.altura,
-                av.localidad,
-                t.telefono
-            FROM 
-                anexoiv ax
-            JOIN 
-                anexovi av ON ax.idAnexoIV = av.fkAnexoIV -- Cambiar a fkAnexoIV para hacer el JOIN correcto
-            JOIN 
-                alumnos a ON a.dni = av.dniAlumno -- Cambiar a av.dni para hacer el JOIN correcto
-            JOIN 
-                telefono t ON t.dni = $dniPadre
-            WHERE 
-                ax.idAnexoIV = $idSalida
-            AND 
-                av.dniAlumno = $dniAlumno
+    $sql = "
+            SELECT 
+            CONCAT(a.apellido, ' ', a.nombre) AS nombreCompleto, -- Concatenar apellido y nombre
+            ax.distrito,
+            CONCAT(ax.institucionEducativa, ' ', ax.numeroInstitucion) AS institucion, -- Concatenar institucionEducativa y numeroInstitucion
+            ax.denominacionProyecto,
+            ax.localidadViaje,
+            DATE_FORMAT(ax.fechaSalida, '%d') AS diaSalida, -- Obtener el día de fechaSalida
+            DATE_FORMAT(ax.fechaSalida, '%M') AS mesSalida, -- Obtener el mes de fechaSalida
+            DATE_FORMAT(ax.fechaRegreso, '%d') AS diaRegreso, -- Obtener solo el día de fechaRegreso
+            DATE_FORMAT(ax.fechaRegreso, '%M') AS mesRegreso, -- Obtener el mes de fechaRegreso
+            av.domicilio,
+            av.altura,
+            av.localidad,
+            t.telefono
+        FROM 
+            anexoiv ax
+        JOIN 
+            anexovi av ON ax.idAnexoIV = av.fkAnexoIV -- Cambiar a fkAnexoIV para hacer el JOIN correcto
+        JOIN 
+            alumnos a ON a.dni = av.dniAlumno -- Cambiar a av.dni para hacer el JOIN correcto
+        JOIN 
+            telefono t ON t.dni = $dniPadre
+        WHERE 
+            ax.idAnexoIV = $idSalida
+        AND 
+            av.dniAlumno = $dniAlumno
         ";
     
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
 
-        $fechaActual = date('d/m/Y');        
-
-    }
-    
+        $fechaActual = date('d/m/Y');
 ?>
 <!DOCTYPE html>
 <html lang="en">

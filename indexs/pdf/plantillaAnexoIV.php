@@ -1,27 +1,23 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])){
-        header('Location: ../../index.php');
-    } else {
-        include '../../php/conexion.php';
-        $idSalida = $_SESSION['idSalida'];
+    include '../../php/verificarSessionPDF.php';
+    $idSalida = $_SESSION['idSalida'];
 
-        $sql = "SELECT 
-            -- Datos de la tabla anexoiv
-            aiv.*,
+    $sql = "SELECT 
+        -- Datos de la tabla anexoiv
+        aiv.*,
 
-            -- Concatenar los apellidoNombre con salto de línea y una coma para separar
-            GROUP_CONCAT(av.apellidoNombre SEPARATOR ',\n') AS nombresConcatenados
+        -- Concatenar los apellidoNombre con salto de línea y una coma para separar
+        GROUP_CONCAT(av.apellidoNombre SEPARATOR ',\n') AS nombresConcatenados
 
-            FROM anexoiv aiv
-            -- Unimos con la tabla anexov (donde cargo = 2)
-            LEFT JOIN anexov av ON av.fkAnexoIV = aiv.idAnexoIV AND av.cargo = 2
+        FROM anexoiv aiv
+        -- Unimos con la tabla anexov (donde cargo = 2)
+        LEFT JOIN anexov av ON av.fkAnexoIV = aiv.idAnexoIV AND av.cargo = 2
 
-            -- Condición para que el fkAnexoIV coincida con $idSalida
-            WHERE aiv.idAnexoIV = $idSalida
-            GROUP BY aiv.idAnexoIV;
-            ";
-            
+        -- Condición para que el fkAnexoIV coincida con $idSalida
+        WHERE aiv.idAnexoIV = $idSalida
+        GROUP BY aiv.idAnexoIV;
+        ";
+        
         $resultado = mysqli_query($conexion, $sql);
         $fila = mysqli_fetch_assoc($resultado);
 
@@ -67,7 +63,6 @@
             break;
             }
         }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
