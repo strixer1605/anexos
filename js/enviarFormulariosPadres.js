@@ -253,7 +253,6 @@ function obtenerDatosFormulario() {
     const obraSocialSi = document.getElementById('obraSocialSi').checked;
     estadoFormulario.obraSocial = obraSocialSi ? 1 : 0;
 
-    console.log(estadoFormulario); // Para verificar los datos
     enviarDatos(estadoFormulario); // Llama a la función para enviar los datos
 }
 
@@ -265,7 +264,8 @@ function enviarDatos(datos) {
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
+            // console.log(xhr.responseText);
+            alert ('Datos insertados correctamente');
         } else {
             console.error('Error en la solicitud:', xhr.statusText);
         }

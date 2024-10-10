@@ -9,9 +9,9 @@ if (isset($_SESSION['dniPadre'])) {
     $data = file_get_contents("php://input");
     $datos = json_decode($data, true); // Decodificar el JSON a un array asociativo
     
-    // Asumiendo que ya tienes las variables $idSalida y $dniHijo definidas
+    // Asumiendo que ya tienes las variables $idSalida y $dniAlumno definidas
     $idSalida = $_SESSION['idSalida'];
-    $dniHijo = $_SESSION['dniHijo'];
+    $dniAlumno = $_SESSION['dniAlumno'];
     
     // Extraer los datos del array
     $alergico = $datos['alergico'];
@@ -28,7 +28,7 @@ if (isset($_SESSION['dniPadre'])) {
     // Verificar si ya existe un registro con el mismo fkAnexoIV y dniAlumno
     $checkSql = "SELECT COUNT(*) FROM `anexovii` WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
     $checkStmt = $conexion->prepare($checkSql);
-    $checkStmt->bind_param("ii", $idSalida, $dniHijo);
+    $checkStmt->bind_param("ii", $idSalida, $dniAlumno);
     $checkStmt->execute();
     $checkStmt->bind_result($count);
     $checkStmt->fetch();
@@ -39,7 +39,7 @@ if (isset($_SESSION['dniPadre'])) {
         $updateSql = "UPDATE `anexovii` SET `alergico` = ?, `sufrioA` = ?, `sufrioB` = ?, `sufrioC` = ?, `medicacion` = ?, `observaciones` = ?, `obraSocial` = ?, `tipoAlergia` = ?, `otroMalestar` = ?, `tipoMedicacion` = ? WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
         
         $updateStmt = $conexion->prepare($updateSql);
-        $updateStmt->bind_param("iiiiisisssii", $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion, $idSalida, $dniHijo);
+        $updateStmt->bind_param("iiiiisisssii", $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion, $idSalida, $dniAlumno);
         
         if ($updateStmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Datos actualizados correctamente."]);
@@ -55,7 +55,7 @@ if (isset($_SESSION['dniPadre'])) {
         // Preparar la declaración
         $insertStmt = $conexion->prepare($insertSql);
         // Usa 's' para los campos que son cadenas (strings)
-        $insertStmt->bind_param("iiiiiiisisss", $idSalida, $dniHijo, $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion);
+        $insertStmt->bind_param("iiiiiiisisss", $idSalida, $dniAlumno, $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion);
         
         // Ejecutar la consulta
         if ($insertStmt->execute()) {

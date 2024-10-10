@@ -6,9 +6,13 @@
     // }
     include('../../php/conexion.php');
 
+$dniAlumno = $_SESSION['dniAlumno'];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
     error_reporting(0);
+
+    echo $dniAlumno;
+    echo $idSalida;
 ?>
 <!DOCTYPE html>
 <html lang="en">
