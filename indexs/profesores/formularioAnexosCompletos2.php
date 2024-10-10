@@ -1,17 +1,6 @@
 <?php
-    session_start();
-    error_reporting(0);
-    // ini_set('display_errors', 1);
+    include '../../php/verificarSessionProfesores.php';
 
-    if (!isset($_SESSION['dniProfesor'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-
-    include('../../php/conexion.php');
-    if ($conexion->connect_error) {
-        die("Conexión fallida: " . $conexion->connect_error);
-    }
 
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];

@@ -3,8 +3,10 @@
     if (!isset($_SESSION['dniProfesor'])) {
         header('Location: ../index.php');
         exit;
+    } else {
+        include('../../php/conexion.php');
+        
     }
-    include('../../php/conexion.php');
     
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 

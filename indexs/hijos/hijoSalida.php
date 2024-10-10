@@ -1,10 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniPadre'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-    include('../../php/conexion.php');
+    include '../../php/verificarSessionPadres.php';
     $dniAlumno = $_SESSION['dniAlumno'];
     $idSalida = $_SESSION['idSalida'];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;

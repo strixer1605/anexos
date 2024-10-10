@@ -1,10 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniProfesor'])) {
-        header('Location: ../../index.php');
-        exit;
-    }
-    include('../../php/conexion.php');
+    include '../../php/verificarSessionProfesores.php';
     
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;

@@ -1,11 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniDirector'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-    include('../../php/conexion.php');
-    
+    include '../../php/verificarSessionDirector.php';
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 
     $dniDirector = $_SESSION['dniDirector'];
