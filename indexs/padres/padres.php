@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (empty($_SESSION['dniPadre'])) {
+    header('Location: ../../index.php');
+    exit;
+}
+
+include('../../php/conexion.php');
+?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,14 +24,7 @@
             <p>Menu de la escuela (PADRES)</p>
             <br>
             <?php
-                session_start();
-
-                if (empty($_SESSION['dniPadre'])) {
-                    header('Location: ../index.php');
-                    exit;
-                }
                 
-                include('../../php/conexion.php');
 
                 $dniPadre = $_SESSION['dniPadre'];
 

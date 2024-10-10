@@ -1,11 +1,5 @@
 <?php
-    session_start();
-    error_reporting(0);
-    if (!isset($_SESSION['dniProfesor'])) {
-        header('Location: ../index.php');
-        exit;
-    }
-    include('../../php/conexion.php');
+    include '../../php/verificarSessionProfesores.php';
     
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];

@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniDirector'])) {
-        header('Location: ../index.php');
-        exit;
-    }
+    include '../../php/verificarSessionDirector.php';
 
     $hijos = isset($_SESSION['hijos']) ? $_SESSION['hijos'] : [];
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;

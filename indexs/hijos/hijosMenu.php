@@ -9,7 +9,7 @@
     } elseif (isset($_SESSION['dniPadre'])) {
         $dniPadre = $_SESSION['dniPadre'];
     } else {
-        header('Location: ../index.php');
+        header('Location: ../../index.php');
         exit;
     }
 
