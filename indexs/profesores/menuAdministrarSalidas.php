@@ -4,7 +4,10 @@
     
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
 
+    
     $dni = $_SESSION['dniProfesor'];
+
+    echo $_SESSION['dniProfesor'];
 ?>
 
 <!DOCTYPE html>
