@@ -144,7 +144,7 @@
                                     <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar no docente</button>
                                 </div>
                                 <br>
-                                <div id="advice" class="col-12" style="margin-top: 30px;">
+                                <div id="advice" class="col-12" style="margin-top: 30px; text-align:center;">
 
                                 </div>
                                 <p style="margin-top: 5px;"><b>Atención:</b> Este panel es solamente una guía, la aprobación depende del Director.</p>
@@ -159,7 +159,7 @@
                             </div>
 
                             <!-- Tabla de Participantes -->
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="text-align: center;">
                                 <table class="table table-striped-columns">
                                     <thead>
                                         <tr>

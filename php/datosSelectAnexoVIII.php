@@ -173,7 +173,7 @@ include 'conexion.php';
 
     </div>
 
-    <button type="button" class="btn btn-success" id="valores">Mostrar Valores</button>
+    <!-- <button type="button" class="btn btn-success" id="valores">Mostrar Valores</button> -->
 
     <script>
         var nombreDocente = "<?php echo $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc']; ?>";
