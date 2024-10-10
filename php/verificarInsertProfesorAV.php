@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    // session_start();
     $idSalida = $_SESSION['idSalida'];
     $dniEncargado = $_SESSION['dniProfesor'];
     $apellidoNombreEncargado = $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc'];

@@ -1,7 +1,7 @@
 <?php
     session_start();
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+    error_reporting(0);
+    // ini_set('display_errors', 1);
 
     if (!isset($_SESSION['dniProfesor'])) {
         header('Location: ../index.php');
@@ -35,10 +35,10 @@
                 header('Location: menuAdministrarSalidas.php');
                 exit;
             } else {
-                echo "El estado no es 3. Estado actual: " . $row['estado'];
+                // echo "El estado no es 3. Estado actual: " . $row['estado'];
             }
         } else {
-            echo "No se encontraron resultados.";
+            // echo "No se encontraron resultados.";
         }
     } else {
         echo "Error en la consulta: " . $conexion->error;

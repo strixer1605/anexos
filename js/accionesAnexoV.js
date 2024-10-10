@@ -415,17 +415,35 @@ $(document).ready(function(){
                     alertaHtml = '<p class="alerta verde">Anexo 5 aprobable</p>';
                 }
     
-                // Mostrar el cálculo de docentes y alerta
+                // Mostrar el cálculo de docentes y alerta en una tabla de una sola fila
                 let calculoDocentes = `
-                    <h6>Cantidad de personas: ${total}</h6>
-                    <h6>Menores de 16: ${cantidadMenores}</h6>
-                    <h6>Entre 16 y 17: ${cantidadSemiMayores}</h6>
-                    <h6>Mayores de 18: ${cantidadMayores}</h6>
-                    <h6>Acompañantes (No Docentes): ${cantidadNoDocentes}</h6>
-                    <h6>Docentes recomendados: ${totalDocentesRequeridos}</h6>
-                    <h6>Docentes actuales: ${cantidadDocentes}</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Total Personas</th>
+                                <th>Menores de 16</th>
+                                <th>Entre 16 y 17</th>
+                                <th>Mayores de 18</th>
+                                <th>No Docentes</th>
+                                <th>Docentes Recomendados</th>
+                                <th>Docentes Actuales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${total}</td>
+                                <td>${cantidadMenores}</td>
+                                <td>${cantidadSemiMayores}</td>
+                                <td>${cantidadMayores}</td>
+                                <td>${cantidadNoDocentes}</td>
+                                <td>${totalDocentesRequeridos}</td>
+                                <td>${cantidadDocentes}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 `;
     
+                // Insertar la alerta y la tabla de recomendación en el DOM
                 $('#advice').html(alertaHtml + calculoDocentes);
                 $('#tablaParticipantes').html(tablaHTML);
             },
@@ -437,6 +455,5 @@ $(document).ready(function(){
                 });
             }
         });
-    }
-        
+    }       
 });

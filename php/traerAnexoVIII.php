@@ -68,28 +68,28 @@
             }
 
             echo '
-            <div class="mb-5">
+            <div class="form-group">
                 <label for="institucion" class="form-label">Institución Educativa:</label>
-                <input type="text" class="form-control" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="'. htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" readonly>
+                <input type="text" class="form-control item" id="institucion" name="institucion" placeholder="Ingrese Institución..." value="'. htmlspecialchars($row['institucion'], ENT_QUOTES, 'UTF-8') .'" required pattern="[A-Za-z\s]+" readonly>
             </div>';
             include ('../../php/traerCursos.php');
-            echo '<div class="mb-5">';
+            echo '<br><div class="form-group">';
                 include ("../../php/traerMaterias.php");
             echo '</div>
         
-            <div class="mb-5">
+            <div class="form-group">
                 <label for="docente" class="form-label">Docente:</label>
-                <input class="form-control" readonly id="docente" name="docente" value="' . htmlspecialchars($row['docente'], ENT_QUOTES, 'UTF-8') . '">
+                <input class="form-control item" readonly id="docente" name="docente" value="' . htmlspecialchars($row['docente'], ENT_QUOTES, 'UTF-8') . '">
             </div>
 
             
-            <div class="mb-5">
+            <div class="form-group">
                 <label for="fechaSalida" class="form-label">Fecha de la Salida:</label>
-                <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" value="'. htmlspecialchars($row['fechaSalida'], ENT_QUOTES, 'UTF-8') .'" required readonly>
+                <input type="date" class="form-control item" id="fechaSalida" name="fechaSalida" value="'. htmlspecialchars($row['fechaSalida'], ENT_QUOTES, 'UTF-8') .'" required readonly>
             </div>
-            <div class="mb-5">
+            <div class="form-group">
                 <label for="lugaresVisitar" class="form-label">Lugares a visitar:</label>
-                <input type="text" class="form-control" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares..." value="'. htmlspecialchars($row['lugaresVisitar'], ENT_QUOTES, 'UTF-8') .'" required readonly>
+                <input type="text" class="form-control item" id="lugaresVisitar" name="lugaresVisitar" placeholder="Ingrese Lugares..." value="'. htmlspecialchars($row['lugaresVisitar'], ENT_QUOTES, 'UTF-8') .'" required readonly>
             </div>';
             include 'datosSelectAnexoVIII.php';
         } else {
