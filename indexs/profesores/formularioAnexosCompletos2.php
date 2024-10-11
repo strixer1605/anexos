@@ -1,7 +1,6 @@
 <?php
     include '../../php/verificarSessionProfesores.php';
 
-
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
     $idSalida = $_SESSION['idSalida'];
     if (!isset($idSalida)) {

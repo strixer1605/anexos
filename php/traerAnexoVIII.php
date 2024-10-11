@@ -81,7 +81,6 @@
                 <label for="docente" class="form-label">Docente:</label>
                 <input class="form-control item" readonly id="docente" name="docente" value="' . htmlspecialchars($row['docente'], ENT_QUOTES, 'UTF-8') . '">
             </div>
-
             
             <div class="form-group">
                 <label for="fechaSalida" class="form-label">Fecha de la Salida:</label>

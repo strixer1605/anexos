@@ -69,10 +69,10 @@ include 'conexion.php';
 </head>
 <body>
     <!-- Sección de Objetivo -->
-    <div id="seccionObjetivos" class="section">
-        <div class="section-title">Objetivos</div>
+    <div id="seccionObjetivos" class="form-group">
+        <div class="form-label">Objetivos</div>
         <div id="objetivoContainer" class="input-container">
-            <input type="text" id="inputObjetivos" class="form-control" placeholder="Escribe un objetivo">
+            <input type="text" id="inputObjetivos" class="form-control item" placeholder="Escribe un objetivo">
             <button class="btn btn-primary btn-agregar" type="button" inputId="inputObjetivos">Agregar</button>
         </div>
         <div id="objetivos" name="objetivo" class="contenedorInputs" data-input-id="inputObjetivos" data-label="Objetivos"></div>
