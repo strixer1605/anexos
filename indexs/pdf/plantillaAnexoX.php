@@ -1,9 +1,6 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector']) && !isset($_SESSION['dniPadre'])) {
-        header('Location: ../../index.php');
-        exit; // Asegúrate de salir después de redirigir
-    } else {
+    include '../../php/verificarSessionPDF.php';
+
         $idSalida = $_SESSION['idSalida'];
         include '../../php/conexion.php';
         $sql = "
@@ -104,7 +101,6 @@
         } else {
             echo "No se encontraron resultados.";
         }
-    }
 
 ?>
 <!DOCTYPE html>

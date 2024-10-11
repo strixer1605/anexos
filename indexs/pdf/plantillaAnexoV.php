@@ -1,22 +1,30 @@
 <?php
     session_start();
-    $idSalida = $_SESSION['idSalida'];
-
-    if(isset($idSalida)) {
-        include '../../php/conexion.php';
-
-        $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = $idSalida";
-        $resultado = $conexion->query($sql);
-
-        $sqlAnexoIV = "SELECT `institucionEducativa`, `numeroInstitucion`, `distrito`, `denominacionProyecto`, `lugarVisita`, `fechaSalida`, `fechaRegreso` FROM `anexoiv` WHERE idAnexoIV = $idSalida";
-        $resultadoAnexoIV = $conexion->query($sqlAnexoIV);
-        $filaAnexoIV = $resultadoAnexoIV->fetch_assoc();
-
-        $fechaSalida = date("d/m/Y", strtotime($filaAnexoIV['fechaSalida']));
-        $fechaRegreso = date("d/m/Y", strtotime($filaAnexoIV['fechaRegreso']));
+    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniPadre']) && !isset($_SESSION['dniDirector'])) {
+        header('Location: ../../index.php');
+        exit;
     } else {
-        echo "no hay nada";
+        include('../../php/conexion.php');
+        $idSalida = $_SESSION['idSalida'];
+        
+        if(isset($idSalida)) {
+            include '../../php/conexion.php';
+    
+            $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = $idSalida";
+            $resultado = $conexion->query($sql);
+    
+            $sqlAnexoIV = "SELECT `institucionEducativa`, `numeroInstitucion`, `distrito`, `denominacionProyecto`, `lugarVisita`, `fechaSalida`, `fechaRegreso` FROM `anexoiv` WHERE idAnexoIV = $idSalida";
+            $resultadoAnexoIV = $conexion->query($sqlAnexoIV);
+            $filaAnexoIV = $resultadoAnexoIV->fetch_assoc();
+    
+            $fechaSalida = date("d/m/Y", strtotime($filaAnexoIV['fechaSalida']));
+            $fechaRegreso = date("d/m/Y", strtotime($filaAnexoIV['fechaRegreso']));
+        } else {
+            echo "no hay nada";
+        }
+    
     }
+
 
 ?>
 <!DOCTYPE html>

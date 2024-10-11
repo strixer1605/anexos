@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])){
-        header('Location: ../../index.php');
-    } else {
-        include '../../php/conexion.php';
+    include '../../php/verificarSessionPDF.php';
         $idSalida = $_SESSION['idSalida'];
 
         $sql = "SELECT 
@@ -67,7 +63,7 @@
             break;
             }
         }
-    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,5 +1,6 @@
 <?php
     include '../../php/verificarSessionProfesores.php';
+    error_reporting(0);
 
 
     $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;

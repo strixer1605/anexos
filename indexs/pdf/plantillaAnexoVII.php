@@ -1,45 +1,41 @@
 <?php
-    session_start();
-
-    if (isset($_SESSION['dniProfesor']) || isset($_SESSION['dniPadre']) ) {
-        include '../../php/conexion.php';
+    include '../../php/verificarSessionPDF.php';
         
-        $idSalida = $_SESSION['idSalida'];
-        $dniAlumno = $_SESSION['dniAlumno'];
-        $dniPadre = $_SESSION['dniPadre'];
+    $idSalida = $_SESSION['idSalida'];
+    $dniAlumno = $_SESSION['dniAlumno'];
+    $dniPadre = $_SESSION['dniPadre'];
 
-        $sql = "
-            SELECT 
-            CONCAT(a.apellido, ' ', a.nombre) AS nombreCompleto, -- Concatenar apellido y nombre del alumno
-            CONCAT(p.apellido, ' ', p.nombre) AS nombreCompletoPadre, -- Concatenar apellido y nombre del padre o tutor
-            CONCAT(av.domicilio, ' N° ', av.altura) AS direccionCompleta, -- Concatenar domicilio y altura en formato requerido
-            ax.localidadViaje, -- Traer el campo localidadViaje de anexoiv
-            av.*, -- Traer todos los campos de la tabla anexovi
-            t.telefono, -- Traer el teléfono del padre o tutor
-            avii.* -- Traer todos los campos de la tabla anexovii
-        FROM 
-            alumnos a
-        JOIN 
-            padresTutores p ON p.dni = $dniPadre -- Relacionar con padresTutores usando dniPadre
-        JOIN 
-            anexovi av ON av.dniAlumno = a.dni -- Relacionar con anexovi usando dniAlumno
-            AND av.dniPadre = $dniPadre -- Filtrar por dni del padre
-            AND av.fkAnexoIV = $idSalida -- Filtrar por id de la salida
-        JOIN 
-            anexoiv ax ON ax.idAnexoIV = av.fkAnexoIV -- Relacionar con anexoiv usando fkAnexoIV para obtener localidadViaje
-        JOIN 
-            telefono t ON t.dni = $dniPadre -- Relacionar con tabla telefono usando dni del padre
-        JOIN 
-            anexovii avii ON avii.dniAlumno = a.dni -- Relacionar con anexovii usando dniAlumno
-            AND avii.fkAnexoIV = $idSalida -- Filtrar por id de la salida
-        WHERE 
-            a.dni = $dniAlumno";
-        $resultado = $conexion->query($sql);
-        $fila = $resultado->fetch_assoc();
+    $sql = "
+        SELECT 
+        CONCAT(a.apellido, ' ', a.nombre) AS nombreCompleto, -- Concatenar apellido y nombre del alumno
+        CONCAT(p.apellido, ' ', p.nombre) AS nombreCompletoPadre, -- Concatenar apellido y nombre del padre o tutor
+        CONCAT(av.domicilio, ' N° ', av.altura) AS direccionCompleta, -- Concatenar domicilio y altura en formato requerido
+        ax.localidadViaje, -- Traer el campo localidadViaje de anexoiv
+        av.*, -- Traer todos los campos de la tabla anexovi
+        t.telefono, -- Traer el teléfono del padre o tutor
+        avii.* -- Traer todos los campos de la tabla anexovii
+    FROM 
+        alumnos a
+    JOIN 
+        padresTutores p ON p.dni = $dniPadre -- Relacionar con padresTutores usando dniPadre
+    JOIN 
+        anexovi av ON av.dniAlumno = a.dni -- Relacionar con anexovi usando dniAlumno
+        AND av.dniPadre = $dniPadre -- Filtrar por dni del padre
+        AND av.fkAnexoIV = $idSalida -- Filtrar por id de la salida
+    JOIN 
+        anexoiv ax ON ax.idAnexoIV = av.fkAnexoIV -- Relacionar con anexoiv usando fkAnexoIV para obtener localidadViaje
+    JOIN 
+        telefono t ON t.dni = $dniPadre -- Relacionar con tabla telefono usando dni del padre
+    JOIN 
+        anexovii avii ON avii.dniAlumno = a.dni -- Relacionar con anexovii usando dniAlumno
+        AND avii.fkAnexoIV = $idSalida -- Filtrar por id de la salida
+    WHERE 
+        a.dni = $dniAlumno";
+    $resultado = $conexion->query($sql);
+    $fila = $resultado->fetch_assoc();
 
-        $fechaActual = date('d/m/Y');        
+    $fechaActual = date('d/m/Y');        
 
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

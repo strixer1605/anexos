@@ -1,23 +1,20 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['dniProfesor']) && !isset($_SESSION['dniDirector'])){
-        header('Location: ../../index.php');
-    } else {
-        include '../../php/conexion.php';
-        $idSalida = $_SESSION['idSalida'];
-        $sql = "SELECT * FROM anexoix WHERE fkAnexoIV = $idSalida";
-        $resultado = mysqli_query($conexion, $sql);
-        $fila = $resultado->fetch_assoc();
+    include '../../php/verificarSessionPDF.php';
 
-        //formatear fecha vigencia
-        $vigencia1 = $fila['vigencia1'];
-        $timestampVigencia1 = strtotime($vigencia1);
-        $fechaFormateadaVigencia1 = date('d/m/Y', $timestampVigencia1);
-        
-        $vigencia2 = $fila['vigencia2'];
-        $timestampVigencia2 = strtotime($vigencia2);
-        $fechaFormateadaVigencia2 = date('d/m/Y', $timestampVigencia2);
-    }
+    $idSalida = $_SESSION['idSalida'];
+    $sql = "SELECT * FROM anexoix WHERE fkAnexoIV = $idSalida";
+    $resultado = mysqli_query($conexion, $sql);
+    $fila = $resultado->fetch_assoc();
+
+    //formatear fecha vigencia
+    $vigencia1 = $fila['vigencia1'];
+    $timestampVigencia1 = strtotime($vigencia1);
+    $fechaFormateadaVigencia1 = date('d/m/Y', $timestampVigencia1);
+    
+    $vigencia2 = $fila['vigencia2'];
+    $timestampVigencia2 = strtotime($vigencia2);
+    $fechaFormateadaVigencia2 = date('d/m/Y', $timestampVigencia2);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
