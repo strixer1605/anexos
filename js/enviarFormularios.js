@@ -185,55 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById(inputId).value = '';
         }
     }
-    
-    
-    
-    
-    // Agregar evento al botón 'valores' para capturar los datos de los responsables
-    // document.getElementById('valores').addEventListener('click', function() {
-    //     // Limpiar los arrays de responsables antes de llenarlos
-    //     seccionesValores.responsablesPrevia = [];
-    //     seccionesValores.responsablesDurante = [];
-    //     seccionesValores.responsablesEvaluacion = [];
-        
-    //     // Obtener los valores de los contenedores de responsables
-    //     const contenedorRespPrevia = document.getElementById('contenedorRespPrevia');
-    //     const contenedorRespDurante = document.getElementById('contenedorRespDurante');
-    //     const contenedorRespEvaluacion = document.getElementById('contenedorRespEvaluacion');
-
-    //     // Capturar los valores de los inputs en contenedorRespPrevia
-    //     const inputsPrevia = contenedorRespPrevia.querySelectorAll('input.anexo8');
-    //     inputsPrevia.forEach(input => {
-    //         if (input.value) {
-    //             seccionesValores.responsablesPrevia.push(input.value);
-    //         }
-    //     });
-
-    //     // Capturar los valores de los inputs en contenedorRespDurante
-    //     const inputsDurante = contenedorRespDurante.querySelectorAll('input.anexo8');
-    //     inputsDurante.forEach(input => {
-    //         if (input.value) {
-    //             seccionesValores.responsablesDurante.push(input.value);
-    //         }
-    //     });
-
-    //     // Capturar los valores de los inputs en contenedorRespEvaluacion
-    //     const inputsEvaluacion = contenedorRespEvaluacion.querySelectorAll('input.anexo8');
-    //     inputsEvaluacion.forEach(input => {
-    //         if (input.value) {
-    //             seccionesValores.responsablesEvaluacion.push(input.value);
-    //         }
-    //     });
-
-    //     // Mostrar en consola los valores
-    //     console.log("Objetivos:", seccionesValores.objetivos);
-    //     console.log("Descripción Previa:", seccionesValores.descripcionPrevia);
-    //     console.log("Responsables Descripción Previa:", seccionesValores.responsablesPrevia);
-    //     console.log("Descripción Durante:", seccionesValores.descripcionDurante);
-    //     console.log("Responsables Descripción Durante:", seccionesValores.responsablesDurante);
-    //     console.log("Descripción Evaluación:", seccionesValores.evaluacion);
-    //     console.log("Responsables Evaluación:", seccionesValores.responsablesEvaluacion);
-    // });
 
 
     function validateAndSubmitAnexoVIII(event) {

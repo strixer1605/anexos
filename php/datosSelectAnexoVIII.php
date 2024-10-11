@@ -232,25 +232,6 @@ include 'conexion.php';
             inputContainer.remove();
         }
 
-        document.getElementById('valores').addEventListener('click', function () {
-            const objetivos = document.querySelectorAll("#objetivos input");
-            objetivos.forEach(input => console.log('Objetivo:', input.value));
-
-            const descPrevia = document.querySelectorAll("#descPrevia input");
-            descPrevia.forEach(input => console.log('Descripción Previa:', input.value));
-
-            const descDurante = document.querySelectorAll("#descDurante input");
-            descDurante.forEach(input => console.log('Descripción Durante:', input.value));
-
-            const descEvaluacion = document.querySelectorAll("#descEvaluacion input");
-            descEvaluacion.forEach(input => console.log('Descripción Evaluación:', input.value));
-
-            console.log("Responsables Previa:", document.querySelector('input[name="responsablesPrevia"]').value);
-            console.log("Responsables Durante:", document.querySelector('input[name="responsablesDurante"]').value);
-            console.log("Responsables Evaluación:", document.querySelector('input[name="responsablesEvaluacion"]').value);
-        });
-
-
 //ver si se envian bien los docentes y recibirlos
 
     function actualizarListaProfesores(selectId) {
