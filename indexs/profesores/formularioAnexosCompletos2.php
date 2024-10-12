@@ -91,14 +91,14 @@
                             <div class="row mb-4">
                                 <div class="col-md-4 col-12">
                                     <label for="dniSearch" class="form-label">Insertar por DNI:</label>
-                                    <input type="number" class="form-control" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
+                                    <input type="number" class="form-control item-anexo8" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                                 </div>
-                                <div class="col-md-4 col-12 mt-md-0 mt-2">
+                                <div class="col-md-4 col-12 mt-md-0">
                                     <label for="coincidenciaPersona" class="form-label">Coincidencias:</label>
-                                    <select class="form-control" name="coincidenciaPersona" id="coincidenciaPersona"></select>
+                                    <select class="form-control item-anexo8" name="coincidenciaPersona" id="coincidenciaPersona"></select>
                                 </div>
-                                <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
-                                    <button type="button" id="agregarPersona" class="btn btn-success w-100">Cargar Persona</button>
+                                <div class="col-md-4 col-12 mt-md-0 d-flex align-items-end">
+                                    <button type="button" id="agregarPersona" class="cargar w-100">Cargar Persona</button>
                                 </div>
                             </div>
 
@@ -106,12 +106,12 @@
                             <div class="row mb-4">
                                 <div class="col-md-8 col-12">
                                     <label for="grupos" class="form-label">Insertar por grupo:</label>
-                                    <select id="grupos" name="grupos" class="form-control" style="cursor: pointer;" required>
+                                    <select id="grupos" name="grupos" class="form-control item-anexo8" style="cursor: pointer;" required>
                                         <?php include ('../../php/traerGrupos.php'); ?>
                                     </select>
                                 </div>
-                                <div class="col-md-4 col-12 mt-md-0 mt-2 d-flex align-items-end justify-content-center">
-                                    <button type="button" class="btn btn-success w-100" id="cargarGrupo">Cargar Grupo</button>
+                                <div class="col-md-4 col-12 d-flex align-items-end">
+                                    <button type="button" class="cargar w-100" id="cargarGrupo">Cargar Grupo</button>
                                 </div>
                             </div>
 
@@ -121,16 +121,16 @@
                                     <label for="acompanante" class="form-label">Insertar no docente:</label>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
-                                    <input type="text" class="form-control" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
+                                    <input type="text" class="form-control item" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
                                 </div>
                                 <div class="col-md-4 col-12 mt-2">
-                                    <input type="text" class="form-control" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido..." required>
+                                    <input type="text" class="form-control item" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido..." required>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
-                                    <input type="number" class="form-control" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
+                                    <input type="number" class="form-control item" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
                                 </div>
                                 <div class="col-md-4 col-12 mt-2">
-                                    <button id="cargarAcompañante" type="button" class="btn btn-success w-100">Cargar no docente</button>
+                                    <button id="cargarAcompañante" type="button" class="cargar w-100">Cargar no docente</button>
                                 </div>
                                 <br>
                                 <div id="advice" class="col-12" style="margin-top: 30px; text-align:center;">
@@ -178,7 +178,10 @@
                             <br>
                             <?php include ("../../php/traerAnexoVIII.php"); ?>
                         </form>
-                        <button type="submit" class="btn btn-success" id="cargarAnexoVIII">Cargar Anexo 8</button>
+                        <br>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="submit" class="cargar" id="cargarAnexoVIII">Cargar Anexo 8</button>
+                        </div>
                     </div>
 
                     <!-- Anexo 9 -->

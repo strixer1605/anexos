@@ -408,13 +408,6 @@ $(document).ready(function(){
                     });
                 }
     
-                let alertaHtml = '';
-                if (cantidadDocentes < totalDocentesRequeridos) {
-                    alertaHtml = '<p class="alerta rojo">Anexo 5 no aprobable (Recomendación)</p>';
-                } else {
-                    alertaHtml = '<p class="alerta verde">Anexo 5 aprobable</p>';
-                }
-    
                 // Mostrar el cálculo de docentes y alerta en una tabla de una sola fila
                 let calculoDocentes = `
                     <table class="table">
@@ -442,6 +435,13 @@ $(document).ready(function(){
                         </tbody>
                     </table>
                 `;
+                
+                let alertaHtml = '';
+                if (cantidadDocentes < totalDocentesRequeridos) {
+                    alertaHtml = '<h4 class="rojo">Anexo 5 no aprobable (Recomendación)</h4>';
+                } else {
+                    alertaHtml = '<h4 class="verde">Anexo 5 aprobable</h4>';
+                }
     
                 // Insertar la alerta y la tabla de recomendación en el DOM
                 $('#advice').html(alertaHtml + calculoDocentes);

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });     
 
 
-    let agregarBotones = document.querySelectorAll('.btn-agregar');
+    let agregarBotones = document.querySelectorAll('.cargar-anexo8');
 
     // Objeto para almacenar los valores
     const seccionesValores = {
@@ -101,8 +101,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Recorre todos los botones y agrega el evento 'click' a cada uno
     agregarBotones.forEach(boton => {
         boton.onclick = () => {
+            console.log(1)
             let inputId = boton.getAttribute('inputid'); // Obtiene el atributo 'inputid'
             agregarValor(inputId);
+            console.log(inputId)
         };
     });
     
@@ -141,14 +143,16 @@ document.addEventListener("DOMContentLoaded", function() {
             nuevoInput.type = 'text';
             nuevoInput.value = valor;
             nuevoInput.disabled = true; // Deshabilitar el input por defecto
+            nuevoInput.style = 'margin-top: 25px;'
             nuevoInput.classList.add('form-control');
             nuevoInput.classList.add('anexo8');
-    
+            nuevoInput.classList.add('item');
+
             // Botón para editar/guardar el valor
             const editarButton = document.createElement('button');
             editarButton.textContent = 'Editar';
             editarButton.setAttribute('type', 'button');
-            editarButton.setAttribute('class', 'btn btn-warning');
+            editarButton.setAttribute('class', 'editar-objetivo');
             editarButton.onclick = function() {
                 if (nuevoInput.disabled) {
                     nuevoInput.disabled = false; // Habilitar el input
@@ -164,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const eliminarButton = document.createElement('button');
             eliminarButton.textContent = 'Eliminar';
             eliminarButton.setAttribute('type', 'button');
-            eliminarButton.setAttribute('class', 'btn btn-danger');
+            eliminarButton.setAttribute('class', 'eliminar-objetivo');
             eliminarButton.onclick = function() {
                 inputContainer.remove(); // Eliminar el contenedor
                 // Actualizar el valor del campo oculto al eliminar un input
