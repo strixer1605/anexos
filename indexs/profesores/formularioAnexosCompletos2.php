@@ -54,8 +54,9 @@
         <div class="registration-form">
             <div class="formulario-container">
                 <div class="form-icon">
-                    <span><i class="icon icon-pencil"></i></span>
+                    <span><i class="icon"></i></span>
                 </div>
+                <br>
                 <div style="text-align: center;">
                     <h2 style="color: black;">Menú de Anexos</h2>
                 </div>
@@ -84,7 +85,7 @@
                     <!-- Anexo 5 -->
                         <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo5-tab">
                         <br>
-                        <h2>Anexo 5</h2>
+                        <center><h2>Anexo 5</h2></center>
                         <br>
                         <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
                             <!-- Sección de DNI -->
@@ -93,11 +94,11 @@
                                     <label for="dniSearch" class="form-label">Insertar por DNI:</label>
                                     <input type="number" class="form-control item-anexo8" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                                 </div>
-                                <div class="col-md-4 col-12 mt-md-0">
+                                <div class="col-md-4 col-12 mt-4 mt-md-0">
                                     <label for="coincidenciaPersona" class="form-label">Coincidencias:</label>
                                     <select class="form-control item-anexo8" name="coincidenciaPersona" id="coincidenciaPersona"></select>
                                 </div>
-                                <div class="col-md-4 col-12 mt-md-0 d-flex align-items-end">
+                                <div class="col-md-4 col-12 mt-md-0 mt-4 d-flex align-items-end">
                                     <button type="button" id="agregarPersona" class="cargar w-100">Cargar Persona</button>
                                 </div>
                             </div>
@@ -110,7 +111,7 @@
                                         <?php include ('../../php/traerGrupos.php'); ?>
                                     </select>
                                 </div>
-                                <div class="col-md-4 col-12 d-flex align-items-end">
+                                <div class="col-md-4 col-12 d-flex mt-4 align-items-end">
                                     <button type="button" class="cargar w-100" id="cargarGrupo">Cargar Grupo</button>
                                 </div>
                             </div>
@@ -129,20 +130,24 @@
                                 <div class="col-md-2 col-12 mt-2">
                                     <input type="number" class="form-control item" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
                                 </div>
-                                <div class="col-md-4 col-12 mt-2">
+                                <div class="col-md-4 col-12 mt-1">
                                     <button id="cargarAcompañante" type="button" class="cargar w-100">Cargar no docente</button>
                                 </div>
-                                <br>
-                                <div id="advice" class="col-12" style="margin-top: 30px; text-align:center;">
-
-                                </div>
-                                <p style="margin-top: 5px;"><b>Atención:</b> Este panel es solamente una guía, la aprobación depende del Director.</p>
                             </div>
+
+                            <div class="wrapper-anexov">
+                                <div class="title" id="advice-title"></div>
+                                <div class="box" id="advice">
+                                </div>
+                                <p style="margin-top: 15px;"><b>Atención:</b> Este panel es solamente una guía, la aprobación depende del Director.</p>
+                            </div>
+
+                            <br>
                             <div class="col-12 d-flex flex-row-reverse mb-1">
-                                <button type="button" id="selectAll" class="btn btn-secondary">
+                                <button type="button" id="selectAll" class="cargar-anexo8">
                                     Seleccionar todo
                                 </button>
-                                <button type="button" id="eliminarSeleccionados" class="btn btn-danger mx-3">
+                                <button type="button" id="eliminarSeleccionados" class="eliminar-objetivo mx-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                                 </button>
                             </div>
@@ -174,7 +179,7 @@
                     <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
                         <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVIII.php" method="POST">
                             <br>
-                            <h2>Anexo 8</h2>
+                            <center><h2>Anexo 8</h2></center>
                             <br>
                             <?php include ("../../php/traerAnexoVIII.php"); ?>
                         </form>
@@ -188,7 +193,7 @@
                     <div class="tab-pane fade" id="anexo9" role="tabpanel" aria-labelledby="anexo9-tab">
                         <form id="formAnexoIX" class="formulario" enctype="multipart/form-data">
                             <br>
-                            <h2>Anexo 9</h2>
+                            <center><h2>Anexo 9</h2></center>
                             <br>
                             <?php include ("../../php/traerAnexoIX.php"); ?>
                         </form>
@@ -201,7 +206,7 @@
                     <div class="tab-pane fade" id="anexo10" role="tabpanel" aria-labelledby="anexo10-tab">
                         <br>
                         <form id="formAnexoX" class="formulario" id="cargarAnexoX">
-                            <h2>Anexo 10</h2>
+                            <center><h2>Anexo 10</h2></center>
                             <br>
                             <?php include ("../../php/traerAnexoX.php"); ?>
                         </form>

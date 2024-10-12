@@ -189,6 +189,24 @@ body {
         font-size: 30px;
         line-height: 70px;
     }
+    
+    .cargar {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .wrapper .box {
+        padding: 15px;
+    }
+
+    .wrapper-anexov {
+        margin-top: 30px;;
+    }
+
+    /* Asegurando que los botones no se sobrepongan entre sí */
+    .registration-form .btn {
+        margin-top: 10px;
+    }
 }
 
 /* Contenedor para los dos .wrapper */
@@ -205,6 +223,29 @@ body {
     background: #fff;
     border-radius: 10px;
     box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
+}
+
+.wrapper-anexov {
+    flex: 1; /* Hace que los dos contenedores tomen el mismo espacio */
+    max-width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.wrapper-anexov .title{
+    color: #fff;
+    line-height: 65px;
+    text-align: center;
+    background: #333;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
+}
+
+.wrapper-anexov .box{
+    background: #fff;
+    border-radius: 10px;
 }
 
 .wrapper .title{
@@ -233,11 +274,42 @@ body {
   }
 }
 
-.rojo {
-    color: #ff0303;
+.table-responsive {
+    overflow-x: auto; /* Permitir desplazamiento horizontal */
 }
 
-.verde{
-    color: #1aa321;
+/* Estilos para la tabla con líneas entre campos solamente */
+.table {
+    width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho */
+    border-spacing: 0; /* Elimina el espacio entre bordes */
+    border: 1px solid #ddd; /* Sin borde alrededor de la tabla */
 }
 
+.table th, .table td {
+    padding: 12px; /* Espaciado en celdas */
+    text-align: center; /* Centrar texto */
+    border-bottom: 1px solid #ddd; /* Bordes solo en la parte inferior de cada celda */
+    border-right: 1px solid #ddd; /* Bordes solo entre columnas */
+}
+
+.table th {
+    background-color: #333; /* Color de fondo para los encabezados */
+    color: white; /* Color de texto para los encabezados */
+    border-right: 1px solid #ddd; /* Bordes entre columnas en encabezados */
+}
+
+.table tr:last-child td {
+    border-bottom: none; /* Quita el borde inferior de la última fila */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+.table tr:nth-child(odd) {
+    background-color: #e6f7ff; /* Color de fondo para filas impares */
+}
+
+.table tr:hover {
+    background-color: #d1e7fd; /* Color de fondo al pasar el mouse */
+}

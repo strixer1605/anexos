@@ -168,7 +168,7 @@ $(document).ready(function(){
                     document.getElementById('edadAcompañante').value = "";
                     Swal.fire({
                         icon: 'success',
-                        title: 'Acompañante agregado',
+                        title: 'No Docente agregado',
                         text: response.message,
                         timer: 1500,
                         showConfirmButton: false
@@ -410,41 +410,44 @@ $(document).ready(function(){
     
                 // Mostrar el cálculo de docentes y alerta en una tabla de una sola fila
                 let calculoDocentes = `
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Total Personas</th>
-                                <th>Menores de 16</th>
-                                <th>Entre 16 y 17</th>
-                                <th>Mayores de 18</th>
-                                <th>No Docentes</th>
-                                <th>Docentes Recomendados</th>
-                                <th>Docentes Actuales</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${total}</td>
-                                <td>${cantidadMenores}</td>
-                                <td>${cantidadSemiMayores}</td>
-                                <td>${cantidadMayores}</td>
-                                <td>${cantidadNoDocentes}</td>
-                                <td>${totalDocentesRequeridos}</td>
-                                <td>${cantidadDocentes}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-sm" style="text-align:center;">
+                            <thead>
+                                <tr>
+                                    <th>Total Personas</th>
+                                    <th>Menores de 16</th>
+                                    <th>Entre 16 y 17</th>
+                                    <th>Mayores de 18</th>
+                                    <th>No Docentes</th>
+                                    <th>Docentes Recomendados</th>
+                                    <th>Docentes Actuales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${total}</td>
+                                    <td>${cantidadMenores}</td>
+                                    <td>${cantidadSemiMayores}</td>
+                                    <td>${cantidadMayores}</td>
+                                    <td>${cantidadNoDocentes}</td>
+                                    <td>${totalDocentesRequeridos}</td>
+                                    <td>${cantidadDocentes}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 `;
                 
                 let alertaHtml = '';
                 if (cantidadDocentes < totalDocentesRequeridos) {
-                    alertaHtml = '<h4 class="rojo">Anexo 5 no aprobable (Recomendación)</h4>';
+                    alertaHtml = 'Anexo 5 no aprobable';
                 } else {
-                    alertaHtml = '<h4 class="verde">Anexo 5 aprobable</h4>';
+                    alertaHtml = 'Anexo 5 aprobable';
                 }
     
                 // Insertar la alerta y la tabla de recomendación en el DOM
-                $('#advice').html(alertaHtml + calculoDocentes);
+                $('#advice').html(calculoDocentes);
+                $('#advice-title').html(alertaHtml);
                 $('#tablaParticipantes').html(tablaHTML);
             },
             error: function() {
