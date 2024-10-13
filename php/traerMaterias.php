@@ -35,6 +35,5 @@
         <p class="mt-2 text-muted" style="font-size: 0.9rem;">
             Nota: En el caso de querer quitar una materia: Vuélvalo a seleccionar, haga click en "Cargar Materia" y luego en "Borrar Materia".
         </p>
-        <br>
-    </div>';
+        <br>';
 ?>
