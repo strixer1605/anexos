@@ -7,7 +7,7 @@
 
     include('conexion.php');
 
-    $sql = "SELECT * FROM anexoiv WHERE estado = 1";
+    $sql = "SELECT * FROM anexoiv WHERE estado = 4";
     $anexoiv = mysqli_query($conexion, $sql);
 
     $salidas = [];
