@@ -101,10 +101,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Recorre todos los botones y agrega el evento 'click' a cada uno
     agregarBotones.forEach(boton => {
         boton.onclick = () => {
-            console.log(1)
+            // console.log(1)
             let inputId = boton.getAttribute('inputid'); // Obtiene el atributo 'inputid'
             agregarValor(inputId);
-            console.log(inputId)
+            // console.log(inputId)
         };
     });
     
@@ -160,7 +160,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     nuevoInput.disabled = true; // Deshabilitar el input
                     editarButton.textContent = 'Editar'; // Cambiar texto del botón a "Editar"
-                    // Aquí no es necesario actualizar el hiddenInput ya que sólo agregamos un nuevo valor.
+
+                    hiddenInput.value = Array.from(contenedorSeccion.querySelectorAll('input.form-control.anexo8'))
+                        .map(input => input.value)
+                        .join(', ');
                 }
             };
     
