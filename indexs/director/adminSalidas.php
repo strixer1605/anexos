@@ -36,7 +36,7 @@
                     <div class="container-fluid d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                             <img src="../../imagenes/eest.webp" style="height:70px;">
-                            <a class="navbar-brand" id="title" style="color: white; font-size:25px; margin-left: 15px;">Salidas activas</a>
+                            <a class="navbar-brand" id="title" style="color: white; font-size:25px; margin-left: 15px;">Solicitudes</a>
                         </div>
                     </div>
                 </nav>
@@ -68,8 +68,9 @@
                     </div>
                 </div>
                 <br>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center gap-2">
                     <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Histórico Salidas</a>
+                    <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Descarga Anexo 11</a>
                 </div>
             </form>
         </div>

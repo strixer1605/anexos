@@ -115,7 +115,7 @@ function eliminarSalida(id, event) {
     console.log('Eliminando salida con ID: ', id);
     Swal.fire({
         title: '¿Estás seguro?',
-        text: 'Esta acción eliminará la salida permanentemente',
+        text: 'Esta acción eliminará la salida permanentemente, incluyendo todo registro asociado.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, eliminar',
