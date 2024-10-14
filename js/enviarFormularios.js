@@ -156,7 +156,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     nuevoInput.disabled = true; // Deshabilitar el input
                     editarButton.textContent = 'Editar'; // Cambiar texto del botón a "Editar"
-                    // Aquí no es necesario actualizar el hiddenInput ya que sólo agregamos un nuevo valor.
+
+                    hiddenInput.value = Array.from(contenedorSeccion.querySelectorAll('input.form-control.anexo8'))
+                        .map(input => input.value)
+                        .join(', ');
                 }
             };
     
