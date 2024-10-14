@@ -1,41 +1,37 @@
 body {
-    background-color: white;
-    color: #fff;
+    background-color: #f8f9fa; /* Color de fondo más suave */
+    color: #000; /* Cambiar el color del texto a negro */
     text-align: center;
 }
 
-.form-control {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 13px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
 .navbar-custom {
-    background-color: white;
+    background-color: #fff; /* Mantener el fondo blanco */
     padding: 10px;
 }
-ul {
-    padding-left: 0;
-    list-style-type: none;
+
+.container {
+    max-width: 1400px; /* Mantener el ancho máximo */
+    margin-top: 50px; 
+    padding: 30px;
+    background-color: white;
+    color: #000;
 }
+
+.table-responsive {
+    margin-top: 20px; /* Margen superior para mejor separación */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Alinea el contenido de las celdas */
+}
+
+/* Clases adicionales de estilo que podrían ser útiles */
 hr {
     border: 1px solid #D6D0D0;
     margin: 20px 0;
     width: auto !important;
 }
+
 .botones {
     margin-bottom: 5px;
     max-width: 100%;
@@ -44,8 +40,6 @@ hr {
     cursor: pointer;
     font-size: 16px;
     color: #000;
-    /* border: 1px solid transparent; Establece un borde transparente */
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave para los cambios */
 }
 
 .botones:focus,
@@ -53,21 +47,4 @@ hr {
 .botones:active {
     border-color: transparent; /* Asegúrate de que el borde no cambie */
     outline: none; /* Elimina el contorno del enfoque */
-}
-
-.container {
-    max-width: 1200px;
-    margin-top: 50px;
-    padding: 30px;
-    background-color: white;
-    color: #000;
-}
-
-.table {
-    margin: 0 auto; /* Centra la tabla */
-    width: 100%; /* Ajusta el ancho */
-}
-
-.table th, .table td {
-    vertical-align: middle; /* Alinea el contenido de las celdas */
 }

@@ -62,6 +62,7 @@
                     <td> '.$fila['fechaRegreso'].' </td>
                     <td> '.$anexoixHabil.'</td>
                     <td> '.$fila['fechaLimite'].' </td>
+                    <td> '.$fila['fechaModificacion'].' </td>
                 </tr>';
         }
     }
