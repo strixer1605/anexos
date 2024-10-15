@@ -4,6 +4,7 @@
 
 body {
     background-color: #dee9ff;
+    padding: 10px;
 }
 
 .registration-form {
@@ -14,7 +15,7 @@ body {
     background-color: #fff;
     max-width: 1800px;
     margin: auto;
-    padding: 50px 50px;
+    padding: 30px 30px;
     border-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
@@ -50,7 +51,7 @@ body {
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 400;
     background-color: #5791ff;
     border: none;
     color: white;
