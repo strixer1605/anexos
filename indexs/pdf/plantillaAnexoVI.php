@@ -50,7 +50,21 @@
     <title>Document</title>
 </head>
 <body>
-    <button type="button" class="btn btn-primary" id="btnCrearPdf">Crear PDF</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary" style="margin-top: 5px;" id="btnCrearPdf">Crear PDF</button>
+    
+                </div>
+                <div class="col-6">
+                    <nav class="navbar navbar-custom">
+                        <div class="container-fluid d-flex align-items-center">
+                            <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
 
     <div id="plantilla" class="container">
         <div class="row d-flex">
@@ -104,8 +118,8 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: [0.2, 1, 0.2, 1],
-                    filename: 'anexoVI.pdf',
+                    margin: [0.2, 0.2, 0.2, 0.2],
+                    filename: 'anexoVII.pdf',
                     image: {
                         type: 'jpeg',
                         quality: 0.98

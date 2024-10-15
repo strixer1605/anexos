@@ -30,6 +30,11 @@
     </head>
     <body>
         <div class="registration-form">
+            <nav class="navbar navbar-custom">
+                <div class="container-fluid d-flex align-items-center">
+                    <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+                </div>
+            </nav>
             <form id="formAnexoIV" class="formulario" action="../../php/insertAnexoIV.php" method="POST">
                 <div class="form-icon">
                     <span><i class="icon icon-notebook"></i></span>

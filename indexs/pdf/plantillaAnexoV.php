@@ -70,7 +70,21 @@
     </style>
 </head>
 <body>
-    <button type="button" class="btn btn-primary" id="btnCrearPdf">Crear PDF</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary" style="margin-top: 5px;" id="btnCrearPdf">Crear PDF</button>
+    
+                </div>
+                <div class="col-6">
+                    <nav class="navbar navbar-custom">
+                        <div class="container-fluid d-flex align-items-center">
+                            <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
 
     <div id="plantilla" class="container">
         <div class="row d-flex">
@@ -145,39 +159,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                            if($resultado) {
-                                $indice = 1;
-                                while ($fila = $resultado->fetch_assoc()) {
-                                    $alumno = "";
-                                    $profesor = "";
-                                    $NoProfesor = "";
-                                    switch($fila['cargo']) {
-                                        case 2: 
-                                            $profesor = "X";
-                                            break;
-                                        case 3:
-                                            $alumno = "X";
-                                            break;
-                                        case 4:
-                                            $NoProfesor = "X";
-                                            break;
-                                    }
-                                    echo '
-                                    <tr>
-                                    <th scope="row">'.$indice.'</th>
-                                    <td class="nombre">'.$fila['apellidoNombre'].'</td>
-                                    <td>'.$fila['dni'].'</td>
-                                    <td>'.$alumno.'</td>
-                                    <td>'.$fila['edad'].'</td>
-                                    <td>'.$profesor.'</td>
-                                    <td>'.$NoProfesor.'</td>
-                                    </tr>
-                                    ';
-                                    $indice++;
-                                }
-                            }
-                        ?>
+                    <?php
+if ($resultado) {
+    $indice = 1;
+    while ($fila = $resultado->fetch_assoc()) {
+        $alumno = "";
+        $profesor = "";
+        $NoProfesor = "";
+
+        switch ($fila['cargo']) {
+            case 2:
+                $profesor = "X";
+                break;
+            case 3:
+                $alumno = "X";
+                break;
+            case 4:
+                $NoProfesor = "X";
+                break;
+        }
+
+        // Convertir el nombre a capitalizar
+        $nombreCapitalizado = ucwords(strtolower($fila['apellidoNombre']));
+
+        echo '
+        <tr>
+        <th scope="row">' . $indice . '</th>
+        <td class="nombre">' . $nombreCapitalizado . '</td>
+        <td>' . $fila['dni'] . '</td>
+        <td>' . $alumno . '</td>
+        <td>' . $fila['edad'] . '</td>
+        <td>' . $profesor . '</td>
+        <td>' . $NoProfesor . '</td>
+        </tr>
+        ';
+        $indice++;
+    }
+}
+?>
+
                     </tbody>
                 </table>
             </div>
@@ -214,7 +234,7 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: [0.2, 1, 0.2, 1],
+                    margin: [0.2, 0.2, 0.2, 0.2],
                     filename: 'anexoV.pdf',
                     image: {
                         type: 'jpeg',
