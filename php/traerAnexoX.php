@@ -41,9 +41,10 @@ if (isset($idSalida)) {
                 <label for="hospitalesLocalidad" class="form-label">Localidad de los hospital/es:</label>
                 <input type="text" class="form-control item" id="hospitalesLocalidad" name="hospitalesLocalidad" placeholder="Localidad..." value="'.htmlspecialchars($row['hospitalesLocalidad'], ENT_QUOTES, 'UTF-8').'">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:25px;">
                 <label for="datosInteres" class="form-label">Infraestructura disponible:</label>
-                <input type="text" class="form-control item" id="datosInteres" name="datosInteres" placeholder="Ingrese datos de interés..." value="'.htmlspecialchars($row['datosInteresNombre'], ENT_QUOTES, 'UTF-8').'">
+                <input type="text" style="margin-bottom: 0;" class="form-control item" id="datosInteres" name="datosInteres" placeholder="Ingrese datos de interés..." value="'.htmlspecialchars($row['datosInteresNombre'], ENT_QUOTES, 'UTF-8').'"><br>
+            <span class="fw-bold">Atención:</span><span>Sí carga datos de infraestructura, los campos relacionados a esta pasaran a ser obligatorios.</span>
             </div>
             <div class="form-group">
                 <label for="datosInteresTelefono" class="form-label">Teléfono de los datos opcionales:</label>
