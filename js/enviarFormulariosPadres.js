@@ -44,7 +44,6 @@ function validateAndSubmitAnexoVI(event) {
 
     // Si todo es válido, enviar el formulario por AJAX
     if (isValid) {
-        console.log(domicilio, altura, localidad);
         const formData = new FormData();
         formData.append('domicilio', domicilio);
         formData.append('altura', altura);
@@ -58,20 +57,37 @@ function validateAndSubmitAnexoVI(event) {
         .then(response => response.json()) // Esperar a que la respuesta se convierta a JSON
         .then(data => {
             if (data.success) {
-                // Si el envío fue exitoso, llevar al siguiente tab
-                alert("Insertado correctamente");
-                // Cambiar al tab del Anexo 7
-                const tabAnexo7 = new bootstrap.Tab(document.getElementById('anexo7-tab'));
-                tabAnexo7.show(); // Mostrar el tab del Anexo 7
+                // Si el envío fue exitoso, mostrar mensaje con SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Insertado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+        
+                // Cambiar al tab del Anexo 7 después de un breve retraso para mostrar el mensaje
+                setTimeout(() => {
+                    const tabAnexo7 = new bootstrap.Tab(document.getElementById('anexo7-tab'));
+                    tabAnexo7.show(); // Mostrar el tab del Anexo 7
+                }, 1500); // Esperar 1.5 segundos antes de cambiar de tab
             } else {
                 // Mostrar mensaje de error si no fue exitoso
-                alert(data.message || 'Ocurrió un error al enviar los datos.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Ocurrió un error al enviar los datos.'
+                });
             }
         })
         .catch(error => {
             console.error('Error en la solicitud:', error);
-            alert('Ocurrió un error en la conexión. Inténtalo de nuevo más tarde.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'Ocurrió un error en la conexión. Inténtalo de nuevo más tarde.'
+            });
         });
+        
     }
 }
 
@@ -154,36 +170,60 @@ function validarFormulario() {
     // Validar que al menos uno de los radio buttons esté seleccionado
     if (!alergicoSi.checked && !alergicoNo.checked) {
         esValido = false;
-        alert('Debe indicar si es alérgico o no.');
-        alergicoSi.focus(); // Enfocar en el primer radio button
-        alergicoSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Mostrar mensaje de error con SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Campo obligatorio',
+            text: 'Debe indicar si es alérgico o no.',
+        }).then(() => {
+            alergicoSi.focus(); // Enfocar en el primer radio button
+            alergicoSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
         return esValido;
     }
-
+    
     // Si "Sí" está seleccionado, validar que el campo "aQue" no esté vacío
     if (alergicoSi.checked) {
         const aQue = document.getElementById('aQue'); // Obtener el input de "a qué es alérgico"
         
         if (aQue.value.trim() === "") {
             esValido = false;
-            alert('Debe indicar a qué es alérgico.');
-            aQue.focus(); // Enfocar en el campo "aQue"
-            aQue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+            // Mostrar mensaje de error con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Campo obligatorio',
+                text: 'Debe indicar a qué es alérgico.',
+            }).then(() => {
+                aQue.focus(); // Enfocar en el campo "aQue"
+                aQue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+            
             return esValido;
         }
     } else {
         // Si "No" está seleccionado, asegurar que el campo "aQue" quede vacío
         document.getElementById('aQue').value = '';  // Limpiar el input
     }
-
+    
     const problemasOtras = document.getElementById('otras');
     if (problemasOtras.checked) {
         const otrasInput = document.getElementById('otrasInput');
         if (otrasInput.value.trim() === "") {
             esValido = false;
-            alert('Debe especificar los otros problemas recientes si ha marcado "d".');
-            otrasInput.focus();
-            otrasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Mostrar mensaje de error con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Campo obligatorio',
+                text: 'Debe especificar los otros problemas recientes si ha marcado "d".',
+            }).then(() => {
+                otrasInput.focus();
+                otrasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+            
             return esValido;
         }
     }
@@ -193,9 +233,17 @@ function validarFormulario() {
 
     if (!medicacionSi.checked && !medicacionNo.checked) {
         esValido = false;
-        alert('Debe indicar si está tomando alguna medicación.');
-        medicacionSi.focus();
-        medicacionSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Mostrar mensaje de error con SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Campo obligatorio',
+            text: 'Debe indicar si está tomando alguna medicación.',
+        }).then(() => {
+            medicacionSi.focus();
+            medicacionSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
         return esValido;
     }
 
@@ -203,25 +251,43 @@ function validarFormulario() {
         const medicacionDetalles = document.getElementById('medicacionDetalles');
         if (medicacionDetalles.value.trim() === "") {
             esValido = false;
-            alert('Debe indicar qué medicación está tomando.');
-            medicacionDetalles.focus();
-            medicacionDetalles.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Mostrar mensaje de error con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Campo obligatorio',
+                text: 'Debe indicar qué medicación está tomando.',
+            }).then(() => {
+                medicacionDetalles.focus();
+                medicacionDetalles.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
             return esValido;
         }
     }
+
 
     const obraSocialSi = document.getElementById('obraSocialSi');
     const obraSocialNo = document.getElementById('obraSocialNo');
 
     if (!obraSocialSi.checked && !obraSocialNo.checked) {
         esValido = false;
-        alert('Debe indicar si tiene obra social.');
-        obraSocialSi.focus();
-        obraSocialSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Mostrar mensaje de error con SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Campo obligatorio',
+            text: 'Debe indicar si tiene obra social.',
+        }).then(() => {
+            obraSocialSi.focus();
+            obraSocialSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    
         return esValido;
     }
-
+    
     return esValido;
+    
 }
 
 // Función para obtener y actualizar los datos del formulario
@@ -264,8 +330,18 @@ function enviarDatos(datos) {
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            // console.log(xhr.responseText);
-            alert ('Datos insertados correctamente');
+            // Reemplazar el alert por SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'Datos insertados correctamente',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirigir a la página anterior
+                    window.history.back();
+                }
+            });
         } else {
             console.error('Error en la solicitud:', xhr.statusText);
         }
