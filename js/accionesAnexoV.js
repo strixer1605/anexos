@@ -399,16 +399,6 @@ $(document).ready(function(){
                 // Calcular el total de docentes requeridos
                 let totalDocentesRequeridos = docentesMenores + docentesSemiMayores + docentesMayores;
     
-                // Advertencia si faltan docentes
-                if (totalDocentesRequeridos > 5) {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Advertencia",
-                        text: "Se recomienda agregar más docentes debido a la cantidad de alumnos.",
-                    });
-                }
-    
-                // Mostrar el cálculo de docentes y alerta en una tabla de una sola fila
                 let calculoDocentes = `
                     <div class="table-responsive">
                         <table class="table table-sm" style="text-align:center;">
