@@ -55,6 +55,7 @@
                                         <th>¿Anexo IX?</th>
                                         <th>Fecha de la Solicitud</th>
                                         <th>Fecha Límite</th>
+                                        <th>Anexo XI</th>
                                         <th>Documento (PDF)</th>
                                         <th>Gestionar</th>
                                         <th>Eliminar</th>
@@ -69,7 +70,6 @@
                 <br>
                 <div class="d-flex justify-content-center gap-2">
                     <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Histórico Salidas</a>
-                    <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Descarga Anexo 11</a>
                 </div>
             </form>
         </div>

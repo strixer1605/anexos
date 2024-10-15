@@ -1,5 +1,16 @@
 <?php
     include '../../php/verificarSessionDirector.php';
+
+    include '../../php/conexion.php';
+    $idSalida = $_GET['idSalida'];
+    $sql = "SELECT `tipoSolicitud`, `fechaSalida`, `localidadViaje` FROM anexoiv WHERE idAnexoIV = $idSalida";
+    $resultado = mysqli_query($conexion, $sql);
+    $fila = mysqli_fetch_assoc($resultado);
+
+    $fechaSalida = new DateTime($fila['fechaSalida']);
+    $fechaFormateada = $fechaSalida->format('d/m/Y'); 
+
+    $nombreCompleto = $_SESSION['nombreDir'] . ' '  . $_SESSION['apellidoDir'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +75,7 @@
             <!-- Cuerpo PDF -->
             <div class="col-12">
                 <div class="col-12 mb-2">
-                    <span>NOMBRE DEL ESTABLECIMIENTO:</span> <span></span>
+                    <span>NOMBRE DEL ESTABLECIMIENTO:</span> <span>Escuela de Educación Secudaria Técnica N°1 "Raúl Scalabrini Ortiz"</span>
                 </div>
                 <div class="col-12 d-flex mb-2">
                     <div class="col-6">
@@ -76,14 +87,14 @@
                 </div>
                 <div class="col-12 d-flex mb-2">
                     <div class="col-6">
-                        <span>DOMICILIO:</span>  <span></span>
+                        <span>DOMICILIO:</span>  <span> Calle 104 y 124. Santa teresita</span>
                     </div>
                     <div class="col-6">
-                        <span>DISTRITO:</span>  <span></span>                        
+                        <span>DISTRITO:</span>  <span>La Costa</span>                        
                     </div>
                 </div>
                 <div class="col-12 mb-2">
-                    <span>DIRECTOR DEL ESTABLECIMIENTO:</span>  <span></span>
+                    <span>DIRECTOR DEL ESTABLECIMIENTO:</span>  <span><?php echo $nombreCompleto ?></span>
                 </div>
                 <div class="col-12 mb-2">
                     <span>REPRESENTANTE LEGAL:</span>  <span></span>
@@ -91,10 +102,23 @@
                 <div class="col-12 mb-2">
                     <span>ENTIDAD PROPIETARIA:</span>  <span></span>
                 </div>
-                <div class="col-12 mb-4">
-                    <span>FECHA Y LUGAR DE REALIZACIÓN DE LA SALIDA EDUCATIVA /
-                    SALIDA DE REPRESENTACIÓN INSTITUCIONAL:</span>  <span></span>
-                </div>
+                <?php 
+                    if ($fila['tipoSolicitud'] == 1) {
+                        echo '
+                            <div class="col-12 mb-4">
+                                <span>FECHA Y LUGAR DE REALIZACIÓN DE LA <span style="text-decoration: line-through;">SALIDA EDUCATIVA</span> /
+                                SALIDA DE REPRESENTACIÓN INSTITUCIONAL:</span>  <span>'.$fechaFormateada. ' - '.$fila['localidadViaje'].'</span>
+                            </div>
+                        ';
+                    } else {
+                        echo '
+                            <div class="col-12 mb-4">
+                                <span>FECHA Y LUGAR DE REALIZACIÓN DE LA SALIDA EDUCATIVA /
+                                <span style="text-decoration: line-through;">SALIDA DE REPRESENTACIÓN INSTITUCIONAL</span>:</span>  <span>'.$fechaFormateada. ' - '.$fila['localidadViaje'].'</span>
+                            </div>
+                        ';
+                    }
+                ?>
             </div>
             <div class="col-12 mb-5">
                 <p>
@@ -119,7 +143,7 @@
             var element = document.getElementById('plantilla');
             html2pdf()
                 .set({
-                    margin: [0.2, 1, 0.2, 1],
+                    margin: [0.2, 0.2, 0.2, 0.2],
                     filename: 'anexoXI.pdf',
                     image: {
                         type: 'jpeg',
