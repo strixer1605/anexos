@@ -1,4 +1,24 @@
 $(document).ready(function() {
+    function formatearFecha(fecha, incluirHora = false) {
+        if (!fecha) return '';
+        
+        let partesFechaHora = fecha.split(' '); // Separar la fecha y la hora
+        let soloFecha = partesFechaHora[0]; // Toma solo la parte de la fecha (antes del espacio)
+        let partesFecha = soloFecha.split('-'); // Dividir la fecha por guiones
+        
+        // Formatear la fecha en dd/mm/yyyy
+        let fechaFormateada = `${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]}`;
+        
+        if (incluirHora && partesFechaHora.length > 1) {
+            // Si se debe incluir la hora y la fecha tiene hora, concatenarla
+            let hora = partesFechaHora[1]; // La parte después del espacio es la hora
+            fechaFormateada += ` ${hora}`; // Concatenar la hora al formato de fecha
+        }
+
+        return fechaFormateada;
+    }
+    
+    
     $.ajax({
         url: '../../php/tablaAdminSalidas.php',
         method: 'GET',
@@ -9,24 +29,23 @@ $(document).ready(function() {
             data.forEach(function(salida) {
                 let fila = `
                     <tr>
-                        <td>${salida.idAnexoIV}</td>
                         <td>${salida.denominacionProyecto}</td>
                         <td>${salida.tipoSolicitud}</td>
                         <td>${salida.lugarVisita}</td>
-                        <td>${salida.fechaSalida}</td>
-                        <td>${salida.fechaRegreso}</td>
+                        <td>${formatearFecha(salida.fechaSalida)}</td> <!-- Solo fecha -->
+                        <td>${formatearFecha(salida.fechaRegreso)}</td> <!-- Solo fecha -->
                         <td>${salida.masDe24hs}</td>
                         <td>${salida.anexoixHabil}</td>
-                        <td>${salida.anexosCompletos}</td>
-                        <td>${salida.fechaLimite}</td>                        
-                        <td><a href="../pdf/todoPdf.php" class="btn btn-primary">Descargar</a></td> <!-- Prevenir comportamiento -->
+                        <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
+                        <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
+                        <td><a href="../pdf/todoPdf.php" class="btn btn-primary">Descargar</a></td>
                         <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
                         <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
                     </tr>
                 `;
-
                 tabla.append(fila);
             });
+            
         },
         error: function(err) {
             console.log('Error al obtener los datos:', err);

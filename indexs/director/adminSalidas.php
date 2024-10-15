@@ -46,7 +46,6 @@
                             <table class="table table-striped text-center">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>Nº</th>
                                         <th>Nombre del Proyecto</th>
                                         <th>Tipo de Salida</th>
                                         <th>Lugar a Visitar</th>
@@ -54,7 +53,7 @@
                                         <th>Fecha de Regreso</th>
                                         <th>¿Menos De 24hs?</th>
                                         <th>¿Anexo IX?</th>
-                                        <th>¿Anexos Completos?</th>
+                                        <th>Fecha de la Solicitud</th>
                                         <th>Fecha Límite</th>
                                         <th>Documento (PDF)</th>
                                         <th>Gestionar</th>

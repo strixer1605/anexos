@@ -34,17 +34,23 @@
 
         $anexosCompletos = (mysqli_num_rows($anexoVResponse) >= 1 && mysqli_num_rows($anexoVIIIResponse) == 0 && mysqli_num_rows($anexoXResponse) == 0) ? 'Si' : 'No';
 
-        // Salida array
+        if($resp['tipoSolicitud'] == 1){
+            $solicitud = "Representación Institucional";
+        }elseif($resp['tipoSolicitud'] == 2){
+            $solicitud = "Educativa";
+        }else{
+            $solicitud = "Error";
+        }
         $salidas[] = [
             'idAnexoIV' => $resp['idAnexoIV'],
             'denominacionProyecto' => $resp['denominacionProyecto'],
-            'tipoSolicitud' => $resp['tipoSolicitud'],
+            'tipoSolicitud' => $solicitud,
             'lugarVisita' => $resp['lugarVisita'],
             'fechaSalida' => $resp['fechaSalida'],
             'fechaRegreso' => $resp['fechaRegreso'],
             'masDe24hs' => $masDe24hs,
             'anexoixHabil' => $anexoixHabil,
-            'anexosCompletos' => $anexosCompletos,
+            'fechaSolicitud' => $resp['fechaModificacion'],
             'fechaLimite' => $resp['fechaLimite'],
         ];
     }
