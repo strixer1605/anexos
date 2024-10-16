@@ -185,7 +185,7 @@
                 </table>
             </div>
             
-            <center><p>Se adjunta copia del proyeco a foja/s 18 (hojas)</p></center>
+            <center><p>Se adjunta copia del proyeco a hoja/s 18 (hojas)</p></center>
             <div class="col-12">
                 <table class="table">
                     <tr>
