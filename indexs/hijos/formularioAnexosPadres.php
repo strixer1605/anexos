@@ -17,51 +17,56 @@
         <title>Menu de Salidas</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../css/formularioIV.css">
+        <link rel="stylesheet" href="../../css/padresAnexos.css">
     </head>
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
                 <button onclick="window.history.back()" class="btn btn-warning ms-auto" style="color: white;">Atrás</button>
+            </div>
+        </nav>
+
+        <div class="registration-form">
+            <div class="formulario-container">
+                <div class="form-icon">
+                    <span><i class="icon-notebook"></i></span>
                 </div>
-            </nav>
+                <div style="text-align: center;">
+                    <h2 style="color: black;">Menú de Padres</h2>
+                </div>
+                <br>
 
-        <div class="container mt-4">
-            <h2>Menú de Anexos</h2>
-            <medium class="form-text text-muted">Si desea modificar la informacion solo cargue denuevo el formulario.</medium>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="anexo6-tab" data-bs-toggle="tab" data-bs-target="#anexo6" type="button" role="tab" aria-controls="anexo6" aria-selected="true">Anexo 6</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="anexo7-tab" data-bs-toggle="tab" data-bs-target="#anexo7" type="button" role="tab" aria-controls="anexo7" aria-selected="false">Anexo 7</button>
+                    </li>
+                </ul>
 
-            <br>
-            <!-- Tabs -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="anexo6-tab" data-bs-toggle="tab" data-bs-target="#anexo6" type="button" role="tab" aria-controls="anexo6" aria-selected="true">Anexo 6</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="anexo7-tab" data-bs-toggle="tab" data-bs-target="#anexo7" type="button" role="tab" aria-controls="anexo7" aria-selected="false">Anexo 7</button>
-                </li>
-            </ul>
-
-            <div class="tab-content mt-3" id="myTabContent"> 
-                <!-- Anexo 6 -->
-                <div class="tab-pane fade show active" id="anexo6" role="tabpanel" aria-labelledby="anexo6-tab">
-                    <h2>Anexo 6</h2>
-                    <br>
+                <div class="tab-content mt-3" id="myTabContent"> 
+                    <!-- Anexo 6 -->
+                    <div class="tab-pane fade show active" id="anexo6" role="tabpanel" aria-labelledby="anexo6-tab">
+                        <br>
+                        <center><h2>Anexo 6</h2></center>
+                        <br>
                         <?php include('../../php/traerAnexoVI.php') ?>
-                        
-                        <center><button type="submit" class="btn btn-success mt-2" id="cargarAnexoVI">Cargar Anexo 6</button></center>
-                </div>
-                
-                <!-- Anexo 7 -->
-                <div class="tab-pane fade" id="anexo7" role="tabpanel" aria-labelledby="anexo7-tab">
-                    <h2>Anexo 7</h2>
-                    <br>
-                    <div id="formAnexoVII">
-                            <?php include ("../../php/traerAnexoVII.php"); ?>
-                        <button type="submit" class="btn btn-success" id="cargarAnexoVII">Cargar Anexo 7</button>
+                        <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                     </div>
-
+                    
+                    <!-- Anexo 7 -->
+                    <div class="tab-pane fade" id="anexo7" role="tabpanel" aria-labelledby="anexo7-tab">
+                        <br>
+                        <center><h2>Anexo 7</h2></center>
+                        <br>
+                        <div id="formAnexoVII">
+                            <?php include ("../../php/traerAnexoVII.php"); ?>
+                            <br><br>
+                            <center><button type="submit" class="cargar" id="cargarAnexoVII">Cargar Anexo 7</button></center>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 

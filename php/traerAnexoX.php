@@ -44,7 +44,7 @@ if (isset($idSalida)) {
             <div class="form-group" style="margin-bottom:25px;">
                 <label for="datosInteres" class="form-label">Infraestructura disponible:</label>
                 <input type="text" style="margin-bottom: 0;" class="form-control item" id="datosInteres" name="datosInteres" placeholder="Ingrese datos de interés..." value="'.htmlspecialchars($row['datosInteresNombre'], ENT_QUOTES, 'UTF-8').'"><br>
-            <span class="fw-bold">Atención:</span><span>Sí carga datos de infraestructura, los campos relacionados a esta pasaran a ser obligatorios.</span>
+            <span class="fw-bold">Atención:</span><span> Sí carga datos de infraestructura, los campos relacionados a esta pasaran a ser obligatorios.</span>
             </div>
             <div class="form-group">
                 <label for="datosInteresTelefono" class="form-label">Teléfono de los datos opcionales:</label>

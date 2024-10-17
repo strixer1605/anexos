@@ -60,7 +60,7 @@ function validateAndSubmitAnexoVI(event) {
                 // Si el envío fue exitoso, mostrar mensaje con SweetAlert
                 Swal.fire({
                     icon: 'success',
-                    title: 'Insertado correctamente',
+                    title: 'Anexo 6 actualizado correctamente.',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -177,8 +177,10 @@ function validarFormulario() {
             title: 'Campo obligatorio',
             text: 'Debe indicar si es alérgico o no.',
         }).then(() => {
-            alergicoSi.focus(); // Enfocar en el primer radio button
-            alergicoSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                alergicoSi.focus(); // Enfocar en el primer radio button
+                alergicoSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500); // Esperar 500 ms antes de hacer scroll
         });
         
         return esValido;
@@ -197,8 +199,10 @@ function validarFormulario() {
                 title: 'Campo obligatorio',
                 text: 'Debe indicar a qué es alérgico.',
             }).then(() => {
-                aQue.focus(); // Enfocar en el campo "aQue"
-                aQue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    aQue.focus(); // Enfocar en el campo "aQue"
+                    aQue.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500); // Esperar 500 ms antes de hacer scroll
             });
             
             return esValido;
@@ -220,8 +224,10 @@ function validarFormulario() {
                 title: 'Campo obligatorio',
                 text: 'Debe especificar los otros problemas recientes si ha marcado "d".',
             }).then(() => {
-                otrasInput.focus();
-                otrasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    otrasInput.focus();
+                    otrasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500); // Esperar 500 ms antes de hacer scroll
             });
             
             return esValido;
@@ -240,8 +246,10 @@ function validarFormulario() {
             title: 'Campo obligatorio',
             text: 'Debe indicar si está tomando alguna medicación.',
         }).then(() => {
-            medicacionSi.focus();
-            medicacionSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                medicacionSi.focus();
+                medicacionSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500); // Esperar 500 ms antes de hacer scroll
         });
         
         return esValido;
@@ -258,14 +266,15 @@ function validarFormulario() {
                 title: 'Campo obligatorio',
                 text: 'Debe indicar qué medicación está tomando.',
             }).then(() => {
-                medicacionDetalles.focus();
-                medicacionDetalles.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    medicacionDetalles.focus();
+                    medicacionDetalles.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500); // Esperar 500 ms antes de hacer scroll
             });
 
             return esValido;
         }
     }
-
 
     const obraSocialSi = document.getElementById('obraSocialSi');
     const obraSocialNo = document.getElementById('obraSocialNo');
@@ -279,16 +288,19 @@ function validarFormulario() {
             title: 'Campo obligatorio',
             text: 'Debe indicar si tiene obra social.',
         }).then(() => {
-            obraSocialSi.focus();
-            obraSocialSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                obraSocialSi.focus();
+                obraSocialSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500); // Esperar 500 ms antes de hacer scroll
         });
     
         return esValido;
     }
     
     return esValido;
-    
 }
+
+
 
 // Función para obtener y actualizar los datos del formulario
 function obtenerDatosFormulario() {
@@ -334,7 +346,7 @@ function enviarDatos(datos) {
             Swal.fire({
                 icon: 'success',
                 title: 'Éxito',
-                text: 'Datos insertados correctamente',
+                text: 'Anexo 7 cargado correctamente.',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
