@@ -44,18 +44,18 @@ if (isset($idSalida)) {
             <div class="form-group" style="margin-bottom:25px;">
                 <label for="datosInteres" class="form-label">Infraestructura disponible:</label>
                 <input type="text" style="margin-bottom: 0;" class="form-control item" id="datosInteres" name="datosInteres" placeholder="Ingrese datos de interés..." value="'.htmlspecialchars($row['datosInteresNombre'], ENT_QUOTES, 'UTF-8').'"><br>
-            <span class="fw-bold">Atención:</span><span> Sí carga datos de infraestructura, los campos relacionados a esta pasaran a ser obligatorios.</span>
+                <span class="fw-bold">Atención:</span><span> Si carga los datos del campo "Infraestructura", los campos relacionados a esta pasaran a ser obligatorios.</span>
             </div>
             <div class="form-group">
-                <label for="datosInteresTelefono" class="form-label">Teléfono de los datos opcionales:</label>
+                <label for="datosInteresTelefono" class="form-label">Teléfono de los datos opcionales (Infraestructura):</label>
                 <input type="number" class="form-control item" id="datosInteresTelefono" name="datosInteresTelefono" placeholder="Teléfono..." value="'.htmlspecialchars($row['datosInteresTelefono'], ENT_QUOTES, 'UTF-8').'">
             </div>
             <div class="form-group">
-                <label for="datosInteresDireccion" class="form-label">Dirección de los datos opcionales:</label>
+                <label for="datosInteresDireccion" class="form-label">Dirección de los datos opcionales (Infraestructura):</label>
                 <input type="text" class="form-control item" id="datosInteresDireccion" name="datosInteresDireccion" placeholder="Dirección..." value="'.htmlspecialchars($row['datosInteresDireccion'], ENT_QUOTES, 'UTF-8').'">
             </div>
             <div class="form-group">
-                <label for="datosInteresLocalidad" class="form-label">Localidad de los datos opcionales:</label>
+                <label for="datosInteresLocalidad" class="form-label">Localidad de los datos opcionales (Infraestructura):</label>
                 <input type="text" class="form-control item" id="datosInteresLocalidad" name="datosInteresLocalidad" placeholder="Localidad..." value="'.htmlspecialchars($row['datosInteresLocalidad'], ENT_QUOTES, 'UTF-8').'">
             </div>
         ';

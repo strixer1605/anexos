@@ -8,8 +8,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="../../librerias/jquery.js?v=1"></script>
-        <link rel="stylesheet" href="../../librerias/bootstrap.css">
         <link rel="stylesheet" href="../../css/estilos.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Menu</title>

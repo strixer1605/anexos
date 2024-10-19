@@ -158,25 +158,16 @@
 
                 // Función para verificar si se debe cancelar la salida
                 function verificarCancelaciones() {
-                    // console.log('Verificando cancelaciones de salidas...');
-
-                    // Hacer una petición para obtener todas las salidas pendientes
                     $.post('../../php/obtenerSalidasPendientes.php', {}, function(response) {
-                        // console.log('Respuesta de salidas pendientes:', response);
                         try {
                             const salidas = JSON.parse(response);
                             salidas.forEach(salida => {
-                                const fechaLimite = new Date(salida.fechaLimite); // Suponiendo que tienes la propiedad fechaLimite en la salida
-                                const fechaActual = new Date(); // Obtener la fecha y hora actual
+                                const fechaLimite = new Date(salida.fechaLimite); // Fecha y hora límite de la salida
+                                const fechaActual = new Date(); // Fecha y hora actual
 
-                                // Normalizar las fechas a la misma hora (00:00:00) para comparar solo las fechas
-                                fechaActual.setHours(0, 0, 0, 0);
-                                fechaLimite.setHours(0, 0, 0, 0);
-
-                                // Comparar las fechas
-                                if (fechaActual.getTime() === fechaLimite.getTime()) {
+                                // Comparar fecha y hora (no solo fecha)
+                                if (fechaActual >= fechaLimite) {
                                     $.post('../../php/cancelarAutomatico.php', { idAnexoIV: salida.idAnexoIV }, function(response) {
-                                        // console.log('Respuesta de cancelación:', response);
                                         try {
                                             const res = JSON.parse(response);
                                             if (res.status === 'success') {
@@ -186,7 +177,7 @@
                                                     icon: 'error',
                                                     confirmButtonText: 'Ok'
                                                 }).then(() => {
-                                                    location.reload(); // Recargar la página si es necesario
+                                                    location.reload();
                                                 });
                                             } else {
                                                 console.log('Error al cancelar salida:', res.message);
@@ -202,9 +193,8 @@
                         }
                     });
                 }
-
-                // Configurar un intervalo para verificar cada cierto tiempo (por ejemplo, cada minuto)
-                setInterval(verificarCancelaciones, 1000); // 60000 ms = 1 minuto
+                // Intervalo para verificar cada cierto tiempo
+                setInterval(verificarCancelaciones, 1000);
             });
         </script>
     </body>

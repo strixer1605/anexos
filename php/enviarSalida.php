@@ -80,7 +80,7 @@
                     if ($stmtUpdate) {
                         $stmtUpdate->bind_param('i', $idAnexoIV);
                         if ($stmtUpdate->execute()) {
-                            echo json_encode(['status' => 'success', 'message' => 'Solicitud enviada correctamente. Tenga en cuenta que ya no podrá editar ni descargar los anexos hasta su aprobación.']);
+                            echo json_encode(['status' => 'success', 'message' => 'Solicitud enviada correctamente. Tenga en cuenta que ya no podrá editar los anexos, pero podrá descargarlos luego de su aprobación.']);
                         } else {
                             echo json_encode(['status' => 'error', 'message' => 'Error al enviar solicitud.']);
                         }

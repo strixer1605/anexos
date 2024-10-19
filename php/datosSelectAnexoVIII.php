@@ -86,14 +86,6 @@ foreach ($campos as $campo) {
                 box-shadow: 0 0 5px rgba(88, 145, 255, 0.5);
             }
 
-            .btn-agregar {
-                margin-top: 10px;
-            }
-
-            .btn-warning {
-                margin-right: 10px;
-            }
-
             /* Ajustes para pantallas pequeñas */
             @media (max-width: 768px) {
                 .input-container {
@@ -141,7 +133,7 @@ foreach ($campos as $campo) {
 
         </div>
     </div>
-
+    <br>
 
     <div class="wrapper">
         <div class="title">Etapa Previa</div>

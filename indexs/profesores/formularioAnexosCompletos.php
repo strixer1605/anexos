@@ -40,23 +40,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu de Salidas</title>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/anexos.css">
     </head>
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
-                <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+                <a onclick="window.history.back();" class="btn btn-warning ms-auto"  style="color: white; font-family: system-ui;">Atrás</a>
             </div>
         </nav>
 
         <div class="registration-form">
             <div class="formulario-container">
                 <div class="form-icon">
-                    <span><i class="icon"></i></span>
+                    <span><i class="icon-notebook"></i></span>
                 </div>
-                <br>
                 <div style="text-align: center;">
                     <h2 style="color: black;">Menú de Anexos</h2>
                 </div>
@@ -218,14 +218,66 @@
             </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
             var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
+
+            function validarConductores() {
+            const conductorCantidad = document.querySelector('input[name="conductor"]:checked').value;
+    
+                if (conductorCantidad == 1) {
+                    ocultarInputs();
+                } else if (conductorCantidad == 2) {
+                    mostrarInputs();
+                } else {
+                    alert("Error al seleccionar la cantidad de conductores");
+                }
+            }
+            
+            function ocultarInputs() {
+                var elementos = [
+                    document.getElementById("nombreConductor2"),
+                    document.getElementById("dniConductor2"),
+                    document.getElementById("licenciaConductor2"),
+                    document.getElementById("vigenciaConductor2"),
+                    document.getElementById("nc2l"),
+                    document.getElementById("dc2l"),
+                    document.getElementById("lc2l"),
+                    document.getElementById("vc2l")
+                ];
+            
+                elementos.forEach(function(elemento) {
+                    if (elemento) {
+                        elemento.style.display = "none";
+                        elemento.disabled = true;
+                    }
+                });
+            }
+            
+            function mostrarInputs() {
+                var elementos = [
+                    document.getElementById("nombreConductor2"),
+                    document.getElementById("dniConductor2"),
+                    document.getElementById("licenciaConductor2"),
+                    document.getElementById("vigenciaConductor2"),
+                    document.getElementById("nc2l"),
+                    document.getElementById("dc2l"),
+                    document.getElementById("lc2l"),
+                    document.getElementById("vc2l")
+                ];
+            
+                elementos.forEach(function(elemento) {
+                    if (elemento) {
+                        elemento.style.display = "";
+                        elemento.disabled = false;
+                    }
+                });
+            }    
         </script>
         <script src="../../js/accionesAnexoV.js"></script>
-
     </body>
 </html>

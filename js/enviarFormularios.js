@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const limite = document.getElementById('fechaSalida');
+    limite.addEventListener('keydown', function (event) {
+        event.preventDefault();
+    }); 
 
     var anexo9Div = document.getElementById('anexo9');
     var anexo9DivTab = document.getElementById('anexo9-tab');
@@ -77,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#materias').val(textMateria.trim());
     });     
 
-
     let agregarBotones = document.querySelectorAll('.cargar-anexo8');
 
     // Objeto para almacenar los valores
@@ -117,10 +120,15 @@ document.addEventListener("DOMContentLoaded", function() {
             // Verificar si el valor ya existe
             const valoresExistentes = Array.from(contenedorSeccion.querySelectorAll('input.form-control.anexo8')).map(input => input.value);
             if (valoresExistentes.includes(valor)) {
-                alert('Este valor ya ha sido agregado.'); // O usar una alerta más estilizada.
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Texto duplicado',
+                    text: 'El mismo texto ya ha sido agregado.',
+                    confirmButtonText: 'OK'
+                });
                 return;
             }
-    
+            
             // Verificar si ya existe el campo oculto
             let hiddenInput = contenedorSeccion.querySelector(`input[name="${inputId}"]`);
             if (!hiddenInput) {
@@ -193,7 +201,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-
     function validateAndSubmitAnexoVIII(event) {
         const fields = [
             'institucion',
@@ -202,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
             'docente',
             'fechaSalida',
             'lugaresVisitar',
-            'objetivos',       // Div para objetivos
+            'objetivos',
             'obsPrevia',
             'descPrevia',
             'obsDurante',
@@ -267,12 +274,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 text: `El campo "${fieldLabel}" es obligatorio.`,
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                // Desplazar hacia el campo no válido
-                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Si es un input o textarea, hacemos foco
                 if (firstInvalidField.tagName === 'INPUT' || firstInvalidField.tagName === 'TEXTAREA') {
                     setTimeout(() => {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         firstInvalidField.focus();
                     }, 500);
                 }
@@ -296,9 +300,11 @@ document.addEventListener("DOMContentLoaded", function() {
             'numeroPoliza',
             'tipoSeguro',
             'nombreConductor1',
-            'nombreConductor2'
+            'dniConductor1',
+            'licenciaConductor1',
+            'vigenciaConductor1'
         ];
-    
+
         for (let id of otrosCampos) {
             const element = document.getElementById(id);
             if (element && element.value.trim() === '') {
@@ -311,8 +317,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         element.focus();
                     }, 500);
                 });
@@ -324,9 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const camposSoloNumeros = [
             { id: 'numeroPoliza', nombre: 'Número de Póliza' },
             { id: 'dniConductor1', nombre: 'DNI del Conductor 1' },
-            { id: 'licenciaConductor1', nombre: 'Licencia del Conductor 1' },
-            { id: 'dniConductor2', nombre: 'DNI del Conductor 2' },
-            { id: 'licenciaConductor2', nombre: 'Licencia del Conductor 2' }
+            { id: 'licenciaConductor1', nombre: 'Licencia del Conductor 1' }
         ];
     
         for (let campo of camposSoloNumeros) {
@@ -334,20 +338,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!element) continue;
             const value = element.value.trim();
     
-            // Verificación: permitir solo dígitos (0-9)
             if (!/^\d+$/.test(value)) {
-                if (!firstInvalidField) {
-                    firstInvalidField = element;
-                }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Valor Inválido',
                     text: `El campo "${campo.nombre}" debe contener solo números.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
                         element.focus();
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
                 event.preventDefault();
@@ -360,32 +360,32 @@ document.addEventListener("DOMContentLoaded", function() {
             { id: 'nombreConductor1', nombre: 'Nombre del Conductor 1' },
             { id: 'nombreConductor2', nombre: 'Nombre del Conductor 2' }
         ];
-    
+        
         for (let campo of camposSoloTexto) {
             const element = document.getElementById(campo.id);
-            if (!element) continue;
+            if (!element) continue; // Si el elemento no existe, salta a la siguiente iteración.
             const value = element.value.trim();
-    
-            // Verificación: permitir solo letras y espacios.
-            if (!/^[a-zA-Z\s]+$/.test(value)) {
-                if (!firstInvalidField) {
-                    firstInvalidField = element;
+        
+            // Verificar solo si el campo no está vacío.
+            if (value) {
+                // Verificación: permitir solo letras y espacios.
+                if (!/^[a-zA-Z\s]+$/.test(value)) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Nombre Inválido',
+                        text: `El campo "${campo.nombre}" debe contener solo letras.`,
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        setTimeout(() => {
+                            element.focus();
+                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 500);
+                    });
+                    event.preventDefault();
+                    return;
                 }
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Nombre Inválido',
-                    text: `El campo "${campo.nombre}" debe contener solo letras.`,
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setTimeout(() => {
-                        element.focus();
-                    }, 500);
-                });
-                event.preventDefault();
-                return;
             }
-        }
+        }        
     
         // Verificación de teléfonos.
         const telefonos = [
@@ -400,18 +400,15 @@ document.addEventListener("DOMContentLoaded", function() {
             const regex = telefono.allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
     
             if (!regex.test(value)) {
-                if (!firstInvalidField) {
-                    firstInvalidField = element;
-                }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Número de Teléfono Inválido',
                     text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" debe contener solo números, con un máximo de 13.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
                         element.focus();
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
                 event.preventDefault();
@@ -419,18 +416,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }
     
             if (value.replace(/-/g, '').length > telefono.maxDigits) {
-                if (!firstInvalidField) {
-                    firstInvalidField = element;
-                }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Número de Teléfono Excedido',
                     text: `El campo "${document.querySelector(`label[for=${telefono.id}]`).textContent}" no debe exceder los ${telefono.maxDigits} dígitos.`,
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
                         element.focus();
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
                 event.preventDefault();
@@ -451,23 +445,23 @@ document.addEventListener("DOMContentLoaded", function() {
             const dniValue = dniElement.value.trim();
             const licenciaValue = licenciaElement.value.trim();
     
-            if (dniValue.length < 7 || dniValue.length > 8 || dniValue !== licenciaValue) {
-                if (!firstInvalidField) {
-                    firstInvalidField = dniElement;
+            // Solo validar si los campos están llenos
+            if (dniValue && licenciaValue) {
+                if (dniValue.length < 7 || dniValue.length > 8 || dniValue !== licenciaValue) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'DNI o Licencia Inválidos',
+                        text: 'El DNI y la Licencia deben tener entre 7 y 8 dígitos y deben coincidir.',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        setTimeout(() => {
+                            dniElement.focus();
+                            dniElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 500);
+                    });
+                    event.preventDefault();
+                    return;
                 }
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'DNI o Licencia Inválidos',
-                    text: 'El DNI y la Licencia deben tener entre 7 y 8 dígitos y deben coincidir.',
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    dniElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setTimeout(() => {
-                        dniElement.focus();
-                    }, 500);
-                });
-                event.preventDefault();
-                return;
             }
         }
     
@@ -480,18 +474,15 @@ document.addEventListener("DOMContentLoaded", function() {
         if (fechaVigenciaConductor1) {
             const fechaVigenciaValue1 = new Date(fechaVigenciaConductor1.value);
             if (fechaVigenciaValue1 <= fechaActual || fechaVigenciaValue1 >= fechaLimite) {
-                if (!firstInvalidField) {
-                    firstInvalidField = fechaVigenciaConductor1;
-                }
                 Swal.fire({
                     icon: 'warning',
                     title: 'Fecha de Vigencia Inválida',
-                    text: 'La fecha de vigencia del conductor 1 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
+                    text: 'La fecha de vigencia del Conductor 1 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    fechaVigenciaConductor1.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
                         fechaVigenciaConductor1.focus();
+                        fechaVigenciaConductor1.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
                 event.preventDefault();
@@ -501,19 +492,16 @@ document.addEventListener("DOMContentLoaded", function() {
     
         if (fechaVigenciaConductor2) {
             const fechaVigenciaValue2 = new Date(fechaVigenciaConductor2.value);
-            if (fechaVigenciaValue2 <= fechaActual || fechaVigenciaValue2 >= fechaLimite) {
-                if (!firstInvalidField) {
-                    firstInvalidField = fechaVigenciaConductor2;
-                }
+            if (fechaVigenciaValue2 && (fechaVigenciaValue2 <= fechaActual || fechaVigenciaValue2 >= fechaLimite)) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Fecha de Vigencia Inválida',
-                    text: 'La fecha de vigencia del conductor 2 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
+                    text: 'La fecha de vigencia del Conductor 2 debe ser posterior a hoy y no mayor a 1 de enero del 2100.',
                     confirmButtonText: 'Aceptar'
                 }).then(() => {
-                    fechaVigenciaConductor2.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     setTimeout(() => {
                         fechaVigenciaConductor2.focus();
+                        fechaVigenciaConductor2.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
                 event.preventDefault();
@@ -521,6 +509,46 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+        const conductor2 = [
+            'nombreConductor2',
+            'dniConductor2',
+            'licenciaConductor2',
+            'vigenciaConductor2'
+        ];
+        
+        // Variable para controlar campo lleno
+        let hayCampoLleno = false;
+        
+        // Primer bucle para verificar si hay algún campo lleno
+        for (let idCon2 of conductor2) {
+            const element = document.getElementById(idCon2);
+            if (element && element.value.trim() !== '') {
+                hayCampoLleno = true;
+                break;
+            }
+        }
+        
+        if (hayCampoLleno) {
+            for (let idCon2 of conductor2) {
+                const element = document.getElementById(idCon2);
+                if (element && element.value.trim() === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Campo Obligatorio',
+                        text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        setTimeout(() => {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            element.focus();
+                        }, 500);
+                    });
+                    event.preventDefault();
+                    return;
+                }
+            }
+        }
+        
         // // Verificar la carga de imágenes
         // const imagenes = [
         //     'cedulaTransporte',
@@ -536,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // for (let imagen of imagenes) {
         //     const archivo = document.getElementById(imagen).files[0];
         //     const archivoPrevio = document.querySelector(`a[data-file-for=${imagen}]`);
-
+    
         //     if (!archivo && !archivoPrevio) {
         //         if (!firstInvalidField) {
         //             firstInvalidField = document.getElementById(imagen);
@@ -558,8 +586,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // }
     
         // Enviar el formulario si todo es válido
-        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', 'anexo10-tab' );
+        enviarFormulario('formAnexoIX', '../../php/insertAnexoIX.php', 'Anexo 9 cargado correctamente!', 'anexo10-tab');
     }
+    
     
     function validateAndSubmitAnexoX(event) {
         const telefonos = [
@@ -647,8 +676,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }).then(() => {
             const element = document.getElementById(fieldId);
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     element.focus();
                 }, 500);
             }

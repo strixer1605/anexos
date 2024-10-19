@@ -15,10 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }); 
 
 
-    function ajustarTextoLabel() {    const width = window.innerWidth;
+    function ajustarTextoLabel() {    
+        const width = window.innerWidth;
         const labels = document.getElementsByClassName('text');  // Devuelve una colección
+        const selectRadio = document.getElementsByClassName('secundario');  // Devuelve una colección
         // Cambiar el texto según el ancho de la ventana
         if (width < 920) {
+            selectRadio[2].textContent = "Reprecentación Inst.";
             labels[0].textContent = "Dentro del barrio.";
             labels[1].textContent = "Dentro Distrito (1)";
             labels[2].textContent = "Dentro Distrito (2)";
@@ -372,6 +375,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("horaRegreso").value = "";
         document.getElementById("fechaLimite").value = "";
     }
+
     function ocultarInputs() {
         var elementos = [
             document.getElementById("nombreHospedaje"),
@@ -391,6 +395,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    
     function mostrarInputs() {
         var elementos = [
             document.getElementById("nombreHospedaje"),

@@ -1,6 +1,6 @@
 <?php 
     include 'conexion.php';
-    $sql = "SELECT * FROM `anexoiv` WHERE estado != 1";
+    $sql = "SELECT * FROM `anexoiv` WHERE estado IN(0, 2, 3)";
     $result = mysqli_query($conexion, $sql);
 
     if (!$result) {
@@ -8,6 +8,7 @@
     }
 
     if (mysqli_num_rows($result) > 0) {
+        $historico = true;
         while($fila = mysqli_fetch_assoc($result)) {
             //Tipo
             if ($fila['tipoSolicitud'] == 1) {
@@ -64,6 +65,9 @@
                     <td> '.$fila['fechaLimite'].' </td>
                 </tr>';
         }
+    }
+    else{
+        $historico = false;
     }
 
     mysqli_free_result($result);

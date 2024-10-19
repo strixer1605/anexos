@@ -8,6 +8,7 @@
     }
 
     if (mysqli_num_rows($result) > 0) {
+        $historico = true;
         while($fila = mysqli_fetch_assoc($result)) {
             //Tipo
             if ($fila['tipoSolicitud'] == 1) {
@@ -65,6 +66,9 @@
                     <td> '.$fila['fechaModificacion'].' </td>
                 </tr>';
         }
+    }
+    else{
+        $historico = false;
     }
 
     mysqli_free_result($result);

@@ -19,10 +19,10 @@
         $dniConductor1 = $_POST['dniConductor1'];
         $licenciaConductor1 = $_POST['licenciaConductor1'];
         $vigenciaConductor1 = $_POST['vigenciaConductor1'];
-        $nombreConductor2 = $_POST['nombreConductor2'];
-        $dniConductor2 = $_POST['dniConductor2'];
-        $licenciaConductor2 = $_POST['licenciaConductor2'];
-        $vigenciaConductor2 = $_POST['vigenciaConductor2'];
+        $nombreConductor2 = !empty($_POST['nombreConductor2']) ? $_POST['nombreConductor2'] : '-';
+        $dniConductor2 = !empty($_POST['dniConductor2']) ? $_POST['dniConductor2'] : '-';
+        $licenciaConductor2 = !empty($_POST['licenciaConductor2']) ? $_POST['licenciaConductor2'] : '-';
+        $vigenciaConductor2 = !empty($_POST['vigenciaConductor2']) ? $_POST['vigenciaConductor2'] : '';
 
         $sqlVerificacion = "SELECT * FROM anexoix WHERE fkAnexoIV = ?";
         $stmtVerificacion = $conexion->prepare($sqlVerificacion);
@@ -61,7 +61,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
         
-            $stmt->bind_param("ssisiississiissiisi", 
+            $stmt->bind_param("ssisiississiisssssi", 
                 $razonSocial, 
                 $domicilioTransporte, 
                 $telefonoTransporte, 
@@ -101,7 +101,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("issisiississiissiis", 
+            $stmt->bind_param("issisiississiisssss", 
                 $idSalida, 
                 $razonSocial, 
                 $domicilioTransporte, 

@@ -83,24 +83,21 @@
         $nombres_array = explode("\n", $nombres);
         
         // Formatear las fechas
-        function formatearFecha($fecha, $hora) {
-            $fechaFormato = date('d/m/Y', strtotime($fecha));
-            return $fechaFormato . ', ' . $hora;
+        function formatearFechaHora($fechaHoraStr) {
+            list($lugar, $fecha, $hora) = explode(', ', $fechaHoraStr);
+            $fechaFormateada = date('d/m/Y', strtotime($fecha));
+            // Devolver la fecha formateada junto con la hora y el lugar
+            return "$lugar, $fechaFormateada, $hora";
         }
 
-        // Dar formato a la fecha de salida y regreso
+        // Verificar si hay datos en $fila
         if ($fila) {
-            // Separar la fecha y la hora de los campos
-            list($lugarSalida, $fechaSalida, $horaSalida) = explode(', ', $fila['salida']);
-            list($lugarRegreso, $fechaRegreso, $horaRegreso) = explode(', ', $fila['regreso']);
-
-            // Formatear las fechas
-            $fila['salida'] = $lugarSalida . ', ' . formatearFecha($fechaSalida, $horaSalida);
-            $fila['regreso'] = $lugarRegreso . ', ' . formatearFecha($fechaRegreso, $horaRegreso);
-
+             $fila['salida'] = formatearFechaHora($fila['salida']);
+            $fila['regreso'] = formatearFechaHora($fila['regreso']);
         } else {
             echo "No se encontraron resultados.";
         }
+
 
 ?>
 <!DOCTYPE html>

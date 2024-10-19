@@ -22,7 +22,9 @@
         <link rel="stylesheet" href="../../css/adminSalidas.css">
     </head>
     <body>
-        <a href="directivo.php" class="btn btn-warning" style="color: white;">Atrás</a>
+        <div class="container-fluid d-flex align-items-center">
+            <a href="directivo.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
+        </div>
         <div class="registration-form">
             <form>
                 <div class="form-icon">

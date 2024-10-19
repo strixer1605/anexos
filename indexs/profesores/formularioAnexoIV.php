@@ -25,16 +25,16 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="../../css/anexoIV.css">
     </head>
     <body>
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid d-flex align-items-center">
+                <a href="menuAdministrarSalidas.php" class="btn btn-warning ms-auto" style="color: white; font-family: system-ui">Atrás</a>
+            </div>
+        </nav>
+
         <div class="registration-form">
-            <nav class="navbar navbar-custom">
-                <div class="container-fluid d-flex align-items-center">
-                    <a onclick="window.history.back();" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
-                </div>
-            </nav>
             <form id="formAnexoIV" class="formulario" action="../../php/insertAnexoIV.php" method="POST">
                 <div class="form-icon">
                     <span><i class="icon icon-notebook"></i></span>
@@ -233,12 +233,10 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-block create-account" id="cargarAnexoIV">Cargar Anexo 4</button>
+                    <center><button type="button" class="create-account" id="cargarAnexoIV">Cargar Anexo 4</button></center>
                 </div>
             </form>
         </div>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/date-fns@4.1/cdn.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
