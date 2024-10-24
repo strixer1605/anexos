@@ -66,16 +66,10 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="anexo5-tab" data-bs-toggle="tab" data-bs-target="#anexo5" type="button" role="tab" aria-controls="anexo5" aria-selected="true">Anexo 5</button>
+                        <button class="nav-link active" id="anexoV-tab" data-bs-toggle="tab" data-bs-target="#anexoV" type="button" role="tab" aria-controls="anexoV" aria-selected="true">Anexo V</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="anexo8-tab" data-bs-toggle="tab" data-bs-target="#anexo8" type="button" role="tab" aria-controls="anexo8" aria-selected="false">Anexo 8</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="anexo9-tab" data-bs-toggle="tab" data-bs-target="#anexo9" type="button" role="tab" aria-controls="anexo9" aria-selected="false">Anexo 9</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="anexo10-tab" data-bs-toggle="tab" data-bs-target="#anexo10" type="button" role="tab" aria-controls="anexo10" aria-selected="false">Anexo 10</button>
+                        <button class="nav-link" id="anexoVIII-tab" data-bs-toggle="tab" data-bs-target="#anexoVIII" type="button" role="tab" aria-controls="anexoVIII" aria-selected="false">Anexo VIII</button>
                     </li>
                 </ul>
 
@@ -83,9 +77,9 @@
                     <?php include('../../php/verificarInsertProfesorAV.php'); ?>
                     
                     <!-- Anexo 5 -->
-                        <div class="tab-pane fade show active" id="anexo5" role="tabpanel" aria-labelledby="anexo5-tab">
+                        <div class="tab-pane fade show active" id="anexoV" role="tabpanel" aria-labelledby="anexoV-tab">
                         <br>
-                        <center><h2>Anexo 5</h2></center>
+                        <center><h2>Anexo V</h2></center>
                         <br>
                         <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
                             <!-- Sección de DNI -->
@@ -168,50 +162,22 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tablaParticipantes">
-                                        
                                     </tbody>
                                 </table>
                             </div>
                         </form>
                     </div>
 
-                    <!-- Anexo 8 -->
-                    <div class="tab-pane fade" id="anexo8" role="tabpanel" aria-labelledby="anexo8-tab">
-                        <form id="formAnexoVIII" class="formulario" action="../../php/insertAnexoVIII.php" method="POST">
+                    <!-- Anexo 9 -->
+                    <div class="tab-pane fade" id="anexoVIII" role="tabpanel" aria-labelledby="anexoVIII-tab">
+                        <form id="formAnexoVIII" class="formulario" enctype="multipart/form-data">
                             <br>
-                            <center><h2>Anexo 8</h2></center>
+                            <center><h2>Anexo VIII</h2></center>
                             <br>
                             <?php include ("../../php/traerAnexoVIII.php"); ?>
                         </form>
-                        <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="submit" class="cargar" id="cargarAnexoVIII">Cargar Anexo 8</button>
-                        </div>
-                    </div>
-
-                    <!-- Anexo 9 -->
-                    <div class="tab-pane fade" id="anexo9" role="tabpanel" aria-labelledby="anexo9-tab">
-                        <form id="formAnexoIX" class="formulario" enctype="multipart/form-data">
-                            <br>
-                            <center><h2>Anexo 9</h2></center>
-                            <br>
-                            <?php include ("../../php/traerAnexoIX.php"); ?>
-                        </form>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="submit" class="cargar" id="cargarAnexoIX">Cargar Anexo 9</button>
-                        </div>
-                    </div>
-
-                    <!-- Anexo 10 -->
-                    <div class="tab-pane fade" id="anexo10" role="tabpanel" aria-labelledby="anexo10-tab">
-                        <br>
-                        <form id="formAnexoX" class="formulario" id="cargarAnexoX">
-                            <center><h2>Anexo 10</h2></center>
-                            <br>
-                            <?php include ("../../php/traerAnexoX.php"); ?>
-                        </form>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="submit" class="btn btn-block cargar" id="cargarAnexoX">Cargar Anexo 10</button>
+                            <button type="submit" class="cargar" id="cargarAnexoVIII">Cargar Anexo VIII</button>
                         </div>
                     </div>
                 </div>
@@ -224,7 +190,7 @@
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
-            var anexoIXHabil = "<?php echo $anexoixHabil; ?>";
+            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
 
             function validarConductores() {
             const conductorCantidad = document.querySelector('input[name="conductor"]:checked').value;
@@ -278,6 +244,6 @@
                 });
             }    
         </script>
-        <script src="../../js/accionesAnexoV.js"></script>
+        <script src="../../js/anexoV.js"></script>
     </body>
 </html>

@@ -2,7 +2,7 @@
     include ('conexion.php');
 
     if (isset($idSalida)) {
-        $sql = "SELECT anexoixHabil FROM anexoiv WHERE idAnexoIV = ?";
+        $sql = "SELECT anexoviiiHabil FROM anexoiv WHERE idAnexoIV = ?";
         $stmt = $conexion->prepare($sql);
         if ($stmt === false) {
             die('Error preparando la consulta: ' . $conexion->error);
@@ -15,7 +15,7 @@
             
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $anexoixHabil = $row['anexoixHabil'];
+                $anexoviiiHabil = $row['anexoviiiHabil'];
             } else {
                 die('Error: No se encontraron resultados.');
             }

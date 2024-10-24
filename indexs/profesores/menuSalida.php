@@ -47,7 +47,7 @@
                         <h3>Formularios</h3>
                         <hr>
                         <ul>
-                            <li><a href="formularioAnexosCompletos.php" class="btn form-control botones w-100 mb-3">Anexos 5/8/9/10</a></li>
+                            <li><a href="formularioAnexos.php" class="btn form-control botones w-100 mb-3">Anexos V y VIII  </a></li>
                         </ul>
                     </div>
                 <?php endif; ?>
@@ -56,8 +56,8 @@
                     <h3>Documentos (PDF)</h3>
                     <hr>
                     <ul>
-                        <li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo 4</a></li>
-                        <li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo 5</a></li>
+                        <li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo IV</a></li>
+                        <li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo V</a></li>
                         <?php include('../../php/menuSalidaTraerPDF.php'); ?>
                     </ul>
                 </div>
