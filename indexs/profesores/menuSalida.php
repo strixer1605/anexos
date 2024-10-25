@@ -56,7 +56,7 @@
                     <h3>Documentos (PDF)</h3>
                     <hr>
                     <ul>
-                        <li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo IV</a></li>
+                        <li><a href="../pdf/plantillaAnexoIVfpdf.php" class="btn form-control botones w-100 mb-3">Anexo IV</a></li>
                         <li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo V</a></li>
                         <?php include('../../php/menuSalidaTraerPDF.php'); ?>
                     </ul>

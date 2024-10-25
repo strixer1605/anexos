@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
     }); 
 
-
     function ajustarTextoLabel() {    
         const width = window.innerWidth;
         const labels = document.getElementsByClassName('text');  // Devuelve una colección
@@ -23,24 +22,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (width < 920) {
             selectRadio[2].textContent = "Reprecentación Inst.";
             labels[0].textContent = "Dentro del barrio.";
-            labels[1].textContent = "Dentro Distrito (1)";
-            labels[2].textContent = "Dentro Distrito (2)";
-            labels[3].textContent = "Fuera Distrito (1)";
-            labels[4].textContent = "Fuera Distrito (2)";
-            labels[5].textContent = "Fuera Región (1)";
-            labels[6].textContent = "Fuera Región (2)";
-            labels[7].textContent = "Fuera Provincia";
-            labels[8].textContent = "Fuera del País";
+            labels[1].textContent = "Distrito (1)";
+            labels[2].textContent = "Distrito (2)";
+            labels[3].textContent = "Fuera Provincia";
+            labels[4].textContent = "Fuera del País";
         } else {
             labels[0].textContent = "Dentro del barrio o área geográfica inmediata, con regreso en el día";
-            labels[1].textContent = "Dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día.";
-            labels[2].textContent = "Dentro del Distrito, con más de 24 horas de duración.";
-            labels[3].textContent = "Fuera del Distrito, no limítrofe, con regreso en el día.";
-            labels[4].textContent = "Fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región).";
-            labels[5].textContent = "Fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día.";
-            labels[6].textContent = "Fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración).";
-            labels[7].textContent = "Fuera de la Provincia de Buenos Aires.";
-            labels[8].textContent = "Fuera del País.";
+            labels[1].textContent = "Dentro del Distrito o fuera de él, con regreso en el día.";
+            labels[2].textContent = "Dentro del Distrito o fuera de él, con más de 24 horas de duración.";
+            labels[3].textContent = "Fuera de la Provincia de Buenos Aires.";
+            labels[4].textContent = "Fuera del País.";
         }
     }
 
@@ -56,28 +47,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     alertMessage = 'Salida dentro del barrio o área geográfica inmediata, con regreso en el día. (5 días previos de entrega)';
                     break;
                 case "2":
-                    alertMessage = 'Salida dentro del Distrito o Distrito limítrofe, sea dentro o fuera de la región, regreso en el día. (15 días previos de entrega)';
+                    alertMessage = 'Salida dentro del Distrito o fuera de él, con regreso en el día. (10 días previos de entrega)';
                     break;
                 case "3":
-                    alertMessage = 'Salida dentro del Distrito, con más de 24 horas de duración. (20 días previos de entrega)';
+                    alertMessage = 'Salida dentro del Distrito o fuera de él, con más de 24 horas de duración. (15 días previos de entrega)';
                     break;
                 case "4":
-                    alertMessage = 'Salida fuera del Distrito, no limítrofe, con regreso en el día. (20 días previos de entrega)';
+                    alertMessage = 'Salida fuera de la Provincia de Buenos Aires. (30 días previos de entrega)';
                     break;
                 case "5":
-                    alertMessage = 'Salida fuera del Distrito por más de 24 horas. (No limítrofe, fuera de la Región). (20 días previos de entrega)';
-                    break;
-                case "6":
-                    alertMessage = 'Salida fuera de la Región, a ciudades de otras Regiones no limitrofes, con regreso en el día. (20 días previos de entrega)';
-                    break;
-                case "7":
-                    alertMessage = 'Salida fuera de la Región (EXCEPCIÓN) (Más de 24 horas de duración). (20 días previos de entrega)';
-                    break;
-                case "8":
-                    alertMessage = 'Salida con 45 días previos de entrega.';
-                    break;
-                case "9":
-                    alertMessage = 'Salida con 45 días previos de entrega.';
+                    alertMessage = 'Salida fuera del país. (30 días previos de entrega)';
                     break;
                 default:
                     alertMessage = 'Opción no válida';
@@ -95,28 +74,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     alertMessage = 'Esta salida necesita 5 días previos de entrega.';
                     break;
                 case "2":
-                    alertMessage = 'Esta salida necesita 15 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 10 días previos de entrega.';
                     break;
                 case "3":
-                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 15 días previos de entrega.';
                     break;
                 case "4":
-                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 30 días previos de entrega.';
                     break;
                 case "5":
-                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
-                    break;
-                case "6":
-                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
-                    break;
-                case "7":
-                    alertMessage = 'Esta salida necesita 20 días previos de entrega.';
-                    break;
-                case "8":
-                    alertMessage = 'Esta salida necesita 45 días previos de entrega.';
-                    break;
-                case "9":
-                    alertMessage = 'Esta salida necesita 45 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 30 días previos de entrega.';
                     break;
                 default:
                     alertMessage = 'Opción no válida';
@@ -135,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("fechaRegreso").disabled = false;
         document.getElementById("horaRegreso").disabled = false;
     
-        if (["1", "2", "4", "6"].includes(distanciaSeleccionada)) {
+        if (["1", "2"].includes(distanciaSeleccionada)) {
             ocultarInputs();
         } else {
             mostrarInputs();
@@ -173,11 +140,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (distanciaSeleccionada == 1) {
             diasARestar = 5;
         } else if (distanciaSeleccionada == 2) {
+            diasARestar = 10;
+        } else if (distanciaSeleccionada == 3) {
             diasARestar = 15;
-        } else if (distanciaSeleccionada > 2 && distanciaSeleccionada <= 7) {
-            diasARestar = 20;
-        } else if (distanciaSeleccionada == 8 || distanciaSeleccionada == 9) {
-            diasARestar = 45;
+        } else if (distanciaSeleccionada == 4 || distanciaSeleccionada == 5) {
+            diasARestar = 30;
         }
     
         // Validar que se haya seleccionado una fecha de salida
@@ -278,26 +245,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const diferenciaMs = fechaHoraRegreso - fechaHoraSalida;
         const diferenciaHoras = diferenciaMs / (1000 * 60 * 60); 
     
-        // Calcular la diferencia mínima entre fecha actual y fecha de salida
-        // const diferenciaMinimaMs = fechaHoraSalida - fechaHoraActual;
-        // const diferenciaMinimaDias = Math.floor(diferenciaMinimaMs / (1000 * 60 * 60 * 24)); // Corregido
-    
         const distanciaSeleccionada = document.querySelector('input[name="distanciaSalida"]:checked')?.value;
-    
-        // Validar si la fecha de salida es al menos 5 días después de la fecha actual
-        // if (diferenciaMinimaDias < 5) {
-        //     Swal.fire({
-        //         icon: 'warning',
-        //         title: 'Duración Inválida',
 
-        //         confirmButtonText: 'Aceptar'
-        //     }).then(() => {
-        //         limpiarCampos();
-        //     });
-        //     return false; // Retorna falso para indicar fallo en la validación
-        // }
-
-        const opcionesMenos24Horas = ["1", "2", "4", "6"];
+        const opcionesMenos24Horas = ["1", "2"];
     
         // Validaciones de tiempo de salida y regreso
         if (opcionesMenos24Horas.includes(distanciaSeleccionada)) {
@@ -419,18 +369,18 @@ document.addEventListener("DOMContentLoaded", function() {
     function validarAnexoIV(event) {
         event.preventDefault();
 
-        const anexo9 = document.querySelector('input[name="anexo9"]:checked');
+        const anexo9 = document.querySelector('input[name="anexoVIII"]:checked');
         if (!anexo9) {
-            const tipoSalidaContainer = document.querySelector('input[name="anexo9"]').closest('div');
+            const tipoSalidaContainer = document.querySelector('input[name="anexoVIII"]').closest('div');
             Swal.fire({
                 icon: 'warning',
                 title: 'Campo no seleccionado',
-                text: 'Por favor indique si va a utilizar el Anexo IX.',
+                text: 'Por favor indique si va a utilizar el Anexo VIII.',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 setTimeout(() => {
                     tipoSalidaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    document.querySelector('input[name="anexo9"]').focus();
+                    document.querySelector('input[name="anexoVIII"]').focus();
                 }, 300);
             });
             return;

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2024 a las 01:47:51
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 25-10-2024 a las 03:33:34
+-- Versión del servidor: 8.0.31
+-- Versión de PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,9 +27,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `actualizacion`
 --
 
-CREATE TABLE `actualizacion` (
-  `id` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
+DROP TABLE IF EXISTS `actualizacion`;
+CREATE TABLE IF NOT EXISTS `actualizacion` (
+  `id` int NOT NULL,
+  `dni` int NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -39,17 +40,19 @@ CREATE TABLE `actualizacion` (
 -- Estructura de tabla para la tabla `alumnos`
 --
 
-CREATE TABLE `alumnos` (
-  `dni` int(11) NOT NULL,
-  `apellido` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+DROP TABLE IF EXISTS `alumnos`;
+CREATE TABLE IF NOT EXISTS `alumnos` (
+  `dni` int NOT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `fechan` date DEFAULT NULL,
-  `sexo` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'N',
-  `id_localidades` int(11) DEFAULT NULL,
-  `domicilio` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `mailVerificado` tinyint(4) NOT NULL,
-  `clave` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1234'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `sexo` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'N',
+  `id_localidades` int DEFAULT NULL,
+  `domicilio` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `mailVerificado` tinyint NOT NULL,
+  `clave` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `alumnos`
@@ -5482,48 +5485,46 @@ INSERT INTO `alumnos` (`dni`, `apellido`, `nombre`, `fechan`, `sexo`, `id_locali
 -- Estructura de tabla para la tabla `anexoiv`
 --
 
-CREATE TABLE `anexoiv` (
-  `idAnexoIV` int(11) NOT NULL,
+DROP TABLE IF EXISTS `anexoiv`;
+CREATE TABLE IF NOT EXISTS `anexoiv` (
+  `idAnexoIV` int NOT NULL AUTO_INCREMENT,
   `estado` tinyint(1) NOT NULL,
   `tipoSolicitud` tinyint(1) NOT NULL,
   `distanciaSalida` tinyint(1) NOT NULL,
-  `region` int(11) NOT NULL,
-  `distrito` varchar(70) NOT NULL,
-  `institucionEducativa` varchar(70) NOT NULL,
-  `numeroInstitucion` int(11) NOT NULL,
-  `domicilioInstitucion` varchar(70) NOT NULL,
-  `telefonoInstitucion` bigint(20) NOT NULL,
-  `denominacionProyecto` varchar(200) NOT NULL,
-  `localidadViaje` varchar(100) NOT NULL,
-  `lugarVisita` varchar(70) NOT NULL,
+  `region` int NOT NULL,
+  `distrito` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `institucionEducativa` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `numeroInstitucion` int NOT NULL,
+  `domicilioInstitucion` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoInstitucion` bigint NOT NULL,
+  `denominacionProyecto` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `direccionVisita` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `localidadVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `regionVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) NOT NULL,
+  `lugarSalida` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaSalida` time NOT NULL,
   `fechaRegreso` date NOT NULL,
-  `lugarRegreso` varchar(70) NOT NULL,
+  `lugarRegreso` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaRegreso` time NOT NULL,
-  `itinerario` varchar(200) NOT NULL,
-  `actividades` varchar(200) NOT NULL,
-  `dniEncargado` int(11) NOT NULL,
-  `apellidoNombreEncargado` varchar(70) NOT NULL,
-  `cargo` int(11) NOT NULL,
-  `nombreHospedaje` varchar(70) NOT NULL,
-  `domicilioHospedaje` varchar(70) NOT NULL,
-  `telefonoHospedaje` bigint(20) NOT NULL,
-  `localidadHospedaje` varchar(70) NOT NULL,
-  `gastosEstimativos` varchar(200) NOT NULL,
-  `anexoixHabil` tinyint(1) NOT NULL,
+  `itinerario` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `objetivosSalida` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cronograma` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `actividades` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniEncargado` int NOT NULL,
+  `apellidoNombreEncargado` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cargo` int NOT NULL,
+  `nombreHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoHospedaje` bigint NOT NULL,
+  `localidadHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `gastosEstimativos` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `anexoviiiHabil` tinyint(1) NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
-  `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoiv`
---
-
-INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `localidadViaje`, `lugarVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoixHabil`, `fechaLimite`, `fechaModificacion`) VALUES
-(1, 3, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'Ahora es Tiempo de Sumar XIV - El Regreso', 'bariloche', 'Villa La Angostura - San Carlos de Bariloche', '2024-11-01', 'E.E.S.T. N° 1', '06:00:00', '2024-11-01', 'E.E.S.T. N° 1', '23:59:00', 'nashe', 'nashe', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'nashe', 1, '2024-10-19 20:30:00', '2024-10-19 23:27:17'),
-(2, 2, 2, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', '2025-01-01', 'TEST2', '20:00:00', '2025-01-01', 'TEST2', '23:00:00', 'TEST2', 'TEST2', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2', 1, '2024-10-19 20:45:00', '2024-10-19 23:45:00');
+  `fechaModificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idAnexoIV`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5531,34 +5532,19 @@ INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`
 -- Estructura de tabla para la tabla `anexoix`
 --
 
-CREATE TABLE `anexoix` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `razonSocial` varchar(100) NOT NULL,
-  `domicilioTransporte` varchar(100) NOT NULL,
-  `telefonoTransporte` int(11) NOT NULL,
-  `domicilioResponsable` varchar(100) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `telefonoMovil` varchar(13) NOT NULL,
-  `titularidadVehiculo` varchar(100) NOT NULL,
-  `companiaAseguradora` varchar(100) NOT NULL,
-  `numeroPoliza` int(11) NOT NULL,
-  `tipoSeguro` varchar(100) NOT NULL,
-  `nombreConductor1` varchar(100) NOT NULL,
-  `dniConductor1` int(8) NOT NULL,
-  `numeroLicencia1` int(8) NOT NULL,
-  `vigencia1` date NOT NULL,
-  `nombreConductor2` varchar(100) NOT NULL,
-  `dniConductor2` varchar(8) NOT NULL,
-  `numeroLicencia2` varchar(8) NOT NULL,
-  `vigencia2` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoix`
---
-
-INSERT INTO `anexoix` (`fkAnexoIV`, `razonSocial`, `domicilioTransporte`, `telefonoTransporte`, `domicilioResponsable`, `telefono`, `telefonoMovil`, `titularidadVehiculo`, `companiaAseguradora`, `numeroPoliza`, `tipoSeguro`, `nombreConductor1`, `dniConductor1`, `numeroLicencia1`, `vigencia1`, `nombreConductor2`, `dniConductor2`, `numeroLicencia2`, `vigencia2`) VALUES
-(1, 'a', 'a', 1234567890, 'a', 1234567890, '0', 'a', 'a', 1234567890, 'a', 'A', 45822343, 45822343, '2025-05-20', '-', '-', '-', '0000-00-00');
+DROP TABLE IF EXISTS `anexoix`;
+CREATE TABLE IF NOT EXISTS `anexoix` (
+  `fkAnexoIV` int NOT NULL,
+  `nombreEstablecimiento` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cue` int NOT NULL,
+  `domicilio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `distrito` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `director` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreProyecto` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `fechaSalida` date NOT NULL,
+  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5566,34 +5552,16 @@ INSERT INTO `anexoix` (`fkAnexoIV`, `razonSocial`, `domicilioTransporte`, `telef
 -- Estructura de tabla para la tabla `anexov`
 --
 
-CREATE TABLE `anexov` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
-  `apellidoNombre` varchar(50) NOT NULL,
-  `edad` tinyint(4) NOT NULL,
-  `cargo` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexov`
---
-
-INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
-(1, 18892329, 'ARRUA SOSA PAOLA', 42, 2),
-(1, 45822343, 'JOAQUIN EMILIANO SEBASTIAN LORENZO', 18, 3),
-(1, 46946877, 'CAMILA SOLEDAD BERON', 18, 3),
-(1, 46946895, 'EMANUEL BRAVO DELGADILLO', 18, 3),
-(1, 46283172, 'SANTIAGO ANGEL CAPUANO', 19, 3),
-(1, 47221344, 'BRUNO BAUTISTA CLEMENTINO', 18, 3),
-(1, 46736665, 'CATALINA GIMENEZ ITURRALDE', 19, 3),
-(1, 46355682, 'MILAGROS PAOLA INSFRAN', 19, 3),
-(1, 46954436, 'NICOLAS LIN', 18, 3),
-(1, 46736614, 'AGOSTINA SOFIA PARRA', 19, 3),
-(1, 47088157, 'FERNANDO ARIEL PEREIRA', 18, 3),
-(1, 47025610, 'DANILO SIMONE', 19, 3),
-(1, 46736650, 'FACUNDO ARIEL YANIBELLI', 19, 3),
-(1, 46946900, 'PAUL WATERS', 18, 3),
-(2, 18892329, 'ARRUA SOSA PAOLA', 42, 2);
+DROP TABLE IF EXISTS `anexov`;
+CREATE TABLE IF NOT EXISTS `anexov` (
+  `fkAnexoIV` int NOT NULL,
+  `dni` int NOT NULL,
+  `apellidoNombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `edad` tinyint NOT NULL,
+  `cargo` tinyint NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`),
+  KEY `dni` (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5601,49 +5569,16 @@ INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VAL
 -- Estructura de tabla para la tabla `anexovi`
 --
 
-CREATE TABLE `anexovi` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dniAlumno` int(11) NOT NULL,
-  `domicilio` varchar(50) NOT NULL,
-  `altura` int(11) NOT NULL,
-  `localidad` varchar(70) NOT NULL,
-  `dniPadre` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexovi`
---
-
-INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `domicilio`, `altura`, `localidad`, `dniPadre`) VALUES
-(1, 47950839, 'calle 58', 860, 'mar del tuyu', 18892329);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `anexovii`
---
-
-CREATE TABLE `anexovii` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dniAlumno` int(11) NOT NULL,
-  `alergico` tinyint(1) NOT NULL,
-  `sufrioA` tinyint(4) NOT NULL,
-  `sufrioB` tinyint(4) NOT NULL,
-  `sufrioC` tinyint(4) NOT NULL,
-  `medicacion` tinyint(1) NOT NULL,
-  `observaciones` varchar(200) NOT NULL,
-  `obraSocial` tinyint(4) NOT NULL,
-  `tipoAlergia` varchar(70) NOT NULL,
-  `otroMalestar` varchar(100) NOT NULL,
-  `tipoMedicacion` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexovii`
---
-
-INSERT INTO `anexovii` (`fkAnexoIV`, `dniAlumno`, `alergico`, `sufrioA`, `sufrioB`, `sufrioC`, `medicacion`, `observaciones`, `obraSocial`, `tipoAlergia`, `otroMalestar`, `tipoMedicacion`) VALUES
-(1, 47950839, 0, 0, 0, 0, 0, '', 0, '', 'pierna rota', '');
+DROP TABLE IF EXISTS `anexovi`;
+CREATE TABLE IF NOT EXISTS `anexovi` (
+  `fkAnexoIV` int NOT NULL,
+  `dniAlumno` int NOT NULL,
+  `domicilio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `altura` int NOT NULL,
+  `localidad` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniPadre` int NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5651,76 +5586,41 @@ INSERT INTO `anexovii` (`fkAnexoIV`, `dniAlumno`, `alergico`, `sufrioA`, `sufrio
 -- Estructura de tabla para la tabla `anexoviii`
 --
 
-CREATE TABLE `anexoviii` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `institucion` varchar(100) NOT NULL,
-  `cursos` varchar(200) NOT NULL,
-  `area` text NOT NULL,
-  `docente` varchar(50) NOT NULL,
-  `objetivo` text NOT NULL,
-  `fechaSalida` date NOT NULL,
-  `lugaresVisitar` varchar(200) NOT NULL,
-  `descripcionPrevias` text NOT NULL,
-  `responsablesPrevias` varchar(500) NOT NULL,
-  `observacionesPrevias` varchar(500) NOT NULL,
-  `descripcionDurante` text NOT NULL,
-  `responsablesDurante` varchar(500) NOT NULL,
-  `observacionesDurante` varchar(500) NOT NULL,
-  `descripcionEvaluacion` text NOT NULL,
-  `responsablesEvaluacion` varchar(500) NOT NULL,
-  `observacionesEvaluacion` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoviii`
---
-
-INSERT INTO `anexoviii` (`fkAnexoIV`, `institucion`, `cursos`, `area`, `docente`, `objetivo`, `fechaSalida`, `lugaresVisitar`, `descripcionPrevias`, `responsablesPrevias`, `observacionesPrevias`, `descripcionDurante`, `responsablesDurante`, `observacionesDurante`, `descripcionEvaluacion`, `responsablesEvaluacion`, `observacionesEvaluacion`) VALUES
-(1, 'E.E.S.T. 1', '1ºA', 'ANALISIS MATEMATICO', 'ARRUA SOSA PAOLA', 'asdasd', '2024-11-01', 'Villa La Angostura - San Carlos de Bariloche', 'sdsdsd', 'ARRUA SOSA PAOLA', 'asdasdsa', 'sdsds', 'ARRUA SOSA PAOLA', 'asdasd', 'sdsdsdsd', 'ARRUA SOSA PAOLA', 'assad');
+DROP TABLE IF EXISTS `anexoviii`;
+CREATE TABLE IF NOT EXISTS `anexoviii` (
+  `fkAnexoIV` int NOT NULL,
+  `razonSocial` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioTransporte` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoTransporte` int NOT NULL,
+  `domicilioResponsable` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefono` int NOT NULL,
+  `telefonoMovil` varchar(13) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `titularidadVehiculo` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `companiaAseguradora` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `numeroPoliza` int NOT NULL,
+  `tipoSeguro` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreConductor1` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniConductor1` int NOT NULL,
+  `numeroLicencia1` int NOT NULL,
+  `vigencia1` date NOT NULL,
+  `nombreConductor2` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniConductor2` varchar(8) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `numeroLicencia2` varchar(8) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `vigencia2` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `anexox`
+-- Estructura de tabla para la tabla `anexovinfo`
 --
 
-CREATE TABLE `anexox` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `localidadEmpresa` varchar(100) NOT NULL,
-  `hospitales` varchar(150) NOT NULL,
-  `hospitalesTelefono` varchar(20) NOT NULL,
-  `hospitalesDireccion` varchar(100) NOT NULL,
-  `hospitalesLocalidad` varchar(100) NOT NULL,
-  `datosInteresNombre` varchar(150) NOT NULL,
-  `datosInteresTelefono` varchar(20) NOT NULL,
-  `datosInteresDireccion` varchar(100) NOT NULL,
-  `datosInteresLocalidad` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexox`
---
-
-INSERT INTO `anexox` (`fkAnexoIV`, `localidadEmpresa`, `hospitales`, `hospitalesTelefono`, `hospitalesDireccion`, `hospitalesLocalidad`, `datosInteresNombre`, `datosInteresTelefono`, `datosInteresDireccion`, `datosInteresLocalidad`) VALUES
-(1, 'asd', 'asd', '123', 'asdasdasd', 'asdasdasd', '', '', '', '');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `anexoxi`
---
-
-CREATE TABLE `anexoxi` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `nombreEstablecimiento` varchar(100) NOT NULL,
-  `cue` int(11) NOT NULL,
-  `domicilio` varchar(50) NOT NULL,
-  `distrito` varchar(50) NOT NULL,
-  `director` varchar(50) NOT NULL,
-  `nombreProyecto` varchar(70) NOT NULL,
-  `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `anexovinfo`;
+CREATE TABLE IF NOT EXISTS `anexovinfo` (
+  `fkAnexoIV` int NOT NULL,
+  `observaciones` varchar(400) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5728,14 +5628,15 @@ CREATE TABLE `anexoxi` (
 -- Estructura de tabla para la tabla `archivos_visto`
 --
 
-CREATE TABLE `archivos_visto` (
-  `id` int(11) NOT NULL,
-  `id_archivo` int(11) NOT NULL,
-  `id_asignacionesalumnos` int(11) NOT NULL,
-  `visto` tinyint(4) NOT NULL,
+DROP TABLE IF EXISTS `archivos_visto`;
+CREATE TABLE IF NOT EXISTS `archivos_visto` (
+  `id` int NOT NULL,
+  `id_archivo` int NOT NULL,
+  `id_asignacionesalumnos` int NOT NULL,
+  `visto` tinyint NOT NULL,
   `tipo` varchar(1) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5743,10 +5644,12 @@ CREATE TABLE `archivos_visto` (
 -- Estructura de tabla para la tabla `area`
 --
 
-CREATE TABLE `area` (
-  `pk_area` int(11) NOT NULL,
-  `area` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE IF NOT EXISTS `area` (
+  `pk_area` int NOT NULL AUTO_INCREMENT,
+  `area` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`pk_area`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `area`
@@ -5765,10 +5668,11 @@ INSERT INTO `area` (`pk_area`, `area`) VALUES
 -- Estructura de tabla para la tabla `areamateria`
 --
 
-CREATE TABLE `areamateria` (
-  `pk_areamateria` int(11) NOT NULL,
-  `pk_area` int(11) NOT NULL,
-  `pk_materia` int(11) NOT NULL
+DROP TABLE IF EXISTS `areamateria`;
+CREATE TABLE IF NOT EXISTS `areamateria` (
+  `pk_areamateria` int NOT NULL,
+  `pk_area` int NOT NULL,
+  `pk_materia` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5776,6 +5680,22 @@ CREATE TABLE `areamateria` (
 --
 
 INSERT INTO `areamateria` (`pk_areamateria`, `pk_area`, `pk_materia`) VALUES
+(1, 5, 1),
+(3, 5, 73),
+(4, 1, 75),
+(5, 1, 76),
+(6, 5, 77),
+(7, 1, 4),
+(8, 1, 26),
+(9, 1, 34),
+(1, 5, 1),
+(3, 5, 73),
+(4, 1, 75),
+(5, 1, 76),
+(6, 5, 77),
+(7, 1, 4),
+(8, 1, 26),
+(9, 1, 34),
 (1, 5, 1),
 (3, 5, 73),
 (4, 1, 75),
@@ -5799,16 +5719,21 @@ INSERT INTO `areamateria` (`pk_areamateria`, `pk_area`, `pk_materia`) VALUES
 -- Estructura de tabla para la tabla `articulo`
 --
 
-CREATE TABLE `articulo` (
-  `id` int(11) NOT NULL,
-  `articulo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `articulo`;
+CREATE TABLE IF NOT EXISTS `articulo` (
+  `id` int NOT NULL,
+  `articulo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `articulo`
 --
 
 INSERT INTO `articulo` (`id`, `articulo`) VALUES
+(1, 114),
+(2, 115),
+(1, 114),
+(2, 115),
 (1, 114),
 (2, 115),
 (1, 114),
@@ -5820,13 +5745,18 @@ INSERT INTO `articulo` (`id`, `articulo`) VALUES
 -- Estructura de tabla para la tabla `asignacionesalumnos`
 --
 
-CREATE TABLE `asignacionesalumnos` (
-  `id` int(11) NOT NULL,
-  `id_cursosciclolectivo` int(11) NOT NULL,
-  `dni_alumnos` int(11) NOT NULL,
-  `id_grupos` tinyint(4) NOT NULL,
-  `estado` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `asignacionesalumnos`;
+CREATE TABLE IF NOT EXISTS `asignacionesalumnos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cursosciclolectivo` int NOT NULL,
+  `dni_alumnos` int NOT NULL,
+  `id_grupos` tinyint NOT NULL,
+  `estado` varchar(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cursosciclolectivo` (`id_cursosciclolectivo`),
+  KEY `dni_alumnos` (`dni_alumnos`),
+  KEY `id grupos` (`id_grupos`)
+) ENGINE=MyISAM AUTO_INCREMENT=15577 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `asignacionesalumnos`
@@ -17154,13 +17084,14 @@ INSERT INTO `asignacionesalumnos` (`id`, `id_cursosciclolectivo`, `dni_alumnos`,
 -- Estructura de tabla para la tabla `asistencia_docente`
 --
 
-CREATE TABLE `asistencia_docente` (
-  `id` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
+DROP TABLE IF EXISTS `asistencia_docente`;
+CREATE TABLE IF NOT EXISTS `asistencia_docente` (
+  `id` int NOT NULL,
+  `dni` int NOT NULL,
   `fecha` date NOT NULL,
-  `estado` varchar(1) NOT NULL,
-  `cupof` int(11) NOT NULL,
-  `dni_toma` int(11) NOT NULL,
+  `estado` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cupof` int NOT NULL,
+  `dni_toma` int NOT NULL,
   `fecha_toma` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -35444,6 +35375,668 @@ INSERT INTO `asistencia_docente` (`id`, `dni`, `fecha`, `estado`, `cupof`, `dni_
 (9209, 33133060, '2024-04-10', 'P', 1999191, 33133060, '2024-04-10 09:04:45'),
 (9210, 26086166, '2024-04-10', '', 1999178, 26086166, '2024-04-10 09:04:45'),
 (9211, 26107997, '2024-04-10', '', 1999177, 26107997, '2024-04-10 09:04:45');
+INSERT INTO `asistencia_docente` (`id`, `dni`, `fecha`, `estado`, `cupof`, `dni_toma`, `fecha_toma`) VALUES
+(1, 22042105, '2023-10-09', 'P', 1516005, 22042105, '2023-10-09 02:10:06'),
+(3, 21664511, '2023-10-09', 'P', 1516030, 21664511, '2023-10-09 02:10:06'),
+(4, 30611501, '2023-10-09', 'P', 1516018, 30611501, '2023-10-09 02:10:06'),
+(5, 22042105, '2023-10-09', '', 686484, 35421533, '2023-10-09 02:10:29'),
+(6, 17506918, '2023-10-09', '', 1519479, 35421533, '2023-10-09 02:10:29'),
+(7, 17751318, '2023-10-09', '', 1519486, 35421533, '2023-10-09 02:10:29'),
+(8, 32416273, '2023-10-09', 'P', 1514600, 35421533, '2023-10-09 02:10:29'),
+(9, 22782260, '2023-10-09', 'A', 1515781, 35421533, '2023-10-09 02:10:29'),
+(10, 27112538, '2023-10-09', 'P', 1690236, 27112538, '2023-10-09 05:10:50'),
+(11, 26496036, '2023-10-09', 'P', 1690243, 26496036, '2023-10-09 05:10:50'),
+(14, 26107997, '2023-10-09', '', 1517006, 35421533, '2023-10-09 02:10:58'),
+(15, 32613828, '2023-10-09', '', 1517009, 35421533, '2023-10-09 02:10:58'),
+(16, 28951084, '2023-10-09', 'P', 1519597, 35421533, '2023-10-09 02:10:58'),
+(17, 20609347, '2023-10-09', 'A', 1519593, 35421533, '2023-10-09 02:10:58'),
+(18, 28951084, '2023-10-09', 'P', 1519595, 35421533, '2023-10-09 02:10:58'),
+(19, 28892178, '2023-10-09', '', 1515784, 28892178, '2023-10-09 04:10:42'),
+(20, 33546603, '2023-10-09', '', 888917, 33546603, '2023-10-09 04:10:42'),
+(21, 17506918, '2023-10-09', 'P', 1519525, 17506918, '2023-10-09 04:10:42'),
+(22, 30401977, '2023-10-09', 'P', 1519533, 30401977, '2023-10-09 04:10:42'),
+(23, 22060879, '2023-10-09', 'P', 1519530, 22060879, '2023-10-09 04:10:42'),
+(24, 17506918, '2023-10-09', 'P', 1519527, 17506918, '2023-10-09 04:10:42'),
+(25, 20481112, '2023-10-09', 'P', 1690974, 20481112, '2023-10-09 03:10:43'),
+(26, 32472695, '2023-10-09', 'P', 1690972, 32472695, '2023-10-09 03:10:43'),
+(28, 22326674, '2023-10-09', 'P', 1690976, 22326674, '2023-10-09 03:10:43'),
+(31, 27628305, '2023-10-09', 'A', 1794790, 27628305, '2023-10-09 04:10:57'),
+(32, 38351270, '2023-10-09', 'P', 1794895, 38351270, '2023-10-09 04:10:57'),
+(33, 20609347, '2023-10-09', 'A', 1794821, 20609347, '2023-10-09 04:10:57'),
+(35, 30426714, '2023-10-09', 'P', 686482, 25023077, '2023-10-09 04:10:01'),
+(36, 23223369, '2023-10-09', 'P', 1514586, 25023077, '2023-10-09 04:10:01'),
+(37, 33028574, '2023-10-09', 'P', 686469, 25023077, '2023-10-09 04:10:01'),
+(38, 25560718, '2023-10-09', 'P', 2504519, 25023077, '2023-10-09 04:10:39'),
+(39, 22970057, '2023-10-09', 'P', 2504521, 25023077, '2023-10-09 04:10:39'),
+(40, 24118187, '2023-10-09', 'P', 2284969, 22107602, '2023-10-09 04:10:30'),
+(41, 29400253, '2023-10-09', 'A', 2284946, 22107602, '2023-10-09 04:10:30'),
+(42, 25484126, '2023-10-09', 'P', 1794869, 25484126, '2023-10-09 07:10:25'),
+(43, 20563233, '2023-10-09', 'P', 1794906, 20563233, '2023-10-09 07:10:25'),
+(44, 26297093, '2023-10-09', 'P', 1794842, 26297093, '2023-10-09 07:10:25'),
+(45, 29211838, '2023-10-09', 'A', 1794839, 29211838, '2023-10-09 07:10:25'),
+(46, 25706122, '2023-10-09', '', 1519692, 25706122, '2023-10-09 07:10:01'),
+(47, 25748087, '2023-10-09', '', 1519702, 25748087, '2023-10-09 07:10:01'),
+(48, 25748087, '2023-10-09', '', 1519703, 25748087, '2023-10-09 07:10:01'),
+(49, 25706122, '2023-10-09', '', 1519693, 25706122, '2023-10-09 07:10:01'),
+(50, 22782260, '2023-10-09', 'A', 1517071, 22782260, '2023-10-09 07:10:01'),
+(51, 31351869, '2023-10-09', 'P', 686597, 31351869, '2023-10-09 07:10:01'),
+(52, 24122285, '2023-10-09', 'A', 1517052, 24122285, '2023-10-09 07:10:01'),
+(53, 22085775, '2023-10-09', 'P', 1518385, 22107602, '2023-10-09 04:10:03'),
+(54, 30267271, '2023-10-09', 'A', 1518382, 22107602, '2023-10-09 04:10:03'),
+(55, 26833848, '2023-10-09', 'P', 1519781, 22107602, '2023-10-09 04:10:03'),
+(56, 31674920, '2023-10-09', 'P', 1519772, 22107602, '2023-10-09 04:10:03'),
+(57, 31674920, '2023-10-09', 'P', 1519777, 22107602, '2023-10-09 04:10:03'),
+(58, 23417598, '2023-10-09', 'P', 1800579, 22107602, '2023-10-09 04:10:34'),
+(59, 39212398, '2023-10-09', 'P', 1867329, 22107602, '2023-10-09 04:10:34'),
+(61, 28953511, '2023-10-09', '', 1796142, 22107602, '2023-10-09 04:10:34'),
+(62, 31351869, '2023-10-09', 'P', 686745, 31033565, '2023-10-09 04:10:52'),
+(63, 30976957, '2023-10-09', 'P', 1514634, 31033565, '2023-10-09 04:10:52'),
+(64, 23885792, '2023-10-09', 'P', 2080870, 31033565, '2023-10-09 04:10:53'),
+(65, 33133060, '2023-10-09', 'P', 2080874, 31033565, '2023-10-09 04:10:53'),
+(66, 32002822, '2023-10-09', 'P', 2080876, 31033565, '2023-10-09 04:10:53'),
+(67, 23885792, '2023-10-09', 'P', 2080864, 31033565, '2023-10-09 04:10:53'),
+(68, 28443233, '2023-10-09', '', 2080861, 31033565, '2023-10-09 04:10:53'),
+(69, 33133060, '2023-10-09', 'P', 1999187, 22470807, '2023-10-09 05:10:11'),
+(70, 23885792, '2023-10-09', 'P', 1999186, 22470807, '2023-10-09 05:10:11'),
+(71, 34861831, '2023-10-09', 'P', 1999179, 22470807, '2023-10-09 05:10:11'),
+(72, 26086166, '2023-10-09', 'A', 1999178, 22470807, '2023-10-09 05:10:11'),
+(73, 28831703, '2023-10-09', 'P', 2080819, 28831703, '2023-10-09 05:10:45'),
+(74, 26764251, '2023-10-09', 'A', 2080834, 26764251, '2023-10-09 05:10:45'),
+(75, 30854266, '2023-10-09', '', 1519716, 16749306, '2023-10-09 05:10:26'),
+(76, 18414086, '2023-10-09', '', 1519721, 16749306, '2023-10-09 05:10:26'),
+(77, 29568586, '2023-10-09', '', 1517126, 16749306, '2023-10-09 05:10:26'),
+(78, 24391954, '2023-10-09', '', 1517129, 16749306, '2023-10-09 05:10:26'),
+(79, 24064910, '2023-10-09', '', 1517131, 16749306, '2023-10-09 05:10:26'),
+(83, 33032982, '2023-10-09', '', 2148576, 33032982, '2023-10-09 08:10:59'),
+(84, 34511194, '2023-10-09', 'P', 2148571, 34511194, '2023-10-09 08:10:59'),
+(85, 31635428, '2023-10-09', 'P', 2148575, 31635428, '2023-10-09 08:10:59'),
+(86, 33119476, '2023-10-09', 'P', 2148574, 33119476, '2023-10-09 08:10:59'),
+(94, 34233898, '2023-10-09', 'P', 1796138, 38268665, '2023-10-09 06:10:32'),
+(96, 27628305, '2023-10-09', 'A', 1999152, 16749306, '2023-10-09 07:10:16'),
+(97, 23452402, '2023-10-09', 'A', 1999151, 16749306, '2023-10-09 07:10:16'),
+(98, 38148166, '2023-10-09', 'P', 1999170, 16749306, '2023-10-09 07:10:16'),
+(102, 28953511, '2023-10-09', 'P', 1794786, 35228863, '2023-10-09 07:10:49'),
+(103, 35827442, '2023-10-09', '', 1690249, 35228863, '2023-10-09 07:10:15'),
+(104, 17506918, '2023-10-09', 'P', 1690287, 35228863, '2023-10-09 07:10:15'),
+(105, 30401977, '2023-10-09', 'P', 1690325, 35228863, '2023-10-09 07:10:15'),
+(108, 24391954, '2023-10-09', 'P', 1690272, 16749306, '2023-10-09 07:10:06'),
+(109, 23771160, '2023-10-09', 'P', 1690252, 16749306, '2023-10-09 07:10:06'),
+(114, 17682499, '2023-10-09', 'A', 1690947, 17682499, '2023-10-09 08:10:06'),
+(115, 27262149, '2023-10-09', 'P', 1690957, 27262149, '2023-10-09 08:10:06'),
+(116, 28081603, '2023-10-09', '', 2504529, 26817732, '2023-10-09 07:10:56'),
+(117, 26764251, '2023-10-09', 'A', 2504532, 26817732, '2023-10-09 07:10:56'),
+(118, 33133060, '2023-10-09', 'P', 2504534, 26817732, '2023-10-09 07:10:56'),
+(119, 25899302, '2023-10-09', 'P', 1517213, 22171953, '2023-10-09 11:10:01'),
+(120, 22060879, '2023-10-09', 'P', 1517227, 22171953, '2023-10-09 11:10:01'),
+(121, 32946869, '2023-10-09', '', 1519749, 22171953, '2023-10-09 11:10:02'),
+(122, 21731472, '2023-10-09', '', 1519754, 22171953, '2023-10-09 11:10:02'),
+(123, 27724849, '2023-10-10', 'P', 1519558, 27724849, '2023-10-10 01:10:45'),
+(124, 20563233, '2023-10-10', 'P', 1519559, 20563233, '2023-10-10 01:10:45'),
+(126, 31351869, '2023-10-10', 'P', 686390, 31351869, '2023-10-10 01:10:45'),
+(127, 21868284, '2023-10-10', 'P', 1517004, 35421533, '2023-10-10 08:10:11'),
+(128, 11309169, '2023-10-10', '', 1516996, 35421533, '2023-10-10 08:10:11'),
+(129, 33032982, '2023-10-10', '', 1517003, 35421533, '2023-10-10 08:10:11'),
+(130, 31732876, '2023-10-10', '', 1519594, 35421533, '2023-10-10 08:10:11'),
+(131, 37953615, '2023-10-10', 'P', 1517025, 35421533, '2023-10-10 08:10:30'),
+(132, 28953511, '2023-10-10', '', 1517030, 35421533, '2023-10-10 08:10:30'),
+(133, 21137225, '2023-10-10', '', 1519664, 35421533, '2023-10-10 08:10:30'),
+(134, 22309364, '2023-10-10', '', 1519674, 35421533, '2023-10-10 08:10:30'),
+(135, 21137225, '2023-10-10', '', 1519665, 35421533, '2023-10-10 08:10:30'),
+(136, 25560718, '2023-10-10', 'P', 1517077, 36476474, '2023-10-10 08:10:47'),
+(137, 21868284, '2023-10-10', 'P', 1390459, 36476474, '2023-10-10 08:10:47'),
+(138, 39804909, '2023-10-10', '', 1275046, 36476474, '2023-10-10 08:10:47'),
+(139, 18834423, '2023-10-10', 'P', 1519737, 18834423, '2023-10-10 01:10:00'),
+(140, 16397847, '2023-10-10', '', 1519725, 16397847, '2023-10-10 01:10:00'),
+(141, 21970865, '2023-10-10', '', 1519742, 21970865, '2023-10-10 01:10:00'),
+(142, 30592902, '2023-10-10', 'P', 1517136, 30592902, '2023-10-10 01:10:00'),
+(143, 11309169, '2023-10-10', 'A', 686441, 11309169, '2023-10-10 10:10:08'),
+(145, 24824515, '2023-10-10', '', 991545, 24824515, '2023-10-10 10:10:08'),
+(148, 34861831, '2023-10-10', '', 2084314, 18892329, '2023-10-10 08:10:24'),
+(149, 29414920, '2023-10-10', '', 2084321, 18892329, '2023-10-10 08:10:24'),
+(150, 18834423, '2023-10-10', '', 2084317, 18892329, '2023-10-10 08:10:24'),
+(151, 34861831, '2023-10-10', '', 2084316, 18892329, '2023-10-10 08:10:24'),
+(152, 30267271, '2023-10-10', 'P', 1899547, 18892329, '2023-10-10 08:10:56'),
+(155, 42155074, '2023-10-10', '', 686401, 17506913, '2023-10-10 08:10:54'),
+(156, 17287908, '2023-10-10', '', 686493, 17506913, '2023-10-10 08:10:54'),
+(157, 18228380, '2023-10-10', '', 1519535, 17506913, '2023-10-10 08:10:54'),
+(158, 29955651, '2023-10-10', '', 1519537, 17506913, '2023-10-10 08:10:54'),
+(159, 38955025, '2023-10-10', 'P', 2504522, 38955025, '2023-10-10 01:10:31'),
+(160, 25240107, '2023-10-10', 'P', 2504518, 25240107, '2023-10-10 01:10:31'),
+(162, 16917974, '2023-10-10', '', 1514605, 23452402, '2023-10-10 10:10:38'),
+(163, 32037205, '2023-10-10', '', 1514613, 23452402, '2023-10-10 10:10:38'),
+(164, 31732876, '2023-10-10', '', 1519487, 23452402, '2023-10-10 10:10:38'),
+(165, 27739069, '2023-10-10', '', 1519495, 23452402, '2023-10-10 10:10:38'),
+(166, 30976957, '2023-10-10', 'P', 1517204, 30976957, '2023-10-10 01:10:47'),
+(167, 17682499, '2023-10-10', 'P', 1517151, 17682499, '2023-10-10 01:10:47'),
+(168, 30043868, '2023-10-10', 'P', 1519756, 30043868, '2023-10-10 01:10:47'),
+(169, 32946869, '2023-10-10', 'P', 1519750, 32946869, '2023-10-10 01:10:47'),
+(170, 26764251, '2023-10-10', '', 1519751, 26764251, '2023-10-10 01:10:47'),
+(171, 13102785, '2023-10-10', '', 686638, 23452402, '2023-10-10 10:10:25'),
+(172, 24654079, '2023-10-10', '', 686620, 23452402, '2023-10-10 10:10:25'),
+(173, 20481112, '2023-10-10', '', 1514632, 23452402, '2023-10-10 10:10:25'),
+(174, 27739069, '2023-10-10', '', 1519503, 23452402, '2023-10-10 10:10:25'),
+(175, 20609347, '2023-10-10', '', 1519504, 23452402, '2023-10-10 10:10:25'),
+(176, 22427868, '2023-10-10', 'P', 1517282, 29698259, '2023-10-10 10:10:23'),
+(177, 24064910, '2023-10-10', 'P', 1517278, 29698259, '2023-10-10 10:10:23'),
+(178, 24064910, '2023-10-10', 'P', 1517280, 29698259, '2023-10-10 10:10:23'),
+(179, 29511782, '2023-10-10', 'P', 1519580, 29698259, '2023-10-10 10:10:11'),
+(180, 22060879, '2023-10-10', 'A', 1519584, 29698259, '2023-10-10 10:10:11'),
+(181, 22060879, '2023-10-10', 'A', 1519586, 29698259, '2023-10-10 10:10:11'),
+(182, 18834423, '2023-10-10', 'P', 1519582, 29698259, '2023-10-10 10:10:11'),
+(183, 31351869, '2023-10-10', '', 1516995, 29698259, '2023-10-10 10:10:11'),
+(184, 16056781, '2023-10-10', '', 1516988, 29698259, '2023-10-10 10:10:11'),
+(185, 28081603, '2023-10-10', '', 2504530, 17506913, '2023-10-10 11:10:59'),
+(186, 26764251, '2023-10-10', '', 2504536, 17506913, '2023-10-10 11:10:59'),
+(187, 33119476, '2023-10-10', '', 2504538, 17506913, '2023-10-10 11:10:59'),
+(188, 26297093, '2023-10-10', 'P', 1794823, 32649049, '2023-10-10 01:10:01'),
+(189, 24064910, '2023-10-10', 'P', 1794903, 32649049, '2023-10-10 01:10:01'),
+(191, 27724849, '2023-10-10', 'P', 1690283, 32649049, '2023-10-10 01:10:57'),
+(192, 28951084, '2023-10-10', '', 1690288, 32649049, '2023-10-10 01:10:57'),
+(196, 29568317, '2023-10-10', 'P', 1690965, 29568317, '2023-10-10 03:10:50'),
+(197, 32472695, '2023-10-10', 'P', 1690969, 32472695, '2023-10-10 03:10:50'),
+(211, 16056781, '2023-10-10', 'P', 1516013, 32649049, '2023-10-10 02:10:31'),
+(214, 22782260, '2023-10-10', 'A', 1899632, 18892329, '2023-10-10 02:10:05'),
+(215, 21970865, '2023-10-10', 'P', 1899635, 18892329, '2023-10-10 02:10:05'),
+(216, 24871079, '2023-10-10', 'P', 2084278, 18892329, '2023-10-10 02:10:24'),
+(217, 16939324, '2023-10-10', 'P', 2084286, 18892329, '2023-10-10 02:10:24'),
+(224, 17287908, '2023-10-10', 'P', 2504520, 17287908, '2023-10-10 03:10:20'),
+(225, 23885792, '2023-10-10', '', 2289015, 22107602, '2023-10-10 05:10:05'),
+(226, 38148166, '2023-10-10', '', 2289008, 22107602, '2023-10-10 05:10:05'),
+(227, 29511782, '2023-10-10', '', 2289004, 22107602, '2023-10-10 05:10:05'),
+(228, 23885792, '2023-10-10', '', 2289017, 22107602, '2023-10-10 05:10:05'),
+(229, 22902418, '2023-10-10', 'P', 2284957, 22107602, '2023-10-10 05:10:05'),
+(230, 24391954, '2023-10-10', 'P', 2284962, 22107602, '2023-10-10 05:10:05'),
+(231, 20215714, '2023-10-10', 'P', 1517422, 22107602, '2023-10-10 05:10:37'),
+(232, 33546603, '2023-10-10', 'A', 1518390, 22107602, '2023-10-10 05:10:37'),
+(233, 26833848, '2023-10-10', 'P', 1519779, 22107602, '2023-10-10 05:10:37'),
+(234, 32472695, '2023-10-10', 'P', 1519783, 22107602, '2023-10-10 05:10:37'),
+(235, 37906669, '2023-10-10', '', 1796143, 38268665, '2023-10-10 06:10:43'),
+(236, 25431836, '2023-10-10', '', 1796146, 38268665, '2023-10-10 06:10:43'),
+(237, 31674920, '2023-10-10', '', 1796149, 38268665, '2023-10-10 06:10:43'),
+(238, 22042105, '2023-10-10', '', 2080855, 22042105, '2023-10-10 06:10:27'),
+(239, 23885792, '2023-10-10', '', 2080864, 23885792, '2023-10-10 06:10:27'),
+(240, 28857052, '2023-10-10', 'P', 2080851, 28857052, '2023-10-10 06:10:27'),
+(241, 25431836, '2023-10-10', '', 2080859, 25431836, '2023-10-10 06:10:27'),
+(242, 23885792, '2023-10-10', '', 1999161, 42039673, '2023-10-10 06:10:47'),
+(243, 26764251, '2023-10-10', '', 1999158, 42039673, '2023-10-10 06:10:47'),
+(244, 32002822, '2023-10-10', '', 1999159, 42039673, '2023-10-10 06:10:47'),
+(245, 38148166, '2023-10-10', '', 1999163, 42039673, '2023-10-10 06:10:47'),
+(246, 26496036, '2023-10-10', 'A', 1999154, 42039673, '2023-10-10 06:10:47'),
+(247, 23771160, '2023-10-10', 'P', 1999156, 42039673, '2023-10-10 06:10:47'),
+(248, 21677394, '2023-10-10', 'P', 1690962, 42039673, '2023-10-10 06:10:17'),
+(251, 30611501, '2023-10-10', 'P', 1690956, 42039673, '2023-10-10 06:10:17'),
+(252, 30267098, '2023-10-10', 'P', 1690959, 42039673, '2023-10-10 06:10:17'),
+(255, 26297093, '2023-10-10', 'P', 1690250, 42039673, '2023-10-10 08:10:18'),
+(256, 24439046, '2023-10-10', 'P', 1690255, 42039673, '2023-10-10 08:10:18'),
+(257, 12887456, '2023-10-10', 'P', 1517064, 35228863, '2023-10-10 09:10:18'),
+(258, 20289177, '2023-10-10', 'P', 1517067, 35228863, '2023-10-10 09:10:18'),
+(261, 28082716, '2023-10-10', 'A', 1794802, 35228863, '2023-10-10 09:10:39'),
+(262, 22042105, '2023-10-10', 'P', 1794834, 35228863, '2023-10-10 09:10:04'),
+(263, 18834423, '2023-10-10', 'P', 1794845, 35228863, '2023-10-10 09:10:04'),
+(264, 17541095, '2023-10-11', 'P', 1519553, 17541095, '2023-10-11 08:10:49'),
+(265, 25484126, '2023-10-11', 'P', 1519551, 25484126, '2023-10-11 08:10:49'),
+(266, 25484126, '2023-10-11', 'P', 1519550, 25484126, '2023-10-11 08:10:49'),
+(267, 17541095, '2023-10-11', 'P', 1519555, 17541095, '2023-10-11 08:10:49'),
+(270, 27739069, '2023-10-11', 'P', 1514596, 27739069, '2023-10-11 07:10:06'),
+(271, 25431836, '2023-10-11', '', 686506, 25431836, '2023-10-11 07:10:06'),
+(272, 18414086, '2023-10-11', '', 1519477, 18414086, '2023-10-11 07:10:06'),
+(273, 21137225, '2023-10-11', '', 1519470, 21137225, '2023-10-11 07:10:06'),
+(274, 25484126, '2023-10-11', '', 1519467, 25484126, '2023-10-11 07:10:06'),
+(275, 21137225, '2023-10-11', '', 1519476, 21137225, '2023-10-11 07:10:06'),
+(276, 29568586, '2023-10-11', 'P', 1899607, 18892329, '2023-10-11 07:10:06'),
+(277, 24749056, '2023-10-11', 'A', 1899628, 18892329, '2023-10-11 07:10:06'),
+(278, 30401977, '2023-10-11', '', 1899648, 18892329, '2023-10-11 07:10:06'),
+(279, 25296957, '2023-10-11', '', 1899641, 18892329, '2023-10-11 07:10:06'),
+(280, 31732876, '2023-10-11', '', 1899637, 18892329, '2023-10-11 07:10:06'),
+(281, 30401977, '2023-10-11', '', 1899650, 18892329, '2023-10-11 07:10:06'),
+(282, 18834423, '2023-10-11', 'P', 2084305, 18892329, '2023-10-11 07:10:06'),
+(283, 32037205, '2023-10-11', '', 2084299, 18892329, '2023-10-11 07:10:06'),
+(284, 23771160, '2023-10-11', '', 2084274, 18892329, '2023-10-11 07:10:06'),
+(285, 33133060, '2023-10-11', 'P', 1999189, 36476474, '2023-10-11 07:10:56'),
+(286, 26764251, '2023-10-11', 'A', 1999194, 36476474, '2023-10-11 07:10:56'),
+(287, 26764251, '2023-10-11', 'A', 1999192, 36476474, '2023-10-11 07:10:56'),
+(288, 33133060, '2023-10-11', 'P', 1999191, 36476474, '2023-10-11 07:10:56'),
+(291, 27628305, '2023-10-11', 'P', 1520084, 29698259, '2023-10-11 08:10:43'),
+(292, 34342698, '2023-10-11', 'A', 1154295, 29698259, '2023-10-11 08:10:43'),
+(293, 22051542, '2023-10-11', '', 804491, 29698259, '2023-10-11 08:10:43'),
+(294, 29839942, '2023-10-11', 'A', 686635, 29698259, '2023-10-11 08:10:43'),
+(295, 30680339, '2023-10-11', 'A', 1517058, 30680339, '2023-10-11 01:10:10'),
+(296, 16056781, '2023-10-11', 'P', 1517062, 16056781, '2023-10-11 01:10:10'),
+(297, 31351869, '2023-10-11', 'P', 686597, 31351869, '2023-10-11 01:10:10'),
+(298, 24122285, '2023-10-11', 'P', 1517052, 24122285, '2023-10-11 01:10:10'),
+(299, 25560718, '2023-10-11', 'A', 1517077, 36476474, '2023-10-11 10:10:29'),
+(300, 24654079, '2023-10-11', 'A', 1390465, 36476474, '2023-10-11 10:10:29'),
+(301, 31757073, '2023-10-11', '', 1519713, 36476474, '2023-10-11 10:10:29'),
+(302, 25706122, '2023-10-11', '', 1519704, 36476474, '2023-10-11 10:10:29'),
+(303, 25706122, '2023-10-11', '', 1519707, 36476474, '2023-10-11 10:10:29'),
+(304, 32294470, '2023-10-11', 'A', 1519715, 36476474, '2023-10-11 10:10:29'),
+(305, 22427868, '2023-10-11', 'P', 1517242, 22171953, '2023-10-11 10:10:50'),
+(306, 20289177, '2023-10-11', 'P', 1517176, 22171953, '2023-10-11 10:10:50'),
+(307, 22060879, '2023-10-11', 'A', 1517227, 22171953, '2023-10-11 10:10:50'),
+(308, 24749056, '2023-10-11', 'A', 686706, 21464064, '2023-10-11 11:10:51'),
+(309, 21464064, '2023-10-11', 'P', 1514603, 21464064, '2023-10-11 11:10:51'),
+(310, 27262149, '2023-10-11', 'A', 1514620, 21464064, '2023-10-11 11:10:51'),
+(311, 28081837, '2023-10-11', 'P', 1514593, 28081837, '2023-10-11 06:10:44'),
+(312, 34171254, '2023-10-11', 'P', 1514590, 34171254, '2023-10-11 06:10:44'),
+(314, 21464064, '2023-10-11', 'P', 1514622, 21464064, '2023-10-11 11:10:56'),
+(315, 25560718, '2023-10-11', '', 1514630, 21464064, '2023-10-11 11:10:56'),
+(316, 20596014, '2023-10-11', '', 1514627, 21464064, '2023-10-11 11:10:56'),
+(317, 20609347, '2023-10-11', 'A', 2504524, 20609347, '2023-10-11 01:10:14'),
+(318, 27739069, '2023-10-11', 'P', 2504517, 27739069, '2023-10-11 01:10:14'),
+(319, 94265480, '2023-10-11', '', 2504515, 94265480, '2023-10-11 01:10:14'),
+(320, 25882845, '2023-10-11', '', 2504514, 25882845, '2023-10-11 01:10:14'),
+(325, 18228447, '2023-10-11', 'A', 686353, 32649049, '2023-10-11 01:10:33'),
+(326, 23068191, '2023-10-11', 'A', 1515814, 32649049, '2023-10-11 01:10:33'),
+(327, 26297093, '2023-10-11', 'A', 1794808, 26297093, '2023-10-11 07:10:07'),
+(328, 16397847, '2023-10-11', 'P', 1794900, 16397847, '2023-10-11 07:10:07'),
+(329, 17506918, '2023-10-11', 'P', 1794899, 17506918, '2023-10-11 07:10:07'),
+(330, 38351270, '2023-10-11', 'P', 1794895, 38351270, '2023-10-11 07:10:07'),
+(331, 18834423, '2023-10-11', 'P', 1794804, 18834423, '2023-10-11 07:10:07'),
+(332, 23223369, '2023-10-11', 'A', 1794795, 23223369, '2023-10-11 07:10:07'),
+(333, 24654079, '2023-10-11', '', 1516975, 24654079, '2023-10-11 01:10:49'),
+(334, 13102785, '2023-10-11', '', 1516980, 13102785, '2023-10-11 01:10:49'),
+(335, 18228380, '2023-10-11', 'P', 1519565, 18228380, '2023-10-11 01:10:49'),
+(336, 18892329, '2023-10-11', 'P', 1519563, 18892329, '2023-10-11 01:10:49'),
+(337, 18228380, '2023-10-11', 'P', 1519561, 18228380, '2023-10-11 01:10:49'),
+(338, 17541095, '2023-10-11', '', 1519568, 17541095, '2023-10-11 01:10:49'),
+(339, 32656537, '2023-10-11', '', 2080832, 32656537, '2023-10-11 07:10:08'),
+(340, 23223369, '2023-10-11', '', 2080822, 23223369, '2023-10-11 07:10:08'),
+(341, 25882845, '2023-10-11', '', 2080836, 25882845, '2023-10-11 07:10:08'),
+(346, 26086166, '2023-10-11', 'A', 1999178, 22470807, '2023-10-11 03:10:54'),
+(347, 26107997, '2023-10-11', 'P', 1999177, 22470807, '2023-10-11 03:10:54'),
+(355, 43656496, '2023-10-11', 'P', 1690949, 42039673, '2023-10-11 06:10:11'),
+(356, 35421388, '2023-10-11', '', 1801854, 42039673, '2023-10-11 06:10:11'),
+(357, 35686059, '2023-10-11', 'P', 1794826, 35686059, '2023-10-11 07:10:00'),
+(358, 18834423, '2023-10-11', 'P', 1794845, 18834423, '2023-10-11 07:10:00'),
+(359, 23417598, '2023-10-11', 'P', 1796155, 38268665, '2023-10-11 07:10:27'),
+(360, 20831297, '2023-10-11', 'P', 1867330, 38268665, '2023-10-11 07:10:27'),
+(361, 21843058, '2023-10-11', 'A', 1800573, 38268665, '2023-10-11 07:10:27'),
+(362, 34732165, '2023-10-11', 'A', 1796154, 38268665, '2023-10-11 07:10:27'),
+(363, 35027695, '2023-10-11', 'P', 1796145, 38268665, '2023-10-11 07:10:27'),
+(364, 29075477, '2023-10-11', 'A', 2080872, 38268665, '2023-10-11 07:10:28'),
+(365, 33133060, '2023-10-11', 'P', 2080871, 38268665, '2023-10-11 07:10:28'),
+(366, 32002822, '2023-10-11', 'P', 2080875, 38268665, '2023-10-11 07:10:28'),
+(367, 34861831, '2023-10-11', 'P', 2080863, 38268665, '2023-10-11 07:10:28'),
+(368, 13217227, '2023-10-11', 'P', 2080866, 38268665, '2023-10-11 07:10:28'),
+(369, 24391954, '2023-10-11', 'P', 1690273, 38268665, '2023-10-11 08:10:24'),
+(370, 24366013, '2023-10-11', 'P', 1690247, 38268665, '2023-10-11 08:10:24'),
+(371, 17506918, '2023-10-11', 'P', 1690278, 38268665, '2023-10-11 08:10:24'),
+(372, 26764251, '2023-10-11', '', 1999165, 0, '2023-10-11 08:10:15'),
+(373, 32294470, '2023-10-11', '', 1999168, 0, '2023-10-11 08:10:15'),
+(374, 27739023, '2023-10-11', '', 1999167, 0, '2023-10-11 08:10:15'),
+(375, 29511782, '2023-10-11', '', 1999166, 0, '2023-10-11 08:10:15'),
+(376, 34861831, '2023-10-11', 'P', 1999157, 0, '2023-10-11 08:10:15'),
+(377, 24439046, '2023-10-11', 'P', 1999150, 0, '2023-10-11 08:10:15'),
+(378, 28081603, '2023-10-11', '', 2504530, 26817732, '2023-10-11 09:10:07'),
+(379, 28081603, '2023-10-11', '', 2504529, 26817732, '2023-10-11 09:10:07'),
+(380, 31635428, '2023-10-11', 'A', 2504537, 26817732, '2023-10-11 09:10:07'),
+(381, 26764251, '2023-10-11', 'A', 2504539, 26817732, '2023-10-11 09:10:07'),
+(382, 20831297, '2023-10-11', 'P', 1899828, 26817732, '2023-10-11 09:10:20'),
+(383, 22051542, '2023-10-12', 'A', 686352, 22051542, '2023-10-12 10:10:02'),
+(384, 13102785, '2023-10-12', 'P', 1517044, 13102785, '2023-10-12 10:10:02'),
+(385, 28951084, '2023-10-12', '', 1519683, 28951084, '2023-10-12 10:10:02'),
+(386, 34861831, '2023-10-12', '', 1519679, 34861831, '2023-10-12 10:10:02'),
+(387, 11309169, '2023-10-12', 'P', 686441, 11309169, '2023-10-12 02:10:20'),
+(388, 28081837, '2023-10-12', 'P', 1514593, 28081837, '2023-10-12 02:10:20'),
+(389, 18892329, '2023-10-12', 'P', 1519456, 18892329, '2023-10-12 02:10:20'),
+(390, 21970865, '2023-10-12', 'P', 1519451, 21970865, '2023-10-12 02:10:20'),
+(391, 14592220, '2023-10-12', 'P', 1517080, 14592220, '2023-10-12 10:10:14'),
+(392, 27262149, '2023-10-12', 'A', 1390463, 27262149, '2023-10-12 10:10:14'),
+(393, 39804909, '2023-10-12', '', 1275046, 39804909, '2023-10-12 10:10:14'),
+(394, 27605077, '2023-10-12', '', 686498, 27605077, '2023-10-12 10:10:52'),
+(395, 31965923, '2023-10-12', '', 1519984, 31965923, '2023-10-12 10:10:52'),
+(396, 29568586, '2023-10-12', '', 1514598, 29568586, '2023-10-12 10:10:52'),
+(397, 31203838, '2023-10-12', '', 1515773, 31203838, '2023-10-12 10:10:52'),
+(398, 30267271, '2023-10-12', 'A', 1899547, 18892329, '2023-10-12 11:10:33'),
+(399, 22051542, '2023-10-12', 'A', 1899620, 18892329, '2023-10-12 11:10:33'),
+(400, 24064910, '2023-10-12', '', 1899662, 18892329, '2023-10-12 11:10:33'),
+(401, 29511782, '2023-10-12', '', 1899638, 18892329, '2023-10-12 11:10:33'),
+(402, 29568586, '2023-10-12', 'A', 1514602, 32649049, '2023-10-12 01:10:44'),
+(403, 32416273, '2023-10-12', 'P', 1514600, 32649049, '2023-10-12 01:10:44'),
+(404, 35421375, '2023-10-12', 'P', 686458, 32649049, '2023-10-12 01:10:44'),
+(405, 33028574, '2023-10-12', 'P', 2080816, 33028574, '2023-10-12 03:10:09'),
+(406, 23452402, '2023-10-12', 'A', 2080809, 23452402, '2023-10-12 03:10:09'),
+(407, 29075477, '2023-10-12', '', 2080842, 29075477, '2023-10-12 03:10:09'),
+(408, 33133060, '2023-10-12', '', 2080847, 33133060, '2023-10-12 03:10:09'),
+(409, 33133060, '2023-10-12', '', 2080845, 33133060, '2023-10-12 03:10:09'),
+(410, 29075477, '2023-10-12', '', 2080843, 29075477, '2023-10-12 03:10:09'),
+(411, 38891384, '2023-10-12', 'P', 1999180, 38891384, '2023-10-12 03:10:30'),
+(412, 26496036, '2023-10-12', 'P', 1999173, 26496036, '2023-10-12 03:10:30'),
+(413, 27818126, '2023-10-12', '', 1514617, 22470807, '2023-10-12 02:10:27'),
+(414, 32037205, '2023-10-12', '', 1514613, 22470807, '2023-10-12 02:10:27'),
+(415, 30401977, '2023-10-12', 'A', 1519490, 22470807, '2023-10-12 02:10:27'),
+(416, 21137225, '2023-10-12', 'P', 1519489, 22470807, '2023-10-12 02:10:27'),
+(417, 21137225, '2023-10-12', 'P', 1519493, 22470807, '2023-10-12 02:10:27'),
+(418, 30401977, '2023-10-12', 'A', 1519492, 22470807, '2023-10-12 02:10:27'),
+(419, 30854266, '2023-10-12', 'P', 1794883, 35228863, '2023-10-12 02:10:57'),
+(420, 16266037, '2023-10-12', 'P', 1794914, 35228863, '2023-10-12 02:10:57'),
+(421, 25899302, '2023-10-12', 'A', 1794841, 35228863, '2023-10-12 02:10:57'),
+(422, 27476457, '2023-10-12', 'A', 1794832, 35228863, '2023-10-12 02:10:57'),
+(424, 21664511, '2023-10-12', 'P', 1516030, 21664511, '2023-10-12 03:10:37'),
+(425, 30976957, '2023-10-12', 'P', 1516024, 30976957, '2023-10-12 03:10:37'),
+(426, 17506918, '2023-10-12', '', 1519723, 23771160, '2023-10-12 02:10:24'),
+(427, 18834423, '2023-10-12', '', 1519740, 23771160, '2023-10-12 02:10:24'),
+(428, 21970865, '2023-10-12', '', 1519745, 23771160, '2023-10-12 02:10:24'),
+(429, 29400253, '2023-10-12', 'P', 1517120, 23771160, '2023-10-12 02:10:24'),
+(430, 28081837, '2023-10-12', 'P', 1517087, 23771160, '2023-10-12 02:10:24'),
+(431, 24064910, '2023-10-12', '', 1517278, 23771160, '2023-10-12 02:10:47'),
+(432, 34861831, '2023-10-12', '', 1517285, 23771160, '2023-10-12 02:10:47'),
+(433, 32946869, '2023-10-12', 'P', 1519761, 23771160, '2023-10-12 02:10:47'),
+(434, 33133060, '2023-10-12', 'P', 1519763, 23771160, '2023-10-12 02:10:47'),
+(435, 22902379, '2023-10-12', 'P', 2504527, 25023077, '2023-10-12 02:10:19'),
+(436, 25560718, '2023-10-12', 'A', 2504519, 25023077, '2023-10-12 02:10:19'),
+(437, 36555770, '2023-10-12', 'A', 2504516, 25023077, '2023-10-12 02:10:19'),
+(438, 29400253, '2023-10-12', '', 1516039, 25023077, '2023-10-12 02:10:05'),
+(439, 24749056, '2023-10-12', '', 1516979, 25023077, '2023-10-12 02:10:05'),
+(440, 27262149, '2023-10-12', '', 1516126, 25023077, '2023-10-12 02:10:05'),
+(441, 33032982, '2023-10-12', 'A', 1516971, 25023077, '2023-10-12 02:10:05'),
+(442, 20481112, '2023-10-12', 'A', 1515816, 20481112, '2023-10-12 03:10:37'),
+(443, 17506918, '2023-10-12', 'P', 1690275, 17506918, '2023-10-12 06:10:37'),
+(444, 29955651, '2023-10-12', 'P', 1690317, 29955651, '2023-10-12 06:10:37'),
+(445, 29955651, '2023-10-12', 'P', 1690266, 29955651, '2023-10-12 06:10:37'),
+(446, 24391954, '2023-10-12', '', 1690272, 24391954, '2023-10-12 06:10:37'),
+(447, 33032982, '2023-10-12', 'A', 1690952, 33032982, '2023-10-12 06:10:17'),
+(448, 35421388, '2023-10-12', 'P', 1801854, 35421388, '2023-10-12 06:10:17'),
+(449, 29972566, '2023-10-12', '', 1690961, 29972566, '2023-10-12 06:10:17'),
+(450, 34861831, '2023-10-12', '', 1517248, 23771160, '2023-10-12 03:10:07'),
+(451, 22322139, '2023-10-12', '', 1517209, 23771160, '2023-10-12 03:10:07'),
+(452, 22042105, '2023-10-12', 'P', 1517188, 23771160, '2023-10-12 03:10:07'),
+(453, 26764251, '2023-10-12', 'P', 2148565, 23771160, '2023-10-12 04:10:23'),
+(454, 25563413, '2023-10-12', '', 2148566, 23771160, '2023-10-12 04:10:23'),
+(455, 26297093, '2023-10-12', 'A', 1794808, 26297093, '2023-10-12 08:10:01'),
+(456, 38351270, '2023-10-12', 'A', 1794820, 38351270, '2023-10-12 08:10:01'),
+(457, 18834423, '2023-10-12', 'A', 1794804, 18834423, '2023-10-12 08:10:01'),
+(458, 23885792, '2023-10-12', '', 1999161, 42039673, '2023-10-12 06:10:58'),
+(459, 26764251, '2023-10-12', '', 1999158, 42039673, '2023-10-12 06:10:58'),
+(460, 32002822, '2023-10-12', '', 1999159, 42039673, '2023-10-12 06:10:58'),
+(461, 38148166, '2023-10-12', '', 1999163, 42039673, '2023-10-12 06:10:58'),
+(462, 8246297, '2023-10-12', '', 1999149, 42039673, '2023-10-12 06:10:58'),
+(463, 16739819, '2023-10-12', '', 1999155, 42039673, '2023-10-12 06:10:58'),
+(464, 23417598, '2023-10-12', '', 1796155, 23417598, '2023-10-12 08:10:42'),
+(465, 21843058, '2023-10-12', '', 1867320, 21843058, '2023-10-12 08:10:42'),
+(466, 36499692, '2023-10-12', '', 1796153, 36499692, '2023-10-12 08:10:42'),
+(467, 35073418, '2023-10-12', 'P', 1796147, 35073418, '2023-10-12 08:10:42'),
+(468, 33607266, '2023-10-12', 'A', 1517066, 35228863, '2023-10-12 08:10:37'),
+(469, 22782260, '2023-10-12', 'P', 1517071, 35228863, '2023-10-12 08:10:37'),
+(470, 27605077, '2023-10-17', 'P', 686498, 27605077, '2023-10-17 01:10:01'),
+(471, 31965923, '2023-10-17', 'P', 1519984, 31965923, '2023-10-17 01:10:01'),
+(472, 21970865, '2023-10-17', 'P', 1519474, 21970865, '2023-10-17 01:10:01'),
+(473, 28951084, '2023-10-17', 'P', 1519472, 28951084, '2023-10-17 01:10:01'),
+(474, 94697757, '2023-10-17', 'P', 686411, 94697757, '2023-10-17 10:10:13'),
+(475, 36555770, '2023-10-17', 'P', 1517040, 36555770, '2023-10-17 10:10:13'),
+(476, 29568586, '2023-10-17', '', 1517036, 29568586, '2023-10-17 10:10:13'),
+(477, 27724849, '2023-10-17', 'P', 1519558, 27724849, '2023-10-17 02:10:55'),
+(478, 20563233, '2023-10-17', 'P', 1519559, 20563233, '2023-10-17 02:10:55'),
+(479, 16056781, '2023-10-17', 'A', 1516013, 16056781, '2023-10-17 02:10:55'),
+(480, 31351869, '2023-10-17', 'P', 686390, 31351869, '2023-10-17 02:10:55'),
+(481, 30267271, '2023-10-17', 'P', 1899547, 18892329, '2023-10-17 08:10:39'),
+(482, 22782260, '2023-10-17', '', 1899632, 18892329, '2023-10-17 08:10:39'),
+(483, 21970865, '2023-10-17', '', 1899635, 18892329, '2023-10-17 08:10:39'),
+(484, 42155074, '2023-10-17', '', 686401, 42155074, '2023-10-17 10:10:09'),
+(485, 17287908, '2023-10-17', '', 686493, 17287908, '2023-10-17 10:10:09'),
+(486, 18228380, '2023-10-17', 'P', 1519535, 18228380, '2023-10-17 10:10:09'),
+(487, 29955651, '2023-10-17', 'P', 1519537, 29955651, '2023-10-17 10:10:09'),
+(488, 33546603, '2023-10-17', '', 686754, 17506913, '2023-10-17 08:10:46'),
+(489, 13102785, '2023-10-17', '', 1516980, 17506913, '2023-10-17 08:10:46'),
+(490, 11309169, '2023-10-17', 'P', 686441, 11309169, '2023-10-17 05:10:09'),
+(491, 30426714, '2023-10-17', 'A', 686482, 30426714, '2023-10-17 05:10:09'),
+(492, 24824515, '2023-10-17', 'A', 991545, 24824515, '2023-10-17 05:10:09'),
+(493, 28081603, '2023-10-17', 'P', 2504530, 28081603, '2023-10-17 06:10:46'),
+(494, 26764251, '2023-10-17', 'A', 2504536, 26764251, '2023-10-17 06:10:46'),
+(495, 33119476, '2023-10-17', 'P', 2504538, 33119476, '2023-10-17 06:10:46'),
+(496, 20215714, '2023-10-17', '', 1517422, 20215714, '2023-10-17 09:10:33'),
+(497, 33546603, '2023-10-17', '', 1518390, 33546603, '2023-10-17 09:10:33'),
+(498, 26833848, '2023-10-17', '', 1519779, 26833848, '2023-10-17 09:10:33'),
+(499, 32472695, '2023-10-17', '', 1519783, 32472695, '2023-10-17 09:10:33'),
+(500, 16917974, '2023-10-17', '', 1514605, 16917974, '2023-10-17 02:10:55'),
+(501, 32037205, '2023-10-17', '', 1514613, 32037205, '2023-10-17 02:10:56'),
+(502, 31732876, '2023-10-17', 'P', 1519487, 31732876, '2023-10-17 02:10:56'),
+(503, 27739069, '2023-10-17', 'P', 1519495, 27739069, '2023-10-17 02:10:56'),
+(504, 34963550, '2023-10-17', 'P', 1999174, 34963550, '2023-10-17 02:10:06'),
+(505, 33133060, '2023-10-17', 'A', 1999182, 33133060, '2023-10-17 02:10:06'),
+(506, 28352227, '2023-10-17', 'A', 1999176, 28352227, '2023-10-17 02:10:06'),
+(507, 13102785, '2023-10-17', '', 686638, 13102785, '2023-10-17 02:10:49'),
+(508, 24654079, '2023-10-17', '', 686620, 24654079, '2023-10-17 02:10:49'),
+(509, 20481112, '2023-10-17', 'P', 1514632, 20481112, '2023-10-17 02:10:49'),
+(510, 27739069, '2023-10-17', '', 1519503, 27739069, '2023-10-17 02:10:49'),
+(511, 20609347, '2023-10-17', '', 1519504, 20609347, '2023-10-17 02:10:49'),
+(512, 25560718, '2023-10-17', 'P', 1517077, 25560718, '2023-10-17 10:10:45'),
+(513, 21868284, '2023-10-17', 'P', 1390459, 21868284, '2023-10-17 10:10:45'),
+(514, 39804909, '2023-10-17', '', 1275046, 39804909, '2023-10-17 10:10:45'),
+(515, 38955025, '2023-10-17', 'P', 2504522, 38955025, '2023-10-17 05:10:21'),
+(516, 25240107, '2023-10-17', 'P', 2504518, 25240107, '2023-10-17 05:10:21'),
+(517, 17287908, '2023-10-17', 'P', 2504520, 17287908, '2023-10-17 05:10:21'),
+(518, 30976957, '2023-10-17', 'A', 1517204, 22171953, '2023-10-17 11:10:58'),
+(519, 17682499, '2023-10-17', 'P', 1517151, 22171953, '2023-10-17 11:10:58'),
+(520, 30043868, '2023-10-17', '', 1519756, 22171953, '2023-10-17 11:10:58'),
+(521, 32946869, '2023-10-17', '', 1519750, 22171953, '2023-10-17 11:10:58'),
+(522, 26764251, '2023-10-17', '', 1519751, 22171953, '2023-10-17 11:10:58'),
+(523, 30976957, '2023-10-17', '', 1514601, 35421533, '2023-10-17 01:10:53'),
+(524, 25431836, '2023-10-17', 'A', 686695, 35421533, '2023-10-17 01:10:53'),
+(525, 37953615, '2023-10-17', 'P', 1517025, 37953615, '2023-10-17 05:10:04'),
+(526, 28953511, '2023-10-17', 'P', 1517030, 28953511, '2023-10-17 05:10:04'),
+(527, 21137225, '2023-10-17', 'P', 1519664, 21137225, '2023-10-17 05:10:04'),
+(528, 22309364, '2023-10-17', 'A', 1519674, 22309364, '2023-10-17 05:10:04'),
+(529, 21137225, '2023-10-17', 'P', 1519665, 21137225, '2023-10-17 05:10:04'),
+(530, 18834423, '2023-10-17', 'P', 1519737, 35421533, '2023-10-17 01:10:00'),
+(531, 16397847, '2023-10-17', 'P', 1519725, 35421533, '2023-10-17 01:10:00'),
+(532, 21970865, '2023-10-17', 'P', 1519742, 35421533, '2023-10-17 01:10:00'),
+(533, 30592902, '2023-10-17', '', 1517136, 35421533, '2023-10-17 01:10:00'),
+(534, 21868284, '2023-10-17', 'P', 1517004, 21868284, '2023-10-17 05:10:44'),
+(535, 11309169, '2023-10-17', 'P', 1516996, 11309169, '2023-10-17 05:10:44'),
+(536, 33032982, '2023-10-17', '', 1517003, 33032982, '2023-10-17 05:10:44'),
+(537, 31732876, '2023-10-17', 'P', 1519594, 31732876, '2023-10-17 05:10:44'),
+(538, 14592220, '2023-10-17', 'P', 1515997, 14592220, '2023-10-17 01:10:00'),
+(539, 26496036, '2023-10-17', 'P', 686404, 26496036, '2023-10-17 01:10:00'),
+(540, 23771160, '2023-10-17', 'P', 1154288, 23771160, '2023-10-17 01:10:00'),
+(541, 17682499, '2023-10-17', 'P', 1868173, 25784951, '2023-10-17 01:10:13'),
+(542, 20289177, '2023-10-17', 'P', 1868174, 25784951, '2023-10-17 01:10:13'),
+(543, 25816126, '2023-10-17', 'T', 1868178, 25784951, '2023-10-17 01:10:13'),
+(544, 27724849, '2023-10-17', 'P', 1690283, 27724849, '2023-10-17 06:10:42'),
+(545, 28951084, '2023-10-17', 'P', 1690288, 28951084, '2023-10-17 06:10:42'),
+(546, 26297093, '2023-10-17', 'P', 1690250, 26297093, '2023-10-17 06:10:42'),
+(547, 24439046, '2023-10-17', '', 1690255, 24439046, '2023-10-17 06:10:42'),
+(548, 21677394, '2023-10-17', 'P', 1690962, 21677394, '2023-10-17 06:10:26'),
+(549, 29568317, '2023-10-17', 'A', 1690965, 29568317, '2023-10-17 06:10:26'),
+(550, 32472695, '2023-10-17', 'P', 1690969, 32472695, '2023-10-17 06:10:26'),
+(551, 30611501, '2023-10-17', '', 1690956, 30611501, '2023-10-17 06:10:26'),
+(552, 30267098, '2023-10-17', '', 1690959, 30267098, '2023-10-17 06:10:26'),
+(553, 26297093, '2023-10-17', 'P', 1794823, 26297093, '2023-10-17 10:10:45'),
+(554, 24064910, '2023-10-17', 'P', 1794903, 24064910, '2023-10-17 10:10:45'),
+(555, 28082716, '2023-10-17', 'P', 1794802, 28082716, '2023-10-17 10:10:45'),
+(556, 33546603, '2023-10-17', 'P', 2080825, 33546603, '2023-10-17 07:10:04'),
+(557, 34511194, '2023-10-17', 'P', 2080838, 34511194, '2023-10-17 07:10:04'),
+(558, 32002822, '2023-10-17', 'A', 2080850, 32002822, '2023-10-17 07:10:04'),
+(559, 29511782, '2023-10-17', 'A', 1519580, 29511782, '2023-10-17 04:10:52'),
+(560, 22060879, '2023-10-17', 'P', 1519584, 22060879, '2023-10-17 04:10:52'),
+(561, 22060879, '2023-10-17', 'P', 1519586, 22060879, '2023-10-17 04:10:52'),
+(562, 18834423, '2023-10-17', 'P', 1519582, 18834423, '2023-10-17 04:10:52'),
+(563, 31351869, '2023-10-17', 'P', 1516995, 31351869, '2023-10-17 04:10:52'),
+(564, 16056781, '2023-10-17', 'A', 1516988, 16056781, '2023-10-17 04:10:52'),
+(565, 23885792, '2023-10-17', '', 1999161, 16749306, '2023-10-17 06:10:59'),
+(566, 26764251, '2023-10-17', '', 1999158, 16749306, '2023-10-17 06:10:59'),
+(567, 32002822, '2023-10-17', '', 1999159, 16749306, '2023-10-17 06:10:59'),
+(568, 38148166, '2023-10-17', '', 1999163, 16749306, '2023-10-17 06:10:59'),
+(569, 26496036, '2023-10-17', '', 1999154, 16749306, '2023-10-17 06:10:59'),
+(570, 23771160, '2023-10-17', '', 1999156, 16749306, '2023-10-17 06:10:59'),
+(571, 23885792, '2023-10-17', 'P', 2148577, 23885792, '2023-10-17 06:10:36'),
+(572, 23885792, '2023-10-17', 'P', 2148572, 23885792, '2023-10-17 06:10:36'),
+(573, 22042105, '2023-10-17', 'P', 2080855, 22042105, '2023-10-17 06:10:05'),
+(574, 23885792, '2023-10-17', 'P', 2080864, 23885792, '2023-10-17 06:10:05'),
+(575, 28857052, '2023-10-17', 'P', 2080851, 28857052, '2023-10-17 06:10:05'),
+(576, 25431836, '2023-10-17', 'A', 2080859, 25431836, '2023-10-17 06:10:05'),
+(577, 31674920, '2023-10-17', 'T', 1899830, 26817732, '2023-10-17 06:10:56'),
+(578, 26833848, '2023-10-17', '', 1899826, 26817732, '2023-10-17 06:10:56'),
+(579, 37906669, '2023-10-17', 'A', 1796143, 38268665, '2023-10-17 08:10:46'),
+(580, 25431836, '2023-10-17', 'A', 1796146, 38268665, '2023-10-17 08:10:46'),
+(581, 31674920, '2023-10-17', 'P', 1796149, 38268665, '2023-10-17 08:10:46'),
+(582, 12887456, '2023-10-17', 'P', 1517064, 35228863, '2023-10-17 10:10:12'),
+(583, 20289177, '2023-10-17', 'P', 1517067, 35228863, '2023-10-17 10:10:12'),
+(584, 22042105, '2023-10-17', 'P', 1794834, 35228863, '2023-10-17 10:10:41'),
+(585, 18834423, '2023-10-17', 'P', 1794845, 35228863, '2023-10-17 10:10:41'),
+(586, 16266037, '2023-10-17', 'P', 2013352, 35228863, '2023-10-17 10:10:57'),
+(587, 20563233, '2023-10-17', '', 1972900, 35228863, '2023-10-17 10:10:57'),
+(588, 16266037, '2023-10-17', 'P', 1899858, 35228863, '2023-10-17 10:10:57'),
+(589, 24064910, '2023-10-17', 'A', 1899846, 35228863, '2023-10-17 10:10:57'),
+(590, 11553333, '2023-10-17', 'P', 1899844, 35228863, '2023-10-17 10:10:57'),
+(591, 25560718, '2023-10-18', 'P', 1517077, 25560718, '2023-10-18 07:10:50'),
+(592, 24654079, '2023-10-18', 'A', 1390465, 24654079, '2023-10-18 07:10:50'),
+(593, 31757073, '2023-10-18', '', 1519713, 31757073, '2023-10-18 07:10:50'),
+(594, 25706122, '2023-10-18', '', 1519704, 25706122, '2023-10-18 07:10:50'),
+(595, 25706122, '2023-10-18', '', 1519707, 25706122, '2023-10-18 07:10:50'),
+(596, 32294470, '2023-10-18', '', 1519715, 32294470, '2023-10-18 07:10:50'),
+(597, 27739069, '2023-10-18', 'P', 1514596, 27739069, '2023-10-18 02:10:22'),
+(598, 25431836, '2023-10-18', 'A', 686506, 25431836, '2023-10-18 02:10:22'),
+(599, 18414086, '2023-10-18', 'A', 1519477, 18414086, '2023-10-18 02:10:22'),
+(600, 21137225, '2023-10-18', 'P', 1519470, 21137225, '2023-10-18 02:10:22'),
+(601, 25484126, '2023-10-18', 'A', 1519467, 25484126, '2023-10-18 02:10:22'),
+(602, 21137225, '2023-10-18', 'P', 1519476, 21137225, '2023-10-18 02:10:22'),
+(603, 18834423, '2023-10-18', 'P', 2084305, 18892329, '2023-10-18 07:10:20'),
+(604, 32037205, '2023-10-18', '', 2084299, 18892329, '2023-10-18 07:10:20'),
+(605, 23771160, '2023-10-18', '', 2084274, 18892329, '2023-10-18 07:10:20'),
+(606, 13102785, '2023-10-18', 'P', 1517044, 13102785, '2023-10-18 08:10:28'),
+(607, 29839942, '2023-10-18', 'A', 686402, 29839942, '2023-10-18 08:10:28'),
+(608, 29568586, '2023-10-18', 'A', 1517036, 29568586, '2023-10-18 08:10:28'),
+(609, 27628305, '2023-10-18', '', 780454, 27628305, '2023-10-18 08:10:28'),
+(610, 33133060, '2023-10-18', 'P', 1999189, 36476474, '2023-10-18 07:10:17'),
+(611, 26764251, '2023-10-18', 'P', 1999194, 36476474, '2023-10-18 07:10:17'),
+(612, 26764251, '2023-10-18', 'P', 1999192, 36476474, '2023-10-18 07:10:17'),
+(613, 33133060, '2023-10-18', 'P', 1999191, 36476474, '2023-10-18 07:10:17'),
+(614, 26086166, '2023-10-18', '', 1999178, 36476474, '2023-10-18 07:10:17'),
+(615, 26107997, '2023-10-18', '', 1999177, 36476474, '2023-10-18 07:10:17'),
+(616, 28081837, '2023-10-18', 'P', 1514593, 28081837, '2023-10-18 08:10:41'),
+(617, 34171254, '2023-10-18', '', 1514590, 34171254, '2023-10-18 08:10:41'),
+(618, 24824515, '2023-10-18', '', 991545, 24824515, '2023-10-18 08:10:41'),
+(619, 17287908, '2023-10-18', '', 686493, 17506913, '2023-10-18 08:10:11'),
+(620, 33546603, '2023-10-18', '', 888917, 17506913, '2023-10-18 08:10:11'),
+(621, 38677223, '2023-10-18', '', 1154287, 17506913, '2023-10-18 08:10:11'),
+(622, 24749056, '2023-10-18', '', 686706, 23452402, '2023-10-18 08:10:39'),
+(623, 21464064, '2023-10-18', '', 1514603, 23452402, '2023-10-18 08:10:39'),
+(624, 27262149, '2023-10-18', '', 1514620, 23452402, '2023-10-18 08:10:39'),
+(625, 29568586, '2023-10-18', 'A', 1899607, 18892329, '2023-10-18 10:10:36'),
+(626, 24749056, '2023-10-18', 'P', 1899628, 18892329, '2023-10-18 10:10:36'),
+(627, 30401977, '2023-10-18', '', 1899648, 18892329, '2023-10-18 10:10:36'),
+(628, 25296957, '2023-10-18', '', 1899641, 18892329, '2023-10-18 10:10:36'),
+(629, 31732876, '2023-10-18', '', 1899637, 18892329, '2023-10-18 10:10:36'),
+(630, 30401977, '2023-10-18', '', 1899650, 18892329, '2023-10-18 10:10:36'),
+(631, 24654079, '2023-10-18', '', 1516975, 24654079, '2023-10-18 01:10:22'),
+(632, 13102785, '2023-10-18', '', 1516980, 13102785, '2023-10-18 01:10:22'),
+(633, 18228380, '2023-10-18', '', 1519565, 18228380, '2023-10-18 01:10:22'),
+(634, 18892329, '2023-10-18', 'A', 1519563, 18892329, '2023-10-18 01:10:22'),
+(635, 18228380, '2023-10-18', 'P', 1519561, 18228380, '2023-10-18 01:10:22'),
+(636, 17541095, '2023-10-18', '', 1519568, 17541095, '2023-10-18 01:10:22'),
+(637, 22427868, '2023-10-18', 'P', 1517242, 22171953, '2023-10-18 10:10:55'),
+(638, 20289177, '2023-10-18', 'P', 1517176, 22171953, '2023-10-18 10:10:55'),
+(639, 22060879, '2023-10-18', 'P', 1517227, 22171953, '2023-10-18 10:10:55'),
+(640, 17541095, '2023-10-18', 'P', 1519553, 36476474, '2023-10-18 11:10:59'),
+(641, 25484126, '2023-10-18', '', 1519551, 36476474, '2023-10-18 11:10:59'),
+(642, 25484126, '2023-10-18', '', 1519550, 36476474, '2023-10-18 11:10:59'),
+(643, 17541095, '2023-10-18', 'P', 1519555, 36476474, '2023-10-18 11:10:59'),
+(644, 18228447, '2023-10-18', '', 686353, 36476474, '2023-10-18 11:10:59'),
+(645, 23068191, '2023-10-18', '', 1515814, 36476474, '2023-10-18 11:10:59'),
+(646, 20609347, '2023-10-18', 'A', 2504524, 20609347, '2023-10-18 01:10:08'),
+(647, 27739069, '2023-10-18', 'P', 2504517, 27739069, '2023-10-18 01:10:08'),
+(648, 94265480, '2023-10-18', '', 2504515, 94265480, '2023-10-18 01:10:08'),
+(649, 25882845, '2023-10-18', '', 2504514, 25882845, '2023-10-18 01:10:08'),
+(650, 28231008, '2023-10-18', 'A', 1517118, 23771160, '2023-10-18 01:10:27'),
+(651, 21970865, '2023-10-18', 'P', 1517145, 23771160, '2023-10-18 01:10:27'),
+(652, 26496036, '2023-10-18', 'P', 1517115, 23771160, '2023-10-18 01:10:27'),
+(653, 24064910, '2023-10-18', '', 1517280, 23771160, '2023-10-18 01:10:51'),
+(654, 17682499, '2023-10-18', '', 1517265, 23771160, '2023-10-18 01:10:51'),
+(655, 23885792, '2023-10-18', 'P', 1519757, 23771160, '2023-10-18 01:10:51'),
+(656, 21731472, '2023-10-18', 'P', 1519765, 23771160, '2023-10-18 01:10:51'),
+(657, 26764251, '2023-10-18', 'P', 1519762, 23771160, '2023-10-18 01:10:51'),
+(658, 21731472, '2023-10-18', 'P', 1519759, 23771160, '2023-10-18 01:10:51'),
+(659, 24391954, '2023-10-18', 'P', 1517010, 35421533, '2023-10-18 02:10:51'),
+(660, 14592220, '2023-10-18', 'P', 1517012, 35421533, '2023-10-18 02:10:51'),
+(661, 27724849, '2023-10-18', 'P', 1519598, 35421533, '2023-10-18 02:10:51'),
+(662, 29955651, '2023-10-18', 'P', 1519654, 35421533, '2023-10-18 02:10:51'),
+(663, 22085775, '2023-10-18', 'A', 1517028, 35421533, '2023-10-18 02:10:24'),
+(664, 22051542, '2023-10-18', 'P', 686351, 35421533, '2023-10-18 02:10:24'),
+(665, 21868284, '2023-10-18', 'P', 1519668, 35421533, '2023-10-18 02:10:24'),
+(666, 34861831, '2023-10-18', 'P', 1519669, 35421533, '2023-10-18 02:10:24'),
+(667, 26297093, '2023-10-18', 'A', 1794808, 26297093, '2023-10-18 09:10:27'),
+(668, 16397847, '2023-10-18', 'P', 1794900, 16397847, '2023-10-18 09:10:27'),
+(669, 17506918, '2023-10-18', 'P', 1794899, 17506918, '2023-10-18 09:10:27'),
+(670, 38351270, '2023-10-18', 'P', 1794895, 38351270, '2023-10-18 09:10:27'),
+(671, 18834423, '2023-10-18', 'P', 1794804, 18834423, '2023-10-18 09:10:27'),
+(672, 23223369, '2023-10-18', 'P', 1794795, 23223369, '2023-10-18 09:10:27'),
+(673, 43656496, '2023-10-18', '', 1690949, 43656496, '2023-10-18 09:10:40'),
+(674, 35421388, '2023-10-18', '', 1801854, 35421388, '2023-10-18 09:10:40'),
+(675, 26764251, '2023-10-18', '', 1999165, 16749306, '2023-10-18 06:10:24'),
+(676, 32294470, '2023-10-18', '', 1999168, 16749306, '2023-10-18 06:10:24'),
+(677, 27739023, '2023-10-18', '', 1999167, 16749306, '2023-10-18 06:10:24'),
+(678, 29511782, '2023-10-18', '', 1999166, 16749306, '2023-10-18 06:10:24'),
+(679, 34861831, '2023-10-18', '', 1999157, 16749306, '2023-10-18 06:10:24'),
+(680, 24439046, '2023-10-18', '', 1999150, 16749306, '2023-10-18 06:10:24'),
+(681, 29075477, '2023-10-18', 'P', 2080872, 29075477, '2023-10-18 06:10:16'),
+(682, 33133060, '2023-10-18', 'P', 2080871, 33133060, '2023-10-18 06:10:16'),
+(683, 32002822, '2023-10-18', 'P', 2080875, 32002822, '2023-10-18 06:10:16'),
+(684, 34861831, '2023-10-18', 'P', 2080863, 34861831, '2023-10-18 06:10:16'),
+(685, 13217227, '2023-10-18', 'P', 2080866, 13217227, '2023-10-18 06:10:16'),
+(686, 27628305, '2023-10-18', '', 1690248, 16749306, '2023-10-18 06:10:13'),
+(687, 22727074, '2023-10-18', '', 1690305, 16749306, '2023-10-18 06:10:13'),
+(688, 30854266, '2023-10-18', '', 1690297, 16749306, '2023-10-18 06:10:13'),
+(689, 29955651, '2023-10-18', '', 1690266, 16749306, '2023-10-18 06:10:13'),
+(690, 32656537, '2023-10-18', 'A', 2080832, 38268665, '2023-10-18 06:10:09'),
+(691, 23223369, '2023-10-18', 'P', 2080822, 38268665, '2023-10-18 06:10:09'),
+(692, 25882845, '2023-10-18', 'P', 2080836, 38268665, '2023-10-18 06:10:09'),
+(693, 23417598, '2023-10-18', 'P', 1796155, 38268665, '2023-10-18 09:10:14'),
+(694, 20831297, '2023-10-18', 'A', 1867330, 38268665, '2023-10-18 09:10:14'),
+(695, 21843058, '2023-10-18', 'P', 1800573, 38268665, '2023-10-18 09:10:14'),
+(696, 34732165, '2023-10-18', 'A', 1796154, 38268665, '2023-10-18 09:10:14'),
+(697, 35027695, '2023-10-18', 'P', 1796145, 38268665, '2023-10-18 09:10:14'),
+(698, 30680339, '2023-10-18', '', 1517058, 35228863, '2023-10-18 09:10:59'),
+(699, 16056781, '2023-10-18', 'A', 1517062, 35228863, '2023-10-18 09:10:59'),
+(700, 31351869, '2023-10-18', 'P', 686597, 35228863, '2023-10-18 09:10:59'),
+(701, 24122285, '2023-10-18', 'P', 1517052, 35228863, '2023-10-18 09:10:59'),
+(702, 35686059, '2023-10-18', 'A', 1794826, 35228863, '2023-10-18 09:10:47'),
+(703, 18834423, '2023-10-18', 'P', 1794845, 35228863, '2023-10-18 09:10:47'),
+(704, 16266037, '2023-10-18', 'P', 1899858, 35228863, '2023-10-18 09:10:05'),
+(705, 26297093, '2023-10-18', 'A', 1899848, 35228863, '2023-10-18 09:10:05'),
+(706, 28951084, '2023-10-18', 'P', 1899847, 35228863, '2023-10-18 09:10:05'),
+(707, 16397847, '2023-10-18', 'P', 1899859, 35228863, '2023-10-18 09:10:05'),
+(708, 27605077, '2023-10-19', 'P', 686498, 27605077, '2023-10-19 08:10:47'),
+(709, 31965923, '2023-10-19', '', 1519984, 31965923, '2023-10-19 08:10:47'),
+(710, 29568586, '2023-10-19', 'A', 1514598, 29568586, '2023-10-19 08:10:47'),
+(711, 31203838, '2023-10-19', '', 1515773, 31203838, '2023-10-19 08:10:47'),
+(712, 16939324, '2023-10-19', '', 686487, 16939324, '2023-10-19 09:10:00'),
+(713, 23771160, '2023-10-19', '', 1515808, 23771160, '2023-10-19 09:10:00'),
+(714, 22042105, '2023-10-19', 'P', 1514637, 22042105, '2023-10-19 09:10:00'),
+(715, 30267271, '2023-10-19', 'P', 1899547, 18892329, '2023-10-19 08:10:26'),
+(716, 22051542, '2023-10-19', 'A', 1899620, 18892329, '2023-10-19 08:10:26'),
+(717, 24064910, '2023-10-19', '', 1899662, 18892329, '2023-10-19 08:10:26'),
+(718, 29511782, '2023-10-19', '', 1899638, 18892329, '2023-10-19 08:10:26'),
+(719, 22051542, '2023-10-19', 'A', 686352, 22051542, '2023-10-19 10:10:39'),
+(720, 13102785, '2023-10-19', 'P', 1517044, 13102785, '2023-10-19 10:10:39'),
+(721, 28951084, '2023-10-19', '', 1519683, 28951084, '2023-10-19 10:10:39'),
+(722, 34861831, '2023-10-19', '', 1519679, 34861831, '2023-10-19 10:10:39'),
+(723, 29400253, '2023-10-19', '', 1516039, 29400253, '2023-10-19 12:10:04'),
+(724, 24749056, '2023-10-19', '', 1516979, 24749056, '2023-10-19 12:10:04'),
+(725, 27262149, '2023-10-19', '', 1516126, 27262149, '2023-10-19 12:10:04'),
+(726, 33032982, '2023-10-19', '', 1516971, 33032982, '2023-10-19 12:10:04'),
+(727, 27818126, '2023-10-19', 'P', 1514617, 27818126, '2023-10-19 02:10:40'),
+(728, 32037205, '2023-10-19', 'A', 1514613, 32037205, '2023-10-19 02:10:40'),
+(729, 30401977, '2023-10-19', 'P', 1519490, 30401977, '2023-10-19 02:10:40'),
+(730, 21137225, '2023-10-19', 'P', 1519489, 21137225, '2023-10-19 02:10:40'),
+(731, 21137225, '2023-10-19', 'P', 1519493, 21137225, '2023-10-19 02:10:40'),
+(732, 30401977, '2023-10-19', 'P', 1519492, 30401977, '2023-10-19 02:10:40'),
+(733, 24749056, '2023-10-19', '', 686600, 23452402, '2023-10-19 10:10:58'),
+(734, 25560718, '2023-10-19', '', 1514630, 23452402, '2023-10-19 10:10:58'),
+(735, 24654079, '2023-10-19', 'A', 2084310, 18892329, '2023-10-19 10:10:02'),
+(736, 30267271, '2023-10-19', 'P', 2084306, 18892329, '2023-10-19 10:10:02'),
+(737, 29211848, '2023-10-19', '', 2084303, 18892329, '2023-10-19 10:10:02'),
+(738, 14592220, '2023-10-19', 'P', 1517080, 36476474, '2023-10-19 11:10:04'),
+(739, 27262149, '2023-10-19', 'P', 1390463, 36476474, '2023-10-19 11:10:04'),
+(740, 39804909, '2023-10-19', 'A', 1275046, 36476474, '2023-10-19 11:10:04'),
+(741, 11309169, '2023-10-19', 'P', 686441, 11309169, '2023-10-19 04:10:05'),
+(742, 28081837, '2023-10-19', 'P', 1514593, 28081837, '2023-10-19 04:10:05'),
+(743, 18892329, '2023-10-19', 'P', 1519456, 18892329, '2023-10-19 04:10:05'),
+(744, 21970865, '2023-10-19', 'P', 1519451, 21970865, '2023-10-19 04:10:05'),
+(745, 22902379, '2023-10-19', 'P', 2504527, 22902379, '2023-10-19 04:10:44'),
+(746, 25560718, '2023-10-19', 'P', 2504519, 25560718, '2023-10-19 04:10:44'),
+(747, 36555770, '2023-10-19', 'P', 2504516, 36555770, '2023-10-19 04:10:44'),
+(748, 20481112, '2023-10-19', 'P', 1515816, 32649049, '2023-10-19 01:10:02');
 
 -- --------------------------------------------------------
 
@@ -35451,11 +36044,15 @@ INSERT INTO `asistencia_docente` (`id`, `dni`, `fecha`, `estado`, `cupof`, `dni_
 -- Estructura de tabla para la tabla `ciclosuperior`
 --
 
-CREATE TABLE `ciclosuperior` (
-  `id` int(11) NOT NULL,
-  `id_cursos` tinyint(4) NOT NULL,
-  `id_orientaciones` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `ciclosuperior`;
+CREATE TABLE IF NOT EXISTS `ciclosuperior` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_cursos` tinyint NOT NULL,
+  `id_orientaciones` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id del curso` (`id_cursos`),
+  KEY `id orientacion` (`id_orientaciones`)
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `ciclosuperior`
@@ -35492,11 +36089,13 @@ INSERT INTO `ciclosuperior` (`id`, `id_cursos`, `id_orientaciones`) VALUES
 -- Estructura de tabla para la tabla `configuracion`
 --
 
-CREATE TABLE `configuracion` (
-  `id` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
-  `tema` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `configuracion`;
+CREATE TABLE IF NOT EXISTS `configuracion` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dni` int NOT NULL,
+  `tema` tinyint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `configuracion`
@@ -35517,12 +36116,14 @@ INSERT INTO `configuracion` (`id`, `dni`, `tema`) VALUES
 -- Estructura de tabla para la tabla `cursos`
 --
 
-CREATE TABLE `cursos` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cursos`;
+CREATE TABLE IF NOT EXISTS `cursos` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `division` varchar(1) NOT NULL,
-  `ano` tinyint(4) NOT NULL,
-  `turno` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `ano` tinyint NOT NULL,
+  `turno` varchar(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `cursos`
@@ -35579,424 +36180,425 @@ INSERT INTO `cursos` (`id`, `division`, `ano`, `turno`) VALUES
 -- Estructura de tabla para la tabla `cursosciclolectivo`
 --
 
-CREATE TABLE `cursosciclolectivo` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cursosciclolectivo`;
+CREATE TABLE IF NOT EXISTS `cursosciclolectivo` (
+  `id` int NOT NULL,
   `estado` varchar(1) NOT NULL,
-  `id_cursos` int(11) NOT NULL,
-  `ciclolectivo` year(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `id_cursos` int NOT NULL,
+  `ciclolectivo` year NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `cursosciclolectivo`
 --
 
 INSERT INTO `cursosciclolectivo` (`id`, `estado`, `id_cursos`, `ciclolectivo`) VALUES
-(34, 'H', 1, '2015'),
-(35, 'H', 2, '2015'),
-(36, 'H', 3, '2015'),
-(37, 'H', 4, '2015'),
-(38, 'H', 5, '2015'),
-(39, 'H', 6, '2015'),
-(40, 'H', 7, '2015'),
-(41, 'H', 14, '2015'),
-(42, 'H', 20, '2015'),
-(43, 'H', 16, '2015'),
-(44, 'H', 26, '2015'),
-(45, 'H', 22, '2015'),
-(46, 'H', 21, '2015'),
-(47, 'H', 15, '2015'),
-(48, 'H', 19, '2015'),
-(49, 'H', 18, '2015'),
-(50, 'H', 13, '2015'),
-(51, 'H', 27, '2015'),
-(52, 'H', 10, '2015'),
-(53, 'H', 8, '2015'),
-(54, 'H', 29, '2015'),
-(55, 'H', 17, '2015'),
-(56, 'H', 9, '2015'),
-(57, 'H', 34, '2015'),
-(58, 'H', 25, '2015'),
-(59, 'H', 24, '2015'),
-(60, 'H', 23, '2015'),
-(61, 'H', 33, '2015'),
-(62, 'H', 11, '2015'),
-(63, 'H', 30, '2015'),
-(64, 'H', 28, '2015'),
-(65, 'H', 12, '2015'),
-(66, 'D', 35, '2015'),
-(67, 'H', 36, '2015'),
-(68, 'H', 37, '2015'),
-(69, 'H', 38, '2015'),
-(70, 'H', 39, '2015'),
-(71, 'H', 40, '2015'),
-(72, 'H', 41, '2015'),
-(73, 'H', 18, '2013'),
-(74, 'H', 1, '2016'),
-(75, 'H', 2, '2016'),
-(76, 'H', 3, '2016'),
-(77, 'H', 4, '2016'),
-(78, 'H', 5, '2016'),
-(79, 'H', 6, '2016'),
-(80, 'H', 40, '2016'),
-(81, 'H', 38, '2016'),
-(82, 'H', 7, '2016'),
-(83, 'H', 8, '2016'),
-(84, 'H', 9, '2016'),
-(85, 'H', 10, '2016'),
-(86, 'H', 11, '2016'),
-(87, 'H', 12, '2016'),
-(88, 'H', 13, '2016'),
-(89, 'H', 14, '2016'),
-(90, 'H', 15, '2016'),
-(91, 'H', 41, '2016'),
-(92, 'H', 16, '2016'),
-(93, 'H', 17, '2016'),
-(94, 'H', 18, '2016'),
-(95, 'H', 19, '2016'),
-(96, 'H', 20, '2016'),
-(97, 'H', 21, '2016'),
-(98, 'H', 22, '2016'),
-(99, 'H', 23, '2016'),
-(100, 'H', 24, '2016'),
-(101, 'H', 25, '2016'),
-(102, 'H', 26, '2016'),
-(103, 'H', 27, '2016'),
-(104, 'H', 28, '2016'),
-(105, 'H', 29, '2016'),
-(106, 'H', 30, '2016'),
-(107, 'H', 33, '2016'),
-(108, 'H', 37, '2016'),
-(109, 'H', 34, '2016'),
-(110, 'H', 39, '2016'),
-(111, 'H', 36, '2016'),
-(112, 'H', 1, '2017'),
-(113, 'H', 2, '2017'),
-(114, 'H', 3, '2017'),
-(115, 'H', 4, '2017'),
-(116, 'H', 5, '2017'),
-(117, 'H', 6, '2017'),
-(118, 'H', 40, '2017'),
-(119, 'H', 7, '2017'),
-(120, 'H', 8, '2017'),
-(121, 'H', 9, '2017'),
-(122, 'H', 10, '2017'),
-(123, 'H', 11, '2017'),
-(124, 'H', 12, '2017'),
-(125, 'H', 38, '2017'),
-(126, 'H', 13, '2017'),
-(127, 'H', 41, '2017'),
-(128, 'H', 15, '2017'),
-(129, 'H', 17, '2017'),
-(130, 'H', 24, '2017'),
-(131, 'H', 14, '2017'),
-(132, 'H', 16, '2017'),
-(133, 'H', 30, '2017'),
-(134, 'H', 21, '2017'),
-(135, 'H', 22, '2017'),
-(136, 'H', 19, '2017'),
-(137, 'H', 20, '2017'),
-(138, 'H', 18, '2017'),
-(139, 'H', 29, '2017'),
-(140, 'H', 25, '2017'),
-(141, 'H', 27, '2017'),
-(142, 'H', 28, '2017'),
-(143, 'H', 26, '2017'),
-(144, 'H', 23, '2017'),
-(145, 'H', 34, '2017'),
-(146, 'H', 37, '2017'),
-(147, 'H', 36, '2017'),
-(148, 'H', 39, '2017'),
-(149, 'H', 33, '2017'),
-(150, 'H', 1, '2018'),
-(151, 'H', 2, '2018'),
-(152, 'H', 3, '2018'),
-(153, 'H', 4, '2018'),
-(154, 'H', 5, '2018'),
-(155, 'H', 6, '2018'),
-(156, 'H', 40, '2018'),
-(157, 'H', 7, '2018'),
-(158, 'H', 8, '2018'),
-(159, 'H', 9, '2018'),
-(160, 'H', 10, '2018'),
-(161, 'H', 11, '2018'),
-(162, 'H', 12, '2018'),
-(163, 'H', 38, '2018'),
-(164, 'H', 13, '2018'),
-(165, 'H', 14, '2018'),
-(166, 'H', 15, '2018'),
-(167, 'H', 41, '2018'),
-(168, 'H', 16, '2018'),
-(169, 'H', 17, '2018'),
-(170, 'H', 18, '2018'),
-(171, 'H', 19, '2018'),
-(172, 'H', 20, '2018'),
-(173, 'H', 36, '2018'),
-(174, 'H', 21, '2018'),
-(175, 'H', 22, '2018'),
-(176, 'H', 23, '2018'),
-(177, 'H', 24, '2018'),
-(178, 'H', 25, '2018'),
-(179, 'H', 26, '2018'),
-(180, 'H', 27, '2018'),
-(181, 'H', 28, '2018'),
-(182, 'H', 29, '2018'),
-(183, 'H', 30, '2018'),
-(184, 'H', 33, '2018'),
-(185, 'H', 37, '2018'),
-(186, 'H', 34, '2018'),
-(187, 'H', 39, '2018'),
-(188, 'H', 42, '2018'),
-(189, 'H', 1, '2019'),
-(190, 'H', 2, '2019'),
-(191, 'H', 3, '2019'),
-(192, 'H', 4, '2019'),
-(193, 'H', 5, '2019'),
-(194, 'H', 6, '2019'),
-(195, 'H', 40, '2019'),
-(196, 'H', 7, '2019'),
-(197, 'H', 8, '2019'),
-(198, 'H', 9, '2019'),
-(199, 'H', 10, '2019'),
-(200, 'H', 11, '2019'),
-(201, 'H', 12, '2019'),
-(202, 'H', 38, '2019'),
-(203, 'H', 13, '2019'),
-(204, 'H', 14, '2019'),
-(205, 'H', 15, '2019'),
-(206, 'H', 41, '2019'),
-(207, 'H', 16, '2019'),
-(208, 'H', 17, '2019'),
-(209, 'H', 36, '2019'),
-(210, 'H', 39, '2019'),
-(211, 'H', 18, '2019'),
-(212, 'H', 19, '2019'),
-(213, 'H', 42, '2019'),
-(214, 'H', 20, '2019'),
-(215, 'H', 21, '2019'),
-(216, 'H', 22, '2019'),
-(217, 'H', 23, '2019'),
-(218, 'H', 24, '2019'),
-(219, 'H', 25, '2019'),
-(220, 'H', 26, '2019'),
-(221, 'H', 27, '2019'),
-(222, 'H', 28, '2019'),
-(223, 'H', 29, '2019'),
-(224, 'H', 30, '2019'),
-(225, 'H', 33, '2019'),
-(226, 'H', 37, '2019'),
-(227, 'H', 34, '2019'),
-(228, 'H', 1, '2020'),
-(229, 'H', 2, '2020'),
-(230, 'H', 3, '2020'),
-(231, 'H', 4, '2020'),
-(232, 'H', 5, '2020'),
-(233, 'H', 6, '2020'),
-(234, 'H', 40, '2020'),
-(235, 'H', 7, '2020'),
-(236, 'H', 8, '2020'),
-(237, 'H', 9, '2020'),
-(238, 'H', 10, '2020'),
-(239, 'H', 11, '2020'),
-(240, 'H', 12, '2020'),
-(241, 'H', 38, '2020'),
-(242, 'H', 13, '2020'),
-(243, 'H', 14, '2020'),
-(244, 'H', 15, '2020'),
-(245, 'H', 41, '2020'),
-(246, 'H', 16, '2020'),
-(247, 'H', 17, '2020'),
-(248, 'H', 18, '2020'),
-(249, 'H', 19, '2020'),
-(250, 'H', 42, '2020'),
-(251, 'H', 20, '2020'),
-(252, 'H', 21, '2020'),
-(253, 'H', 22, '2020'),
-(254, 'H', 23, '2020'),
-(255, 'H', 24, '2020'),
-(256, 'H', 25, '2020'),
-(257, 'H', 26, '2020'),
-(258, 'H', 27, '2020'),
-(259, 'H', 28, '2020'),
-(260, 'H', 29, '2020'),
-(261, 'H', 30, '2020'),
-(262, 'H', 33, '2020'),
-(263, 'H', 37, '2020'),
-(264, 'H', 34, '2020'),
-(265, 'H', 39, '2020'),
-(266, 'H', 36, '2020'),
-(267, 'H', 1, '2021'),
-(268, 'H', 19, '2021'),
-(269, 'H', 42, '2021'),
-(270, 'H', 20, '2021'),
-(271, 'H', 21, '2021'),
-(272, 'H', 22, '2021'),
-(273, 'H', 23, '2021'),
-(274, 'H', 24, '2021'),
-(275, 'H', 25, '2021'),
-(276, 'H', 26, '2021'),
-(277, 'H', 27, '2021'),
-(278, 'H', 28, '2021'),
-(279, 'H', 29, '2021'),
-(280, 'H', 30, '2021'),
-(281, 'H', 33, '2021'),
-(282, 'H', 37, '2021'),
-(283, 'H', 34, '2021'),
-(284, 'H', 39, '2021'),
-(285, 'H', 18, '2021'),
-(286, 'H', 17, '2021'),
-(287, 'H', 16, '2021'),
-(288, 'H', 2, '2021'),
-(289, 'H', 3, '2021'),
-(290, 'H', 4, '2021'),
-(291, 'H', 5, '2021'),
-(292, 'H', 6, '2021'),
-(293, 'H', 40, '2021'),
-(294, 'H', 7, '2021'),
-(295, 'H', 8, '2021'),
-(296, 'H', 9, '2021'),
-(297, 'H', 10, '2021'),
-(298, 'H', 11, '2021'),
-(299, 'H', 12, '2021'),
-(300, 'H', 38, '2021'),
-(301, 'H', 13, '2021'),
-(302, 'H', 14, '2021'),
-(303, 'H', 15, '2021'),
-(304, 'H', 41, '2021'),
-(305, 'H', 36, '2021'),
-(306, 'H', 43, '2021'),
-(307, 'H', 44, '2021'),
-(308, 'H', 45, '2021'),
-(309, 'D', 15, '2021'),
-(310, 'D', 7, '2021'),
-(311, 'D', 10, '2021'),
-(312, 'D', 46, '2021'),
-(313, 'H', 1, '2022'),
-(314, 'H', 2, '2022'),
-(315, 'H', 3, '2022'),
-(316, 'H', 4, '2022'),
-(317, 'H', 5, '2022'),
-(318, 'H', 39, '2022'),
-(319, 'H', 16, '2022'),
-(320, 'H', 17, '2022'),
-(321, 'H', 18, '2022'),
-(322, 'H', 19, '2022'),
-(323, 'H', 42, '2022'),
-(324, 'H', 20, '2022'),
-(325, 'H', 21, '2022'),
-(326, 'H', 22, '2022'),
-(327, 'H', 23, '2022'),
-(328, 'H', 24, '2022'),
-(329, 'H', 25, '2022'),
-(330, 'H', 26, '2022'),
-(331, 'H', 27, '2022'),
-(332, 'H', 28, '2022'),
-(333, 'H', 29, '2022'),
-(334, 'H', 30, '2022'),
-(335, 'H', 33, '2022'),
-(336, 'H', 37, '2022'),
-(337, 'H', 34, '2022'),
-(338, 'H', 6, '2022'),
-(339, 'H', 40, '2022'),
-(340, 'H', 7, '2022'),
-(341, 'H', 8, '2022'),
-(342, 'H', 9, '2022'),
-(343, 'H', 10, '2022'),
-(344, 'H', 11, '2022'),
-(345, 'H', 12, '2022'),
-(346, 'H', 38, '2022'),
-(347, 'H', 13, '2022'),
-(348, 'H', 14, '2022'),
-(349, 'H', 43, '2022'),
-(350, 'H', 15, '2022'),
-(351, 'H', 41, '2022'),
-(352, 'H', 44, '2022'),
-(353, 'H', 45, '2022'),
-(354, 'H', 36, '2022'),
-(355, 'D', 46, '2023'),
-(356, 'H', 1, '2023'),
-(357, 'H', 2, '2023'),
-(358, 'H', 3, '2023'),
-(359, 'H', 4, '2023'),
-(360, 'H', 5, '2023'),
-(361, 'H', 6, '2023'),
-(362, 'H', 40, '2023'),
-(363, 'H', 7, '2023'),
-(364, 'H', 8, '2023'),
-(365, 'H', 9, '2023'),
-(366, 'H', 10, '2023'),
-(367, 'H', 11, '2023'),
-(368, 'H', 12, '2023'),
-(369, 'H', 38, '2023'),
-(370, 'H', 13, '2023'),
-(371, 'H', 36, '2023'),
-(372, 'H', 39, '2023'),
-(373, 'H', 14, '2023'),
-(374, 'H', 15, '2023'),
-(375, 'H', 41, '2023'),
-(376, 'H', 16, '2023'),
-(377, 'H', 44, '2023'),
-(378, 'H', 45, '2023'),
-(379, 'H', 17, '2023'),
-(380, 'H', 18, '2023'),
-(381, 'H', 19, '2023'),
-(382, 'H', 42, '2023'),
-(383, 'H', 20, '2023'),
-(384, 'H', 21, '2023'),
-(385, 'H', 22, '2023'),
-(386, 'H', 23, '2023'),
-(387, 'H', 24, '2023'),
-(388, 'H', 25, '2023'),
-(389, 'H', 26, '2023'),
-(390, 'H', 27, '2023'),
-(391, 'H', 28, '2023'),
-(392, 'H', 29, '2023'),
-(393, 'H', 30, '2023'),
-(394, 'H', 33, '2023'),
-(395, 'H', 37, '2023'),
-(396, 'H', 34, '2023'),
-(397, 'H', 43, '2023'),
-(398, 'H', 1, '2024'),
-(399, 'H', 2, '2024'),
-(400, 'H', 3, '2024'),
-(401, 'H', 4, '2024'),
-(402, 'H', 5, '2024'),
-(403, 'H', 6, '2024'),
-(404, 'H', 40, '2024'),
-(405, 'H', 16, '2024'),
-(406, 'H', 25, '2024'),
-(407, 'H', 30, '2024'),
-(408, 'H', 7, '2024'),
-(409, 'H', 8, '2024'),
-(410, 'H', 9, '2024'),
-(411, 'H', 10, '2024'),
-(412, 'H', 11, '2024'),
-(413, 'H', 12, '2024'),
-(414, 'H', 38, '2024'),
-(415, 'H', 13, '2024'),
-(416, 'H', 14, '2024'),
-(417, 'H', 15, '2024'),
-(418, 'H', 41, '2024'),
-(419, 'H', 44, '2024'),
-(420, 'H', 45, '2024'),
-(421, 'H', 17, '2024'),
-(422, 'H', 18, '2024'),
-(423, 'H', 19, '2024'),
-(424, 'H', 42, '2024'),
-(425, 'H', 20, '2024'),
-(426, 'H', 21, '2024'),
-(427, 'H', 22, '2024'),
-(428, 'H', 23, '2024'),
-(429, 'H', 24, '2024'),
-(430, 'H', 26, '2024'),
-(431, 'H', 27, '2024'),
-(432, 'H', 28, '2024'),
-(433, 'H', 29, '2024'),
-(434, 'H', 33, '2024'),
-(435, 'H', 37, '2024'),
-(436, 'H', 34, '2024'),
-(437, 'H', 43, '2024'),
-(438, 'H', 39, '2024'),
-(439, 'H', 36, '2024');
+(34, 'H', 1, 2015),
+(35, 'H', 2, 2015),
+(36, 'H', 3, 2015),
+(37, 'H', 4, 2015),
+(38, 'H', 5, 2015),
+(39, 'H', 6, 2015),
+(40, 'H', 7, 2015),
+(41, 'H', 14, 2015),
+(42, 'H', 20, 2015),
+(43, 'H', 16, 2015),
+(44, 'H', 26, 2015),
+(45, 'H', 22, 2015),
+(46, 'H', 21, 2015),
+(47, 'H', 15, 2015),
+(48, 'H', 19, 2015),
+(49, 'H', 18, 2015),
+(50, 'H', 13, 2015),
+(51, 'H', 27, 2015),
+(52, 'H', 10, 2015),
+(53, 'H', 8, 2015),
+(54, 'H', 29, 2015),
+(55, 'H', 17, 2015),
+(56, 'H', 9, 2015),
+(57, 'H', 34, 2015),
+(58, 'H', 25, 2015),
+(59, 'H', 24, 2015),
+(60, 'H', 23, 2015),
+(61, 'H', 33, 2015),
+(62, 'H', 11, 2015),
+(63, 'H', 30, 2015),
+(64, 'H', 28, 2015),
+(65, 'H', 12, 2015),
+(66, 'D', 35, 2015),
+(67, 'H', 36, 2015),
+(68, 'H', 37, 2015),
+(69, 'H', 38, 2015),
+(70, 'H', 39, 2015),
+(71, 'H', 40, 2015),
+(72, 'H', 41, 2015),
+(73, 'H', 18, 2013),
+(74, 'H', 1, 2016),
+(75, 'H', 2, 2016),
+(76, 'H', 3, 2016),
+(77, 'H', 4, 2016),
+(78, 'H', 5, 2016),
+(79, 'H', 6, 2016),
+(80, 'H', 40, 2016),
+(81, 'H', 38, 2016),
+(82, 'H', 7, 2016),
+(83, 'H', 8, 2016),
+(84, 'H', 9, 2016),
+(85, 'H', 10, 2016),
+(86, 'H', 11, 2016),
+(87, 'H', 12, 2016),
+(88, 'H', 13, 2016),
+(89, 'H', 14, 2016),
+(90, 'H', 15, 2016),
+(91, 'H', 41, 2016),
+(92, 'H', 16, 2016),
+(93, 'H', 17, 2016),
+(94, 'H', 18, 2016),
+(95, 'H', 19, 2016),
+(96, 'H', 20, 2016),
+(97, 'H', 21, 2016),
+(98, 'H', 22, 2016),
+(99, 'H', 23, 2016),
+(100, 'H', 24, 2016),
+(101, 'H', 25, 2016),
+(102, 'H', 26, 2016),
+(103, 'H', 27, 2016),
+(104, 'H', 28, 2016),
+(105, 'H', 29, 2016),
+(106, 'H', 30, 2016),
+(107, 'H', 33, 2016),
+(108, 'H', 37, 2016),
+(109, 'H', 34, 2016),
+(110, 'H', 39, 2016),
+(111, 'H', 36, 2016),
+(112, 'H', 1, 2017),
+(113, 'H', 2, 2017),
+(114, 'H', 3, 2017),
+(115, 'H', 4, 2017),
+(116, 'H', 5, 2017),
+(117, 'H', 6, 2017),
+(118, 'H', 40, 2017),
+(119, 'H', 7, 2017),
+(120, 'H', 8, 2017),
+(121, 'H', 9, 2017),
+(122, 'H', 10, 2017),
+(123, 'H', 11, 2017),
+(124, 'H', 12, 2017),
+(125, 'H', 38, 2017),
+(126, 'H', 13, 2017),
+(127, 'H', 41, 2017),
+(128, 'H', 15, 2017),
+(129, 'H', 17, 2017),
+(130, 'H', 24, 2017),
+(131, 'H', 14, 2017),
+(132, 'H', 16, 2017),
+(133, 'H', 30, 2017),
+(134, 'H', 21, 2017),
+(135, 'H', 22, 2017),
+(136, 'H', 19, 2017),
+(137, 'H', 20, 2017),
+(138, 'H', 18, 2017),
+(139, 'H', 29, 2017),
+(140, 'H', 25, 2017),
+(141, 'H', 27, 2017),
+(142, 'H', 28, 2017),
+(143, 'H', 26, 2017),
+(144, 'H', 23, 2017),
+(145, 'H', 34, 2017),
+(146, 'H', 37, 2017),
+(147, 'H', 36, 2017),
+(148, 'H', 39, 2017),
+(149, 'H', 33, 2017),
+(150, 'H', 1, 2018),
+(151, 'H', 2, 2018),
+(152, 'H', 3, 2018),
+(153, 'H', 4, 2018),
+(154, 'H', 5, 2018),
+(155, 'H', 6, 2018),
+(156, 'H', 40, 2018),
+(157, 'H', 7, 2018),
+(158, 'H', 8, 2018),
+(159, 'H', 9, 2018),
+(160, 'H', 10, 2018),
+(161, 'H', 11, 2018),
+(162, 'H', 12, 2018),
+(163, 'H', 38, 2018),
+(164, 'H', 13, 2018),
+(165, 'H', 14, 2018),
+(166, 'H', 15, 2018),
+(167, 'H', 41, 2018),
+(168, 'H', 16, 2018),
+(169, 'H', 17, 2018),
+(170, 'H', 18, 2018),
+(171, 'H', 19, 2018),
+(172, 'H', 20, 2018),
+(173, 'H', 36, 2018),
+(174, 'H', 21, 2018),
+(175, 'H', 22, 2018),
+(176, 'H', 23, 2018),
+(177, 'H', 24, 2018),
+(178, 'H', 25, 2018),
+(179, 'H', 26, 2018),
+(180, 'H', 27, 2018),
+(181, 'H', 28, 2018),
+(182, 'H', 29, 2018),
+(183, 'H', 30, 2018),
+(184, 'H', 33, 2018),
+(185, 'H', 37, 2018),
+(186, 'H', 34, 2018),
+(187, 'H', 39, 2018),
+(188, 'H', 42, 2018),
+(189, 'H', 1, 2019),
+(190, 'H', 2, 2019),
+(191, 'H', 3, 2019),
+(192, 'H', 4, 2019),
+(193, 'H', 5, 2019),
+(194, 'H', 6, 2019),
+(195, 'H', 40, 2019),
+(196, 'H', 7, 2019),
+(197, 'H', 8, 2019),
+(198, 'H', 9, 2019),
+(199, 'H', 10, 2019),
+(200, 'H', 11, 2019),
+(201, 'H', 12, 2019),
+(202, 'H', 38, 2019),
+(203, 'H', 13, 2019),
+(204, 'H', 14, 2019),
+(205, 'H', 15, 2019),
+(206, 'H', 41, 2019),
+(207, 'H', 16, 2019),
+(208, 'H', 17, 2019),
+(209, 'H', 36, 2019),
+(210, 'H', 39, 2019),
+(211, 'H', 18, 2019),
+(212, 'H', 19, 2019),
+(213, 'H', 42, 2019),
+(214, 'H', 20, 2019),
+(215, 'H', 21, 2019),
+(216, 'H', 22, 2019),
+(217, 'H', 23, 2019),
+(218, 'H', 24, 2019),
+(219, 'H', 25, 2019),
+(220, 'H', 26, 2019),
+(221, 'H', 27, 2019),
+(222, 'H', 28, 2019),
+(223, 'H', 29, 2019),
+(224, 'H', 30, 2019),
+(225, 'H', 33, 2019),
+(226, 'H', 37, 2019),
+(227, 'H', 34, 2019),
+(228, 'H', 1, 2020),
+(229, 'H', 2, 2020),
+(230, 'H', 3, 2020),
+(231, 'H', 4, 2020),
+(232, 'H', 5, 2020),
+(233, 'H', 6, 2020),
+(234, 'H', 40, 2020),
+(235, 'H', 7, 2020),
+(236, 'H', 8, 2020),
+(237, 'H', 9, 2020),
+(238, 'H', 10, 2020),
+(239, 'H', 11, 2020),
+(240, 'H', 12, 2020),
+(241, 'H', 38, 2020),
+(242, 'H', 13, 2020),
+(243, 'H', 14, 2020),
+(244, 'H', 15, 2020),
+(245, 'H', 41, 2020),
+(246, 'H', 16, 2020),
+(247, 'H', 17, 2020),
+(248, 'H', 18, 2020),
+(249, 'H', 19, 2020),
+(250, 'H', 42, 2020),
+(251, 'H', 20, 2020),
+(252, 'H', 21, 2020),
+(253, 'H', 22, 2020),
+(254, 'H', 23, 2020),
+(255, 'H', 24, 2020),
+(256, 'H', 25, 2020),
+(257, 'H', 26, 2020),
+(258, 'H', 27, 2020),
+(259, 'H', 28, 2020),
+(260, 'H', 29, 2020),
+(261, 'H', 30, 2020),
+(262, 'H', 33, 2020),
+(263, 'H', 37, 2020),
+(264, 'H', 34, 2020),
+(265, 'H', 39, 2020),
+(266, 'H', 36, 2020),
+(267, 'H', 1, 2021),
+(268, 'H', 19, 2021),
+(269, 'H', 42, 2021),
+(270, 'H', 20, 2021),
+(271, 'H', 21, 2021),
+(272, 'H', 22, 2021),
+(273, 'H', 23, 2021),
+(274, 'H', 24, 2021),
+(275, 'H', 25, 2021),
+(276, 'H', 26, 2021),
+(277, 'H', 27, 2021),
+(278, 'H', 28, 2021),
+(279, 'H', 29, 2021),
+(280, 'H', 30, 2021),
+(281, 'H', 33, 2021),
+(282, 'H', 37, 2021),
+(283, 'H', 34, 2021),
+(284, 'H', 39, 2021),
+(285, 'H', 18, 2021),
+(286, 'H', 17, 2021),
+(287, 'H', 16, 2021),
+(288, 'H', 2, 2021),
+(289, 'H', 3, 2021),
+(290, 'H', 4, 2021),
+(291, 'H', 5, 2021),
+(292, 'H', 6, 2021),
+(293, 'H', 40, 2021),
+(294, 'H', 7, 2021),
+(295, 'H', 8, 2021),
+(296, 'H', 9, 2021),
+(297, 'H', 10, 2021),
+(298, 'H', 11, 2021),
+(299, 'H', 12, 2021),
+(300, 'H', 38, 2021),
+(301, 'H', 13, 2021),
+(302, 'H', 14, 2021),
+(303, 'H', 15, 2021),
+(304, 'H', 41, 2021),
+(305, 'H', 36, 2021),
+(306, 'H', 43, 2021),
+(307, 'H', 44, 2021),
+(308, 'H', 45, 2021),
+(309, 'D', 15, 2021),
+(310, 'D', 7, 2021),
+(311, 'D', 10, 2021),
+(312, 'D', 46, 2021),
+(313, 'H', 1, 2022),
+(314, 'H', 2, 2022),
+(315, 'H', 3, 2022),
+(316, 'H', 4, 2022),
+(317, 'H', 5, 2022),
+(318, 'H', 39, 2022),
+(319, 'H', 16, 2022),
+(320, 'H', 17, 2022),
+(321, 'H', 18, 2022),
+(322, 'H', 19, 2022),
+(323, 'H', 42, 2022),
+(324, 'H', 20, 2022),
+(325, 'H', 21, 2022),
+(326, 'H', 22, 2022),
+(327, 'H', 23, 2022),
+(328, 'H', 24, 2022),
+(329, 'H', 25, 2022),
+(330, 'H', 26, 2022),
+(331, 'H', 27, 2022),
+(332, 'H', 28, 2022),
+(333, 'H', 29, 2022),
+(334, 'H', 30, 2022),
+(335, 'H', 33, 2022),
+(336, 'H', 37, 2022),
+(337, 'H', 34, 2022),
+(338, 'H', 6, 2022),
+(339, 'H', 40, 2022),
+(340, 'H', 7, 2022),
+(341, 'H', 8, 2022),
+(342, 'H', 9, 2022),
+(343, 'H', 10, 2022),
+(344, 'H', 11, 2022),
+(345, 'H', 12, 2022),
+(346, 'H', 38, 2022),
+(347, 'H', 13, 2022),
+(348, 'H', 14, 2022),
+(349, 'H', 43, 2022),
+(350, 'H', 15, 2022),
+(351, 'H', 41, 2022),
+(352, 'H', 44, 2022),
+(353, 'H', 45, 2022),
+(354, 'H', 36, 2022),
+(355, 'D', 46, 2023),
+(356, 'H', 1, 2023),
+(357, 'H', 2, 2023),
+(358, 'H', 3, 2023),
+(359, 'H', 4, 2023),
+(360, 'H', 5, 2023),
+(361, 'H', 6, 2023),
+(362, 'H', 40, 2023),
+(363, 'H', 7, 2023),
+(364, 'H', 8, 2023),
+(365, 'H', 9, 2023),
+(366, 'H', 10, 2023),
+(367, 'H', 11, 2023),
+(368, 'H', 12, 2023),
+(369, 'H', 38, 2023),
+(370, 'H', 13, 2023),
+(371, 'H', 36, 2023),
+(372, 'H', 39, 2023),
+(373, 'H', 14, 2023),
+(374, 'H', 15, 2023),
+(375, 'H', 41, 2023),
+(376, 'H', 16, 2023),
+(377, 'H', 44, 2023),
+(378, 'H', 45, 2023),
+(379, 'H', 17, 2023),
+(380, 'H', 18, 2023),
+(381, 'H', 19, 2023),
+(382, 'H', 42, 2023),
+(383, 'H', 20, 2023),
+(384, 'H', 21, 2023),
+(385, 'H', 22, 2023),
+(386, 'H', 23, 2023),
+(387, 'H', 24, 2023),
+(388, 'H', 25, 2023),
+(389, 'H', 26, 2023),
+(390, 'H', 27, 2023),
+(391, 'H', 28, 2023),
+(392, 'H', 29, 2023),
+(393, 'H', 30, 2023),
+(394, 'H', 33, 2023),
+(395, 'H', 37, 2023),
+(396, 'H', 34, 2023),
+(397, 'H', 43, 2023),
+(398, 'H', 1, 2024),
+(399, 'H', 2, 2024),
+(400, 'H', 3, 2024),
+(401, 'H', 4, 2024),
+(402, 'H', 5, 2024),
+(403, 'H', 6, 2024),
+(404, 'H', 40, 2024),
+(405, 'H', 16, 2024),
+(406, 'H', 25, 2024),
+(407, 'H', 30, 2024),
+(408, 'H', 7, 2024),
+(409, 'H', 8, 2024),
+(410, 'H', 9, 2024),
+(411, 'H', 10, 2024),
+(412, 'H', 11, 2024),
+(413, 'H', 12, 2024),
+(414, 'H', 38, 2024),
+(415, 'H', 13, 2024),
+(416, 'H', 14, 2024),
+(417, 'H', 15, 2024),
+(418, 'H', 41, 2024),
+(419, 'H', 44, 2024),
+(420, 'H', 45, 2024),
+(421, 'H', 17, 2024),
+(422, 'H', 18, 2024),
+(423, 'H', 19, 2024),
+(424, 'H', 42, 2024),
+(425, 'H', 20, 2024),
+(426, 'H', 21, 2024),
+(427, 'H', 22, 2024),
+(428, 'H', 23, 2024),
+(429, 'H', 24, 2024),
+(430, 'H', 26, 2024),
+(431, 'H', 27, 2024),
+(432, 'H', 28, 2024),
+(433, 'H', 29, 2024),
+(434, 'H', 33, 2024),
+(435, 'H', 37, 2024),
+(436, 'H', 34, 2024),
+(437, 'H', 43, 2024),
+(438, 'H', 39, 2024),
+(439, 'H', 36, 2024);
 
 -- --------------------------------------------------------
 
@@ -36004,11 +36606,13 @@ INSERT INTO `cursosciclolectivo` (`id`, `estado`, `id_cursos`, `ciclolectivo`) V
 -- Estructura de tabla para la tabla `departamentos`
 --
 
-CREATE TABLE `departamentos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `dni_jefe` int(11) NOT NULL COMMENT 'DNI del jefe de departamento'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `departamentos`;
+CREATE TABLE IF NOT EXISTS `departamentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dni_jefe` int NOT NULL COMMENT 'DNI del jefe de departamento',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `departamentos`
@@ -36028,10 +36632,11 @@ INSERT INTO `departamentos` (`id`, `nombre`, `dni_jefe`) VALUES
 -- Estructura de tabla para la tabla `email`
 --
 
-CREATE TABLE `email` (
-  `dni` int(11) NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `email`;
+CREATE TABLE IF NOT EXISTS `email` (
+  `dni` int NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `email`
@@ -36046,14 +36651,16 @@ INSERT INTO `email` (`dni`, `email`) VALUES
 -- Estructura de tabla para la tabla `escuelas`
 --
 
-CREATE TABLE `escuelas` (
-  `cue` int(11) NOT NULL,
+DROP TABLE IF EXISTS `escuelas`;
+CREATE TABLE IF NOT EXISTS `escuelas` (
+  `cue` int NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `direccion` varchar(100) NOT NULL,
-  `id_localidad` int(11) NOT NULL,
+  `id_localidad` int NOT NULL,
   `tipo_e` varchar(4) NOT NULL,
-  `numero` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `numero` int NOT NULL,
+  PRIMARY KEY (`cue`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `escuelas`
@@ -36068,11 +36675,14 @@ INSERT INTO `escuelas` (`cue`, `nombre`, `direccion`, `id_localidad`, `tipo_e`, 
 -- Estructura de tabla para la tabla `grupos`
 --
 
-CREATE TABLE `grupos` (
-  `id` int(11) NOT NULL,
-  `nombre` int(11) NOT NULL,
-  `id_cursos` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `grupos`;
+CREATE TABLE IF NOT EXISTS `grupos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` int NOT NULL,
+  `id_cursos` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id cursos` (`id_cursos`)
+) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `grupos`
@@ -36171,13 +36781,15 @@ INSERT INTO `grupos` (`id`, `nombre`, `id_cursos`) VALUES
 -- Estructura de tabla para la tabla `horas`
 --
 
-CREATE TABLE `horas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `horas`;
+CREATE TABLE IF NOT EXISTS `horas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
   `turno` varchar(1) NOT NULL,
   `hd` time NOT NULL,
-  `hh` time NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `hh` time NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `horas`
@@ -36204,12 +36816,14 @@ INSERT INTO `horas` (`id`, `nombre`, `turno`, `hd`, `hh`) VALUES
 -- Estructura de tabla para la tabla `localidades`
 --
 
-CREATE TABLE `localidades` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `localidades`;
+CREATE TABLE IF NOT EXISTS `localidades` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `localidad` varchar(120) NOT NULL,
-  `cp` mediumint(9) NOT NULL,
-  `id_provincias` varchar(40) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `cp` mediumint NOT NULL,
+  `id_provincias` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6437 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `localidades`
@@ -42663,13 +43277,15 @@ INSERT INTO `localidades` (`id`, `localidad`, `cp`, `id_provincias`) VALUES
 -- Estructura de tabla para la tabla `materias`
 --
 
-CREATE TABLE `materias` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `materias`;
+CREATE TABLE IF NOT EXISTS `materias` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(70) NOT NULL,
   `abreviatura` varchar(15) NOT NULL,
   `estado` varchar(1) NOT NULL DEFAULT 'H',
-  `resumen` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `resumen` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -42798,11 +43414,13 @@ INSERT INTO `materias` (`id`, `nombre`, `abreviatura`, `estado`, `resumen`) VALU
 -- Estructura de tabla para la tabla `orientaciones`
 --
 
-CREATE TABLE `orientaciones` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `orientaciones`;
+CREATE TABLE IF NOT EXISTS `orientaciones` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
-  `titulo` varchar(80) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `titulo` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `orientaciones`
@@ -42820,11 +43438,12 @@ INSERT INTO `orientaciones` (`id`, `nombre`, `titulo`) VALUES
 -- Estructura de tabla para la tabla `padresalumnos`
 --
 
-CREATE TABLE `padresalumnos` (
-  `dni_alumnos` int(11) NOT NULL,
-  `dni_padrestutores` int(11) NOT NULL,
-  `id_parentesco` tinyint(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `padresalumnos`;
+CREATE TABLE IF NOT EXISTS `padresalumnos` (
+  `dni_alumnos` int NOT NULL,
+  `dni_padrestutores` int NOT NULL,
+  `id_parentesco` tinyint NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `padresalumnos`
@@ -49549,19 +50168,21 @@ INSERT INTO `padresalumnos` (`dni_alumnos`, `dni_padrestutores`, `id_parentesco`
 -- Estructura de tabla para la tabla `padrestutores`
 --
 
-CREATE TABLE `padrestutores` (
-  `dni` int(11) NOT NULL,
+DROP TABLE IF EXISTS `padrestutores`;
+CREATE TABLE IF NOT EXISTS `padrestutores` (
+  `dni` int NOT NULL,
   `ocupacion` varchar(50) NOT NULL,
   `sexo` varchar(1) NOT NULL,
   `fechan` date NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `domicilio` varchar(80) NOT NULL,
-  `id_localidades` int(11) NOT NULL,
+  `id_localidades` int NOT NULL,
   `telefono` varchar(50) NOT NULL,
-  `mailVerificado` tinyint(4) NOT NULL,
-  `contrasena` varchar(40) NOT NULL DEFAULT '1234'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `mailVerificado` tinyint NOT NULL,
+  `contrasena` varchar(40) NOT NULL DEFAULT '1234',
+  PRIMARY KEY (`dni`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `padrestutores`
@@ -55077,10 +55698,12 @@ INSERT INTO `padrestutores` (`dni`, `ocupacion`, `sexo`, `fechan`, `nombre`, `ap
 -- Estructura de tabla para la tabla `parentesco`
 --
 
-CREATE TABLE `parentesco` (
-  `id` tinyint(4) NOT NULL,
-  `parentesco` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `parentesco`;
+CREATE TABLE IF NOT EXISTS `parentesco` (
+  `id` tinyint NOT NULL AUTO_INCREMENT,
+  `parentesco` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `parentesco`
@@ -55098,19 +55721,21 @@ INSERT INTO `parentesco` (`id`, `parentesco`) VALUES
 -- Estructura de tabla para la tabla `personal`
 --
 
-CREATE TABLE `personal` (
-  `dni` int(11) NOT NULL,
+DROP TABLE IF EXISTS `personal`;
+CREATE TABLE IF NOT EXISTS `personal` (
+  `dni` int NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `tipo_doc` varchar(3) NOT NULL,
   `sexo` varchar(1) NOT NULL,
   `domicilio` varchar(80) NOT NULL,
-  `cp` mediumint(9) NOT NULL,
+  `cp` mediumint NOT NULL,
   `fechan` date NOT NULL,
   `email` varchar(100) NOT NULL,
   `pass` varchar(40) NOT NULL DEFAULT '1234',
-  `id_localidades` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `id_localidades` int NOT NULL,
+  PRIMARY KEY (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `personal`
@@ -55776,12 +56401,14 @@ INSERT INTO `personal` (`dni`, `apellido`, `nombre`, `tipo_doc`, `sexo`, `domici
 -- Estructura de tabla para la tabla `preceptorescursos`
 --
 
-CREATE TABLE `preceptorescursos` (
-  `id` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
-  `id_cursosciclolectivo` int(11) NOT NULL,
-  `turno` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `preceptorescursos`;
+CREATE TABLE IF NOT EXISTS `preceptorescursos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dni` int NOT NULL,
+  `id_cursosciclolectivo` int NOT NULL,
+  `turno` varchar(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1562 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `preceptorescursos`
@@ -56727,10 +57354,12 @@ INSERT INTO `preceptorescursos` (`id`, `dni`, `id_cursosciclolectivo`, `turno`) 
 -- Estructura de tabla para la tabla `provincia`
 --
 
-CREATE TABLE `provincia` (
-  `id_provincias` tinyint(4) NOT NULL,
-  `provincia` varchar(25) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `provincia`;
+CREATE TABLE IF NOT EXISTS `provincia` (
+  `id_provincias` tinyint NOT NULL AUTO_INCREMENT,
+  `provincia` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_provincias`)
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `provincia`
@@ -56769,11 +57398,13 @@ INSERT INTO `provincia` (`id_provincias`, `provincia`) VALUES
 -- Estructura de tabla para la tabla `telefono`
 --
 
-CREATE TABLE `telefono` (
-  `id` int(11) NOT NULL,
-  `dni` bigint(20) NOT NULL,
-  `telefono` varchar(25) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `telefono`;
+CREATE TABLE IF NOT EXISTS `telefono` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dni` bigint NOT NULL,
+  `telefono` varchar(25) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `telefono`
@@ -56788,10 +57419,11 @@ INSERT INTO `telefono` (`id`, `dni`, `telefono`) VALUES
 -- Estructura de tabla para la tabla `tokens`
 --
 
-CREATE TABLE `tokens` (
-  `token` int(11) NOT NULL,
-  `dni` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `tokens`;
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `token` int NOT NULL,
+  `dni` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tokens`
@@ -56801,275 +57433,14 @@ INSERT INTO `tokens` (`token`, `dni`) VALUES
 (66, 46736648);
 
 --
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `alumnos`
---
-ALTER TABLE `alumnos`
-  ADD PRIMARY KEY (`dni`);
-
---
--- Indices de la tabla `anexoiv`
---
-ALTER TABLE `anexoiv`
-  ADD PRIMARY KEY (`idAnexoIV`);
-
---
--- Indices de la tabla `anexov`
---
-ALTER TABLE `anexov`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`),
-  ADD KEY `dni` (`dni`);
-
---
--- Indices de la tabla `anexovi`
---
-ALTER TABLE `anexovi`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
-
---
--- Indices de la tabla `anexovii`
---
-ALTER TABLE `anexovii`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
-
---
--- Indices de la tabla `anexoviii`
---
-ALTER TABLE `anexoviii`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
-
---
--- Indices de la tabla `anexox`
---
-ALTER TABLE `anexox`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
-
---
--- Indices de la tabla `anexoxi`
---
-ALTER TABLE `anexoxi`
-  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
-
---
--- Indices de la tabla `area`
---
-ALTER TABLE `area`
-  ADD PRIMARY KEY (`pk_area`);
-
---
--- Indices de la tabla `asignacionesalumnos`
---
-ALTER TABLE `asignacionesalumnos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cursosciclolectivo` (`id_cursosciclolectivo`),
-  ADD KEY `dni_alumnos` (`dni_alumnos`),
-  ADD KEY `id grupos` (`id_grupos`);
-
---
--- Indices de la tabla `ciclosuperior`
---
-ALTER TABLE `ciclosuperior`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id del curso` (`id_cursos`),
-  ADD KEY `id orientacion` (`id_orientaciones`);
-
---
--- Indices de la tabla `configuracion`
---
-ALTER TABLE `configuracion`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `cursos`
---
-ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `departamentos`
---
-ALTER TABLE `departamentos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `escuelas`
---
-ALTER TABLE `escuelas`
-  ADD PRIMARY KEY (`cue`);
-
---
--- Indices de la tabla `grupos`
---
-ALTER TABLE `grupos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id cursos` (`id_cursos`);
-
---
--- Indices de la tabla `horas`
---
-ALTER TABLE `horas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `localidades`
---
-ALTER TABLE `localidades`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `materias`
---
-ALTER TABLE `materias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `orientaciones`
---
-ALTER TABLE `orientaciones`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `padrestutores`
---
-ALTER TABLE `padrestutores`
-  ADD PRIMARY KEY (`dni`);
-
---
--- Indices de la tabla `parentesco`
---
-ALTER TABLE `parentesco`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `personal`
---
-ALTER TABLE `personal`
-  ADD PRIMARY KEY (`dni`);
-
---
--- Indices de la tabla `preceptorescursos`
---
-ALTER TABLE `preceptorescursos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `provincia`
---
-ALTER TABLE `provincia`
-  ADD PRIMARY KEY (`id_provincias`);
-
---
--- Indices de la tabla `telefono`
---
-ALTER TABLE `telefono`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `anexoiv`
---
-ALTER TABLE `anexoiv`
-  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `area`
---
-ALTER TABLE `area`
-  MODIFY `pk_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `asignacionesalumnos`
---
-ALTER TABLE `asignacionesalumnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15577;
-
---
--- AUTO_INCREMENT de la tabla `ciclosuperior`
---
-ALTER TABLE `ciclosuperior`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de la tabla `configuracion`
---
-ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `cursos`
---
-ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- AUTO_INCREMENT de la tabla `departamentos`
---
-ALTER TABLE `departamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `grupos`
---
-ALTER TABLE `grupos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
-
---
--- AUTO_INCREMENT de la tabla `horas`
---
-ALTER TABLE `horas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `localidades`
---
-ALTER TABLE `localidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6437;
-
---
--- AUTO_INCREMENT de la tabla `materias`
---
-ALTER TABLE `materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
-
---
--- AUTO_INCREMENT de la tabla `orientaciones`
---
-ALTER TABLE `orientaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `parentesco`
---
-ALTER TABLE `parentesco`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `preceptorescursos`
---
-ALTER TABLE `preceptorescursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1562;
-
---
--- AUTO_INCREMENT de la tabla `provincia`
---
-ALTER TABLE `provincia`
-  MODIFY `id_provincias` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de la tabla `telefono`
---
-ALTER TABLE `telefono`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `anexoix`
+--
+ALTER TABLE `anexoix`
+  ADD CONSTRAINT `anexoix_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
 
 --
 -- Filtros para la tabla `anexov`
@@ -57078,28 +57449,10 @@ ALTER TABLE `anexov`
   ADD CONSTRAINT `anexov_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
 
 --
--- Filtros para la tabla `anexovii`
+-- Filtros para la tabla `anexovinfo`
 --
-ALTER TABLE `anexovii`
-  ADD CONSTRAINT `anexovii_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
-
---
--- Filtros para la tabla `anexoviii`
---
-ALTER TABLE `anexoviii`
-  ADD CONSTRAINT `anexoviii_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
-
---
--- Filtros para la tabla `anexox`
---
-ALTER TABLE `anexox`
-  ADD CONSTRAINT `anexox_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
-
---
--- Filtros para la tabla `anexoxi`
---
-ALTER TABLE `anexoxi`
-  ADD CONSTRAINT `anexoxi_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
+ALTER TABLE `anexovinfo`
+  ADD CONSTRAINT `anexovinfo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -13,8 +13,10 @@
         $domicilioInstitucion = "Calle 104 y 124";
         $telefonoInstitucion = 2246420535;
         $denominacionProyecto = $_POST['denominacionProyecto'];
-        $localidadViaje = $_POST['localidadViaje'];
-        $lugarVisita = $_POST['lugarVisitar'];
+        $lugarVisita = $_POST['lugarVisita'];
+        $direccionVisita = $_POST['direccionVisita'];
+        $localidadVisita = $_POST['localidadVisita'];
+        $regionVisita = $_POST['regionVisitar'];
         $fechaSalida = $_POST['fechaSalida'];
         $lugarSalida = $_POST['lugarSalida'];
         $horaSalida = $_POST['horaSalida'];
@@ -23,6 +25,8 @@
         $horaRegreso = $_POST['horaRegreso'];
         $itinerario = $_POST['itinerario'];
         $actividades = $_POST['actividades'];
+        $objetivosSalida = $_POST['objetivosSalida'];
+        $cronograma = $_POST['cronograma'];
         $dniEncargado = $_POST['dniEncargado'];
         $apellidoNombreEncargado = $_POST['nombreEncargado'];
         $cargo = 2;
@@ -31,16 +35,16 @@
         $telefonoHospedaje = !empty($_POST['telefonoHospedaje']) ? $_POST['telefonoHospedaje'] : '-';
         $localidadHospedaje = !empty($_POST['localidadHospedaje']) ? $_POST['localidadHospedaje'] : '-';
         $gastosEstimativos = $_POST['gastosEstimativos'];
-        $anexo9 = intval($_POST['anexo9']);
+        $anexo8 = intval($_POST['anexo8']);
         $fechaLimite = $_POST['fechaLimite'];
 
         $sql = "INSERT INTO anexoiv (
             estado, tipoSolicitud, distanciaSalida, region, distrito, institucionEducativa, numeroInstitucion, domicilioInstitucion,
-            telefonoInstitucion, denominacionProyecto, localidadViaje, lugarVisita, fechaSalida, lugarSalida,
-            horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades,
-            dniEncargado, apellidoNombreEncargado, cargo, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, 
-            localidadHospedaje, gastosEstimativos, anexoIXHabil, fechaLimite
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            telefonoInstitucion, denominacionProyecto, lugarVisita, direccionVisita, localidadVisita, regionVisita,
+            fechaSalida, lugarSalida, horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades, objetivosSalida,
+            cronograma, dniEncargado, apellidoNombreEncargado, cargo, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, 
+            localidadHospedaje, gastosEstimativos, anexoVIIIHabil, fechaLimite
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(

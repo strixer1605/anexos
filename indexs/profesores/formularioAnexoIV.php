@@ -45,10 +45,10 @@
                 <br>
                 <div class="form-group-flex">
                     <div class="wrapper" style="max-width: 500px;">
-                        <div class="title">¿Utilizará el Anexo IX?</div>
+                        <div class="title">¿Utilizará el Anexo VIII?</div>
                         <div class="box">
-                            <input type="radio" id="option-1" name="anexo9" value="1">
-                            <input type="radio" id="option-2" name="anexo9" value="2">
+                            <input type="radio" id="option-1" name="anexoVIII" value="1">
+                            <input type="radio" id="option-2" name="anexoVIII" value="2">
 
                             <label for="option-1" class="option-1">
                                 <div class="dot"></div>
@@ -85,10 +85,6 @@
                         <input type="radio" id="option-7" name="distanciaSalida" value="3">
                         <input type="radio" id="option-8" name="distanciaSalida" value="4">
                         <input type="radio" id="option-9" name="distanciaSalida" value="5">
-                        <input type="radio" id="option-10" name="distanciaSalida" value="6">
-                        <input type="radio" id="option-11" name="distanciaSalida" value="7">
-                        <input type="radio" id="option-12" name="distanciaSalida" value="8">
-                        <input type="radio" id="option-13" name="distanciaSalida" value="9">
 
                         <label for="option-5" class="option-5">
                             <div class="dot"></div>
@@ -114,25 +110,6 @@
                             <div class="dot"></div>
                             <div class="text"></div>
                         </label>
-
-                        <label for="option-10" class="option-10">
-                            <div class="dot"></div>
-                            <div class="text"></div>
-                        </label>
-
-                        <label for="option-11" class="option-11">
-                            <div class="dot"></div>
-                            <div class="text"></div>
-                        </label>
-                        <label for="option-12" class="option-12">
-                            <div class="dot"></div>
-                            <div class="text"></div>
-                        </label>
-
-                        <label for="option-13" class="option-13">
-                            <div class="dot"></div>
-                            <div class="text"></div>
-                        </label>
                     </div>
                 </div>
                 <br><br>
@@ -142,13 +119,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="localidadViaje" class="form-label">Localidad a Visitar:</label>
-                    <input type="text" class="form-control item" id="localidadViaje" name="localidadViaje" placeholder="Ingrese la localidad a visitar..." required>
+                    <label for="lugarVisita" class="form-label">Lugar a Visitar:</label>
+                    <input type="text" class="form-control item" id="lugarVisitar" name="lugarVisitar" placeholder="Ingrese el lugar a visitar..." required>
                 </div>
 
                 <div class="form-group">
-                    <label for="lugarVisitar" class="form-label">Lugar a Visitar:</label>
-                    <input type="text" class="form-control item" id="lugarVisitar" name="lugarVisitar" placeholder="Ingrese el lugar a visitar..." required>
+                    <label for="direccionVisita" class="form-label">Dirección a Visitar:</label>
+                    <input type="text" class="form-control item" id="direccionVisita" name="direccionVisita" placeholder="Ingrese la dirección a visitar..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="localidadVisita" class="form-label">Localidad a Visitar:</label>
+                    <input type="text" class="form-control item" id="localidadVisita" name="localidadVisita" placeholder="Ingrese la localidad a visitar..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regionVisita" class="form-label">Región a Visitar:</label>
+                    <input type="text" class="form-control item" id="regionVisita" name="regionVisita" placeholder="Ingrese la región a visitar..." required>
                 </div>
 
                 <div class="form-group">
@@ -195,6 +182,16 @@
                 <div class="form-group">
                     <label for="actividades" class="form-label">Actividades:</label>
                     <textarea class="form-control item" id="actividades" name="actividades" rows="3" placeholder="Describa las actividades..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="objetivosSalida" class="form-label">Objetivos de la salida:</label>
+                    <textarea class="form-control item" id="itinerario" name="itinerario" rows="3" placeholder="Describa el itinerario..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cronograma" class="form-label">Cronograma diario:</label>
+                    <textarea class="form-control item" id="cronograma" name="cronograma" rows="3" placeholder="Describa el cronograma..." required></textarea>
                 </div>
 
                 <div class="form-group">
