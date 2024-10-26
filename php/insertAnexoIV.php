@@ -16,7 +16,7 @@
         $lugarVisita = $_POST['lugarVisita'];
         $direccionVisita = $_POST['direccionVisita'];
         $localidadVisita = $_POST['localidadVisita'];
-        $regionVisita = $_POST['regionVisitar'];
+        $regionVisita = $_POST['regionVisita'];
         $fechaSalida = $_POST['fechaSalida'];
         $lugarSalida = $_POST['lugarSalida'];
         $horaSalida = $_POST['horaSalida'];
@@ -35,7 +35,7 @@
         $telefonoHospedaje = !empty($_POST['telefonoHospedaje']) ? $_POST['telefonoHospedaje'] : '-';
         $localidadHospedaje = !empty($_POST['localidadHospedaje']) ? $_POST['localidadHospedaje'] : '-';
         $gastosEstimativos = $_POST['gastosEstimativos'];
-        $anexo8 = intval($_POST['anexo8']);
+        $anexo8 = intval($_POST['anexoVIII']);
         $fechaLimite = $_POST['fechaLimite'];
 
         $sql = "INSERT INTO anexoiv (
@@ -43,17 +43,17 @@
             telefonoInstitucion, denominacionProyecto, lugarVisita, direccionVisita, localidadVisita, regionVisita,
             fechaSalida, lugarSalida, horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades, objetivosSalida,
             cronograma, dniEncargado, apellidoNombreEncargado, cargo, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, 
-            localidadHospedaje, gastosEstimativos, anexoVIIIHabil, fechaLimite
+            localidadHospedaje, gastosEstimativos, anexoviiiHabil, fechaLimite
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiiissisisssssssssssisississis",
+                "iiiissisisssssssssssssssisississis",
                 $estado, $tipoSolicitud, $distanciaSalida, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
-                $telefonoInstitucion, $denominacionProyecto, $localidadViaje, $lugarVisita, $fechaSalida, $lugarSalida,
-                $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades,
+                $telefonoInstitucion, $denominacionProyecto, $lugarVisita, $direccionVisita, $localidadVisita, $regionVisita, $fechaSalida, 
+                $lugarSalida, $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades, $objetivosSalida, $cronograma,
                 $dniEncargado, $apellidoNombreEncargado, $cargo, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, 
-                $localidadHospedaje,$gastosEstimativos, $anexo9, $fechaLimite
+                $localidadHospedaje,$gastosEstimativos, $anexo8, $fechaLimite
             );
 
             if ($stmt->execute()) {

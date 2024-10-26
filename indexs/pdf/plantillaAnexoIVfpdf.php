@@ -70,81 +70,80 @@
         $pdf->Cell(0, 10, mb_convert_encoding('Salida Educativa / Salida de Representación Institucional', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     }
 
-    $pdf->Rect(8, 80, 195, 200); // Ajusta la posición y tamaño según tus necesidades
+    // $pdf->Rect(8, 80, 195, 200);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(17, 10, mb_convert_encoding('Región:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['region'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['region'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(20, 10, mb_convert_encoding('Distrito:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(18, 10, mb_convert_encoding('Distrito:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // Continúa con el resto de la información dinámica
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(47, 10, mb_convert_encoding('Institución Educativa:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(45, 10, mb_convert_encoding('Institución Educativa:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(40, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(99, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(24, 10, mb_convert_encoding('Número: N°', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(8, 10, mb_convert_encoding('N°:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(90, 10, mb_convert_encoding($fila['numeroInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(22, 10, mb_convert_encoding('Domicilio:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['domicilioInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(59, 10, mb_convert_encoding('Denominacion del Proyecto:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(122, 10, mb_convert_encoding($fila['domicilioInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(21, 10, mb_convert_encoding('Teléfono:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(50, 10, mb_convert_encoding($fila['telefonoInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['telefonoInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(59, 10, mb_convert_encoding('Lugar a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(59, 10, mb_convert_encoding('Denominacion del Proyecto:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(59, 10, mb_convert_encoding('Dirección:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(32, 10, mb_convert_encoding('Lugar a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['direccionViaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(59, 10, mb_convert_encoding('Localidad:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(40, 10, mb_convert_encoding('Dirección a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['localidadViaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['direccionVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(59, 10, mb_convert_encoding('Región:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(40, 10, mb_convert_encoding('Localidad a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['regionViaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['localidadVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(34, 10, mb_convert_encoding('Región a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 11);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['regionVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
     $pdf->SetFont('Arial', '', 13);
     $pdf->Cell(20, 18, mb_convert_encoding('SALIDA', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(15, 0, mb_convert_encoding('Fecha:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(30, 0, $fechaSalida, 0, 0);
+    $pdf->Cell(25, 0, $fechaSalida, 0, 0);
+
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(12, 0, mb_convert_encoding('Hora:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(20, 0, mb_convert_encoding($fila['horaSalida'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(15, 0, mb_convert_encoding('Lugar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(86, 0, mb_convert_encoding($fila['lugarSalida'], 'ISO-8859-1', 'UTF-8'), 0, 0);
-
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(12, 0, mb_convert_encoding('Hora:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(30, 0, mb_convert_encoding($fila['horaSalida'], 'ISO-8859-1', 'UTF-8'), 0, 1);  // Agregar este campo para hora de salida
     
     $pdf->Ln(5);
 
@@ -154,109 +153,121 @@
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(15, 10, mb_convert_encoding('Fecha:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(30, 10, $fechaRegreso, 0, 0);
-
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(15, 10, mb_convert_encoding('Lugar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(86, 10, mb_convert_encoding($fila['lugarRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(25, 10, $fechaRegreso, 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(12, 10, mb_convert_encoding('Hora:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(30, 10, mb_convert_encoding($fila['horaRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 1); // Agregar este campo para hora de regreso
+    $pdf->Cell(20, 10, mb_convert_encoding($fila['horaRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(20, 10, mb_convert_encoding('Itinerario:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['region'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(26, 10, mb_convert_encoding('Actividades:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['region'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(17, 10, mb_convert_encoding('Región:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(15, 10, mb_convert_encoding('Lugar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['region'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(20, 10, mb_convert_encoding($fila['lugarRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->Ln(5);
 
+    $pdf->SetFont('Arial', '', 13);
+    $pdf->Cell(15, 5, mb_convert_encoding('Observaciones respecto a las fechas (en caso de corresponder):', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(92, 15, mb_convert_encoding('Itinerario (detalle pormenorizado del mismo):', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 15, mb_convert_encoding($fila['itinerario'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(50);
 
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(27, 5, mb_convert_encoding('Actividades:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 5, mb_convert_encoding($fila['actividades'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(30);
 
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(47, 5, mb_convert_encoding('Objetivos de la salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 5, mb_convert_encoding($fila['objetivosSalida'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(30);
 
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(41, 5, mb_convert_encoding('Cronograma diario:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 5, mb_convert_encoding($fila['cronograma'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(30);
 
+    // Incluir el bloque de formulario
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Datos del/los docente/s responsables titulares', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(143, 8, mb_convert_encoding('Apellido y Nombre:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(0, 8, mb_convert_encoding('Cargo: Docente', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de alumnos: '.$cantidadAlumnos, 'ISO-8859-1', 'UTF-8'), 0, 1);
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de docentes acompañantes: '.$cantidadDocentes, 'ISO-8859-1', 'UTF-8'), 0, 1);
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de no docentes acompañantes: '.$cantidadAcompañantes, 'ISO-8859-1', 'UTF-8'), 0, 1);
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, mb_convert_encoding('Total de Personas: '.$totalPersonas, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Ln(5); // Espacio
 
-    // // Profesores
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, mb_convert_encoding('Docentes:', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    // $pdf->SetFont('Arial', '', 12);
-    // foreach ($nombresArray as $key => $nombre) {
-    //     $pdf->Cell(0, 10, mb_convert_encoding($nombre, 'ISO-8859-1', 'UTF-8'), 0, 1);
-    // }
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Datos del/los docente/s reemplazantes', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 10, mb_convert_encoding('Apellido y Nombre ___________________________________  Cargo ________________', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(90, 10, mb_convert_encoding('Apellido y Nombre ___________________________________  Cargo ________________', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(90, 10, mb_convert_encoding('Apellido y Nombre ___________________________________  Cargo ________________', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // $pdf->Cell(0, 10, utf8_decode('Datos del Hospedaje'), 0, 1, 'C');
-    // $pdf->SetFont('Arial', '', 12);
+    $pdf->Ln(5);
 
-    // // Hospedaje
-    // $pdf->Cell(30, 10, 'Hospedaje:', 0, 0, 'L');
-    // $pdf->Cell(70, 10, utf8_decode($fila['nombreHospedaje']), 0, 1, 'L');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de alumnos: '.$cantidadAlumnos, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de docentes acompañantes: '.$cantidadDocentes, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de no docentes acompañantes: '.$cantidadAcompañantes, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Total de Personas: '.$totalPersonas, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // // Teléfono
-    // $pdf->Cell(30, 10, 'Teléfono:', 0, 0, 'L');
-    // $pdf->Cell(70, 10, ($fila['telefonoHospedaje'] == 0) ? '-' : utf8_decode($fila['telefonoHospedaje']), 0, 1, 'L');
+    $pdf->Ln(5);
+    
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Sólo para salidas de más de 24 horas', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->Ln(2);
 
-    // // Segunda fila: Domicilio y Localidad
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, '', 0, 1); // Espacio
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(25, 10, mb_convert_encoding('Hospedaje:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 10, mb_convert_encoding($fila['nombreHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
-    // $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(21, 10, mb_convert_encoding('Teléfono:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    
+    $value = ($fila['telefonoHospedaje'] == 0) ? '-' : $fila['telefonoHospedaje'];
+    $pdf->Cell(0, 10, mb_convert_encoding($value, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->Ln(5);    
 
-    // // Domicilio
-    // $pdf->Cell(30, 10, 'Domicilio:', 0, 0, 'L');
-    // $pdf->Cell(70, 10, utf8_decode($fila['domicilioHospedaje']), 0, 1, 'L');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(22, 10, mb_convert_encoding('Domicilio:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(93, 10, mb_convert_encoding($fila['domicilioHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
-    // // Localidad
-    // $pdf->Cell(30, 10, 'Localidad:', 0, 0, 'L');
-    // $pdf->Cell(70, 10, utf8_decode($fila['localidadHospedaje']), 0, 1, 'L');
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(23, 10, mb_convert_encoding('Localidad:', 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['localidadHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // // Gastos estimativos
-    // $pdf->SetFont('Arial', 'B', 12);
-    // $pdf->Cell(0, 10, 'Gastos estimativos de la excursión:', 0, 1);
-    // $pdf->SetFont('Arial', '', 12);
-    // $pdf->MultiCell(0, 10, utf8_decode($fila['gastosEstimativos']), 0, 1);
+    $pdf->Ln(10); // Espacio
 
-    // // Firmas
-    // $pdf->Ln(15); // Salto de línea
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Gastos estimativos de la actividad y modo de solventarlos:', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(90, 5, mb_convert_encoding($fila['gastosEstimativos'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // // Fila de firmas
-    // $pdf->Cell(95, 10, '......................................................................', 0, 0, 'C');
-    // $pdf->Cell(95, 10, '......................................................................', 0, 1, 'C');
+    $pdf->Ln(10); // Espacio para completar con los datos manualmente
 
-    // $pdf->Cell(95, 10, utf8_decode('Lugar y fecha Firma de Autoridad del Establecimiento'), 0, 0, 'C');
-    // $pdf->Cell(95, 10, utf8_decode('Lugar y fecha Firma del Inspector (si correspondiere)'), 0, 1, 'C');
+    // Lugar y fecha
+    $pdf->Cell(0, 10, mb_convert_encoding('Lugar y fecha: ...................................................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // // Segunda fila de firmas
-    // $pdf->Ln(10);
-    // $pdf->Cell(95, 10, '......................................................................', 0, 0, 'C');
-    // $pdf->Cell(95, 10, '......................................................................', 0, 1, 'C');
+    $pdf->Cell(0, 15, mb_convert_encoding('Nombre y Apellido de Autoridad del Establecimiento que completó este formulario:', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('.................................................................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // $pdf->Cell(95, 10, utf8_decode('Lugar y fecha Firma del Inspector Jefe Distrital (si correspondiere)'), 0, 0, 'C');
-    // $pdf->Cell(95, 10, utf8_decode('Lugar y fecha Firma del Inspector Jefe Regional (si correspondiere)'), 0, 1, 'C');
+    $pdf->Ln(10); // Espacio final antes de terminar
 
-    // // Nota final
-    // $pdf->Ln(20);
-    // $pdf->SetFont('Arial', 'B', 10);
-    // $pdf->MultiCell(0, 10, utf8_decode('1) El presente formulario deberá estar completo por duplicado (Uno para la institución otro para la instancia de Supervisión)'), 0, 'C');
-
-    // Guardar PDF
     $pdf->Output('I', 'anexoIV.pdf');
 ?>

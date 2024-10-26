@@ -120,7 +120,7 @@
 
                 <div class="form-group">
                     <label for="lugarVisita" class="form-label">Lugar a Visitar:</label>
-                    <input type="text" class="form-control item" id="lugarVisitar" name="lugarVisitar" placeholder="Ingrese el lugar a visitar..." required>
+                    <input type="text" class="form-control item" id="lugarVisita" name="lugarVisita" placeholder="Ingrese el lugar a visitar..." required>
                 </div>
 
                 <div class="form-group">
@@ -186,7 +186,7 @@
 
                 <div class="form-group">
                     <label for="objetivosSalida" class="form-label">Objetivos de la salida:</label>
-                    <textarea class="form-control item" id="itinerario" name="itinerario" rows="3" placeholder="Describa el itinerario..." required></textarea>
+                    <textarea class="form-control item" id="objetivosSalida" name="objetivosSalida" rows="3" placeholder="Describa los objetivos de la salida..." required></textarea>
                 </div>
 
                 <div class="form-group">
