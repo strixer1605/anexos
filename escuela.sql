@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-10-2024 a las 03:33:34
+-- Tiempo de generación: 26-10-2024 a las 21:14:42
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -5524,7 +5524,14 @@ CREATE TABLE IF NOT EXISTS `anexoiv` (
   `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idAnexoIV`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexoiv`
+--
+
+INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `lugarVisita`, `direccionVisita`, `localidadVisita`, `regionVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `objetivosSalida`, `cronograma`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `fechaLimite`, `fechaModificacion`) VALUES
+(3, 1, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', 'TEST2', '1', '2024-12-20', 'TEST2', '20:00:00', '2024-12-20', 'TEST2', '22:00:00', 'TEST21111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111', 'TEST2', 'TEST2', 'TEST2', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2', 1, '2024-12-16 12:00:00', '2024-10-25 20:24:48');
 
 -- --------------------------------------------------------
 
@@ -5562,6 +5569,13 @@ CREATE TABLE IF NOT EXISTS `anexov` (
   KEY `fkAnexoIV` (`fkAnexoIV`),
   KEY `dni` (`dni`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexov`
+--
+
+INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
+(3, 18892329, 'ARRUA SOSA PAOLA', 42, 2);
 
 -- --------------------------------------------------------
 
