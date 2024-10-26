@@ -85,7 +85,7 @@
                             <!-- Sección de DNI -->
                             <div class="row mb-4">
                                 <div class="col-md-4 col-12">
-                                    <label for="dniSearch" class="form-label">Insertar por DNI:</label>
+                                    <label for="dniSearch" class="form-label">Insertar alumno / docente:</label>
                                     <input type="number" class="form-control item-anexo8" id="dniSearch" min = "0" oninput="validity.valid||(value='');" name="dniSearch" required pattern="\d{8}" placeholder="Insertar por DNI...">
                                 </div>
                                 <div class="col-md-4 col-12 mt-4 mt-md-0">
@@ -111,9 +111,27 @@
                             </div>
 
                             <!-- Sección de Acompañante -->
-                            <div class="row mb-4">
+                            <div class="row mb-2">
                                 <div class="col-12">
-                                    <label for="acompanante" class="form-label">Insertar no docente:</label>
+                                    <label for="acompanante" class="form-label">Insertar NO docente:</label>
+                                </div>
+                                <div class="col-md-2 col-12 mt-2">
+                                    <input type="text" class="form-control item" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
+                                </div>
+                                <div class="col-md-4 col-12 mt-2">
+                                    <input type="text" class="form-control item" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido..." required>
+                                </div>
+                                <div class="col-md-2 col-12 mt-2">
+                                    <input type="number" class="form-control item" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
+                                </div>
+                                <div class="col-md-4 col-12 mt-1">
+                                    <button id="cargarAcompañante" type="button" class="cargar w-100">Cargar no docente</button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="acompanante" class="form-label">Insertar docente SUPLENTE:</label>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
                                     <input type="text" class="form-control item" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
