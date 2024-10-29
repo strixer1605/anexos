@@ -40,18 +40,20 @@
     $pdf = new FPDF();
     
     // Establecer márgenes: izquierdo, superior y derecho a 20 mm
-    $pdf->SetMargins(20, 20, 20);
+    $pdf->SetMargins(15, 15, 15);
     // Establecer margen inferior
     $pdf->SetAutoPageBreak(true, 20);
     
     $pdf->AddPage();
 
     // Encabezado
-    $pdf->Image('../../imagenes/eest.png', 20, 8, 20);
-    $pdf->Image('../../imagenes/logoprovincia.jpg', 102, 8, 90); // Logo
+    $pdf->Image('../../imagenes/eest.png', 15, 8, 20);
+    $pdf->Image('../../imagenes/logoprovincia.jpg', 107, 8, 90); // Logo
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 40, mb_convert_encoding('IF-2024-35029272-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
+    
+    $pdf->Ln(-10);
 
     $pdf->SetFont('Arial', 'B', 15);
     $pdf->Cell(0, 10, mb_convert_encoding('ANEXO III', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
@@ -64,22 +66,47 @@
     $pdf->Ln(5);
 
     $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = 'Por la presente autorizo a ' . ucwords(strtolower($nombreCompleto)). ", DNI: " . $dniAlumno . ", estudiante de " . $ano . "to año, sección " . $division . " a participar de las Salidas Educativas o de Representación Institucional que se lleven a cabo en el barrio o área geográfica inmediata o próxima al establecimiento educativo, sin  necesidad de utilizar un medio de transporte, en el marco de la normativa vigente.
-    
-    La presente autorización es válida para actividades académicas, deportivas, culturales o comunitarias que se realicen durante el actual ciclo lectivo.";
+    $textoCompleto = 'Por la presente autorizo a ' . ucwords(strtolower($nombreCompleto)). ", DNI: " . $dniAlumno . ", estudiante de " . $ano . "to año, sección " . $division . " a participar de las Salidas Educativas o de Representación Institucional que se lleven a cabo en el barrio o área geográfica inmediata o próxima al establecimiento educativo, sin  necesidad de utilizar un medio de transporte, en el marco de la normativa vigente.";
 
     $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    
+    $pdf->Ln(5);
+
+    $pdf->MultiCell(0, 8, mb_convert_encoding('La presente autorización es válida para actividades académicas, deportivas, culturales o comunitarias que se realicen durante el actual ciclo lectivo.', 'ISO-8859-1', 'UTF-8'), 0);
 
     $fechaActual = date('d/m/y');
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Ln(10);
+    
+    $pdf->Ln(5);
 
-    $pdf->MultiCell(0, 10, mb_convert_encoding('Fecha: '.$fechaActual, 'ISO-8859-1', 'UTF-8'), 0, 'L');
-    $pdf->MultiCell(0, 10, mb_convert_encoding('Firma, aclaración y DNI (madre, padre o adulto responsable):', 'ISO-8859-1', 'UTF-8'), 0, 'L');
+    $pdf->Cell(0, 5, mb_convert_encoding('Firma, aclaración y DNI (madre, padre o adulto responsable):', 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Ln(40);
+
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+
+    $pdf->Cell(95, 5, mb_convert_encoding('Firma', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(95, 5, mb_convert_encoding('Aclaración', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+
+    $pdf->Ln(15);
+
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+
+    $pdf->Cell(95, 5, mb_convert_encoding('DNI', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(95, 5, mb_convert_encoding('Vinculo', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    
     $pdf->Ln(15); 
 
+    $pdf->SetFont('Arial', '', 11);
     $textoAclaracion = 'Aclaración: El presente anexo se debe completar y firmar por única vez; tendrá validez para cada ocasión en la que se requiera durante el presente ciclo lectivo y será archivado en el Legajo de cada Estudiante.';
     $pdf->MultiCell(0, 8, mb_convert_encoding($textoAclaracion, 'ISO-8859-1', 'UTF-8'), 0,);
+    
+    $pdf->Ln(2);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El mismo puede ser completado de forma digital, pero debe ser impreso y llevar la firma original del adulto responsable.', 'ISO-8859-1', 'UTF-8'), 0,);
 
     $pdf->Output('I', 'anexoIII.pdf');
 ?>

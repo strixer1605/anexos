@@ -47,16 +47,22 @@
 
     // Crear PDF
     $pdf = new FPDF();
+    $pdf->SetMargins(15, 15, 15);
+    // Establecer margen inferior
+    $pdf->SetAutoPageBreak(true, 20);
+    
     $pdf->AddPage();
 
     // Encabezado
     $pdf->Image('../../imagenes/eest.png', 15, 8, 20); // Logo
-    $pdf->Image('../../imagenes/logoprovincia.jpg', 112, 8, 90); // Logo
+    $pdf->Image('../../imagenes/logoprovincia.jpg', 107, 8, 90); // Logo
 
     // Ajusta el texto del encabezado usando mb_convert_encoding para convertir a ISO-8859-1
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 60, mb_convert_encoding('IF-2024-35029395-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
-    $pdf->Ln(-20);  // Restamos 20 unidades al espaciado para acercar el texto "ANEXO IV"
+    
+    $pdf->Ln(5);
+
+    $pdf->Cell(0, 30, mb_convert_encoding('IF-2024-35029395-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
 
     // Texto ANEXO IV
     $pdf->SetFont('Arial', '', 17);
@@ -96,17 +102,17 @@
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(45, 10, mb_convert_encoding('Institución Educativa:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(99, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(88, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(8, 10, mb_convert_encoding('N°:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['numeroInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding($fila['numeroInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(22, 10, mb_convert_encoding('Domicilio:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(122, 10, mb_convert_encoding($fila['domicilioInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(111, 10, mb_convert_encoding($fila['domicilioInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(21, 10, mb_convert_encoding('Teléfono:', 'ISO-8859-1', 'UTF-8'), 0, 0);
