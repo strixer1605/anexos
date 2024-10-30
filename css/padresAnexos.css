@@ -163,28 +163,21 @@ body {
     padding-left: 20px;
     cursor: default;
     transition: all 0.3s ease;
-  }
+}
   
 .wrapper .box label:hover{
     background: #EDF7FC;
     cursor: pointer;
 }
     
-#alergicoSi:checked ~ .alergicoSi,
-#alergicoNo:checked ~ .alergicoNo,
-#medicacionSi:checked ~ .medicacionSi,
-#medicacionNo:checked ~ .medicacionNo,
-#obraSocialSi:checked ~ .obraSocialSi,
-#obraSocialNo:checked ~ .obraSocialNo,
-#inflamatorios:checked ~ .inflamatorios,
-#fracturas:checked ~ .fracturas,
-#enfermedades:checked ~ .enfermedades,
-#otras:checked ~ .otras{
+#obraSi:checked ~ .obraSi,
+#obraNo:checked ~ .obraNo
+{
   background: #333;
   border-color: #333;
 }
 
-.wrapper .box label .dot {
+.wrapper .box .dot {
   height: 20px;
   width: 20px;
   background: #d9d9d9;
@@ -193,16 +186,9 @@ body {
   transition: all 0.3s ease;
 }
 
-#alergicoSi:checked ~ .alergicoSi .dot,
-#alergicoNo:checked ~ .alergicoNo .dot,
-#medicacionSi:checked ~ .medicacionSi .dot,
-#medicacionNo:checked ~ .medicacionNo .dot,
-#obraSocialSi:checked ~ .obraSocialSi .dot,
-#obraSocialNo:checked ~ .obraSocialNo .dot,
-#inflamatorios:checked ~ .inflamatorios .dot,
-#fracturas:checked ~ .fracturas .dot,
-#enfermedades:checked ~ .enfermedades .dot,
-#otras:checked ~ .otras .dot{
+#obraSi:checked ~ .obraSi .dot,
+#obraNo:checked ~ .obraNo .dot
+{
   background: #fff;
 }
 
@@ -218,16 +204,9 @@ body {
   transition: all 0.3s ease;
 }
 
-#alergicoSi:checked ~ .alergicoSi .dot::before,
-#alergicoNo:checked ~ .alergicoNo .dot::before,
-#medicacionSi:checked ~ .medicacionSi .dot::before,
-#medicacionNo:checked ~ .medicacionNo .dot::before,
-#obraSocialSi:checked ~ .obraSocialSi .dot::before,
-#obraSocialNo:checked ~ .obraSocialNo .dot::before,
-#inflamatorios:checked ~ .inflamatorios .dot::before,
-#fracturas:checked ~ .fracturas .dot::before,
-#enfermedades:checked ~ .enfermedades .dot::before,
-#otras:checked ~ .otras .dot::before{
+#obraSi:checked ~ .obraSi .dot::before,
+#obraNo:checked ~ .obraNo .dot::before
+{
   background: #333;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -240,16 +219,9 @@ body {
     transition: color 0.3s ease;
   }
   
-#alergicoSi:checked ~ .alergicoSi .text,
-#alergicoNo:checked ~ .alergicoNo .text,
-#medicacionSi:checked ~ .medicacionSi .text,
-#medicacionNo:checked ~ .medicacionNo .text,
-#obraSocialSi:checked ~ .obraSocialSi .text,
-#obraSocialNo:checked ~ .obraSocialNo .text,
-#inflamatorios:checked ~ .inflamatorios .text,
-#fracturas:checked ~ .fracturas .text,
-#enfermedades:checked ~ .enfermedades .text,
-#otras:checked ~ .otras .text{
+#obraSi:checked ~ .obraSi .text,
+#obraNo:checked ~ .obraNo .text
+{
   color: #fff;
 }
 
