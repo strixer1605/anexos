@@ -137,6 +137,82 @@
                 $conexion->close();
             } 
         break;
+        
+        case 'agregarSuplente':
+            
+            if (isset($_POST['dniSuplente'], $_POST['nombreSuplente'], $_POST['edadSuplente'])) {
+                session_start();
+                $idAnexoIV = $_SESSION['idSalida'];
+                $dni = $_POST['dniSuplente'];
+                $nombreApellido = $_POST['nombreSuplente'];
+                $edad = intval($_POST['edadSuplente']);
+        
+                // Verificar si el suplente existe en la tabla personal
+                $sqlVerificarPersonal = "SELECT dni FROM `personal` WHERE dni = ?";
+                $stmtVerificarPersonal = $conexion->prepare($sqlVerificarPersonal);
+                if ($stmtVerificarPersonal) {
+                    $stmtVerificarPersonal->bind_param('i', $dni);
+                    $stmtVerificarPersonal->execute();
+                    $resultVerificarPersonal = $stmtVerificarPersonal->get_result();
+        
+                    if ($resultVerificarPersonal->num_rows == 0) {
+                        // Si no existe en la tabla de personal, arroja un mensaje de error
+                        echo json_encode(['status' => 'error', 'message' => 'El suplente no está registrado en el personal.']);
+                    } else {
+                        // Verificar si el suplente ya existe en la tabla anexov para esta salida
+                        $sqlVerificarAnexov = "
+                            SELECT 'anexov' AS source FROM `anexov` WHERE dni = ? AND fkAnexoIV = ?
+                        ";
+                        $stmtVerificarAnexov = $conexion->prepare($sqlVerificarAnexov);
+                        if ($stmtVerificarAnexov) {
+                            $stmtVerificarAnexov->bind_param('ii', $dni, $idAnexoIV);
+                            $stmtVerificarAnexov->execute();
+                            $resultVerificarAnexov = $stmtVerificarAnexov->get_result();
+        
+                            if ($resultVerificarAnexov->num_rows > 0) {
+                                echo json_encode(['status' => 'error', 'message' => 'El suplente ya está registrado en la salida.']);
+                            } else {
+                                // Insertar el suplente en la tabla anexov
+                                $sqlInsert = "INSERT INTO anexov (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES (?, ?, ?, ?, ?)";
+                                $stmtInsert = $conexion->prepare($sqlInsert);
+        
+                                if ($stmtInsert) {
+                                    $cargo = 5; // Suplente
+                                    $stmtInsert->bind_param('iisii', $idAnexoIV, $dni, $nombreApellido, $edad, $cargo);
+        
+                                    if ($stmtInsert->execute()) {
+                                        // Obtener todos los participantes después de la inserción
+                                        $sqlSelect = "SELECT dni, apellidoNombre, edad, cargo FROM anexov WHERE fkAnexoIV = ?";
+                                        $stmtSelect = $conexion->prepare($sqlSelect);
+                                        $stmtSelect->bind_param('i', $idAnexoIV);
+                                        $stmtSelect->execute();
+                                        $result = $stmtSelect->get_result();
+        
+                                        $participantes = [];
+                                        while ($row = $result->fetch_assoc()) {
+                                            $participantes[] = $row;
+                                        }
+        
+                                        echo json_encode(['status' => 'success', 'message' => 'Suplente registrado correctamente', 'participantes' => $participantes]);
+                                        $stmtSelect->close();
+                                    } else {
+                                        echo json_encode(['status' => 'error', 'message' => 'Error al insertar el registro: ' . $stmtInsert->error]);
+                                    }
+                                    $stmtInsert->close();
+                                }
+                            }
+                            $stmtVerificarAnexov->close();
+                        } else {
+                            echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de la consulta de verificación: ' . $conexion->error]);
+                        }
+                    }
+                    $stmtVerificarPersonal->close();
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de la consulta de verificación en personal: ' . $conexion->error]);
+                }
+                $conexion->close();
+            }
+        break;        
 
         case 'agregarGrupo':
             session_start();

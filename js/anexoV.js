@@ -131,7 +131,6 @@ $(document).ready(function(){
             return;
         }
 
-
         if (/\d/.test(nombreAcompañante)) { 
             Swal.fire({
                 icon: 'warning',
@@ -144,7 +143,7 @@ $(document).ready(function(){
         if (edadAcompañante > 122) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Formato incorrecto',
+                title: 'Edad inválida',
                 text: 'La edad del acompañante no debe exceder los 122 años.',
             });
             return;
@@ -177,6 +176,101 @@ $(document).ready(function(){
                     document.getElementById('dniAcompañante').value = "";
                     document.getElementById('nombreAcompañante').value = "";
                     document.getElementById('edadAcompañante').value = "";
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message,
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error en la comunicación con el servidor.',
+                });
+            }
+        });
+    });
+
+    $('#cargarSuplente').click(function() {
+        const dniSuplente = document.getElementById('dniSuplente').value.trim();
+        const nombreSuplente = document.getElementById('nombreSuplente').value.trim();
+        const edadSuplente = document.getElementById('edadSuplente').value.trim();
+
+        if (dniSuplente === '' || nombreSuplente === '' || edadSuplente === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos vacíos',
+                text: 'Por favor, complete todos los campos.',
+            });
+            return;
+        }
+
+        if (!/^\d{7,8}$/.test(dniSuplente)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Formato incorrecto',
+                text: 'El DNI debe tener entre 7 y 8 dígitos.',
+            });
+            return;
+        }
+
+
+        if (/\d/.test(nombreSuplente)) { 
+            Swal.fire({
+                icon: 'warning',
+                title: 'Formato incorrecto',
+                text: 'El nombre del suplente no puede contener números.',
+            });
+            return;
+        }        
+
+        if (edadSuplente > 122) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Formato incorrecto',
+                text: 'La edad del suplente no debe exceder los 122 años.',
+            });
+            return;
+        }
+        
+        if (edadSuplente <= 18) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Edad inválida',
+                text: 'La edad del suplente no debe ser de 18 años o menos.',
+            });
+            return;
+        }
+        
+        $.ajax({
+            method: 'POST',
+            url: '../../php/agregarPersonaAnexoV.php',
+            data: {
+                dniSuplente,
+                nombreSuplente,
+                edadSuplente,
+                opcion: 'agregarSuplente'
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    cargarTablaPasajeros();
+                    document.getElementById('dniSuplente').value = "";
+                    document.getElementById('nombreSuplente').value = "";
+                    document.getElementById('edadSuplente').value = "";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Docente suplente agregado',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else if (response.status === 'error') {
+                    document.getElementById('dniSuplente').value = "";
+                    document.getElementById('nombreSuplente').value = "";
+                    document.getElementById('edadSuplente').value = "";
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -330,6 +424,7 @@ $(document).ready(function(){
                 let cantidadMayores = 0;
                 let cantidadDocentes = 0;
                 let cantidadNoDocentes = 0;
+                let cantidadSuplentes = 0;
                 let total = pasajeros.length;
                 let indice = 0;
     
@@ -338,13 +433,14 @@ $(document).ready(function(){
                     let alumno = '';
                     let docente = '';
                     let noDocente = '';
+                    let suplente = '';
     
                     // Clasificación de los pasajeros por edad
                     if (pasajeroEdad < 16) {
                         cantidadMenores += 1;
                     } else if (pasajeroEdad >= 16 && pasajeroEdad < 18) {
                         cantidadSemiMayores += 1;
-                    } else if (pasajeroEdad >= 18 && parseInt(pasajero.cargo) != 2 && parseInt(pasajero.cargo) != 4) {
+                    } else if (pasajeroEdad >= 18 && parseInt(pasajero.cargo) != 2 && parseInt(pasajero.cargo) != 4 && parseInt(pasajero.cargo) != 5) {
                         cantidadMayores += 1;
                     }
     
@@ -355,22 +451,27 @@ $(document).ready(function(){
                     if (parseInt(pasajero.cargo) === 4) {
                         cantidadNoDocentes += 1;
                     }
+                    if (parseInt(pasajero.cargo) === 5) {
+                        cantidadSuplentes += 1;
+                    }
     
                     indice += 1;
                     switch (parseInt(pasajero.cargo)) {
                         case 2: docente = 'X'; break;
                         case 3: alumno = 'X'; break;
                         case 4: noDocente = 'X'; break;
+                        case 5: suplente = 'X'; break;
                     }
     
                     tablaHTML += `<tr>
                                     <td>${indice}</td>
                                     <td>${pasajero.apellidoNombre}</td>
                                     <td>${pasajero.dni}</td>
-                                    <td>${alumno}</td>
                                     <td>${pasajero.edad}</td>
+                                    <td>${alumno}</td>
                                     <td>${docente}</td>
                                     <td>${noDocente}</td>
+                                    <td>${suplente}</td>
                                     <td>
                                         <input type="checkbox" class="selectPersona" value="${pasajero.dni}">
                                     </td>
@@ -411,6 +512,7 @@ $(document).ready(function(){
                                     <th>No Docentes</th>
                                     <th>Docentes Recomendados</th>
                                     <th>Docentes Actuales</th>
+                                    <th>Docentes Suplentes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -422,6 +524,7 @@ $(document).ready(function(){
                                     <td>${cantidadNoDocentes}</td>
                                     <td>${totalDocentesRequeridos}</td>
                                     <td>${cantidadDocentes}</td>
+                                    <td>${cantidadSuplentes}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -429,7 +532,7 @@ $(document).ready(function(){
                 `;
                 
                 let alertaHtml = '';
-                if (cantidadDocentes < totalDocentesRequeridos) {
+                if (cantidadDocentes < totalDocentesRequeridos || cantidadSuplentes == 0) {
                     alertaHtml = 'Anexo 5 no aprobable';
                 } else {
                     alertaHtml = 'Anexo 5 aprobable';

@@ -93,7 +93,7 @@
                                     <select class="form-control item-anexo8" name="coincidenciaPersona" id="coincidenciaPersona"></select>
                                 </div>
                                 <div class="col-md-4 col-12 mt-md-0 mt-4 d-flex align-items-end">
-                                    <button type="button" id="agregarPersona" class="cargar w-100">Cargar Persona</button>
+                                    <button type="button" id="agregarPersona" class="cargar w-100">Cargar persona</button>
                                 </div>
                             </div>
 
@@ -106,14 +106,14 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-12 d-flex mt-4 align-items-end">
-                                    <button type="button" class="cargar w-100" id="cargarGrupo">Cargar Grupo</button>
+                                    <button type="button" class="cargar w-100" id="cargarGrupo">Cargar grupo</button>
                                 </div>
                             </div>
 
                             <!-- Sección de Acompañante -->
-                            <div class="row mb-2">
+                            <div class="row mb-4">
                                 <div class="col-12">
-                                    <label for="acompanante" class="form-label">Insertar NO docente:</label>
+                                    <label for="acompanante" class="form-label">Insertar no docente:</label>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
                                     <input type="text" class="form-control item" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
@@ -129,21 +129,21 @@
                                 </div>
                             </div>
                             
-                            <div class="row mb-3">
+                            <div class="row mb-4">
                                 <div class="col-12">
-                                    <label for="acompanante" class="form-label">Insertar docente SUPLENTE:</label>
+                                    <label for="suplente" class="form-label">Insertar docente suplente:</label>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
-                                    <input type="text" class="form-control item" id="dniAcompañante" name="dniAcompañante" placeholder="DNI..." required pattern="\d{8}">
+                                    <input type="text" class="form-control item" id="dniSuplente" name="dniSuplente" placeholder="DNI..." required pattern="\d{8}">
                                 </div>
                                 <div class="col-md-4 col-12 mt-2">
-                                    <input type="text" class="form-control item" id="nombreAcompañante" name="nombreAcompañante" placeholder="Nombre y apellido..." required>
+                                    <input type="text" class="form-control item" id="nombreSuplente" name="nombreSuplente" placeholder="Nombre y apellido..." required>
                                 </div>
                                 <div class="col-md-2 col-12 mt-2">
-                                    <input type="number" class="form-control item" id="edadAcompañante" name="edadAcompañante" placeholder="Edad..." required>
+                                    <input type="number" class="form-control item" id="edadSuplente" name="edadSuplente" placeholder="Edad..." required>
                                 </div>
                                 <div class="col-md-4 col-12 mt-1">
-                                    <button id="cargarAcompañante" type="button" class="cargar w-100">Cargar no docente</button>
+                                    <button id="cargarSuplente" type="button" class="cargar w-100">Cargar suplente</button>
                                 </div>
                             </div>
 
@@ -170,12 +170,13 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">N°</th>
-                                            <th scope="col">Apellido y Nombre</th>
+                                            <th scope="col">Apellido y nombre</th>
                                             <th scope="col">Documento</th>
-                                            <th scope="col">Alumno</th>
                                             <th scope="col">Edad</th>
+                                            <th scope="col">Alumno</th>
                                             <th scope="col">Docente</th>
-                                            <th scope="col">No Docente</th>
+                                            <th scope="col">No docente</th>
+                                            <th scope="col">Docente suplente</th>
                                             <th scope="col">Eliminar</th>
                                         </tr>
                                     </thead>

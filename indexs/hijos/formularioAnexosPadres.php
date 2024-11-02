@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu de Salidas</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/padresAnexos.css">
     </head>
@@ -29,11 +30,15 @@
         <div class="registration-form">
             <div class="formulario-container">
                 <div class="form-icon">
-                    <span><i class="icon-notebook"></i></span>
+                    <span><i class="icon-heart"></i></span>
                 </div>
                 <div style="text-align: center;">
-                    <h2 style="color: black;">Menú de Padres</h2>
+                    <h2 style="color: black;">Anexo 6</h2>
+                    <h4 style="color: black;">(Constancia médica)</h4>
                 </div>
+                    <br>
+                    <?php include('../../php/traerAnexoVI.php') ?>
+                    <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                 <br>
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -54,52 +59,12 @@
                         <?php include('../../php/traerAnexoVI.php') ?>
                         <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                     </div>
-                    
-                    <!-- Anexo 7 -->
-                    <div class="tab-pane fade" id="anexo7" role="tabpanel" aria-labelledby="anexo7-tab">
-                        <br>
-                        <center><h2>Anexo 7</h2></center>
-                        <br>
-                        <div id="formAnexoVII">
-                            <?php 
-                            // include ("../../php/traerAnexoVII.php"); ?>
-                            <br><br>
-                            <center><button type="submit" class="cargar" id="cargarAnexoVII">Cargar Anexo 7</button></center>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script>
-            // Mostrar los inputs correspondientes al cargar la página si están seleccionados
-            // window.onload = function() {
-            //     toggleAlergiaInput(document.getElementById('alergicoSi').checked);
-            //     toggleMedicacionInput(document.getElementById('medicacionSi').checked);
-            //     toggleOtrasInput();
-            //     toggleObraSocialMensaje(document.getElementById('obraSocialSi').checked);
-            // };
-
-            // function toggleAlergiaInput(show) {
-            //     document.getElementById('alergiaInput').style.display = show ? 'block' : 'none';
-            // }
-
-            // function toggleMedicacionInput(show) {
-            //     document.getElementById('medicacionInput').style.display = show ? 'block' : 'none';
-            // }
-
-            // function toggleOtrasInput() {
-            //     const otrasCheckbox = document.getElementById('otras');
-            //     const otrasInput = document.getElementById('otrasInput');
-            //     otrasInput.style.display = otrasCheckbox.checked ? 'block' : 'none';
-            // }
-
-            // function toggleObraSocialMensaje(show) {
-            //     document.getElementById('obraSocialMensaje').style.display = show ? 'block' : 'none';
-            // }
-        </script>
         <script src="../../js/enviarFormulariosPadres.js"></script>
     </body>
 </html>

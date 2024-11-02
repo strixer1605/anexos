@@ -32,7 +32,7 @@
                     <h3>Formularios</h3>
                     <hr>
                     <ul>
-                        <li><a href="formularioAnexosPadres.php" class="btn form-control botones w-100 mb-3">Anexos 6 y 7</a></li>
+                        <li><a href="formularioAnexosPadres.php" class="btn form-control botones w-100 mb-3">Anexo VI</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
@@ -40,7 +40,6 @@
                     <hr>
                     <ul>
                         <?php include('../../php/hijosPDFTraer.php'); ?>
-                        <li><a href="../pdf/plantillaAnexoX.php" class="btn form-control botones w-100 mb-3">Anexo 10</a></li>
                     </ul>
                 </div>
             </div>

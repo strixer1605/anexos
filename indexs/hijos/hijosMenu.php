@@ -51,7 +51,7 @@
         </div>
     </nav>
 
-    <a href="../pdf/plantillaAnexoIIIIpdf.php">Plantilla anexo 3</a>
+    <a href="../pdf/plantillaAnexoIII.php">Plantilla anexo 3</a>
     <div class="container">
         <h1>Salidas Educativas</h1>
         <div class="row mt-5">
