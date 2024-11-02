@@ -2,7 +2,7 @@
     session_start();
 
     // Verificar si hay una sesión activa
-    if (isset($_SESSION['dniProfesor']) || isset($_SESSION['dniDirector']) || isset($_SESSION['dniPadre'])) {
+    if (isset($_SESSION['dniProfesor']) || isset($_SESSION['dniDirector']) || isset($_SESSION['dniPadre']) || isset($_SESSION['dniEstudiante'])) {
         // Destruir la sesión
         session_destroy();
     }

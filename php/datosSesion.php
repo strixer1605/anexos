@@ -94,6 +94,37 @@
         exit;
     }
 
+    elseif (isset($_SESSION['dniEstudiante'])) {
+        $dniEstudiante = $_SESSION['dniEstudiante'];
+        $sql_estudiante = "SELECT * FROM alumnos WHERE dni = '$dniEstudiante'";
+        $result_estudiante = $conexion->query($sql_estudiante);
+
+        if ($result_estudiante->num_rows > 0) {
+            $row = $result_estudiante->fetch_assoc();
+            $_SESSION['nombreEstudiante'] = $row['nombre'];
+            $_SESSION['apellidoEstudiante'] = $row['apellido'];
+            
+            // Convertir fechan (fecha de nacimiento) a un objeto DateTime
+            $fechaNacimiento = new DateTime($row['fechan']);
+            $fechaActual = new DateTime(); // Fecha actual
+            
+            // Calcular la diferencia en años
+            $edad = $fechaNacimiento->diff($fechaActual)->y;
+            
+            // Guardar la edad en la sesión
+            $_SESSION['edad'] = $edad;
+            
+
+        } else {
+            header('Location: error.php');
+            exit;
+        }
+
+        $conexion->close();
+        header("Location: ../indexs/estudiantes/estudiantes.php");
+        exit;
+    }
+
     else {
         header('Location: ../index.php');
         exit;

@@ -65,9 +65,30 @@
         }
     }
 
+    // Consulta independiente en la tabla 'alumnos' si no hay resultado en 'padrestutores'
+    $sql_alumno = "SELECT * FROM alumnos WHERE dni = '$dni'";
+    $result_alumno = $conexion->query($sql_alumno);
+
+    if ($result_alumno->num_rows > 0) {
+        $row_alumno = $result_alumno->fetch_assoc();
+        
+        // Verificar contraseña del alumno
+        if ($password === $row_alumno["clave"]) {
+            $_SESSION['dniEstudiante'] = $dni;
+            
+            // Liberar el resultado de la consulta de alumnos
+            mysqli_free_result($result_alumno);
+
+            // Redirigir a la página de datos de sesión
+            header("Location: datosSesion.php");
+            exit;
+        }
+    }
+
     // Liberar los resultados si aún no se han liberado
     if ($result_personal) mysqli_free_result($result_personal);
     if ($result_padre) mysqli_free_result($result_padre);
+    if ($result_alumno) mysqli_free_result($result_alumno);
 
     // Cerrar la conexión y redirigir a la página de error
     $conexion->close();
