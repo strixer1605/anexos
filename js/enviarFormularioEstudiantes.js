@@ -176,7 +176,6 @@ function cargarTelefonosIniciales() {
     
     // Actualizar la visualización de la lista
     actualizarTelefonosOcultos();
-    console.log(estadoFormulario.telefonos);
 }
 cargarTelefonosIniciales();
 
