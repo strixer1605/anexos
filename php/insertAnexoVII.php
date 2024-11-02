@@ -1,74 +1,73 @@
 <?php
-// Incluir el archivo de conexión a la base de datos
 session_start();
-if (isset($_SESSION['dniPadre'])) {
-    
-    include 'conexion.php'; // Asegúrate de tener un archivo de conexión a la base de datos
-    
-    // Obtener el contenido JSON enviado desde el formulario
-    $data = file_get_contents("php://input");
-    $datos = json_decode($data, true); // Decodificar el JSON a un array asociativo
-    
-    // Asumiendo que ya tienes las variables $idSalida y $dniAlumno definidas
-    $idSalida = $_SESSION['idSalida'];
-    $dniAlumno = $_SESSION['dniAlumno'];
-    
-    // Extraer los datos del array
-    $alergico = $datos['alergico'];
-    $sufrioA = $datos['sufrioA'];
-    $sufrioB = $datos['sufrioB'];
-    $sufrioC = $datos['sufrioC'];
-    $medicacion = $datos['medicacion'];
-    $observaciones = $datos['indicaciones']; // Usamos 'indicaciones' como observaciones
-    $obraSocial = $datos['obraSocial'];
-    $aQue = $datos['aQue']; // Asumí que este es el tipo de alergia
-    $otroMalestar = $datos['otrasInput']; // Usamos 'sufrioD' como otro malestar
-    $tipoMedicacion = $datos['medicacionDetalles']; // Usamos 'medicacionDetalles' para detalles de medicación
-    
-    // Verificar si ya existe un registro con el mismo fkAnexoIV y dniAlumno
-    $checkSql = "SELECT COUNT(*) FROM `anexovii` WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
-    $checkStmt = $conexion->prepare($checkSql);
-    $checkStmt->bind_param("ii", $idSalida, $dniAlumno);
-    $checkStmt->execute();
-    $checkStmt->bind_result($count);
-    $checkStmt->fetch();
-    $checkStmt->close();
-    
-    if ($count > 0) {
-        // Si existe, actualizar el registro
-        $updateSql = "UPDATE `anexovii` SET `alergico` = ?, `sufrioA` = ?, `sufrioB` = ?, `sufrioC` = ?, `medicacion` = ?, `observaciones` = ?, `obraSocial` = ?, `tipoAlergia` = ?, `otroMalestar` = ?, `tipoMedicacion` = ? WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
-        
-        $updateStmt = $conexion->prepare($updateSql);
-        $updateStmt->bind_param("iiiiisisssii", $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion, $idSalida, $dniAlumno);
-        
-        if ($updateStmt->execute()) {
-            echo json_encode(["status" => "success", "message" => "Datos actualizados correctamente."]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Error al actualizar los datos: " . $updateStmt->error]);
-        }
-        
-        $updateStmt->close();
-    } else {
-        // Si no existe, insertar el nuevo registro
-        $insertSql = "INSERT INTO `anexovii`(`fkAnexoIV`, `dniAlumno`, `alergico`, `sufrioA`, `sufrioB`, `sufrioC`, `medicacion`, `observaciones`, `obraSocial`, `tipoAlergia`, `otroMalestar`, `tipoMedicacion`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        // Preparar la declaración
-        $insertStmt = $conexion->prepare($insertSql);
-        // Usa 's' para los campos que son cadenas (strings)
-        $insertStmt->bind_param("iiiiiiisisss", $idSalida, $dniAlumno, $alergico, $sufrioA, $sufrioB, $sufrioC, $medicacion, $observaciones, $obraSocial, $aQue, $otroMalestar, $tipoMedicacion);
-        
-        // Ejecutar la consulta
-        if ($insertStmt->execute()) {
-            var_dump($otroMalestar);
-            echo json_encode(["status" => "success", "message" => "Datos guardados correctamente."]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Error al guardar los datos: " . $insertStmt->error]);
-        }
-        
-        $insertStmt->close();
-    }
-    
-    // Cerrar la conexión
-    $conexion->close();
+
+// Verifica si se ha iniciado sesión y si la variable de sesión está definida
+if (!isset($_SESSION['idSalida'])) {
+    echo json_encode(['status' => 'error', 'message' => 'No se encontró la sesión.']);
+    exit();
 }
+
+include 'conexion.php';
+
+// Recepción de datos de la solicitud
+$data = json_decode(file_get_contents("php://input"), true);
+
+// Asignación de datos
+$dniEstudiante = $_SESSION['dniEstudiante'] ?? null;
+$altura = $data['altura'] ?? null;
+$domicilio = $data['domicilio'] ?? null;
+$localidad = $data['localidad'] ?? null;
+$observaciones = $data['observaciones'] ?? null;
+$obraSocial = $data['obraSocial'] ?? 0;
+$telefonos = is_array($data['telefonos']) ? implode(',', $data['telefonos']) : $data['telefonos'];
+
+// Validación de obra social
+if ($obraSocial == 1) {
+    $nombreObraSocial = !empty($data['nombreObraSocial']) ? $data['nombreObraSocial'] : null;
+    $numeroAfiliado = !empty($data['numeroAfiliado']) ? $data['numeroAfiliado'] : null;
+
+    if (is_null($nombreObraSocial) || is_null($numeroAfiliado)) {
+        echo json_encode(['status' => 'error', 'message' => 'Debe completar los datos de la obra social.']);
+        exit();
+    }
+} else {
+    $nombreObraSocial = '-';
+    $numeroAfiliado = '-';
+}
+
+// Verificación de existencia del registro
+$checkSql = "SELECT COUNT(*) AS count FROM anexovii WHERE fkAnexoIV = ? AND dniEstudiante = ?";
+$stmt = $conexion->prepare($checkSql);
+$stmt->bind_param("ii", $_SESSION['idSalida'], $dniEstudiante);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$stmt->close();
+
+if ($row['count'] > 0) {
+    // Si existe, actualiza el registro
+    $updateSql = "UPDATE anexovii SET domicilio = ?, altura = ?, localidad = ?, observaciones = ?, obraSocial = ?, nombreObraSocial = ?, numeroAfiliado = ?, telefonos = ? 
+                  WHERE fkAnexoIV = ? AND dniEstudiante = ?";
+    $stmt = $conexion->prepare($updateSql);
+    $stmt->bind_param("sississsii", $domicilio, $altura, $localidad, $observaciones, $obraSocial, $nombreObraSocial, $numeroAfiliado, $telefonos, $_SESSION['idSalida'], $dniEstudiante);
+} else {
+    // Si no existe, inserta un nuevo registro
+    $insertSql = "INSERT INTO anexovii (fkAnexoIV, dniEstudiante, domicilio, altura, localidad, observaciones, obraSocial, nombreObraSocial, numeroAfiliado, telefonos) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($insertSql);
+    $stmt->bind_param("iisississs", $_SESSION['idSalida'], $dniEstudiante, $domicilio, $altura, $localidad, $observaciones, $obraSocial, $nombreObraSocial, $numeroAfiliado, $telefonos);
+}
+
+// Ejecución de la consulta (inserción o actualización)
+if ($stmt->execute()) {
+    echo json_encode(['status' => 'success', 'message' => 'Operación realizada correctamente.']);
+} else {
+    error_log("Error al ejecutar la operación: " . $stmt->error);
+    echo json_encode(['status' => 'error', 'message' => 'Error al ejecutar la operación: ' . $stmt->error]);
+}
+
+// Cierre de conexión
+$stmt->close();
+$conexion->close();
+exit(); // Salida para evitar contenido adicional
 ?>

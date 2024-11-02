@@ -61,7 +61,8 @@
                         <center><h2>Anexo 7</h2></center>
                         <br>
                         <div id="formAnexoVII">
-                            <?php include ("../../php/traerAnexoVII.php"); ?>
+                            <?php 
+                            // include ("../../php/traerAnexoVII.php"); ?>
                             <br><br>
                             <center><button type="submit" class="cargar" id="cargarAnexoVII">Cargar Anexo 7</button></center>
                         </div>
@@ -74,30 +75,30 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script>
             // Mostrar los inputs correspondientes al cargar la página si están seleccionados
-            window.onload = function() {
-                toggleAlergiaInput(document.getElementById('alergicoSi').checked);
-                toggleMedicacionInput(document.getElementById('medicacionSi').checked);
-                toggleOtrasInput();
-                toggleObraSocialMensaje(document.getElementById('obraSocialSi').checked);
-            };
+            // window.onload = function() {
+            //     toggleAlergiaInput(document.getElementById('alergicoSi').checked);
+            //     toggleMedicacionInput(document.getElementById('medicacionSi').checked);
+            //     toggleOtrasInput();
+            //     toggleObraSocialMensaje(document.getElementById('obraSocialSi').checked);
+            // };
 
-            function toggleAlergiaInput(show) {
-                document.getElementById('alergiaInput').style.display = show ? 'block' : 'none';
-            }
+            // function toggleAlergiaInput(show) {
+            //     document.getElementById('alergiaInput').style.display = show ? 'block' : 'none';
+            // }
 
-            function toggleMedicacionInput(show) {
-                document.getElementById('medicacionInput').style.display = show ? 'block' : 'none';
-            }
+            // function toggleMedicacionInput(show) {
+            //     document.getElementById('medicacionInput').style.display = show ? 'block' : 'none';
+            // }
 
-            function toggleOtrasInput() {
-                const otrasCheckbox = document.getElementById('otras');
-                const otrasInput = document.getElementById('otrasInput');
-                otrasInput.style.display = otrasCheckbox.checked ? 'block' : 'none';
-            }
+            // function toggleOtrasInput() {
+            //     const otrasCheckbox = document.getElementById('otras');
+            //     const otrasInput = document.getElementById('otrasInput');
+            //     otrasInput.style.display = otrasCheckbox.checked ? 'block' : 'none';
+            // }
 
-            function toggleObraSocialMensaje(show) {
-                document.getElementById('obraSocialMensaje').style.display = show ? 'block' : 'none';
-            }
+            // function toggleObraSocialMensaje(show) {
+            //     document.getElementById('obraSocialMensaje').style.display = show ? 'block' : 'none';
+            // }
         </script>
         <script src="../../js/enviarFormulariosPadres.js"></script>
     </body>

@@ -15,19 +15,19 @@
         }
         $stmtAnexoVI->close();
 
-        $sqlAnexoVII = "SELECT fkAnexoIV FROM anexovii WHERE fkAnexoIV = ? AND dniAlumno = ?";
-        $stmtAnexoVII = $conexion->prepare($sqlAnexoVII);
-        $stmtAnexoVII->bind_param('is', $idSalida, $dniAlumno);
-        $stmtAnexoVII->execute();
-        $stmtAnexoVII = $stmtAnexoVII->get_result();
+        // $sqlAnexoVII = "SELECT fkAnexoIV FROM anexovii WHERE fkAnexoIV = ? AND dniAlumno = ?";
+        // $stmtAnexoVII = $conexion->prepare($sqlAnexoVII);
+        // $stmtAnexoVII->bind_param('is', $idSalida, $dniAlumno);
+        // $stmtAnexoVII->execute();
+        // $stmtAnexoVII = $stmtAnexoVII->get_result();
         
-        if ($stmtAnexoVII->num_rows > 0) {
-            echo '<li><a href="../pdf/plantillaAnexoVII.php" class="btn form-control botones w-100 mb-3">Anexo 7</a></li>';
-        } else {
-            echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo 7 (Sin completar)</a></li>';
-        }
-        $stmtAnexoVII->close();
-        $conexion->close();
+        // if ($stmtAnexoVII->num_rows > 0) {
+        //     echo '<li><a href="../pdf/plantillaAnexoVII.php" class="btn form-control botones w-100 mb-3">Anexo 7</a></li>';
+        // } else {
+        //     echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo 7 (Sin completar)</a></li>';
+        // }
+        // $stmtAnexoVII->close();
+        // $conexion->close();
     } else {
         die('Error: idSalida o dniAlumno no están definidos.');
     }
