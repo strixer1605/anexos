@@ -226,7 +226,7 @@ async function enviarDatos(datos) {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // window.history.back(); // Volver a la página anterior
+                window.history.back(); // Volver a la página anterior
             }
         });
     } else {
