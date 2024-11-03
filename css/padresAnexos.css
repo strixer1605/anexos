@@ -170,9 +170,8 @@ body {
     cursor: pointer;
 }
     
-#obraSi:checked ~ .obraSi,
-#obraNo:checked ~ .obraNo
-{
+#obraSocialSi:checked ~ .obraSocialSi .dot,
+#obraSocialNo:checked ~ .obraSocialNo .dot {
   background: #333;
   border-color: #333;
 }
@@ -186,9 +185,8 @@ body {
   transition: all 0.3s ease;
 }
 
-#obraSi:checked ~ .obraSi .dot,
-#obraNo:checked ~ .obraNo .dot
-{
+#obraSocialSi:checked ~ .obraSocialSi .dot,
+#obraSocialNo:checked ~ .obraSocialNo .dot {
   background: #fff;
 }
 
@@ -204,25 +202,18 @@ body {
   transition: all 0.3s ease;
 }
 
-#obraSi:checked ~ .obraSi .dot::before,
-#obraNo:checked ~ .obraNo .dot::before
-{
+#obraSocialSi:checked ~ .obraSocialSi .dot::before,
+#obraSocialNo:checked ~ .obraSocialNo .dot::before {
   background: #333;
   transform: translate(-50%, -50%) scale(1);
 }
 
 .wrapper .box label .text {
-    color: #000000;
-    font-size: 18px;
-    font-weight: 400;
-    padding-left: 10px;
-    transition: color 0.3s ease;
-  }
-  
-#obraSi:checked ~ .obraSi .text,
-#obraNo:checked ~ .obraNo .text
-{
-  color: #fff;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 10px;
+  transition: color 0.3s ease;
 }
 
 .wrapper .box input[type="radio"] {

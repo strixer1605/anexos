@@ -57,6 +57,7 @@
             </div>
             <div style="text-align: center;">
                 <h2 style="color: black;">Formulario Salida</h2>
+                <h5>Para reemplazar los datos solo debe modificarlos y subir el formulario nuevamente.</h5>
             </div>
             <br>
 

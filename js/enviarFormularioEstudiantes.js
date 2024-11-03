@@ -176,7 +176,6 @@ function cargarTelefonosIniciales() {
     
     // Actualizar la visualización de la lista
     actualizarTelefonosOcultos();
-    console.log(estadoFormulario.telefonos);
 }
 cargarTelefonosIniciales();
 
@@ -227,7 +226,7 @@ async function enviarDatos(datos) {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // window.history.back(); // Volver a la página anterior
+                window.history.back(); // Volver a la página anterior
             }
         });
     } else {
