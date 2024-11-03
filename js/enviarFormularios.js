@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var anexoVIIIDiv = document.getElementById('anexoVIII');
     var anexoVIIIDivTab = document.getElementById('anexoVIII-tab');
-    // const nextTab = anexoIXHabil === "1" ? "anexo9-tab" : "anexo-tab"
     
     if (anexoVIIIHabil === "0") {
         if (anexoVIIIDiv) anexoVIIIDiv.style.display = 'none';
@@ -306,7 +305,42 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         // Enviar el formulario si todo es válido
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', 'anexo5-tab');
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', 'planillaInfo-tab');
+    }
+
+    function validateAndSubmitAnexoPlanilla(event) {
+        let firstInvalidField = null;
+    
+        const otrosCampos = [
+            'empresas',
+            'datosInfraestructura',
+            'hospitalesCercanos',
+            'datosInteres',
+        ];
+
+        for (let id of otrosCampos) {
+            const element = document.getElementById(id);
+            if (element && element.value.trim() === '') {
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
+                }
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campo Obligatorio',
+                    text: `El campo "${element.previousElementSibling.textContent}" es obligatorio.`,
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        element.focus();
+                    }, 500);
+                });
+                event.preventDefault();
+                return;
+            }
+        }
+    
+        enviarFormulario('formPlanilla', '../../php/insertPlanillaAnexo.php', 'Planilla cargada correctamente!', 'anexov-tab');
     }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
@@ -358,4 +392,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.getElementById('cargarAnexoVIII').addEventListener('click', validateAndSubmitAnexoVIII);
+    document.getElementById('cargarPlanilla').addEventListener('click', validateAndSubmitAnexoPlanilla);
 });

@@ -14,13 +14,13 @@
     $fechaSalida = date('d/m/Y', strtotime($fila['fechaSalida']));
 
     $pdf = new FPDF();
-    $pdf->SetMargins(15, 15, 15);
+    $pdf->SetMargins(20, 20, 20);
     $pdf->SetAutoPageBreak(true, 20);
     $pdf->AddPage();
 
     // Encabezado
-    $pdf->Image('../../imagenes/eest.png', 15, 8, 20); // Logo
-    $pdf->Image('../../imagenes/logoprovincia.jpg', 107, 8, 90); // Logo
+    $pdf->Image('../../imagenes/eest.png', 20, 15, 20); // Logo
+    $pdf->Image('../../imagenes/logoprovincia.jpg', 102, 15, 90); // Logo
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Ln(5);
@@ -38,11 +38,11 @@
     $pdf->SetFont('Arial', '', 11);
     $pdf->MultiCell(0, 5, mb_convert_encoding('(La presente deberá incorporarse al libro de Registro de Actas Institucionales, antes de producirse la salida).', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->Ln(5);
-
+    
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(45, 10, mb_convert_encoding('Institución Educativa:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(97, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(87, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(8, 10, mb_convert_encoding('N°:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
@@ -54,7 +54,7 @@
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(32, 10, mb_convert_encoding('Lugar a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(110, 10, mb_convert_encoding($fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(100, 10, mb_convert_encoding($fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(15, 10, mb_convert_encoding('Fecha:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
@@ -83,12 +83,12 @@
                 $docenteX = "Indefinido";
                 $noDOcenteX = "Indefinido";
             break;
-            case 1:
+            case 2:
                 $alumnoX = '';
                 $docenteX = 'X';
                 $noDOcenteX = '';
             break;
-            case 2:
+            case 3:
                 $alumnoX = 'X';
                 $docenteX = '';
                 $noDOcenteX = '';
@@ -119,35 +119,32 @@
         $pdf->Ln();
     }
 
-    // Agregar la imagen de sello debajo de la tabla
-    $yPos = $pdf->GetY(); // Posición actual después de la tabla
-    $pdf->Image('../../imagenes/selloEscuela.png', 85, $yPos + 10, 40); // Ajustar según sea necesario
-
-    $pdf->SetMargins(15, 15, 15);
+    $pdf->SetMargins(20, 20, 20);
     
-    $pdf->Ln(80); // Ajusta el espacio entre el sello y el siguiente texto
+    $pdf->Ln(10);
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(0, 15, mb_convert_encoding('Observaciones (para ser completado ante cualquier eventualidad):', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->Ln(12);
     $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Observaciones', 'ISO-8859-1', 'UTF-8'));
-    
-    $pdf->Ln(40);
+    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+
+    $pdf->Ln(60);
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(82, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(82, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
     $pdf->Ln(2);
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma y alcaración de la Autoridad del Establecimiento', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(82, 5, mb_convert_encoding('Firma y alcaración de la Autoridad del Establecimiento', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     $pdf->Cell(95, 5, mb_convert_encoding('Firma del Inspector:', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('que completó este formulario:', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(82, 5, mb_convert_encoding('que completó este formulario:', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Ln(10 );
+    $pdf->Ln(20);
 
     $pdf->Cell(0, 5, mb_convert_encoding('La presente planilla tendrá validez para toda tramitación oficial que se realice.', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Cell(0, 5, mb_convert_encoding('El presente formulario deberá estar completo por duplicado', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
@@ -161,8 +158,6 @@
         $pdf->AddPage();
         $yPos = 15; // Reiniciar la posición Y en la nueva página
     }
-
-    $pdf->Image('../../imagenes/selloEscuela.png', 85, $yPos + 5, 40); // Ajustar según sea necesario
 
     $pdf->Output('I', 'anexoV.pdf');
 ?>

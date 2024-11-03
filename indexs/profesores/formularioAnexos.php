@@ -71,6 +71,9 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="anexoVIII-tab" data-bs-toggle="tab" data-bs-target="#anexoVIII" type="button" role="tab" aria-controls="anexoVIII" aria-selected="false">Anexo VIII</button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="planillaInfo-tab" data-bs-toggle="tab" data-bs-target="#planillaInfo" type="button" role="tab" aria-controls="planillaInfo" aria-selected="false">Planilla Informativa</button>
+                    </li>
                 </ul>
 
                 <div class="tab-content mt-3" id="myTabContent"> 
@@ -187,7 +190,6 @@
                         </form>
                     </div>
 
-                    <!-- Anexo 9 -->
                     <div class="tab-pane fade" id="anexoVIII" role="tabpanel" aria-labelledby="anexoVIII-tab">
                         <form id="formAnexoVIII" class="formulario" enctype="multipart/form-data">
                             <br>
@@ -197,6 +199,18 @@
                         </form>
                         <div class="form-group d-flex justify-content-center">
                             <button type="submit" class="cargar" id="cargarAnexoVIII">Cargar Anexo VIII</button>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="planillaInfo" role="tabpanel" aria-labelledby="planillaInfo-tab">
+                        <br>
+                        <form id="formPlanilla" class="formulario" id="cargarPlanilla">
+                            <center><h2>Planilla Informativa</h2></center>
+                            <br>
+                            <?php include ("../../php/traerAnexoPlanilla.php"); ?>
+                        </form>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="submit" class="btn btn-block cargar" id="cargarPlanilla">Cargar planilla informativa</button>
                         </div>
                     </div>
                 </div>

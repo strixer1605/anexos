@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-10-2024 a las 21:14:42
+-- Tiempo de generación: 03-11-2024 a las 19:05:12
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -5492,34 +5492,34 @@ CREATE TABLE IF NOT EXISTS `anexoiv` (
   `tipoSolicitud` tinyint(1) NOT NULL,
   `distanciaSalida` tinyint(1) NOT NULL,
   `region` int NOT NULL,
-  `distrito` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `institucionEducativa` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `distrito` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `institucionEducativa` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `numeroInstitucion` int NOT NULL,
-  `domicilioInstitucion` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioInstitucion` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `telefonoInstitucion` bigint NOT NULL,
-  `denominacionProyecto` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `lugarVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `direccionVisita` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `localidadVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `regionVisita` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `denominacionProyecto` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `direccionVisita` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `localidadVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `regionVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaSalida` time NOT NULL,
   `fechaRegreso` date NOT NULL,
-  `lugarRegreso` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarRegreso` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaRegreso` time NOT NULL,
-  `itinerario` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `objetivosSalida` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `cronograma` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `itinerario` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `objetivosSalida` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cronograma` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
   `actividades` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
   `dniEncargado` int NOT NULL,
-  `apellidoNombreEncargado` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `apellidoNombreEncargado` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `cargo` int NOT NULL,
-  `nombreHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `domicilioHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `telefonoHospedaje` bigint NOT NULL,
-  `localidadHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `gastosEstimativos` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `localidadHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `gastosEstimativos` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
   `anexoviiiHabil` tinyint(1) NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -5531,7 +5531,7 @@ CREATE TABLE IF NOT EXISTS `anexoiv` (
 --
 
 INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `lugarVisita`, `direccionVisita`, `localidadVisita`, `regionVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `objetivosSalida`, `cronograma`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `fechaLimite`, `fechaModificacion`) VALUES
-(3, 1, 1, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', 'TEST2', '1', '2024-12-20', 'TEST2', '20:00:00', '2024-12-20', 'TEST2', '22:00:00', 'TEST21111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111', 'TEST2', 'TEST2', 'TEST2', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2', 1, '2024-12-16 12:00:00', '2024-10-25 20:24:48');
+(3, 3, 2, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', 'TEST2', '1', '2024-12-20', 'TEST2', '20:00:00', '2024-12-20', 'TEST2', '22:00:00', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 1, '2024-12-16 12:00:00', '2024-10-25 20:24:48');
 
 -- --------------------------------------------------------
 
@@ -5575,7 +5575,23 @@ CREATE TABLE IF NOT EXISTS `anexov` (
 --
 
 INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
-(3, 18892329, 'ARRUA SOSA PAOLA', 42, 2);
+(3, 18892329, 'ARRUA SOSA PAOLA', 42, 2),
+(3, 46736648, 'SANTIAGO EXPOSITO', 19, 3),
+(3, 46946881, 'JUAN CARLOS HOLZMANN', 18, 3),
+(3, 45822343, 'JOAQUIN EMILIANO SEBASTIAN LORENZO', 18, 3),
+(3, 46946842, 'FELIPE JACOB MALDONADO', 18, 3),
+(3, 46952310, 'ROMAN ROTELA CABRAL', 18, 3),
+(3, 38863818, 'NAHUEL MARTIN DEL POPOLO', 24, 3),
+(3, 46558389, 'BRUNO IGNACIO IRADI', 19, 3),
+(3, 46946877, 'CAMILA SOLEDAD BERON', 18, 3),
+(3, 46946895, 'EMANUEL BRAVO DELGADILLO', 18, 3),
+(3, 46283172, 'SANTIAGO ANGEL CAPUANO', 19, 3),
+(3, 46736665, 'CATALINA GIMENEZ ITURRALDE', 19, 3),
+(3, 46355682, 'MILAGROS PAOLA INSFRAN', 19, 3),
+(3, 46736614, 'AGOSTINA SOFIA PARRA', 19, 3),
+(3, 46736650, 'FACUNDO ARIEL YANIBELLI', 19, 3),
+(3, 46946900, 'PAUL WATERS', 18, 3),
+(3, 47950839, 'HELENA FERNANDEZ ARRUA', 17, 3);
 
 -- --------------------------------------------------------
 
@@ -5587,12 +5603,19 @@ DROP TABLE IF EXISTS `anexovi`;
 CREATE TABLE IF NOT EXISTS `anexovi` (
   `fkAnexoIV` int NOT NULL,
   `dniAlumno` int NOT NULL,
-  `domicilio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `altura` int NOT NULL,
-  `localidad` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `dniPadre` int NOT NULL,
+  `constanciaMedica` varchar(700) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `obraSocial` tinyint(1) NOT NULL,
+  `nombreObra` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nSocio` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   KEY `fkAnexoIV` (`fkAnexoIV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexovi`
+--
+
+INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`) VALUES
+(3, 47950839, 'a', 1, 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -56412,6 +56435,22 @@ INSERT INTO `personal` (`dni`, `apellido`, `nombre`, `tipo_doc`, `sexo`, `domici
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `planillainfoanexo`
+--
+
+DROP TABLE IF EXISTS `planillainfoanexo`;
+CREATE TABLE IF NOT EXISTS `planillainfoanexo` (
+  `fkAnexoIV` int NOT NULL,
+  `empresas` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `datosInfraestructura` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `hospitalesCercanos` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `datosInteres` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `preceptorescursos`
 --
 
@@ -57466,7 +57505,13 @@ ALTER TABLE `anexov`
 -- Filtros para la tabla `anexovinfo`
 --
 ALTER TABLE `anexovinfo`
-  ADD CONSTRAINT `anexovinfo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `anexovinfo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
+
+--
+-- Filtros para la tabla `planillainfoanexo`
+--
+ALTER TABLE `planillainfoanexo`
+  ADD CONSTRAINT `planillainfoanexo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
