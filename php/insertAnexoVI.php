@@ -5,17 +5,15 @@
         
         include 'conexion.php'; // Asegúrate de tener un archivo de conexión a la base de datos
         
-        // Obtener los datos enviados por FormData
         $constancia = $_POST['constancia'];
         $obraSocial = $_POST['obraSocial'];
         $nombreObra = $_POST['nombreObra'];
         $nroObra = $_POST['nroObra'];
+        $telefonos = isset($_POST['telefono']) ? implode(',', $_POST['telefono']) : '';
 
-        // Variables de sesión ya definidas
         $idSalida = $_SESSION['idSalida'];
         $dniAlumno = $_SESSION['dniAlumno'];
         
-        // Reemplazar valores vacíos con "-"
         if (empty($constancia)) {
             $constancia = "-";
         }
@@ -24,7 +22,6 @@
             $nombreObra = "-";
             $nroObra = "-";
         } else {
-            // Si obraSocial es distinto de 0, verificar los valores específicos de nombre y número
             if (empty($nombreObra)) {
                 $nombreObra = "-";
             }
@@ -44,10 +41,10 @@
         
         if ($count > 0) {
             // Si existe, actualizar el registro
-            $updateSql = "UPDATE `anexovi` SET `constanciaMedica` = ?, `obraSocial` = ?, `nombreObra` = ?, `nSocio` = ? WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
+            $updateSql = "UPDATE `anexovi` SET `constanciaMedica` = ?, `obraSocial` = ?, `nombreObra` = ?, `nSocio` = ?, `telefonos` = ? WHERE `fkAnexoIV` = ? AND `dniAlumno` = ?";
             
             $updateStmt = $conexion->prepare($updateSql);
-            $updateStmt->bind_param("sissii", $constancia, $obraSocial, $nombreObra, $nroObra, $idSalida, $dniAlumno);
+            $updateStmt->bind_param("sisssii", $constancia, $obraSocial, $nombreObra, $nroObra, $telefonos, $idSalida, $dniAlumno);
             
             if ($updateStmt->execute()) {
                 echo json_encode(["success" => true, "message" => "Datos actualizados correctamente."]);
@@ -58,13 +55,11 @@
             $updateStmt->close();
         } else {
             // Si no existe, insertar el nuevo registro
-            $insertSql = "INSERT INTO `anexovi`(`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`) VALUES (?, ?, ?, ?, ?, ?)";
+            $insertSql = "INSERT INTO `anexovi`(`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`, `telefonos`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             
-            // Preparar la declaración
             $insertStmt = $conexion->prepare($insertSql);
-            $insertStmt->bind_param("iisiss", $idSalida, $dniAlumno, $constancia, $obraSocial, $nombreObra, $nroObra);
+            $insertStmt->bind_param("iisisss", $idSalida, $dniAlumno, $constancia, $obraSocial, $nombreObra, $nroObra, $telefonos);
             
-            // Ejecutar la consulta
             if ($insertStmt->execute()) {
                 echo json_encode(["success" => true, "message" => "Datos guardados correctamente."]);
             } else {
@@ -74,7 +69,6 @@
             $insertStmt->close();
         }
         
-        // Cerrar la conexión
         $conexion->close();
     } else {
         echo json_encode(["success" => false, "message" => "Sesión no iniciada."]);

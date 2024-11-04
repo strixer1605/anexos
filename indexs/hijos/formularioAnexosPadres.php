@@ -36,35 +36,22 @@
                     <h2 style="color: black;">Anexo 6</h2>
                     <h4 style="color: black;">(Constancia médica)</h4>
                 </div>
-                    <br>
-                    <?php include('../../php/traerAnexoVI.php') ?>
-                    <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
                 <br>
+                <p style="margin-top: 10px; margin-bottom: 15px;"><b>Atención:</b> Los datos que usted no complete, se reemplazarán automáticamente con un guión medio (-).</p>
 
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="anexo6-tab" data-bs-toggle="tab" data-bs-target="#anexo6" type="button" role="tab" aria-controls="anexo6" aria-selected="true">Anexo 6</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="anexo7-tab" data-bs-toggle="tab" data-bs-target="#anexo7" type="button" role="tab" aria-controls="anexo7" aria-selected="false">Anexo 7</button>
-                    </li>
-                </ul>
-
-                <div class="tab-content mt-3" id="myTabContent"> 
-                    <!-- Anexo 6 -->
-                    <div class="tab-pane fade show active" id="anexo6" role="tabpanel" aria-labelledby="anexo6-tab">
-                        <br>
-                        <center><h2>Anexo 6</h2></center>
-                        <br>
-                        <?php include('../../php/traerAnexoVI.php') ?>
-                        <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
-                    </div>
-                </div>
+                <?php include('../../php/traerAnexoVI.php') ?>
+                <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>
             </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../../js/enviarFormulariosPadres.js"></script>
+        <script>
+            function toggleObraSocialInput(show) {
+                document.getElementById('nomInput').style.display = show ? 'block' : 'none';
+                document.getElementById('nroInput').style.display = show ? 'block' : 'none';
+            }
+        </script>
     </body>
 </html>

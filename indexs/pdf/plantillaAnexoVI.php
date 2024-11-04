@@ -6,12 +6,17 @@
     $idSalida = $_SESSION['idSalida'];
 
     $sqlAnexoIV = "SELECT * FROM anexoiv WHERE idAnexoIV = $idSalida";
+    $sqlAnexoVI = "SELECT * FROM anexovi WHERE fkAnexoIV = $idSalida";
     $sqlPlanilla = "SELECT * FROM planillainfoanexo WHERE fkAnexoIV = $idSalida";
     
+    $resultadoAnexoIV = mysqli_query($conexion, $sqlAnexoIV);
+    $filaAnexoIV = mysqli_fetch_assoc($resultadoAnexoIV);
+
+    $resultadoAnexoVI = mysqli_query($conexion, $sqlAnexoVI);
+    $filaAnexoVI = mysqli_fetch_assoc($resultadoAnexoVI);
+
     $resultadoPlantilla = mysqli_query($conexion, $sqlPlanilla);
     $filasPlantilla = mysqli_fetch_assoc($resultadoPlantilla);
-
-    // $sqlAnexoPadre = "SELECT * FROM alumnos WHERE dni = $dniAlumno";
 
     $sql = "SELECT 
             CONCAT(a.nombre, ' ', a.apellido) AS nombreCompleto,
@@ -36,9 +41,6 @@
     $stmt->bind_param("s", $dniAlumno);
     $stmt->execute();
     $resultadoAlumno = $stmt->get_result();
-
-    $resultadoAnexoIV = mysqli_query($conexion, $sqlAnexoIV);
-    $filaAnexoIV = mysqli_fetch_assoc($resultadoAnexoIV);
 
     if ($fila = $resultadoAlumno->fetch_assoc()) {
         $nombreCompleto = $fila['nombreCompleto'];
@@ -65,6 +67,8 @@
     $fechaRegreso = DateTime::createFromFormat('Y-m-d', $filaAnexoIV['fechaRegreso'])->format('d/m/y');
     $horaRegreso = DateTime::createFromFormat('H:i:s', $filaAnexoIV['horaRegreso'])->format('H:i');
     $regreso = $filaAnexoIV['lugarRegreso'] . ', ' . $fechaRegreso . ', ' . $horaRegreso;
+
+    $telefonoHospedaje = !empty($filaAnexoIV['telefonoHospedaje']) ? $filaAnexoIV['telefonoHospedaje'] : '-';
 
     $pdf = new FPDF();
     
@@ -102,23 +106,27 @@
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(66, 10, mb_convert_encoding('Nombre del Proyecto de la Salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
+    $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($filaAnexoIV['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(53, 10, mb_convert_encoding('Lugar, día y hora de salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
+    $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($salida, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(56, 10, mb_convert_encoding('Lugar, día y hora de regreso:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
+    $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($regreso, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    // $pdf->SetFont('Arial', '', 12);
-    // $pdf->Cell(34, 10, mb_convert_encoding('Lugares de estadía (domicilios y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    // $pdf->SetFont('Arial', '', 11);
-    // $pdf->Cell(0, 10, mb_convert_encoding($hospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(34, 10, mb_convert_encoding('Lugares de estadía (domicilios y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la estadía: ' . $filaAnexoIV['nombreHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Domicilio de la estadía: ' . $filaAnexoIV['domicilioHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Localidad de la estadía: ' . $filaAnexoIV['localidadHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Telefono de la estadía: ' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
     
     // $pdf->SetFont('Arial', '', 12);
     // $pdf->Cell(34, 10, mb_convert_encoding('Nombres y teléfonos de los acompañantes:', 'ISO-8859-1', 'UTF-8'), 0, 0);
@@ -159,19 +167,29 @@
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->MultiCell(0, 8, mb_convert_encoding('3- SALUD (completa el padre/madre, tutor o responsable):', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding('Dejo aquí constancia de cualquier indicación necesaria deba conocer el personal docente a cargo y personal médico:', 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('Dejo aquí constancia de cualquier indicación necesaria deba conocer el personal docente a cargo y personal médico: '.$filaAnexoVI['constanciaMedica'].'', 'ISO-8859-1', 'UTF-8'), 0);
     
     $pdf->Ln(10);
     
-    $pdf->Cell(55, 30, mb_convert_encoding('Tiene Obra Social/Prepaga', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
-    $pdf->Cell(10, 30, mb_convert_encoding('Sí', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
-    $pdf->Cell(10, 30, mb_convert_encoding('No', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->MultiCell(35, 10, mb_convert_encoding("¿Tiene Obra\nSocial/Prepaga?", 'ISO-8859-1', 'UTF-8'), 1, 'C');
+    $pdf->SetXY($pdf->GetX() + 35, $pdf->GetY() - 20);
 
-    $pdf->Cell(70, 15, 'Nombre de la Obra Social/Prepaga', 1, 0, 'C');
-    $pdf->Cell(20, 15, '', 1, 1, 'L');  // Espacio para nombre
-    $pdf->Cell(75, 15, mb_convert_encoding('', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(70, 15, 'N° Socio', 1, 0, 'C');
-    $pdf->Cell(20, 15, '', 1, 1, 'L');  // Espacio para número de socio
+    $pdf->SetFillColor(0, 0, 0);
+
+    if ($filaAnexoVI['obraSocial'] == 0){
+        $pdf->Cell(10, 20, mb_convert_encoding('Sí', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
+        $pdf->Cell(10, 20, mb_convert_encoding('No', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    }
+    else{
+        $pdf->Cell(10, 20, mb_convert_encoding('Sí', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $pdf->Cell(10, 20, mb_convert_encoding('No', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
+    }
+
+    $pdf->Cell(50, 10, 'Nombre (Obra Social):', 1, 0, 'C');
+    $pdf->Cell(0, 10, ' ' . $filaAnexoVI['nombreObra'], 1, 1, 'L'); 
+    $pdf->Cell(55, 10, '', 0, 0, 'C'); 
+    $pdf->Cell(50, 10, mb_convert_encoding('Nº Socio:', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(0, 10, ' ' . $filaAnexoVI['nSocio'], 1, 1, 'L');
 
     $pdf->Ln(10);
 
