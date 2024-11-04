@@ -74,10 +74,10 @@
                         foreach ($telefonos as $index => $telefono) {
                             $telefono = trim($telefono); // Quitar espacios en blanco
                             if (!empty($telefono)) { // Verificar que el teléfono no esté vacío
-                                echo '<div class="telefono-container">
+                                echo '<div class="telefono-container" style="display: flex; align-items: center;">
                                         <label class="telefono-label">' . htmlspecialchars($telefono) . '</label>
                                         <span class="telefono-button">
-                                            <button class="eliminar-objetivo" onclick="eliminarTelefono(' . $index . ')">Eliminar</button>
+                                            <button class="eliminar" onclick="eliminarTelefono(' . $index . ')">Eliminar</button>
                                         </span>
                                     </div>';
                             }
@@ -136,7 +136,7 @@
                     <div class="box">
                     <h6>(Consignar varios)</h6>
 
-                        <div id="telefonosDiv">
+                        <div id="telefonosDiv" style="display: flex; align-items: center;">
                             <label class="form-label" for="telefono">Número de teléfono:</label>
                             <input class="form-control item" type="text" id="telefono" placeholder="Ingrese un número de teléfono">
                             <button type="button" class="cargar" id="agregarTelefono">Agregar</button>

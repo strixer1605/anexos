@@ -194,7 +194,7 @@ function actualizarTelefonosOcultos() {
         <div class="telefono-container">
             <label class="telefono-label">${telefono}</label>
             <span class="telefono-button">
-                <button class="btn btn-danger" onclick="eliminarTelefono(${index})">Eliminar</button>
+                <button class="eliminar" onclick="eliminarTelefono(${index})">Eliminar</button>
             </span>
         </div>
     `).join('');

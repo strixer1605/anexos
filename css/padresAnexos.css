@@ -36,7 +36,7 @@ body {
 /* Input fields */
 .registration-form .item {
     border-radius: 20px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
     padding: 10px 20px;
     border: 1px solid #d1d1d1;
     transition: border-color 0.3s ease;
@@ -217,7 +217,7 @@ body {
     }
 }
 
-.registration-form .eliminar-objetivo {
+.eliminar {
     border-radius: 30px;
     padding: 10px 20px;
     font-size: 18px;
