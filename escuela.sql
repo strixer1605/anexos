@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-11-2024 a las 19:05:12
--- Versión del servidor: 8.0.31
--- Versión de PHP: 8.0.26
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 04-11-2024 a las 19:02:20
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,10 +27,9 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `actualizacion`
 --
 
-DROP TABLE IF EXISTS `actualizacion`;
-CREATE TABLE IF NOT EXISTS `actualizacion` (
-  `id` int NOT NULL,
-  `dni` int NOT NULL,
+CREATE TABLE `actualizacion` (
+  `id` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -40,19 +39,17 @@ CREATE TABLE IF NOT EXISTS `actualizacion` (
 -- Estructura de tabla para la tabla `alumnos`
 --
 
-DROP TABLE IF EXISTS `alumnos`;
-CREATE TABLE IF NOT EXISTS `alumnos` (
-  `dni` int NOT NULL,
-  `apellido` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+CREATE TABLE `alumnos` (
+  `dni` int(11) NOT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `fechan` date DEFAULT NULL,
-  `sexo` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'N',
-  `id_localidades` int DEFAULT NULL,
-  `domicilio` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `mailVerificado` tinyint NOT NULL,
-  `clave` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '1234',
-  PRIMARY KEY (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `sexo` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'N',
+  `id_localidades` int(11) DEFAULT NULL,
+  `domicilio` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `mailVerificado` tinyint(4) NOT NULL,
+  `clave` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1234'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `alumnos`
@@ -5485,46 +5482,44 @@ INSERT INTO `alumnos` (`dni`, `apellido`, `nombre`, `fechan`, `sexo`, `id_locali
 -- Estructura de tabla para la tabla `anexoiv`
 --
 
-DROP TABLE IF EXISTS `anexoiv`;
-CREATE TABLE IF NOT EXISTS `anexoiv` (
-  `idAnexoIV` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `anexoiv` (
+  `idAnexoIV` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `tipoSolicitud` tinyint(1) NOT NULL,
   `distanciaSalida` tinyint(1) NOT NULL,
-  `region` int NOT NULL,
-  `distrito` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `institucionEducativa` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `numeroInstitucion` int NOT NULL,
-  `domicilioInstitucion` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `telefonoInstitucion` bigint NOT NULL,
-  `denominacionProyecto` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `lugarVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `direccionVisita` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `localidadVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `regionVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `region` int(11) NOT NULL,
+  `distrito` varchar(70) NOT NULL,
+  `institucionEducativa` varchar(70) NOT NULL,
+  `numeroInstitucion` int(11) NOT NULL,
+  `domicilioInstitucion` varchar(70) NOT NULL,
+  `telefonoInstitucion` bigint(20) NOT NULL,
+  `denominacionProyecto` varchar(200) NOT NULL,
+  `lugarVisita` varchar(100) NOT NULL,
+  `direccionVisita` varchar(70) NOT NULL,
+  `localidadVisita` varchar(100) NOT NULL,
+  `regionVisita` varchar(100) NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarSalida` varchar(70) NOT NULL,
   `horaSalida` time NOT NULL,
   `fechaRegreso` date NOT NULL,
-  `lugarRegreso` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarRegreso` varchar(70) NOT NULL,
   `horaRegreso` time NOT NULL,
-  `itinerario` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `objetivosSalida` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `cronograma` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `actividades` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `dniEncargado` int NOT NULL,
-  `apellidoNombreEncargado` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `cargo` int NOT NULL,
-  `nombreHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `domicilioHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `telefonoHospedaje` bigint NOT NULL,
-  `localidadHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `gastosEstimativos` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `itinerario` varchar(200) NOT NULL,
+  `objetivosSalida` varchar(500) NOT NULL,
+  `cronograma` varchar(500) NOT NULL,
+  `actividades` varchar(200) NOT NULL,
+  `dniEncargado` int(11) NOT NULL,
+  `apellidoNombreEncargado` varchar(70) NOT NULL,
+  `cargo` int(11) NOT NULL,
+  `nombreHospedaje` varchar(70) NOT NULL,
+  `domicilioHospedaje` varchar(70) NOT NULL,
+  `telefonoHospedaje` bigint(20) NOT NULL,
+  `localidadHospedaje` varchar(70) NOT NULL,
+  `gastosEstimativos` varchar(200) NOT NULL,
   `anexoviiiHabil` tinyint(1) NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
-  `fechaModificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idAnexoIV`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `anexoiv`
@@ -5539,19 +5534,17 @@ INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`
 -- Estructura de tabla para la tabla `anexoix`
 --
 
-DROP TABLE IF EXISTS `anexoix`;
-CREATE TABLE IF NOT EXISTS `anexoix` (
-  `fkAnexoIV` int NOT NULL,
-  `nombreEstablecimiento` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `cue` int NOT NULL,
-  `domicilio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `distrito` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `director` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `nombreProyecto` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+CREATE TABLE `anexoix` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `nombreEstablecimiento` varchar(100) NOT NULL,
+  `cue` int(11) NOT NULL,
+  `domicilio` varchar(50) NOT NULL,
+  `distrito` varchar(50) NOT NULL,
+  `director` varchar(50) NOT NULL,
+  `nombreProyecto` varchar(70) NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `lugarSalida` varchar(70) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5559,16 +5552,13 @@ CREATE TABLE IF NOT EXISTS `anexoix` (
 -- Estructura de tabla para la tabla `anexov`
 --
 
-DROP TABLE IF EXISTS `anexov`;
-CREATE TABLE IF NOT EXISTS `anexov` (
-  `fkAnexoIV` int NOT NULL,
-  `dni` int NOT NULL,
-  `apellidoNombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `edad` tinyint NOT NULL,
-  `cargo` tinyint NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`),
-  KEY `dni` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `anexov` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `apellidoNombre` varchar(50) NOT NULL,
+  `edad` tinyint(4) NOT NULL,
+  `cargo` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `anexov`
@@ -5599,23 +5589,42 @@ INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VAL
 -- Estructura de tabla para la tabla `anexovi`
 --
 
-DROP TABLE IF EXISTS `anexovi`;
-CREATE TABLE IF NOT EXISTS `anexovi` (
-  `fkAnexoIV` int NOT NULL,
-  `dniAlumno` int NOT NULL,
-  `constanciaMedica` varchar(700) COLLATE utf8mb3_unicode_ci NOT NULL,
+CREATE TABLE `anexovi` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `dniAlumno` int(11) NOT NULL,
+  `constanciaMedica` varchar(700) NOT NULL,
   `obraSocial` tinyint(1) NOT NULL,
-  `nombreObra` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `nSocio` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `nombreObra` varchar(100) NOT NULL,
+  `nSocio` varchar(50) NOT NULL,
+  `telefonos` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `anexovi`
 --
 
-INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`) VALUES
-(3, 47950839, 'a', 1, 'a', 'a');
+INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`, `telefonos`) VALUES
+(3, 47950839, '-', 0, '-', '-', '1173652393'),
+(3, 0, '', 0, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `anexovii`
+--
+
+CREATE TABLE `anexovii` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `dniEstudiante` int(11) NOT NULL,
+  `domicilio` varchar(100) NOT NULL,
+  `altura` int(11) NOT NULL,
+  `localidad` varchar(100) NOT NULL,
+  `observaciones` text NOT NULL,
+  `obraSocial` tinyint(1) NOT NULL,
+  `nombreObraSocial` varchar(100) NOT NULL,
+  `numeroAfiliado` varchar(100) NOT NULL,
+  `telefonos` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5623,28 +5632,27 @@ INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial
 -- Estructura de tabla para la tabla `anexoviii`
 --
 
-DROP TABLE IF EXISTS `anexoviii`;
-CREATE TABLE IF NOT EXISTS `anexoviii` (
-  `fkAnexoIV` int NOT NULL,
-  `razonSocial` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `domicilioTransporte` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `telefonoTransporte` int NOT NULL,
-  `domicilioResponsable` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `telefono` int NOT NULL,
-  `telefonoMovil` varchar(13) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `titularidadVehiculo` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `companiaAseguradora` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `numeroPoliza` int NOT NULL,
-  `tipoSeguro` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `nombreConductor1` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `dniConductor1` int NOT NULL,
-  `numeroLicencia1` int NOT NULL,
+CREATE TABLE `anexoviii` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `razonSocial` varchar(100) NOT NULL,
+  `domicilioTransporte` varchar(100) NOT NULL,
+  `telefonoTransporte` int(11) NOT NULL,
+  `domicilioResponsable` varchar(100) NOT NULL,
+  `telefono` int(11) NOT NULL,
+  `telefonoMovil` varchar(13) NOT NULL,
+  `titularidadVehiculo` varchar(100) NOT NULL,
+  `companiaAseguradora` varchar(100) NOT NULL,
+  `numeroPoliza` int(11) NOT NULL,
+  `tipoSeguro` varchar(100) NOT NULL,
+  `nombreConductor1` varchar(100) NOT NULL,
+  `dniConductor1` int(11) NOT NULL,
+  `numeroLicencia1` int(11) NOT NULL,
   `vigencia1` date NOT NULL,
-  `nombreConductor2` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `dniConductor2` varchar(8) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `numeroLicencia2` varchar(8) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreConductor2` varchar(100) NOT NULL,
+  `dniConductor2` varchar(8) NOT NULL,
+  `numeroLicencia2` varchar(8) NOT NULL,
   `vigencia2` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5652,12 +5660,10 @@ CREATE TABLE IF NOT EXISTS `anexoviii` (
 -- Estructura de tabla para la tabla `anexovinfo`
 --
 
-DROP TABLE IF EXISTS `anexovinfo`;
-CREATE TABLE IF NOT EXISTS `anexovinfo` (
-  `fkAnexoIV` int NOT NULL,
-  `observaciones` varchar(400) COLLATE utf8mb3_unicode_ci NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `anexovinfo` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `observaciones` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5665,15 +5671,14 @@ CREATE TABLE IF NOT EXISTS `anexovinfo` (
 -- Estructura de tabla para la tabla `archivos_visto`
 --
 
-DROP TABLE IF EXISTS `archivos_visto`;
-CREATE TABLE IF NOT EXISTS `archivos_visto` (
-  `id` int NOT NULL,
-  `id_archivo` int NOT NULL,
-  `id_asignacionesalumnos` int NOT NULL,
-  `visto` tinyint NOT NULL,
+CREATE TABLE `archivos_visto` (
+  `id` int(11) NOT NULL,
+  `id_archivo` int(11) NOT NULL,
+  `id_asignacionesalumnos` int(11) NOT NULL,
+  `visto` tinyint(4) NOT NULL,
   `tipo` varchar(1) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -5681,12 +5686,10 @@ CREATE TABLE IF NOT EXISTS `archivos_visto` (
 -- Estructura de tabla para la tabla `area`
 --
 
-DROP TABLE IF EXISTS `area`;
-CREATE TABLE IF NOT EXISTS `area` (
-  `pk_area` int NOT NULL AUTO_INCREMENT,
-  `area` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`pk_area`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `area` (
+  `pk_area` int(11) NOT NULL,
+  `area` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `area`
@@ -5705,11 +5708,10 @@ INSERT INTO `area` (`pk_area`, `area`) VALUES
 -- Estructura de tabla para la tabla `areamateria`
 --
 
-DROP TABLE IF EXISTS `areamateria`;
-CREATE TABLE IF NOT EXISTS `areamateria` (
-  `pk_areamateria` int NOT NULL,
-  `pk_area` int NOT NULL,
-  `pk_materia` int NOT NULL
+CREATE TABLE `areamateria` (
+  `pk_areamateria` int(11) NOT NULL,
+  `pk_area` int(11) NOT NULL,
+  `pk_materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5756,11 +5758,10 @@ INSERT INTO `areamateria` (`pk_areamateria`, `pk_area`, `pk_materia`) VALUES
 -- Estructura de tabla para la tabla `articulo`
 --
 
-DROP TABLE IF EXISTS `articulo`;
-CREATE TABLE IF NOT EXISTS `articulo` (
-  `id` int NOT NULL,
-  `articulo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `articulo` (
+  `id` int(11) NOT NULL,
+  `articulo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `articulo`
@@ -5782,18 +5783,13 @@ INSERT INTO `articulo` (`id`, `articulo`) VALUES
 -- Estructura de tabla para la tabla `asignacionesalumnos`
 --
 
-DROP TABLE IF EXISTS `asignacionesalumnos`;
-CREATE TABLE IF NOT EXISTS `asignacionesalumnos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_cursosciclolectivo` int NOT NULL,
-  `dni_alumnos` int NOT NULL,
-  `id_grupos` tinyint NOT NULL,
-  `estado` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_cursosciclolectivo` (`id_cursosciclolectivo`),
-  KEY `dni_alumnos` (`dni_alumnos`),
-  KEY `id grupos` (`id_grupos`)
-) ENGINE=MyISAM AUTO_INCREMENT=15577 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `asignacionesalumnos` (
+  `id` int(11) NOT NULL,
+  `id_cursosciclolectivo` int(11) NOT NULL,
+  `dni_alumnos` int(11) NOT NULL,
+  `id_grupos` tinyint(4) NOT NULL,
+  `estado` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `asignacionesalumnos`
@@ -17121,14 +17117,13 @@ INSERT INTO `asignacionesalumnos` (`id`, `id_cursosciclolectivo`, `dni_alumnos`,
 -- Estructura de tabla para la tabla `asistencia_docente`
 --
 
-DROP TABLE IF EXISTS `asistencia_docente`;
-CREATE TABLE IF NOT EXISTS `asistencia_docente` (
-  `id` int NOT NULL,
-  `dni` int NOT NULL,
+CREATE TABLE `asistencia_docente` (
+  `id` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cupof` int NOT NULL,
-  `dni_toma` int NOT NULL,
+  `estado` varchar(1) NOT NULL,
+  `cupof` int(11) NOT NULL,
+  `dni_toma` int(11) NOT NULL,
   `fecha_toma` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -36081,15 +36076,11 @@ INSERT INTO `asistencia_docente` (`id`, `dni`, `fecha`, `estado`, `cupof`, `dni_
 -- Estructura de tabla para la tabla `ciclosuperior`
 --
 
-DROP TABLE IF EXISTS `ciclosuperior`;
-CREATE TABLE IF NOT EXISTS `ciclosuperior` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_cursos` tinyint NOT NULL,
-  `id_orientaciones` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id del curso` (`id_cursos`),
-  KEY `id orientacion` (`id_orientaciones`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `ciclosuperior` (
+  `id` int(11) NOT NULL,
+  `id_cursos` tinyint(4) NOT NULL,
+  `id_orientaciones` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `ciclosuperior`
@@ -36126,13 +36117,11 @@ INSERT INTO `ciclosuperior` (`id`, `id_cursos`, `id_orientaciones`) VALUES
 -- Estructura de tabla para la tabla `configuracion`
 --
 
-DROP TABLE IF EXISTS `configuracion`;
-CREATE TABLE IF NOT EXISTS `configuracion` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dni` int NOT NULL,
-  `tema` tinyint NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `configuracion` (
+  `id` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `tema` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `configuracion`
@@ -36153,14 +36142,12 @@ INSERT INTO `configuracion` (`id`, `dni`, `tema`) VALUES
 -- Estructura de tabla para la tabla `cursos`
 --
 
-DROP TABLE IF EXISTS `cursos`;
-CREATE TABLE IF NOT EXISTS `cursos` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cursos` (
+  `id` int(11) NOT NULL,
   `division` varchar(1) NOT NULL,
-  `ano` tinyint NOT NULL,
-  `turno` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3;
+  `ano` tinyint(4) NOT NULL,
+  `turno` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `cursos`
@@ -36217,425 +36204,424 @@ INSERT INTO `cursos` (`id`, `division`, `ano`, `turno`) VALUES
 -- Estructura de tabla para la tabla `cursosciclolectivo`
 --
 
-DROP TABLE IF EXISTS `cursosciclolectivo`;
-CREATE TABLE IF NOT EXISTS `cursosciclolectivo` (
-  `id` int NOT NULL,
+CREATE TABLE `cursosciclolectivo` (
+  `id` int(11) NOT NULL,
   `estado` varchar(1) NOT NULL,
-  `id_cursos` int NOT NULL,
-  `ciclolectivo` year NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+  `id_cursos` int(11) NOT NULL,
+  `ciclolectivo` year(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `cursosciclolectivo`
 --
 
 INSERT INTO `cursosciclolectivo` (`id`, `estado`, `id_cursos`, `ciclolectivo`) VALUES
-(34, 'H', 1, 2015),
-(35, 'H', 2, 2015),
-(36, 'H', 3, 2015),
-(37, 'H', 4, 2015),
-(38, 'H', 5, 2015),
-(39, 'H', 6, 2015),
-(40, 'H', 7, 2015),
-(41, 'H', 14, 2015),
-(42, 'H', 20, 2015),
-(43, 'H', 16, 2015),
-(44, 'H', 26, 2015),
-(45, 'H', 22, 2015),
-(46, 'H', 21, 2015),
-(47, 'H', 15, 2015),
-(48, 'H', 19, 2015),
-(49, 'H', 18, 2015),
-(50, 'H', 13, 2015),
-(51, 'H', 27, 2015),
-(52, 'H', 10, 2015),
-(53, 'H', 8, 2015),
-(54, 'H', 29, 2015),
-(55, 'H', 17, 2015),
-(56, 'H', 9, 2015),
-(57, 'H', 34, 2015),
-(58, 'H', 25, 2015),
-(59, 'H', 24, 2015),
-(60, 'H', 23, 2015),
-(61, 'H', 33, 2015),
-(62, 'H', 11, 2015),
-(63, 'H', 30, 2015),
-(64, 'H', 28, 2015),
-(65, 'H', 12, 2015),
-(66, 'D', 35, 2015),
-(67, 'H', 36, 2015),
-(68, 'H', 37, 2015),
-(69, 'H', 38, 2015),
-(70, 'H', 39, 2015),
-(71, 'H', 40, 2015),
-(72, 'H', 41, 2015),
-(73, 'H', 18, 2013),
-(74, 'H', 1, 2016),
-(75, 'H', 2, 2016),
-(76, 'H', 3, 2016),
-(77, 'H', 4, 2016),
-(78, 'H', 5, 2016),
-(79, 'H', 6, 2016),
-(80, 'H', 40, 2016),
-(81, 'H', 38, 2016),
-(82, 'H', 7, 2016),
-(83, 'H', 8, 2016),
-(84, 'H', 9, 2016),
-(85, 'H', 10, 2016),
-(86, 'H', 11, 2016),
-(87, 'H', 12, 2016),
-(88, 'H', 13, 2016),
-(89, 'H', 14, 2016),
-(90, 'H', 15, 2016),
-(91, 'H', 41, 2016),
-(92, 'H', 16, 2016),
-(93, 'H', 17, 2016),
-(94, 'H', 18, 2016),
-(95, 'H', 19, 2016),
-(96, 'H', 20, 2016),
-(97, 'H', 21, 2016),
-(98, 'H', 22, 2016),
-(99, 'H', 23, 2016),
-(100, 'H', 24, 2016),
-(101, 'H', 25, 2016),
-(102, 'H', 26, 2016),
-(103, 'H', 27, 2016),
-(104, 'H', 28, 2016),
-(105, 'H', 29, 2016),
-(106, 'H', 30, 2016),
-(107, 'H', 33, 2016),
-(108, 'H', 37, 2016),
-(109, 'H', 34, 2016),
-(110, 'H', 39, 2016),
-(111, 'H', 36, 2016),
-(112, 'H', 1, 2017),
-(113, 'H', 2, 2017),
-(114, 'H', 3, 2017),
-(115, 'H', 4, 2017),
-(116, 'H', 5, 2017),
-(117, 'H', 6, 2017),
-(118, 'H', 40, 2017),
-(119, 'H', 7, 2017),
-(120, 'H', 8, 2017),
-(121, 'H', 9, 2017),
-(122, 'H', 10, 2017),
-(123, 'H', 11, 2017),
-(124, 'H', 12, 2017),
-(125, 'H', 38, 2017),
-(126, 'H', 13, 2017),
-(127, 'H', 41, 2017),
-(128, 'H', 15, 2017),
-(129, 'H', 17, 2017),
-(130, 'H', 24, 2017),
-(131, 'H', 14, 2017),
-(132, 'H', 16, 2017),
-(133, 'H', 30, 2017),
-(134, 'H', 21, 2017),
-(135, 'H', 22, 2017),
-(136, 'H', 19, 2017),
-(137, 'H', 20, 2017),
-(138, 'H', 18, 2017),
-(139, 'H', 29, 2017),
-(140, 'H', 25, 2017),
-(141, 'H', 27, 2017),
-(142, 'H', 28, 2017),
-(143, 'H', 26, 2017),
-(144, 'H', 23, 2017),
-(145, 'H', 34, 2017),
-(146, 'H', 37, 2017),
-(147, 'H', 36, 2017),
-(148, 'H', 39, 2017),
-(149, 'H', 33, 2017),
-(150, 'H', 1, 2018),
-(151, 'H', 2, 2018),
-(152, 'H', 3, 2018),
-(153, 'H', 4, 2018),
-(154, 'H', 5, 2018),
-(155, 'H', 6, 2018),
-(156, 'H', 40, 2018),
-(157, 'H', 7, 2018),
-(158, 'H', 8, 2018),
-(159, 'H', 9, 2018),
-(160, 'H', 10, 2018),
-(161, 'H', 11, 2018),
-(162, 'H', 12, 2018),
-(163, 'H', 38, 2018),
-(164, 'H', 13, 2018),
-(165, 'H', 14, 2018),
-(166, 'H', 15, 2018),
-(167, 'H', 41, 2018),
-(168, 'H', 16, 2018),
-(169, 'H', 17, 2018),
-(170, 'H', 18, 2018),
-(171, 'H', 19, 2018),
-(172, 'H', 20, 2018),
-(173, 'H', 36, 2018),
-(174, 'H', 21, 2018),
-(175, 'H', 22, 2018),
-(176, 'H', 23, 2018),
-(177, 'H', 24, 2018),
-(178, 'H', 25, 2018),
-(179, 'H', 26, 2018),
-(180, 'H', 27, 2018),
-(181, 'H', 28, 2018),
-(182, 'H', 29, 2018),
-(183, 'H', 30, 2018),
-(184, 'H', 33, 2018),
-(185, 'H', 37, 2018),
-(186, 'H', 34, 2018),
-(187, 'H', 39, 2018),
-(188, 'H', 42, 2018),
-(189, 'H', 1, 2019),
-(190, 'H', 2, 2019),
-(191, 'H', 3, 2019),
-(192, 'H', 4, 2019),
-(193, 'H', 5, 2019),
-(194, 'H', 6, 2019),
-(195, 'H', 40, 2019),
-(196, 'H', 7, 2019),
-(197, 'H', 8, 2019),
-(198, 'H', 9, 2019),
-(199, 'H', 10, 2019),
-(200, 'H', 11, 2019),
-(201, 'H', 12, 2019),
-(202, 'H', 38, 2019),
-(203, 'H', 13, 2019),
-(204, 'H', 14, 2019),
-(205, 'H', 15, 2019),
-(206, 'H', 41, 2019),
-(207, 'H', 16, 2019),
-(208, 'H', 17, 2019),
-(209, 'H', 36, 2019),
-(210, 'H', 39, 2019),
-(211, 'H', 18, 2019),
-(212, 'H', 19, 2019),
-(213, 'H', 42, 2019),
-(214, 'H', 20, 2019),
-(215, 'H', 21, 2019),
-(216, 'H', 22, 2019),
-(217, 'H', 23, 2019),
-(218, 'H', 24, 2019),
-(219, 'H', 25, 2019),
-(220, 'H', 26, 2019),
-(221, 'H', 27, 2019),
-(222, 'H', 28, 2019),
-(223, 'H', 29, 2019),
-(224, 'H', 30, 2019),
-(225, 'H', 33, 2019),
-(226, 'H', 37, 2019),
-(227, 'H', 34, 2019),
-(228, 'H', 1, 2020),
-(229, 'H', 2, 2020),
-(230, 'H', 3, 2020),
-(231, 'H', 4, 2020),
-(232, 'H', 5, 2020),
-(233, 'H', 6, 2020),
-(234, 'H', 40, 2020),
-(235, 'H', 7, 2020),
-(236, 'H', 8, 2020),
-(237, 'H', 9, 2020),
-(238, 'H', 10, 2020),
-(239, 'H', 11, 2020),
-(240, 'H', 12, 2020),
-(241, 'H', 38, 2020),
-(242, 'H', 13, 2020),
-(243, 'H', 14, 2020),
-(244, 'H', 15, 2020),
-(245, 'H', 41, 2020),
-(246, 'H', 16, 2020),
-(247, 'H', 17, 2020),
-(248, 'H', 18, 2020),
-(249, 'H', 19, 2020),
-(250, 'H', 42, 2020),
-(251, 'H', 20, 2020),
-(252, 'H', 21, 2020),
-(253, 'H', 22, 2020),
-(254, 'H', 23, 2020),
-(255, 'H', 24, 2020),
-(256, 'H', 25, 2020),
-(257, 'H', 26, 2020),
-(258, 'H', 27, 2020),
-(259, 'H', 28, 2020),
-(260, 'H', 29, 2020),
-(261, 'H', 30, 2020),
-(262, 'H', 33, 2020),
-(263, 'H', 37, 2020),
-(264, 'H', 34, 2020),
-(265, 'H', 39, 2020),
-(266, 'H', 36, 2020),
-(267, 'H', 1, 2021),
-(268, 'H', 19, 2021),
-(269, 'H', 42, 2021),
-(270, 'H', 20, 2021),
-(271, 'H', 21, 2021),
-(272, 'H', 22, 2021),
-(273, 'H', 23, 2021),
-(274, 'H', 24, 2021),
-(275, 'H', 25, 2021),
-(276, 'H', 26, 2021),
-(277, 'H', 27, 2021),
-(278, 'H', 28, 2021),
-(279, 'H', 29, 2021),
-(280, 'H', 30, 2021),
-(281, 'H', 33, 2021),
-(282, 'H', 37, 2021),
-(283, 'H', 34, 2021),
-(284, 'H', 39, 2021),
-(285, 'H', 18, 2021),
-(286, 'H', 17, 2021),
-(287, 'H', 16, 2021),
-(288, 'H', 2, 2021),
-(289, 'H', 3, 2021),
-(290, 'H', 4, 2021),
-(291, 'H', 5, 2021),
-(292, 'H', 6, 2021),
-(293, 'H', 40, 2021),
-(294, 'H', 7, 2021),
-(295, 'H', 8, 2021),
-(296, 'H', 9, 2021),
-(297, 'H', 10, 2021),
-(298, 'H', 11, 2021),
-(299, 'H', 12, 2021),
-(300, 'H', 38, 2021),
-(301, 'H', 13, 2021),
-(302, 'H', 14, 2021),
-(303, 'H', 15, 2021),
-(304, 'H', 41, 2021),
-(305, 'H', 36, 2021),
-(306, 'H', 43, 2021),
-(307, 'H', 44, 2021),
-(308, 'H', 45, 2021),
-(309, 'D', 15, 2021),
-(310, 'D', 7, 2021),
-(311, 'D', 10, 2021),
-(312, 'D', 46, 2021),
-(313, 'H', 1, 2022),
-(314, 'H', 2, 2022),
-(315, 'H', 3, 2022),
-(316, 'H', 4, 2022),
-(317, 'H', 5, 2022),
-(318, 'H', 39, 2022),
-(319, 'H', 16, 2022),
-(320, 'H', 17, 2022),
-(321, 'H', 18, 2022),
-(322, 'H', 19, 2022),
-(323, 'H', 42, 2022),
-(324, 'H', 20, 2022),
-(325, 'H', 21, 2022),
-(326, 'H', 22, 2022),
-(327, 'H', 23, 2022),
-(328, 'H', 24, 2022),
-(329, 'H', 25, 2022),
-(330, 'H', 26, 2022),
-(331, 'H', 27, 2022),
-(332, 'H', 28, 2022),
-(333, 'H', 29, 2022),
-(334, 'H', 30, 2022),
-(335, 'H', 33, 2022),
-(336, 'H', 37, 2022),
-(337, 'H', 34, 2022),
-(338, 'H', 6, 2022),
-(339, 'H', 40, 2022),
-(340, 'H', 7, 2022),
-(341, 'H', 8, 2022),
-(342, 'H', 9, 2022),
-(343, 'H', 10, 2022),
-(344, 'H', 11, 2022),
-(345, 'H', 12, 2022),
-(346, 'H', 38, 2022),
-(347, 'H', 13, 2022),
-(348, 'H', 14, 2022),
-(349, 'H', 43, 2022),
-(350, 'H', 15, 2022),
-(351, 'H', 41, 2022),
-(352, 'H', 44, 2022),
-(353, 'H', 45, 2022),
-(354, 'H', 36, 2022),
-(355, 'D', 46, 2023),
-(356, 'H', 1, 2023),
-(357, 'H', 2, 2023),
-(358, 'H', 3, 2023),
-(359, 'H', 4, 2023),
-(360, 'H', 5, 2023),
-(361, 'H', 6, 2023),
-(362, 'H', 40, 2023),
-(363, 'H', 7, 2023),
-(364, 'H', 8, 2023),
-(365, 'H', 9, 2023),
-(366, 'H', 10, 2023),
-(367, 'H', 11, 2023),
-(368, 'H', 12, 2023),
-(369, 'H', 38, 2023),
-(370, 'H', 13, 2023),
-(371, 'H', 36, 2023),
-(372, 'H', 39, 2023),
-(373, 'H', 14, 2023),
-(374, 'H', 15, 2023),
-(375, 'H', 41, 2023),
-(376, 'H', 16, 2023),
-(377, 'H', 44, 2023),
-(378, 'H', 45, 2023),
-(379, 'H', 17, 2023),
-(380, 'H', 18, 2023),
-(381, 'H', 19, 2023),
-(382, 'H', 42, 2023),
-(383, 'H', 20, 2023),
-(384, 'H', 21, 2023),
-(385, 'H', 22, 2023),
-(386, 'H', 23, 2023),
-(387, 'H', 24, 2023),
-(388, 'H', 25, 2023),
-(389, 'H', 26, 2023),
-(390, 'H', 27, 2023),
-(391, 'H', 28, 2023),
-(392, 'H', 29, 2023),
-(393, 'H', 30, 2023),
-(394, 'H', 33, 2023),
-(395, 'H', 37, 2023),
-(396, 'H', 34, 2023),
-(397, 'H', 43, 2023),
-(398, 'H', 1, 2024),
-(399, 'H', 2, 2024),
-(400, 'H', 3, 2024),
-(401, 'H', 4, 2024),
-(402, 'H', 5, 2024),
-(403, 'H', 6, 2024),
-(404, 'H', 40, 2024),
-(405, 'H', 16, 2024),
-(406, 'H', 25, 2024),
-(407, 'H', 30, 2024),
-(408, 'H', 7, 2024),
-(409, 'H', 8, 2024),
-(410, 'H', 9, 2024),
-(411, 'H', 10, 2024),
-(412, 'H', 11, 2024),
-(413, 'H', 12, 2024),
-(414, 'H', 38, 2024),
-(415, 'H', 13, 2024),
-(416, 'H', 14, 2024),
-(417, 'H', 15, 2024),
-(418, 'H', 41, 2024),
-(419, 'H', 44, 2024),
-(420, 'H', 45, 2024),
-(421, 'H', 17, 2024),
-(422, 'H', 18, 2024),
-(423, 'H', 19, 2024),
-(424, 'H', 42, 2024),
-(425, 'H', 20, 2024),
-(426, 'H', 21, 2024),
-(427, 'H', 22, 2024),
-(428, 'H', 23, 2024),
-(429, 'H', 24, 2024),
-(430, 'H', 26, 2024),
-(431, 'H', 27, 2024),
-(432, 'H', 28, 2024),
-(433, 'H', 29, 2024),
-(434, 'H', 33, 2024),
-(435, 'H', 37, 2024),
-(436, 'H', 34, 2024),
-(437, 'H', 43, 2024),
-(438, 'H', 39, 2024),
-(439, 'H', 36, 2024);
+(34, 'H', 1, '2015'),
+(35, 'H', 2, '2015'),
+(36, 'H', 3, '2015'),
+(37, 'H', 4, '2015'),
+(38, 'H', 5, '2015'),
+(39, 'H', 6, '2015'),
+(40, 'H', 7, '2015'),
+(41, 'H', 14, '2015'),
+(42, 'H', 20, '2015'),
+(43, 'H', 16, '2015'),
+(44, 'H', 26, '2015'),
+(45, 'H', 22, '2015'),
+(46, 'H', 21, '2015'),
+(47, 'H', 15, '2015'),
+(48, 'H', 19, '2015'),
+(49, 'H', 18, '2015'),
+(50, 'H', 13, '2015'),
+(51, 'H', 27, '2015'),
+(52, 'H', 10, '2015'),
+(53, 'H', 8, '2015'),
+(54, 'H', 29, '2015'),
+(55, 'H', 17, '2015'),
+(56, 'H', 9, '2015'),
+(57, 'H', 34, '2015'),
+(58, 'H', 25, '2015'),
+(59, 'H', 24, '2015'),
+(60, 'H', 23, '2015'),
+(61, 'H', 33, '2015'),
+(62, 'H', 11, '2015'),
+(63, 'H', 30, '2015'),
+(64, 'H', 28, '2015'),
+(65, 'H', 12, '2015'),
+(66, 'D', 35, '2015'),
+(67, 'H', 36, '2015'),
+(68, 'H', 37, '2015'),
+(69, 'H', 38, '2015'),
+(70, 'H', 39, '2015'),
+(71, 'H', 40, '2015'),
+(72, 'H', 41, '2015'),
+(73, 'H', 18, '2013'),
+(74, 'H', 1, '2016'),
+(75, 'H', 2, '2016'),
+(76, 'H', 3, '2016'),
+(77, 'H', 4, '2016'),
+(78, 'H', 5, '2016'),
+(79, 'H', 6, '2016'),
+(80, 'H', 40, '2016'),
+(81, 'H', 38, '2016'),
+(82, 'H', 7, '2016'),
+(83, 'H', 8, '2016'),
+(84, 'H', 9, '2016'),
+(85, 'H', 10, '2016'),
+(86, 'H', 11, '2016'),
+(87, 'H', 12, '2016'),
+(88, 'H', 13, '2016'),
+(89, 'H', 14, '2016'),
+(90, 'H', 15, '2016'),
+(91, 'H', 41, '2016'),
+(92, 'H', 16, '2016'),
+(93, 'H', 17, '2016'),
+(94, 'H', 18, '2016'),
+(95, 'H', 19, '2016'),
+(96, 'H', 20, '2016'),
+(97, 'H', 21, '2016'),
+(98, 'H', 22, '2016'),
+(99, 'H', 23, '2016'),
+(100, 'H', 24, '2016'),
+(101, 'H', 25, '2016'),
+(102, 'H', 26, '2016'),
+(103, 'H', 27, '2016'),
+(104, 'H', 28, '2016'),
+(105, 'H', 29, '2016'),
+(106, 'H', 30, '2016'),
+(107, 'H', 33, '2016'),
+(108, 'H', 37, '2016'),
+(109, 'H', 34, '2016'),
+(110, 'H', 39, '2016'),
+(111, 'H', 36, '2016'),
+(112, 'H', 1, '2017'),
+(113, 'H', 2, '2017'),
+(114, 'H', 3, '2017'),
+(115, 'H', 4, '2017'),
+(116, 'H', 5, '2017'),
+(117, 'H', 6, '2017'),
+(118, 'H', 40, '2017'),
+(119, 'H', 7, '2017'),
+(120, 'H', 8, '2017'),
+(121, 'H', 9, '2017'),
+(122, 'H', 10, '2017'),
+(123, 'H', 11, '2017'),
+(124, 'H', 12, '2017'),
+(125, 'H', 38, '2017'),
+(126, 'H', 13, '2017'),
+(127, 'H', 41, '2017'),
+(128, 'H', 15, '2017'),
+(129, 'H', 17, '2017'),
+(130, 'H', 24, '2017'),
+(131, 'H', 14, '2017'),
+(132, 'H', 16, '2017'),
+(133, 'H', 30, '2017'),
+(134, 'H', 21, '2017'),
+(135, 'H', 22, '2017'),
+(136, 'H', 19, '2017'),
+(137, 'H', 20, '2017'),
+(138, 'H', 18, '2017'),
+(139, 'H', 29, '2017'),
+(140, 'H', 25, '2017'),
+(141, 'H', 27, '2017'),
+(142, 'H', 28, '2017'),
+(143, 'H', 26, '2017'),
+(144, 'H', 23, '2017'),
+(145, 'H', 34, '2017'),
+(146, 'H', 37, '2017'),
+(147, 'H', 36, '2017'),
+(148, 'H', 39, '2017'),
+(149, 'H', 33, '2017'),
+(150, 'H', 1, '2018'),
+(151, 'H', 2, '2018'),
+(152, 'H', 3, '2018'),
+(153, 'H', 4, '2018'),
+(154, 'H', 5, '2018'),
+(155, 'H', 6, '2018'),
+(156, 'H', 40, '2018'),
+(157, 'H', 7, '2018'),
+(158, 'H', 8, '2018'),
+(159, 'H', 9, '2018'),
+(160, 'H', 10, '2018'),
+(161, 'H', 11, '2018'),
+(162, 'H', 12, '2018'),
+(163, 'H', 38, '2018'),
+(164, 'H', 13, '2018'),
+(165, 'H', 14, '2018'),
+(166, 'H', 15, '2018'),
+(167, 'H', 41, '2018'),
+(168, 'H', 16, '2018'),
+(169, 'H', 17, '2018'),
+(170, 'H', 18, '2018'),
+(171, 'H', 19, '2018'),
+(172, 'H', 20, '2018'),
+(173, 'H', 36, '2018'),
+(174, 'H', 21, '2018'),
+(175, 'H', 22, '2018'),
+(176, 'H', 23, '2018'),
+(177, 'H', 24, '2018'),
+(178, 'H', 25, '2018'),
+(179, 'H', 26, '2018'),
+(180, 'H', 27, '2018'),
+(181, 'H', 28, '2018'),
+(182, 'H', 29, '2018'),
+(183, 'H', 30, '2018'),
+(184, 'H', 33, '2018'),
+(185, 'H', 37, '2018'),
+(186, 'H', 34, '2018'),
+(187, 'H', 39, '2018'),
+(188, 'H', 42, '2018'),
+(189, 'H', 1, '2019'),
+(190, 'H', 2, '2019'),
+(191, 'H', 3, '2019'),
+(192, 'H', 4, '2019'),
+(193, 'H', 5, '2019'),
+(194, 'H', 6, '2019'),
+(195, 'H', 40, '2019'),
+(196, 'H', 7, '2019'),
+(197, 'H', 8, '2019'),
+(198, 'H', 9, '2019'),
+(199, 'H', 10, '2019'),
+(200, 'H', 11, '2019'),
+(201, 'H', 12, '2019'),
+(202, 'H', 38, '2019'),
+(203, 'H', 13, '2019'),
+(204, 'H', 14, '2019'),
+(205, 'H', 15, '2019'),
+(206, 'H', 41, '2019'),
+(207, 'H', 16, '2019'),
+(208, 'H', 17, '2019'),
+(209, 'H', 36, '2019'),
+(210, 'H', 39, '2019'),
+(211, 'H', 18, '2019'),
+(212, 'H', 19, '2019'),
+(213, 'H', 42, '2019'),
+(214, 'H', 20, '2019'),
+(215, 'H', 21, '2019'),
+(216, 'H', 22, '2019'),
+(217, 'H', 23, '2019'),
+(218, 'H', 24, '2019'),
+(219, 'H', 25, '2019'),
+(220, 'H', 26, '2019'),
+(221, 'H', 27, '2019'),
+(222, 'H', 28, '2019'),
+(223, 'H', 29, '2019'),
+(224, 'H', 30, '2019'),
+(225, 'H', 33, '2019'),
+(226, 'H', 37, '2019'),
+(227, 'H', 34, '2019'),
+(228, 'H', 1, '2020'),
+(229, 'H', 2, '2020'),
+(230, 'H', 3, '2020'),
+(231, 'H', 4, '2020'),
+(232, 'H', 5, '2020'),
+(233, 'H', 6, '2020'),
+(234, 'H', 40, '2020'),
+(235, 'H', 7, '2020'),
+(236, 'H', 8, '2020'),
+(237, 'H', 9, '2020'),
+(238, 'H', 10, '2020'),
+(239, 'H', 11, '2020'),
+(240, 'H', 12, '2020'),
+(241, 'H', 38, '2020'),
+(242, 'H', 13, '2020'),
+(243, 'H', 14, '2020'),
+(244, 'H', 15, '2020'),
+(245, 'H', 41, '2020'),
+(246, 'H', 16, '2020'),
+(247, 'H', 17, '2020'),
+(248, 'H', 18, '2020'),
+(249, 'H', 19, '2020'),
+(250, 'H', 42, '2020'),
+(251, 'H', 20, '2020'),
+(252, 'H', 21, '2020'),
+(253, 'H', 22, '2020'),
+(254, 'H', 23, '2020'),
+(255, 'H', 24, '2020'),
+(256, 'H', 25, '2020'),
+(257, 'H', 26, '2020'),
+(258, 'H', 27, '2020'),
+(259, 'H', 28, '2020'),
+(260, 'H', 29, '2020'),
+(261, 'H', 30, '2020'),
+(262, 'H', 33, '2020'),
+(263, 'H', 37, '2020'),
+(264, 'H', 34, '2020'),
+(265, 'H', 39, '2020'),
+(266, 'H', 36, '2020'),
+(267, 'H', 1, '2021'),
+(268, 'H', 19, '2021'),
+(269, 'H', 42, '2021'),
+(270, 'H', 20, '2021'),
+(271, 'H', 21, '2021'),
+(272, 'H', 22, '2021'),
+(273, 'H', 23, '2021'),
+(274, 'H', 24, '2021'),
+(275, 'H', 25, '2021'),
+(276, 'H', 26, '2021'),
+(277, 'H', 27, '2021'),
+(278, 'H', 28, '2021'),
+(279, 'H', 29, '2021'),
+(280, 'H', 30, '2021'),
+(281, 'H', 33, '2021'),
+(282, 'H', 37, '2021'),
+(283, 'H', 34, '2021'),
+(284, 'H', 39, '2021'),
+(285, 'H', 18, '2021'),
+(286, 'H', 17, '2021'),
+(287, 'H', 16, '2021'),
+(288, 'H', 2, '2021'),
+(289, 'H', 3, '2021'),
+(290, 'H', 4, '2021'),
+(291, 'H', 5, '2021'),
+(292, 'H', 6, '2021'),
+(293, 'H', 40, '2021'),
+(294, 'H', 7, '2021'),
+(295, 'H', 8, '2021'),
+(296, 'H', 9, '2021'),
+(297, 'H', 10, '2021'),
+(298, 'H', 11, '2021'),
+(299, 'H', 12, '2021'),
+(300, 'H', 38, '2021'),
+(301, 'H', 13, '2021'),
+(302, 'H', 14, '2021'),
+(303, 'H', 15, '2021'),
+(304, 'H', 41, '2021'),
+(305, 'H', 36, '2021'),
+(306, 'H', 43, '2021'),
+(307, 'H', 44, '2021'),
+(308, 'H', 45, '2021'),
+(309, 'D', 15, '2021'),
+(310, 'D', 7, '2021'),
+(311, 'D', 10, '2021'),
+(312, 'D', 46, '2021'),
+(313, 'H', 1, '2022'),
+(314, 'H', 2, '2022'),
+(315, 'H', 3, '2022'),
+(316, 'H', 4, '2022'),
+(317, 'H', 5, '2022'),
+(318, 'H', 39, '2022'),
+(319, 'H', 16, '2022'),
+(320, 'H', 17, '2022'),
+(321, 'H', 18, '2022'),
+(322, 'H', 19, '2022'),
+(323, 'H', 42, '2022'),
+(324, 'H', 20, '2022'),
+(325, 'H', 21, '2022'),
+(326, 'H', 22, '2022'),
+(327, 'H', 23, '2022'),
+(328, 'H', 24, '2022'),
+(329, 'H', 25, '2022'),
+(330, 'H', 26, '2022'),
+(331, 'H', 27, '2022'),
+(332, 'H', 28, '2022'),
+(333, 'H', 29, '2022'),
+(334, 'H', 30, '2022'),
+(335, 'H', 33, '2022'),
+(336, 'H', 37, '2022'),
+(337, 'H', 34, '2022'),
+(338, 'H', 6, '2022'),
+(339, 'H', 40, '2022'),
+(340, 'H', 7, '2022'),
+(341, 'H', 8, '2022'),
+(342, 'H', 9, '2022'),
+(343, 'H', 10, '2022'),
+(344, 'H', 11, '2022'),
+(345, 'H', 12, '2022'),
+(346, 'H', 38, '2022'),
+(347, 'H', 13, '2022'),
+(348, 'H', 14, '2022'),
+(349, 'H', 43, '2022'),
+(350, 'H', 15, '2022'),
+(351, 'H', 41, '2022'),
+(352, 'H', 44, '2022'),
+(353, 'H', 45, '2022'),
+(354, 'H', 36, '2022'),
+(355, 'D', 46, '2023'),
+(356, 'H', 1, '2023'),
+(357, 'H', 2, '2023'),
+(358, 'H', 3, '2023'),
+(359, 'H', 4, '2023'),
+(360, 'H', 5, '2023'),
+(361, 'H', 6, '2023'),
+(362, 'H', 40, '2023'),
+(363, 'H', 7, '2023'),
+(364, 'H', 8, '2023'),
+(365, 'H', 9, '2023'),
+(366, 'H', 10, '2023'),
+(367, 'H', 11, '2023'),
+(368, 'H', 12, '2023'),
+(369, 'H', 38, '2023'),
+(370, 'H', 13, '2023'),
+(371, 'H', 36, '2023'),
+(372, 'H', 39, '2023'),
+(373, 'H', 14, '2023'),
+(374, 'H', 15, '2023'),
+(375, 'H', 41, '2023'),
+(376, 'H', 16, '2023'),
+(377, 'H', 44, '2023'),
+(378, 'H', 45, '2023'),
+(379, 'H', 17, '2023'),
+(380, 'H', 18, '2023'),
+(381, 'H', 19, '2023'),
+(382, 'H', 42, '2023'),
+(383, 'H', 20, '2023'),
+(384, 'H', 21, '2023'),
+(385, 'H', 22, '2023'),
+(386, 'H', 23, '2023'),
+(387, 'H', 24, '2023'),
+(388, 'H', 25, '2023'),
+(389, 'H', 26, '2023'),
+(390, 'H', 27, '2023'),
+(391, 'H', 28, '2023'),
+(392, 'H', 29, '2023'),
+(393, 'H', 30, '2023'),
+(394, 'H', 33, '2023'),
+(395, 'H', 37, '2023'),
+(396, 'H', 34, '2023'),
+(397, 'H', 43, '2023'),
+(398, 'H', 1, '2024'),
+(399, 'H', 2, '2024'),
+(400, 'H', 3, '2024'),
+(401, 'H', 4, '2024'),
+(402, 'H', 5, '2024'),
+(403, 'H', 6, '2024'),
+(404, 'H', 40, '2024'),
+(405, 'H', 16, '2024'),
+(406, 'H', 25, '2024'),
+(407, 'H', 30, '2024'),
+(408, 'H', 7, '2024'),
+(409, 'H', 8, '2024'),
+(410, 'H', 9, '2024'),
+(411, 'H', 10, '2024'),
+(412, 'H', 11, '2024'),
+(413, 'H', 12, '2024'),
+(414, 'H', 38, '2024'),
+(415, 'H', 13, '2024'),
+(416, 'H', 14, '2024'),
+(417, 'H', 15, '2024'),
+(418, 'H', 41, '2024'),
+(419, 'H', 44, '2024'),
+(420, 'H', 45, '2024'),
+(421, 'H', 17, '2024'),
+(422, 'H', 18, '2024'),
+(423, 'H', 19, '2024'),
+(424, 'H', 42, '2024'),
+(425, 'H', 20, '2024'),
+(426, 'H', 21, '2024'),
+(427, 'H', 22, '2024'),
+(428, 'H', 23, '2024'),
+(429, 'H', 24, '2024'),
+(430, 'H', 26, '2024'),
+(431, 'H', 27, '2024'),
+(432, 'H', 28, '2024'),
+(433, 'H', 29, '2024'),
+(434, 'H', 33, '2024'),
+(435, 'H', 37, '2024'),
+(436, 'H', 34, '2024'),
+(437, 'H', 43, '2024'),
+(438, 'H', 39, '2024'),
+(439, 'H', 36, '2024');
 
 -- --------------------------------------------------------
 
@@ -36643,13 +36629,11 @@ INSERT INTO `cursosciclolectivo` (`id`, `estado`, `id_cursos`, `ciclolectivo`) V
 -- Estructura de tabla para la tabla `departamentos`
 --
 
-DROP TABLE IF EXISTS `departamentos`;
-CREATE TABLE IF NOT EXISTS `departamentos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `dni_jefe` int NOT NULL COMMENT 'DNI del jefe de departamento',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `departamentos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `dni_jefe` int(11) NOT NULL COMMENT 'DNI del jefe de departamento'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `departamentos`
@@ -36669,11 +36653,10 @@ INSERT INTO `departamentos` (`id`, `nombre`, `dni_jefe`) VALUES
 -- Estructura de tabla para la tabla `email`
 --
 
-DROP TABLE IF EXISTS `email`;
-CREATE TABLE IF NOT EXISTS `email` (
-  `dni` int NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `email` (
+  `dni` int(11) NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `email`
@@ -36688,16 +36671,14 @@ INSERT INTO `email` (`dni`, `email`) VALUES
 -- Estructura de tabla para la tabla `escuelas`
 --
 
-DROP TABLE IF EXISTS `escuelas`;
-CREATE TABLE IF NOT EXISTS `escuelas` (
-  `cue` int NOT NULL,
+CREATE TABLE `escuelas` (
+  `cue` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `direccion` varchar(100) NOT NULL,
-  `id_localidad` int NOT NULL,
+  `id_localidad` int(11) NOT NULL,
   `tipo_e` varchar(4) NOT NULL,
-  `numero` int NOT NULL,
-  PRIMARY KEY (`cue`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+  `numero` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `escuelas`
@@ -36712,14 +36693,11 @@ INSERT INTO `escuelas` (`cue`, `nombre`, `direccion`, `id_localidad`, `tipo_e`, 
 -- Estructura de tabla para la tabla `grupos`
 --
 
-DROP TABLE IF EXISTS `grupos`;
-CREATE TABLE IF NOT EXISTS `grupos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` int NOT NULL,
-  `id_cursos` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id cursos` (`id_cursos`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `grupos` (
+  `id` int(11) NOT NULL,
+  `nombre` int(11) NOT NULL,
+  `id_cursos` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `grupos`
@@ -36818,15 +36796,13 @@ INSERT INTO `grupos` (`id`, `nombre`, `id_cursos`) VALUES
 -- Estructura de tabla para la tabla `horas`
 --
 
-DROP TABLE IF EXISTS `horas`;
-CREATE TABLE IF NOT EXISTS `horas` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `horas` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `turno` varchar(1) NOT NULL,
   `hd` time NOT NULL,
-  `hh` time NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+  `hh` time NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `horas`
@@ -36853,14 +36829,12 @@ INSERT INTO `horas` (`id`, `nombre`, `turno`, `hd`, `hh`) VALUES
 -- Estructura de tabla para la tabla `localidades`
 --
 
-DROP TABLE IF EXISTS `localidades`;
-CREATE TABLE IF NOT EXISTS `localidades` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `localidades` (
+  `id` int(11) NOT NULL,
   `localidad` varchar(120) NOT NULL,
-  `cp` mediumint NOT NULL,
-  `id_provincias` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6437 DEFAULT CHARSET=utf8mb3;
+  `cp` mediumint(9) NOT NULL,
+  `id_provincias` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `localidades`
@@ -43314,15 +43288,13 @@ INSERT INTO `localidades` (`id`, `localidad`, `cp`, `id_provincias`) VALUES
 -- Estructura de tabla para la tabla `materias`
 --
 
-DROP TABLE IF EXISTS `materias`;
-CREATE TABLE IF NOT EXISTS `materias` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `materias` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(70) NOT NULL,
   `abreviatura` varchar(15) NOT NULL,
   `estado` varchar(1) NOT NULL DEFAULT 'H',
-  `resumen` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb3;
+  `resumen` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -43451,13 +43423,11 @@ INSERT INTO `materias` (`id`, `nombre`, `abreviatura`, `estado`, `resumen`) VALU
 -- Estructura de tabla para la tabla `orientaciones`
 --
 
-DROP TABLE IF EXISTS `orientaciones`;
-CREATE TABLE IF NOT EXISTS `orientaciones` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orientaciones` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
-  `titulo` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+  `titulo` varchar(80) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `orientaciones`
@@ -43475,12 +43445,11 @@ INSERT INTO `orientaciones` (`id`, `nombre`, `titulo`) VALUES
 -- Estructura de tabla para la tabla `padresalumnos`
 --
 
-DROP TABLE IF EXISTS `padresalumnos`;
-CREATE TABLE IF NOT EXISTS `padresalumnos` (
-  `dni_alumnos` int NOT NULL,
-  `dni_padrestutores` int NOT NULL,
-  `id_parentesco` tinyint NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `padresalumnos` (
+  `dni_alumnos` int(11) NOT NULL,
+  `dni_padrestutores` int(11) NOT NULL,
+  `id_parentesco` tinyint(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `padresalumnos`
@@ -50205,21 +50174,19 @@ INSERT INTO `padresalumnos` (`dni_alumnos`, `dni_padrestutores`, `id_parentesco`
 -- Estructura de tabla para la tabla `padrestutores`
 --
 
-DROP TABLE IF EXISTS `padrestutores`;
-CREATE TABLE IF NOT EXISTS `padrestutores` (
-  `dni` int NOT NULL,
+CREATE TABLE `padrestutores` (
+  `dni` int(11) NOT NULL,
   `ocupacion` varchar(50) NOT NULL,
   `sexo` varchar(1) NOT NULL,
   `fechan` date NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `domicilio` varchar(80) NOT NULL,
-  `id_localidades` int NOT NULL,
+  `id_localidades` int(11) NOT NULL,
   `telefono` varchar(50) NOT NULL,
-  `mailVerificado` tinyint NOT NULL,
-  `contrasena` varchar(40) NOT NULL DEFAULT '1234',
-  PRIMARY KEY (`dni`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+  `mailVerificado` tinyint(4) NOT NULL,
+  `contrasena` varchar(40) NOT NULL DEFAULT '1234'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `padrestutores`
@@ -55735,12 +55702,10 @@ INSERT INTO `padrestutores` (`dni`, `ocupacion`, `sexo`, `fechan`, `nombre`, `ap
 -- Estructura de tabla para la tabla `parentesco`
 --
 
-DROP TABLE IF EXISTS `parentesco`;
-CREATE TABLE IF NOT EXISTS `parentesco` (
-  `id` tinyint NOT NULL AUTO_INCREMENT,
-  `parentesco` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `parentesco` (
+  `id` tinyint(4) NOT NULL,
+  `parentesco` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `parentesco`
@@ -55758,21 +55723,19 @@ INSERT INTO `parentesco` (`id`, `parentesco`) VALUES
 -- Estructura de tabla para la tabla `personal`
 --
 
-DROP TABLE IF EXISTS `personal`;
-CREATE TABLE IF NOT EXISTS `personal` (
-  `dni` int NOT NULL,
+CREATE TABLE `personal` (
+  `dni` int(11) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `tipo_doc` varchar(3) NOT NULL,
   `sexo` varchar(1) NOT NULL,
   `domicilio` varchar(80) NOT NULL,
-  `cp` mediumint NOT NULL,
+  `cp` mediumint(9) NOT NULL,
   `fechan` date NOT NULL,
   `email` varchar(100) NOT NULL,
   `pass` varchar(40) NOT NULL DEFAULT '1234',
-  `id_localidades` int NOT NULL,
-  PRIMARY KEY (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `id_localidades` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `personal`
@@ -56438,15 +56401,20 @@ INSERT INTO `personal` (`dni`, `apellido`, `nombre`, `tipo_doc`, `sexo`, `domici
 -- Estructura de tabla para la tabla `planillainfoanexo`
 --
 
-DROP TABLE IF EXISTS `planillainfoanexo`;
-CREATE TABLE IF NOT EXISTS `planillainfoanexo` (
-  `fkAnexoIV` int NOT NULL,
-  `empresas` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `datosInfraestructura` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `hospitalesCercanos` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `datosInteres` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `planillainfoanexo` (
+  `fkAnexoIV` int(11) NOT NULL,
+  `empresas` varchar(500) NOT NULL,
+  `datosInfraestructura` varchar(500) NOT NULL,
+  `hospitalesCercanos` varchar(500) NOT NULL,
+  `datosInteres` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `planillainfoanexo`
+--
+
+INSERT INTO `planillainfoanexo` (`fkAnexoIV`, `empresas`, `datosInfraestructura`, `hospitalesCercanos`, `datosInteres`) VALUES
+(3, '-', '-', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -56454,14 +56422,12 @@ CREATE TABLE IF NOT EXISTS `planillainfoanexo` (
 -- Estructura de tabla para la tabla `preceptorescursos`
 --
 
-DROP TABLE IF EXISTS `preceptorescursos`;
-CREATE TABLE IF NOT EXISTS `preceptorescursos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dni` int NOT NULL,
-  `id_cursosciclolectivo` int NOT NULL,
-  `turno` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1562 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `preceptorescursos` (
+  `id` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `id_cursosciclolectivo` int(11) NOT NULL,
+  `turno` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `preceptorescursos`
@@ -57407,12 +57373,10 @@ INSERT INTO `preceptorescursos` (`id`, `dni`, `id_cursosciclolectivo`, `turno`) 
 -- Estructura de tabla para la tabla `provincia`
 --
 
-DROP TABLE IF EXISTS `provincia`;
-CREATE TABLE IF NOT EXISTS `provincia` (
-  `id_provincias` tinyint NOT NULL AUTO_INCREMENT,
-  `provincia` varchar(25) NOT NULL,
-  PRIMARY KEY (`id_provincias`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `provincia` (
+  `id_provincias` tinyint(4) NOT NULL,
+  `provincia` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `provincia`
@@ -57451,13 +57415,11 @@ INSERT INTO `provincia` (`id_provincias`, `provincia`) VALUES
 -- Estructura de tabla para la tabla `telefono`
 --
 
-DROP TABLE IF EXISTS `telefono`;
-CREATE TABLE IF NOT EXISTS `telefono` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dni` bigint NOT NULL,
-  `telefono` varchar(25) COLLATE utf8mb3_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `telefono` (
+  `id` int(11) NOT NULL,
+  `dni` bigint(20) NOT NULL,
+  `telefono` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `telefono`
@@ -57472,11 +57434,10 @@ INSERT INTO `telefono` (`id`, `dni`, `telefono`) VALUES
 -- Estructura de tabla para la tabla `tokens`
 --
 
-DROP TABLE IF EXISTS `tokens`;
-CREATE TABLE IF NOT EXISTS `tokens` (
-  `token` int NOT NULL,
-  `dni` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `tokens` (
+  `token` int(11) NOT NULL,
+  `dni` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tokens`
@@ -57484,6 +57445,273 @@ CREATE TABLE IF NOT EXISTS `tokens` (
 
 INSERT INTO `tokens` (`token`, `dni`) VALUES
 (66, 46736648);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD PRIMARY KEY (`dni`);
+
+--
+-- Indices de la tabla `anexoiv`
+--
+ALTER TABLE `anexoiv`
+  ADD PRIMARY KEY (`idAnexoIV`);
+
+--
+-- Indices de la tabla `anexoix`
+--
+ALTER TABLE `anexoix`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
+
+--
+-- Indices de la tabla `anexov`
+--
+ALTER TABLE `anexov`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`),
+  ADD KEY `dni` (`dni`);
+
+--
+-- Indices de la tabla `anexovi`
+--
+ALTER TABLE `anexovi`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
+
+--
+-- Indices de la tabla `anexovii`
+--
+ALTER TABLE `anexovii`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
+
+--
+-- Indices de la tabla `anexovinfo`
+--
+ALTER TABLE `anexovinfo`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
+
+--
+-- Indices de la tabla `area`
+--
+ALTER TABLE `area`
+  ADD PRIMARY KEY (`pk_area`);
+
+--
+-- Indices de la tabla `asignacionesalumnos`
+--
+ALTER TABLE `asignacionesalumnos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cursosciclolectivo` (`id_cursosciclolectivo`),
+  ADD KEY `dni_alumnos` (`dni_alumnos`),
+  ADD KEY `id grupos` (`id_grupos`);
+
+--
+-- Indices de la tabla `ciclosuperior`
+--
+ALTER TABLE `ciclosuperior`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id del curso` (`id_cursos`),
+  ADD KEY `id orientacion` (`id_orientaciones`);
+
+--
+-- Indices de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `cursos`
+--
+ALTER TABLE `cursos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `escuelas`
+--
+ALTER TABLE `escuelas`
+  ADD PRIMARY KEY (`cue`);
+
+--
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id cursos` (`id_cursos`);
+
+--
+-- Indices de la tabla `horas`
+--
+ALTER TABLE `horas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `localidades`
+--
+ALTER TABLE `localidades`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materias`
+--
+ALTER TABLE `materias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `orientaciones`
+--
+ALTER TABLE `orientaciones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `padrestutores`
+--
+ALTER TABLE `padrestutores`
+  ADD PRIMARY KEY (`dni`);
+
+--
+-- Indices de la tabla `parentesco`
+--
+ALTER TABLE `parentesco`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `personal`
+--
+ALTER TABLE `personal`
+  ADD PRIMARY KEY (`dni`);
+
+--
+-- Indices de la tabla `planillainfoanexo`
+--
+ALTER TABLE `planillainfoanexo`
+  ADD KEY `fkAnexoIV` (`fkAnexoIV`);
+
+--
+-- Indices de la tabla `preceptorescursos`
+--
+ALTER TABLE `preceptorescursos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  ADD PRIMARY KEY (`id_provincias`);
+
+--
+-- Indices de la tabla `telefono`
+--
+ALTER TABLE `telefono`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `anexoiv`
+--
+ALTER TABLE `anexoiv`
+  MODIFY `idAnexoIV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `area`
+--
+ALTER TABLE `area`
+  MODIFY `pk_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `asignacionesalumnos`
+--
+ALTER TABLE `asignacionesalumnos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15577;
+
+--
+-- AUTO_INCREMENT de la tabla `ciclosuperior`
+--
+ALTER TABLE `ciclosuperior`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `cursos`
+--
+ALTER TABLE `cursos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
+--
+-- AUTO_INCREMENT de la tabla `horas`
+--
+ALTER TABLE `horas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `localidades`
+--
+ALTER TABLE `localidades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6437;
+
+--
+-- AUTO_INCREMENT de la tabla `materias`
+--
+ALTER TABLE `materias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+
+--
+-- AUTO_INCREMENT de la tabla `orientaciones`
+--
+ALTER TABLE `orientaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `parentesco`
+--
+ALTER TABLE `parentesco`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `preceptorescursos`
+--
+ALTER TABLE `preceptorescursos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1562;
+
+--
+-- AUTO_INCREMENT de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  MODIFY `id_provincias` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `telefono`
+--
+ALTER TABLE `telefono`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -57502,6 +57730,12 @@ ALTER TABLE `anexov`
   ADD CONSTRAINT `anexov_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
 
 --
+-- Filtros para la tabla `anexovii`
+--
+ALTER TABLE `anexovii`
+  ADD CONSTRAINT `anexovii_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
+
+--
 -- Filtros para la tabla `anexovinfo`
 --
 ALTER TABLE `anexovinfo`
@@ -57511,7 +57745,7 @@ ALTER TABLE `anexovinfo`
 -- Filtros para la tabla `planillainfoanexo`
 --
 ALTER TABLE `planillainfoanexo`
-  ADD CONSTRAINT `planillainfoanexo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `planillainfoanexo_ibfk_1` FOREIGN KEY (`fkAnexoIV`) REFERENCES `anexoiv` (`idAnexoIV`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
