@@ -191,11 +191,10 @@ function actualizarTelefonosOcultos() {
 
     // Mostrar los teléfonos en una lista con un botón para eliminar
     listaTelefonosDiv.innerHTML = estadoFormulario.telefonos.map((telefono, index) => `
+        <br>
         <div class="telefono-container">
-            <label class="telefono-label">${telefono}</label>
-            <span class="telefono-button">
-                <button class="eliminar" onclick="eliminarTelefono(${index})">Eliminar</button>
-            </span>
+            <label class="telefono-label item" style="padding: 10px 20px;">${telefono}</label>
+            <button type="button" class="eliminar" onclick="eliminarTelefono(${index})">Eliminar</button>
         </div>
     `).join('');
 }

@@ -17,7 +17,10 @@ $dniEstudiante = $_SESSION['dniEstudiante'] ?? null;
 $altura = $data['altura'] ?? null;
 $domicilio = $data['domicilio'] ?? null;
 $localidad = $data['localidad'] ?? null;
-$observaciones = $data['observaciones'] ?? null;
+$observaciones = $data['observaciones'];
+if (empty($observaciones)) {
+    $observaciones = "-";
+}
 $obraSocial = $data['obraSocial'] ?? 0;
 $telefonos = is_array($data['telefonos']) ? implode(',', $data['telefonos']) : $data['telefonos'];
 
@@ -60,7 +63,7 @@ if ($row['count'] > 0) {
 
 // Ejecución de la consulta (inserción o actualización)
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Operación realizada correctamente.']);
+    echo json_encode(['status' => 'success', 'message' => 'Anexo VII cargado correctamente.']);
 } else {
     error_log("Error al ejecutar la operación: " . $stmt->error);
     echo json_encode(['status' => 'error', 'message' => 'Error al ejecutar la operación: ' . $stmt->error]);

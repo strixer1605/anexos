@@ -33,8 +33,8 @@ function validarFormulario() {
     const domicilioInput = document.getElementById('domicilio');
     const alturaInput = document.getElementById('altura');
     const localidadInput = document.getElementById('localidad');
-    const obraSocialSi = document.getElementById('obraSocialSi');
-    const obraSocialNo = document.getElementById('obraSocialNo');
+    const obraSocialSi = document.getElementById('obraSi');
+    const obraSocialNo = document.getElementById('obraNo');
     const nombreObraSocialInput = document.getElementById('nombreObraSocial');
     const numeroAfiliadoInput = document.getElementById('numeroAfiliado');
     const telefonos = document.getElementById('telefonosOculto').value; // Obtén el valor del input oculto
@@ -149,11 +149,10 @@ function actualizarTelefonosOcultos() {
 
     // Mostrar los teléfonos en una lista con un botón para eliminar
     listaTelefonosDiv.innerHTML = estadoFormulario.telefonos.map((telefono, index) => `
+        <br>
         <div class="telefono-container">
-            <label class="telefono-label">${telefono}</label>
-            <span class="telefono-button">
-                <button class="btn btn-danger" onclick="eliminarTelefono(${index})">Eliminar</button>
-            </span>
+            <label class="telefono-label item" style="padding: 10px 20px;">${telefono}</label>
+            <button type="button" class="eliminar" onclick="eliminarTelefono(${index})">Eliminar</button>
         </div>
     `).join('');
 }
@@ -192,7 +191,7 @@ function obtenerDatosFormulario() {
     estadoFormulario.observaciones = document.getElementById('observaciones').value;
 
     // Actualizar obra social, si "No" está seleccionado, el valor queda en blanco
-    const obraSocialSi = document.getElementById('obraSocialSi').checked;
+    const obraSocialSi = document.getElementById('obraSi').checked;
     estadoFormulario.obraSocial = obraSocialSi ? 1 : 0;
 
     // Solo almacenar los datos de obra social si está seleccionada la opción "Sí"

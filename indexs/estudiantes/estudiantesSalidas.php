@@ -24,6 +24,11 @@
     <link rel="stylesheet" href="../../css/hijosMenu.css">
 </head>
 <body>
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid d-flex align-items-center">
+            <a onclick="window.history.back();" class="btn btn-warning ms-auto"  style="color: white; font-family: system-ui;">Atrás</a>
+        </div>
+    </nav>
     <div class="container">
         <h1>Salidas Educativas</h1>
         <div class="row mt-5">

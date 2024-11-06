@@ -6,11 +6,14 @@
     $idSalida = $_SESSION['idSalida'];
 
     $sqlAnexoIV = "SELECT * FROM anexoiv WHERE idAnexoIV = $idSalida";
+    $sqlAnexoV = "SELECT * FROM anexov WHERE fkAnexoIV = $idSalida AND cargo IN(1, 2, 4, 5)";
     $sqlAnexoVI = "SELECT * FROM anexovi WHERE fkAnexoIV = $idSalida";
     $sqlPlanilla = "SELECT * FROM planillainfoanexo WHERE fkAnexoIV = $idSalida";
     
     $resultadoAnexoIV = mysqli_query($conexion, $sqlAnexoIV);
     $filaAnexoIV = mysqli_fetch_assoc($resultadoAnexoIV);
+
+    $resultadoAnexoV = mysqli_query($conexion, $sqlAnexoV);
 
     $resultadoAnexoVI = mysqli_query($conexion, $sqlAnexoVI);
     $filaAnexoVI = mysqli_fetch_assoc($resultadoAnexoVI);
@@ -72,15 +75,15 @@
 
     $pdf = new FPDF();
     
-    $pdf->SetMargins(25, 25, 25, 25);
+    $pdf->SetMargins(20, 20, 20, 20);
     // Establecer margen inferior
     $pdf->SetAutoPageBreak(true, 20);
     
     $pdf->AddPage();
 
     // Encabezado
-    $pdf->Image('../../imagenes/eest.png', 15, 8, 20);
-    $pdf->Image('../../imagenes/logoprovincia.jpg', 107, 8, 90); // Logo
+    $pdf->Image('../../imagenes/eest.png', 20, 8, 20);
+    $pdf->Image('../../imagenes/logoprovincia.jpg', 102, 8, 90); // Logo
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 40, mb_convert_encoding('IF-2024-35030478-GDEBA-CGCYEDG', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
@@ -90,7 +93,7 @@
     $pdf->SetFont('Arial', 'B', 15);
     $pdf->Cell(0, 10, mb_convert_encoding('ANEXO VI', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->SetFont('Arial', 'B', 11); 
+    $pdf->SetFont('Arial', 'B', 12); 
     $pdf->MultiCell(0, 7, mb_convert_encoding('PLANILLA INFORMATIVA Y AUTORIZACIÓN', 'ISO-8859-1', 'UTF-8'), 0, 'C');
     
     $pdf->Ln(5);
@@ -102,12 +105,14 @@
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->MultiCell(0, 7, mb_convert_encoding('1- PLANILLA INFORMATIVA PARA PADRES, MADRES, TUTORES O RESPONSABLES (completa la Escuela):', 'ISO-8859-1', 'UTF-8'), 0,);
 
-    $pdf->Ln(5);
+    $pdf->Ln(3);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(66, 10, mb_convert_encoding('Nombre del Proyecto de la Salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($filaAnexoIV['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Ln(3);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(53, 10, mb_convert_encoding('Lugar, día y hora de salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
@@ -119,39 +124,53 @@
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($regreso, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
+    $pdf->Ln(3);
+
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(34, 10, mb_convert_encoding('Lugares de estadía (domicilios y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(0, 10, mb_convert_encoding('Lugares de estadía (domicilios y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Cell(5, 10, chr(149), 0, 0);
     $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la estadía: ' . $filaAnexoIV['nombreHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(5, 10, chr(149), 0, 0);
     $pdf->Cell(0, 10, mb_convert_encoding('Domicilio de la estadía: ' . $filaAnexoIV['domicilioHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(5, 10, chr(149), 0, 0);
     $pdf->Cell(0, 10, mb_convert_encoding('Localidad de la estadía: ' . $filaAnexoIV['localidadHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->Cell(0, 10, mb_convert_encoding('Telefono de la estadía: ' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(5, 10, chr(149), 0, 0);
+    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la estadía: ' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Ln(3);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Cell(34, 10, mb_convert_encoding('Nombres y teléfonos de los acompañantes:', 'ISO-8859-1', 'UTF-8'), 0, 1);
     
-    // $pdf->SetFont('Arial', '', 12);
-    // $pdf->Cell(34, 10, mb_convert_encoding('Nombres y teléfonos de los acompañantes:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    // $pdf->SetFont('Arial', '', 11);
-    // $pdf->Cell(0, 10, mb_convert_encoding($filaAnexoIV['regionVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    while ($filaAnexoV = mysqli_fetch_assoc($resultadoAnexoV)) {
+        $dniAcompanante = $filaAnexoV['dni'];
+        $sqlTelefonos = "SELECT telefono FROM telefono WHERE dni = '$dniAcompanante'";
+        $resultadoTelefonos = mysqli_query($conexion, $sqlTelefonos);
+    
+        // Almacena los teléfonos en un array
+        $telefonos = [];
+        while ($filaTelefono = mysqli_fetch_assoc($resultadoTelefonos)) {
+            $telefonos[] = $filaTelefono['telefono'];
+        }
+    
+        $telefonosConcatenados = implode(', ', $telefonos);
 
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding('Empresa y/o empresas contratadas (nombre, dirección teléfonos): ', 'ISO-8859-1', 'UTF-8'), 0, 1 );
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding($filasPlantilla['empresas'], 'ISO-8859-1', 'UTF-8'), 0);
-
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding('Otros datos de la Infraestructura disponible:', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding($filasPlantilla['datosInfraestructura'], 'ISO-8859-1', 'UTF-8'), 0);
-
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding('Hospitales y centros asistenciales cercanos (direcciones y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding($filasPlantilla['hospitalesCercanos'], 'ISO-8859-1', 'UTF-8'), 0);
-
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding('Otros datos de interés:', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding($filasPlantilla['datosInteres'], 'ISO-8859-1', 'UTF-8'), 0);
+        if ($telefonosConcatenados == ''){
+            $telefonosConcatenados = '-';
+        }
+    
+        $pdf->Cell(5, 8, chr(149), 0, 0);  // Viñeta
+        $pdf->Cell(0, 8, mb_convert_encoding(ucwords(strtolower($filaAnexoV['apellidoNombre'])).', Teléfono: '.$telefonosConcatenados, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    }
+    
+    $pdf->Ln(5);
+    $pdf->MultiCell(0, 10, mb_convert_encoding('Empresa y/o empresas contratadas (nombre, dirección teléfonos): assss sdasasdasd asdasd asdas'.$filasPlantilla['empresas'].'', 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->Ln(5);
+    $pdf->MultiCell(0, 10, mb_convert_encoding('Otros datos de la Infraestructura disponible: '.$filasPlantilla['datosInfraestructura'], 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->Ln(5);
+    $pdf->MultiCell(0, 10, mb_convert_encoding('Hospitales y centros asistenciales cercanos (direcciones y teléfonos): '.$filasPlantilla['hospitalesCercanos'], 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->Ln(5);
+    $pdf->MultiCell(0, 10, mb_convert_encoding('Otros datos de interés: '.$filasPlantilla['datosInteres'], 'ISO-8859-1', 'UTF-8'), 0);
 
     $pdf->Ln(10);
     
@@ -198,32 +217,40 @@
     $pdf->MultiCell(0, 8, mb_convert_encoding('Autorizo, en caso de necesidad y urgencia, a hacer atender al estudiante por profesionales médicos y a que se adopten las prescripciones que ellos indiquen, sobre lo cual requiero inmediato aviso.', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Los docentes a cargo del cuidado y vigilancia activa de las/los estudiantes con menos de 18 años de edad no serán responsables de los objetos u otros elementos de valor que los mismos puedan llevar.', 'ISO-8859-1', 'UTF-8'), 0);
 
-    $pdf->Ln(5);
+    $pdf->Ln(10);
 
-    $pdf->Cell(34, 10, mb_convert_encoding('Teléfonos de contacto en caso de urgencia: (Consignar varios)', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(34, 10, mb_convert_encoding('Teléfonos de contacto en caso de urgencia (Consignar varios):', 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $telefArray = explode(',', $filaAnexoVI['telefonos']);
+    $arrayValores = array_map('trim', $telefArray);
+    
+    foreach ($arrayValores as $fila => $telefono) {
+        $pdf->Cell(5, 8, chr(149), 0, 0);  // Viñeta
+        $pdf->Cell(0, 8, mb_convert_encoding($telefono, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    }
     
     $pdf->Ln(10);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 5, mb_convert_encoding('Firma, aclaración y DNI (madre, padre o adulto responsable):', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Ln(40);
+    $pdf->Ln(50);
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Aclaración', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Firma', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Aclaración', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
     $pdf->Ln(15);
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('DNI', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Vinculo', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('DNI', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Vinculo', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     
     $pdf->Ln(15); 
 
@@ -234,9 +261,12 @@
 
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(0, 5, mb_convert_encoding('Aclaración:', 'ISO-8859-1', 'UTF-8'), 0, 1);
+    
+    $pdf->Ln(1); 
     $pdf->SetFont('Arial', '', 11);
-    $textoAclaracion = 'El punto 1 debe ser completado por la Escuela antes de enviar este anexo a las familias. El presente anexo debe ser firmado por el adulto responsable y debe ser devuelto a la escuela (en papel, con firma original). Al momento de realizar la Salida Educativa el/la docente responsable debe portar el anexo VI de las y los estudiantes.';
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoAclaracion, 'ISO-8859-1', 'UTF-8'), 0,);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El punto 1 debe ser completado por la Escuela antes de enviar este anexo a las familias.', 'ISO-8859-1', 'UTF-8'), 0,);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El presente anexo debe ser firmado por el adulto responsable y debe ser devuelto a la escuela (en papel, con firma original).', 'ISO-8859-1', 'UTF-8'), 0,);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('Al momento de realizar la Salida Educativa el/la docente responsable debe portar el anexo VI de las y los estudiantes.', 'ISO-8859-1', 'UTF-8'), 0,);
 
     $pdf->Output('I', 'anexoVI.pdf');
 ?>

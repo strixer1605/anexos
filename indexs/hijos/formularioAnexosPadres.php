@@ -23,7 +23,7 @@
     <body>
         <nav class="navbar navbar-custom">
             <div class="container-fluid d-flex align-items-center">
-                <button onclick="window.history.back()" class="btn btn-warning ms-auto" style="color: white;">Atrás</button>
+                <a onclick="window.history.back();" class="btn btn-warning ms-auto"  style="color: white; font-family: system-ui;">Atrás</a>
             </div>
         </nav>
 
@@ -37,7 +37,7 @@
                     <h4 style="color: black;">(Constancia médica)</h4>
                 </div>
                 <br>
-                <p style="margin-top: 10px; margin-bottom: 15px;"><b>Atención:</b> Los datos que usted no complete, se reemplazarán automáticamente con un guión medio (-).</p>
+                <p style="margin-top: 10px; margin-bottom: 15px;"><b>Atención:</b> Para reemplazar los datos solo debe modificarlos y subir el formulario nuevamente. Los datos que usted no complete, se mostrarán automáticamente con un guión medio (-) en el PDF.</p>
 
                 <?php include('../../php/traerAnexoVI.php') ?>
                 <center><button type="submit" class="cargar" id="cargarAnexoVI">Cargar Anexo 6</button></center>

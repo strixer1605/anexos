@@ -26,16 +26,16 @@
     $pdf->Ln(5);
 
     $pdf->Cell(0, 30, mb_convert_encoding('IF-2024-35029666-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
-    $pdf->SetFont('Arial', 'B', 17);
+    $pdf->SetFont('Arial', 'B', 15);
     $pdf->Cell(0, 10, mb_convert_encoding('ANEXO V', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Ln(2);
 
-    $pdf->SetFont('Arial', '', 13);
+    $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(0, 5, mb_convert_encoding('Planilla de estudiantes y acompañantes', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Cell(0, 10, mb_convert_encoding('Planilla de asistencia', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Ln(5);
 
-    $pdf->SetFont('Arial', '', 11);
+    $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 5, mb_convert_encoding('(La presente deberá incorporarse al libro de Registro de Actas Institucionales, antes de producirse la salida).', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->Ln(5);
     
@@ -120,14 +120,13 @@
     }
 
     $pdf->SetMargins(20, 20, 20);
-    
+
     $pdf->Ln(10);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(0, 15, mb_convert_encoding('Observaciones (para ser completado ante cualquier eventualidad):', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Ln(12);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding('Observaciones', 'ISO-8859-1', 'UTF-8'));
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->MultiCell(0, 8, mb_convert_encoding('Observaciones (para ser completado ante cualquier eventualidad):', 'ISO-8859-1', 'UTF-8'));
+
+    $pdf->Ln(10);
+    $pdf->Cell(0, 5, mb_convert_encoding('La presente planilla tendrá validez para toda tramitación oficial que se realice.', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Ln(60);
 
@@ -146,18 +145,10 @@
 
     $pdf->Ln(20);
 
-    $pdf->Cell(0, 5, mb_convert_encoding('La presente planilla tendrá validez para toda tramitación oficial que se realice.', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Cell(0, 5, mb_convert_encoding('El presente formulario deberá estar completo por duplicado', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Cell(0, 5, mb_convert_encoding('(Uno para la Institución y otro para la instancia de Supervisión)', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    
-    $yPos = $pdf->GetY();
-    $imageHeight = 40; // Altura de la imagen del sello
-    $marginBottom = 20; // Margen inferior
-    
-    if ($yPos + $imageHeight + $marginBottom > $pdf->GetPageHeight()) {
-        $pdf->AddPage();
-        $yPos = 15; // Reiniciar la posición Y en la nueva página
-    }
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El presente formulario deberá estar completo por duplicado (Uno para la Institución y otro para la instancia de Supervisión).', 'ISO-8859-1', 'UTF-8'));
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El presente formulario puede ser completado de forma digital y enviado al/la Inspector/a en este formato.', 'ISO-8859-1', 'UTF-8'));
+    $pdf->MultiCell(0, 8, mb_convert_encoding('El mismo debe ser impreso y firmado para la Salida Educativa, registrando ese mismo día las asistencias o inasistencias, tanto de estudiantes como de docentes o acompañantes no docentes, así como cualquier modificación de último momento (docentes reemplazantes, etc.).', 'ISO-8859-1', 'UTF-8'));
 
     $pdf->Output('I', 'anexoV.pdf');
 ?>
