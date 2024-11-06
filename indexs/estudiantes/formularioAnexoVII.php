@@ -1,6 +1,5 @@
 <?php
     include '../../php/verificarSessionEstudiantes.php';
-    $_SESSION['idSalida'] = $_GET['idSalida'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

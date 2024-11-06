@@ -41,7 +41,7 @@
                     if (mysqli_num_rows($resultado) > 0) {
                         // Iteramos sobre los resultados y mostramos las salidas
                         while ($filaAnexoIV = mysqli_fetch_assoc($resultado)) {
-                            echo "<li><a href='formularioAnexoVII.php?idSalida=" . $filaAnexoIV['idAnexoIV'] . "' class='btn border-bottom border-top form-control'>" . $filaAnexoIV['denominacionProyecto'] . "</a></li>";
+                            echo "<li><a href='menuSalida.php?idSalida=" . $filaAnexoIV['idAnexoIV'] . "' class='btn border-bottom border-top form-control'>" . $filaAnexoIV['denominacionProyecto'] . "</a></li>";
                         }
                     } else {
                         echo "<li>No hay salidas educativas disponibles para este alumno.</li>";
