@@ -93,7 +93,7 @@
                 $docenteX = '';
                 $noDOcenteX = '';
             break;
-            case 3:
+            case 4:
                 $alumnoX = '';
                 $docenteX = '';
                 $noDOcenteX = 'X';

@@ -5,24 +5,26 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $razonSocial = $_POST['razonSocial'];
-        $domicilioTransporte = $_POST['domicilioTransporte'];
-        $telefonoTransporte = $_POST['telefonoTransporte'];
-        $domicilioResponsable = $_POST['domicilioResponsable'];
-        $telefonoResponsable = $_POST['telefonoResponsable'];
-        $telefonoMovil = "--";
+        $nombreEmpresa = $_POST['nombreEmpresa'];
+        $nombreGerente = $_POST['nombreGerente'];
+        $domicilioEmpresa = $_POST['domicilioEmpresa'];
+        $telefonoEmpresa = $_POST['telefonoEmpresa'];
+        $domicilioGerente = $_POST['domicilioGerente'];
+        $telefono = $_POST['telefono'];
+        $telefonoMovil = $_POST['telefonoMovil'];
         $titularidadVehiculo = $_POST['titularidadVehiculo'];
-        $companiaAseguradora = $_POST['companiaAseguradora'];
-        $numeroPoliza = $_POST['numeroPoliza'];
-        $tipoSeguro = $_POST['tipoSeguro'];
-        $nombreConductor1 = $_POST['nombreConductor1'];
-        $dniConductor1 = $_POST['dniConductor1'];
-        $licenciaConductor1 = $_POST['licenciaConductor1'];
-        $vigenciaConductor1 = $_POST['vigenciaConductor1'];
-        $nombreConductor2 = !empty($_POST['nombreConductor2']) ? $_POST['nombreConductor2'] : '-';
-        $dniConductor2 = !empty($_POST['dniConductor2']) ? $_POST['dniConductor2'] : '-';
-        $licenciaConductor2 = !empty($_POST['licenciaConductor2']) ? $_POST['licenciaConductor2'] : '-';
-        $vigenciaConductor2 = !empty($_POST['vigenciaConductor2']) ? $_POST['vigenciaConductor2'] : '';
+        $aseguradora = $_POST['aseguradora'];
+        $nombresConductores = explode(",", $_POST['nombresConductores']);
+        $dnisConductores = explode(",", $_POST['dnisConductores']);
+        $registrosVehiculos = explode(",", $_POST['registrosVehiculos']);
+        $fechasHabilitacion = explode(",", $_POST['fechasHabilitacion']);
+        $nombresConductores = explode(",", $_POST['nombresConductores']);
+        $dnisConductores = explode(",", $_POST['dnisConductores']);
+        $registrosVehiculos = explode(",", $_POST['registrosVehiculos']);
+        $fechasHabilitacion = explode(",", $_POST['fechasHabilitacion']);
+        $nombresConductores = explode(",", $_POST['nombresConductores']);
+        $dnisConductores = explode(",", $_POST['dnisConductores']);
+        $registrosVehiculos = explode(",", $_POST['registrosVehiculos']);
 
         $sqlVerificacion = "SELECT * FROM anexoix WHERE fkAnexoIV = ?";
         $stmtVerificacion = $conexion->prepare($sqlVerificacion);

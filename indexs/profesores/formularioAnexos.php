@@ -220,63 +220,84 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="../../js/anexoV.js"></script>
         <script src="../../js/enviarFormularios.js"></script>
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
-            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";
+            var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";  
+            function generarVehiculos() {
+                const cantidad = document.getElementById("cantidadVehiculos").value;
+                const container = document.getElementById("vehiculosContainer");
+                
+                // Limpiar el contenido previo
+                container.innerHTML = "";
 
-            function validarConductores() {
-            const conductorCantidad = document.querySelector('input[name="conductor"]:checked').value;
-    
-                if (conductorCantidad == 1) {
-                    ocultarInputs();
-                } else if (conductorCantidad == 2) {
-                    mostrarInputs();
-                } else {
-                    alert("Error al seleccionar la cantidad de conductores");
+                // Generar la cantidad de formularios seleccionada
+                for (let i = 0; i < cantidad; i++) {
+                    const formularioHTML = `
+                        <div class="form-group">
+                            <label for="nroRegistro${i}" class="form-label">Número de registro del vehículo ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="nroRegistro${i}" name="nroRegistro${i}" placeholder="Ingrese el número de registro...">
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaHabilitacion${i}" class="form-label">Fecha de habilitación del vehículo ${i + 1}:</label>
+                            <input type="date" class="form-control item" id="fechaHabilitacion${i}" name="fechaHabilitacion${i}" placeholder="Seleccione la fecha...">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipoHabilitacion${i}" class="form-label">Tipo de habilitación del Vehículo ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="tipoHabilitacion${i}" name="tipoHabilitacion${i}" placeholder="Ingrese el tipo de habilitación...">
+                        </div>
+                        <div class="form-group">
+                            <label for="cantAsientos${i}" class="form-label">Cantidad de asientos del vehículo ${i + 1}:</label>
+                            <input type="number" class="form-control item" id="cantAsientos${i}" name="cantAsientos${i}" placeholder="Ingrese la cantidad de asientos...">
+                        </div>
+                        <div class="form-group">
+                            <label for="vigenciaVTV${i}" class="form-label">Vigencia de VTV del vehículo ${i + 1}:</label>
+                            <input type="date" class="form-control item" id="vigenciaVTV${i}" name="vigenciaVTV${i}" placeholder="Seleccione la fecha...">
+                        </div>
+                        <div class="form-group">
+                            <label for="nroPoliza${i}" class="form-label">Número de póliza del vehículo ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="nroPoliza${i}" name="nroPoliza${i}" placeholder="Ingrese el número de póliza...">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipoSeguro${i}" class="form-label">Tipo de seguro del vehículo ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="tipoSeguro${i}" name="tipoSeguro${i}" placeholder="Ingrese el tipo de seguro...">
+                        </div>
+                        <br>
+                    `;
+                    container.insertAdjacentHTML('beforeend', formularioHTML);
                 }
             }
-            
-            function ocultarInputs() {
-                var elementos = [
-                    document.getElementById("nombreConductor2"),
-                    document.getElementById("dniConductor2"),
-                    document.getElementById("licenciaConductor2"),
-                    document.getElementById("vigenciaConductor2"),
-                    document.getElementById("nc2l"),
-                    document.getElementById("dc2l"),
-                    document.getElementById("lc2l"),
-                    document.getElementById("vc2l")
-                ];
-            
-                elementos.forEach(function(elemento) {
-                    if (elemento) {
-                        elemento.style.display = "none";
-                        elemento.disabled = true;
-                    }
-                });
+
+            function generarConductores() {
+                const cantidadConductor = document.getElementById("cantidadConductores").value;
+                const containerConductor = document.getElementById("conductoresContainer");
+                
+                containerConductor.innerHTML = "";
+
+                for (let i = 0; i < cantidadConductor; i++) {
+                    const formularioHTML = `
+                        <div class="form-group">
+                            <label for="nombreConductor${i}" class="form-label">Nombre del conductor ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="nombreConductor${i}" name="nombreConductor${i}" placeholder="Ingrese el nombre del conductor...">
+                        </div>
+                        <div class="form-group">
+                            <label for="dniConductor${i}" class="form-label">DNI conductor ${i + 1}:</label>
+                            <input type="number" class="form-control item" id="dniConductor${i}" name="dniConductor${i}" placeholder="Ingrese el DNI del conductor...">
+                        </div>
+                        <div class="form-group">
+                            <label for="carnetConducir${i}" class="form-label">Número de carnet del conductor ${i + 1}:</label>
+                            <input type="text" class="form-control item" id="carnetConducir${i}" name="carnetConducir${i}" placeholder="Ingrese el carnet del conductor...">
+                        </div>
+                        <div class="form-group">
+                            <label for="vigenciaConductor${i}" class="form-label">Vigencia de carnet del conductor ${i + 1}:</label>
+                            <input type="date" class="form-control item" id="vigenciaConductor${i}" name="vigenciaConductor${i}" placeholder="Ingrese la fecha...">
+                        </div>
+                        <br>
+                    `;
+                    containerConductor.insertAdjacentHTML('beforeend', formularioHTML);
+                }
             }
-            
-            function mostrarInputs() {
-                var elementos = [
-                    document.getElementById("nombreConductor2"),
-                    document.getElementById("dniConductor2"),
-                    document.getElementById("licenciaConductor2"),
-                    document.getElementById("vigenciaConductor2"),
-                    document.getElementById("nc2l"),
-                    document.getElementById("dc2l"),
-                    document.getElementById("lc2l"),
-                    document.getElementById("vc2l")
-                ];
-            
-                elementos.forEach(function(elemento) {
-                    if (elemento) {
-                        elemento.style.display = "";
-                        elemento.disabled = false;
-                    }
-                });
-            }    
         </script>
-        <script src="../../js/anexoV.js"></script>
     </body>
 </html>
