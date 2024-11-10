@@ -125,7 +125,8 @@
     $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Observaciones (para ser completado ante cualquier eventualidad):', 'ISO-8859-1', 'UTF-8'));
 
-    $pdf->Ln(10);
+    $pdf->Ln(50);
+    
     $pdf->Cell(0, 5, mb_convert_encoding('La presente planilla tendrá validez para toda tramitación oficial que se realice.', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Ln(60);

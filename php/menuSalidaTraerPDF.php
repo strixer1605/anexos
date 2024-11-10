@@ -43,7 +43,7 @@
 
                 // Verificación para el Anexo VIII
                 if ($anexoviiiHabil == 1) {
-                    $sqlAnexoVIII = "SELECT fkAnexoIV FROM anexoix WHERE fkAnexoIV = ?";
+                    $sqlAnexoVIII = "SELECT fkAnexoIV FROM anexoviii WHERE fkAnexoIV = ?";
                     $stmtAnexoVIII = $conexion->prepare($sqlAnexoVIII);
                     $stmtAnexoVIII->bind_param('i', $idSalida);
                     $stmtAnexoVIII->execute();

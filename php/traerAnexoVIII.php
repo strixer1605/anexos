@@ -18,6 +18,7 @@
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
+                $existingPdfPath = '../'.$row['rutaPDF'] ?? null;  // Get the existing PDF path if it exists
             } 
 
             $nombreConductor2 = $row['nombreConductor2'];
@@ -33,40 +34,41 @@
             }
 
             echo '
+                <p style="margin-left: 2px;"><b>Atención:</b> La información completada no debe contenter caracteres especiales. Los nombres propios no pueden contener números y las fechas de vigencia deben ser actuales.</p>    
                 <div class="form-group">
                     <label for="nombreEmpresa" class="form-label">Nombre de la empresa o razón social:</label>
-                    <input type="text" class="form-control item" id="nombreEmpresa" name="nombreEmpresa" placeholder="Ingrese el nombre de la empresa..." value="'.htmlspecialchars($row['razonSocial'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control item" id="nombreEmpresa" name="nombreEmpresa" placeholder="Ingrese el nombre de la empresa..." value="'.htmlspecialchars($row['nombreEmpresa'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
                     <label for="nombreGerente" class="form-label">Nombre del gerente o responsable:</label>
-                    <input type="text" class="form-control item" id="nombreGerente" name="nombreGerente" placeholder="Ingrese el nombre del responsable de la empresa..." value="'.htmlspecialchars($row['domicilioTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control item" id="nombreGerente" name="nombreGerente" placeholder="Ingrese el nombre del responsable de la empresa..." value="'.htmlspecialchars($row['nombreGerente'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
                     <label for="domicilioEmpresa" class="form-label">Domicilio del propietario o la empresa:</label>
-                    <input type="text" class="form-control item" id="domicilioEmpresa" name="domicilioEmpresa" placeholder="Ingrese el domicilio de la empresa..." value="'.htmlspecialchars($row['domicilioTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control item" id="domicilioEmpresa" name="domicilioEmpresa" placeholder="Ingrese el domicilio de la empresa..." value="'.htmlspecialchars($row['domicilioEmpresa'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
                     <label for="telefonoEmpresa" class="form-label">Teléfono del propietario o la empresa:</label>
-                    <input type="text" class="form-control item" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
-                    <p style="margin-left: 2px;">Nota: El telefono no debe contener ceros delante, tampoco guiones. Dígitos máximos permitidos: 13.</p>    
+                    <input type="number" class="form-control item" id="telefonoEmpresa" name="telefonoEmpresa" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefonoEmpresa'], ENT_QUOTES, 'UTF-8').'" required>
+                    <p style="margin-left: 2px;">Nota: El telefono no debe contener ceros delante, tampoco guiones. Dígitos minimos: 10. Dígitos máximos permitidos: 20.</p>    
                 </div>
 
                 <div class="form-group">
                     <label for="domicilioGerente" class="form-label">Domicilio del gerente o responsable:</label>
-                    <input type="text" class="form-control item" id="domicilioGerente" name="domicilioGerente" placeholder="Ingrese el domicilio del responsable..." value="'.htmlspecialchars($row['domicilioTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control item" id="domicilioGerente" name="domicilioGerente" placeholder="Ingrese el domicilio del responsable..." value="'.htmlspecialchars($row['domicilioGerente'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
                     <label for="telefono" class="form-label">Teléfono:</label>
-                    <input type="number" class="form-control item" id="telefono" name="telefono" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="number" class="form-control item" id="telefono" name="telefono" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefono'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
                     <label for="telefonoMovil" class="form-label">Teléfono móvil:</label>
-                    <input type="number" class="form-control item" id="telefonoMovil" name="telefonoMovil" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="number" class="form-control item" id="telefonoMovil" name="telefonoMovil" placeholder="Ingrese el número..." value="'.htmlspecialchars($row['telefonoMovil'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
@@ -76,12 +78,28 @@
 
                 <div class="form-group">
                     <label for="aseguradora" class="form-label">Compañía aseguradora:</label>
-                    <input type="text" class="form-control item" id="aseguradora" name="aseguradora" placeholder="Ingrese la compañía aseguradora..." value="'.htmlspecialchars($row['telefonoTransporte'], ENT_QUOTES, 'UTF-8').'" required>
+                    <input type="text" class="form-control item" id="aseguradora" name="aseguradora" placeholder="Ingrese la compañía aseguradora..." value="'.htmlspecialchars($row['aseguradora'], ENT_QUOTES, 'UTF-8').'" required>
                 </div>
 
                 <div class="form-group">
+                    <label for="pdfFile" class="form-label">Adjunte fotos de la documentación (archivo PDF):</label>
+                    <input type="file" class="form-control item" name="pdfFile" id="pdfFile" accept="application/pdf" required>
+                </div>
+            ';
+
+            if ($existingPdfPath && file_exists($existingPdfPath)) {
+                echo '
+                    <div class="form-group">
+                        <label for="existingPdf" class="form-label">Documento PDF existente:</label>
+                        <p><a class="form-control item" style="text-decoration: none;" href="'.$existingPdfPath.'" target="_blank">Ver documento actual</a></p>
+                    </div>
+                ';
+            }
+
+            echo '
+                <div class="form-group">
                     <label for="cantidadVehiculos" class="form-label">Seleccione la cantidad de vehiculos:</label>
-                    <select id="cantidadVehiculos" class="form-control item" onchange="generarVehiculos()">
+                    <select id="cantidadVehiculos" class="form-control item"">
                         <option value="0" disabled selected>Seleccione la cantidad...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -100,7 +118,7 @@
 
                 <div class="form-group">
                     <label for="cantidadConductores" class="form-label">Seleccione la cantidad de conductores:</label>
-                    <select id="cantidadConductores" class="form-control item" onchange="generarConductores()">
+                    <select id="cantidadConductores" class="form-control item"">
                         <option value="0" disabled selected>Seleccione la cantidad...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
