@@ -39,7 +39,7 @@ $(document).ready(function() {
                         <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
                         <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
                         <td><a class="btn btn-primary" href="../pdf/plantillaAnexoXI.php?idSalida=${salida.idAnexoIV}">Descargar</a></td>
-                        <td><a href="../pdf/todoPdf.php" class="btn btn-primary">Descargar</a></td>
+                        <td><a href="../pdf/plantillaPDFDireccion.php" class="btn btn-primary">Descargar</a></td>
                         <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
                         <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
                     </tr>
