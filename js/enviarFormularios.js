@@ -14,22 +14,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const respuesta = JSON.parse(response);
 
             if (respuesta.status === "registrosSI") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Hay registros',
-                    text: 'Hay registros cargados.',
-                });
-
                 generarDatosCargados(respuesta.data); // Llama a la función con los datos recibidos
             } 
             else if (respuesta.status === "registrosNO") {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'No hay registros',
-                    text: '0 Registros encontrados.',
-                });
-
-                // Inicializar eventos para campos vacíos
                 const selectVehiculos = document.getElementById("cantidadVehiculos"); 
                 selectVehiculos.addEventListener("change", generarVehiculos);
 
@@ -67,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const cantidadConductores = cantidadConductoresElement ? cantidadConductoresElement.value : 0;
         const cantidadVehiculos = cantidadVehiculosElement ? cantidadVehiculosElement.value : 0;
     
-        for (let i = 0; i < cantidadConductores; i++) {
+        for (let i = 0; i < cantidadVehiculos; i++) {
             numeroRegistroArray.push(document.getElementById(`nroRegistro${i}`)?.value || '');
             fechaHabilitacionArray.push(document.getElementById(`fechaHabilitacion${i}`)?.value || '');
             tipoHabilitacionArray.push(document.getElementById(`tipoHabilitacion${i}`)?.value || '');
@@ -75,29 +62,47 @@ document.addEventListener("DOMContentLoaded", function() {
             vigenciaVTVArray.push(document.getElementById(`vigenciaVTV${i}`)?.value || '');
             polizaArray.push(document.getElementById(`nroPoliza${i}`)?.value || '');
             tipoSeguroArray.push(document.getElementById(`tipoSeguro${i}`)?.value || '');
+    
+            console.log(`Vehículo: ${i + 1}`, {
+                numeroRegistro: numeroRegistroArray[i],
+                fechaHabilitacion: fechaHabilitacionArray[i],
+                tipoHabilitacion: tipoHabilitacionArray[i],
+                cantidadAsientos: cantidadAsientosArray[i],
+                vigenciaVTV: vigenciaVTVArray[i],
+                poliza: polizaArray[i],
+                tipoSeguro: tipoSeguroArray[i]
+            });
         }
     
-        for (let i = 0; i < cantidadVehiculos; i++) {
+        for (let i = 0; i < cantidadConductores; i++) {
             nombresConductoresArray.push(document.getElementById(`nombreConductor${i}`)?.value || '');
             dnisConductoresArray.push(document.getElementById(`dniConductor${i}`)?.value || '');
             carnetConductoresArray.push(document.getElementById(`carnetConducir${i}`)?.value || '');
             vigenciaConductoresArray.push(document.getElementById(`vigenciaConductor${i}`)?.value || '');
+    
+            // Mostrar cada dato capturado en la consola
+            console.log(`Conductor: ${i + 1}`, {
+                nombreConductor: nombresConductoresArray[i],
+                dniConductor: dnisConductoresArray[i],
+                carnetConducir: carnetConductoresArray[i],
+                vigenciaConductor: vigenciaConductoresArray[i]
+            });
         }
     
-        // Verificar existencia antes de asignar valores
-        document.getElementById("numeroRegistroArray")?.setAttribute("value", numeroRegistroArray.join(","));
-        document.getElementById("fechaHabilitacionArray")?.setAttribute("value", fechaHabilitacionArray.join(","));
-        document.getElementById("tipoHabilitacionArray")?.setAttribute("value", tipoHabilitacionArray.join(","));
-        document.getElementById("cantidadAsientosArray")?.setAttribute("value", cantidadAsientosArray.join(","));
-        document.getElementById("vigenciaVTVArray")?.setAttribute("value", vigenciaVTVArray.join(","));
-        document.getElementById("polizaArray")?.setAttribute("value", polizaArray.join(","));
-        document.getElementById("tipoSeguroArray")?.setAttribute("value", tipoSeguroArray.join(","));
+        document.getElementById("numeroRegistroArray")?.setAttribute("value", numeroRegistroArray.join("%"));
+        document.getElementById("fechaHabilitacionArray")?.setAttribute("value", fechaHabilitacionArray.join("%"));
+        document.getElementById("tipoHabilitacionArray")?.setAttribute("value", tipoHabilitacionArray.join("%"));
+        document.getElementById("cantidadAsientosArray")?.setAttribute("value", cantidadAsientosArray.join("%"));
+        document.getElementById("vigenciaVTVArray")?.setAttribute("value", vigenciaVTVArray.join("%"));
+        document.getElementById("polizaArray")?.setAttribute("value", polizaArray.join("%"));
+        document.getElementById("tipoSeguroArray")?.setAttribute("value", tipoSeguroArray.join("%"));
     
-        document.getElementById("nombresConductoresArray")?.setAttribute("value", nombresConductoresArray.join(","));
-        document.getElementById("dnisConductoresArray")?.setAttribute("value", dnisConductoresArray.join(","));
-        document.getElementById("carnetConductoresArray")?.setAttribute("value", carnetConductoresArray.join(","));
-        document.getElementById("vigenciaConductoresArray")?.setAttribute("value", vigenciaConductoresArray.join(","));
+        document.getElementById("nombresConductoresArray")?.setAttribute("value", nombresConductoresArray.join("%"));
+        document.getElementById("dnisConductoresArray")?.setAttribute("value", dnisConductoresArray.join("%"));
+        document.getElementById("carnetConductoresArray")?.setAttribute("value", carnetConductoresArray.join("%"));
+        document.getElementById("vigenciaConductoresArray")?.setAttribute("value", vigenciaConductoresArray.join("%"));
     }
+    
 
     function validateAndSubmitAnexoVIII(event) {
         event.preventDefault();
@@ -385,18 +390,18 @@ function generarDatosCargados(data) {
     const item = data[0];  // Asume que solo hay un objeto en el array
 
     // Divide cada campo en arrays de datos
-    const nroRegistroArray = item.nroRegistro.split(',');
-    const fechaHabilitacionArray = item.fechaHabilitacion.split(',');
-    const tipoHabilitacionArray = item.tipoHabilitacion.split(',');
-    const cantAsientosArray = item.cantAsientos.split(',');
-    const vigenciaVTVArray = item.vigenciaVTV.split(',');
-    const nroPolizaArray = item.nroPoliza.split(',');
-    const tipoSeguroArray = item.tipoSeguro.split(',');
+    const nroRegistroArray = item.nroRegistro.split('%');
+    const fechaHabilitacionArray = item.fechaHabilitacion.split('%');
+    const tipoHabilitacionArray = item.tipoHabilitacion.split('%');
+    const cantAsientosArray = item.cantAsientos.split('%');
+    const vigenciaVTVArray = item.vigenciaVTV.split('%');
+    const nroPolizaArray = item.nroPoliza.split('%');
+    const tipoSeguroArray = item.tipoSeguro.split('%');
 
-    const nombreConductorArray = item.nombreConductor.split(',');
-    const dniConductorArray = item.dniConductor.split(',');
-    const carnetConducirArray = item.carnetConducir.split(',');
-    const vigenciaConductorArray = item.vigenciaConductor.split(',');
+    const nombreConductorArray = item.nombreConductor.split('%');
+    const dniConductorArray = item.dniConductor.split('%');
+    const carnetConducirArray = item.carnetConducir.split('%');
+    const vigenciaConductorArray = item.vigenciaConductor.split('%');
 
     const vehiculosCount = nroRegistroArray.length;
     const conductoresCount = nombreConductorArray.length;
@@ -521,6 +526,7 @@ function generarCamposConductores(conductoresCount, nombreConductorArray = [], d
                     </div>
                 </div>
             </div>
+            <br>
         `;
         conductoresContainer.insertAdjacentHTML('beforeend', conductorHTML);
     }

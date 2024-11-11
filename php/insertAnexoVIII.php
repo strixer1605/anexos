@@ -14,18 +14,17 @@
         $titularidadVehiculo = $_POST['titularidadVehiculo'];
         $aseguradora = $_POST['aseguradora'];
 
-        // Convertir valores a cadenas solo si son arreglos, de lo contrario usarlos como están
-        $nroRegistro = is_array($_POST['numeroRegistroArray']) ? implode(",", $_POST['numeroRegistroArray']) : $_POST['numeroRegistroArray'];
-        $fechaHabilitacion = is_array($_POST['fechaHabilitacionArray']) ? implode(",", $_POST['fechaHabilitacionArray']) : $_POST['fechaHabilitacionArray'];
-        $tipoHabilitacion = is_array($_POST['tipoHabilitacionArray']) ? implode(",", $_POST['tipoHabilitacionArray']) : $_POST['tipoHabilitacionArray'];
-        $cantAsientos = is_array($_POST['cantidadAsientosArray']) ? implode(",", $_POST['cantidadAsientosArray']) : $_POST['cantidadAsientosArray'];
-        $vigenciaVTV = is_array($_POST['vigenciaVTVArray']) ? implode(",", $_POST['vigenciaVTVArray']) : $_POST['vigenciaVTVArray'];
-        $nroPoliza = is_array($_POST['polizaArray']) ? implode(",", $_POST['polizaArray']) : $_POST['polizaArray'];
-        $tipoSeguro = is_array($_POST['tipoSeguroArray']) ? implode(",", $_POST['tipoSeguroArray']) : $_POST['tipoSeguroArray'];
-        $nombreConductor = is_array($_POST['nombresConductoresArray']) ? implode(",", $_POST['nombresConductoresArray']) : $_POST['nombresConductoresArray'];
-        $dniConductor = is_array($_POST['dnisConductoresArray']) ? implode(",", $_POST['dnisConductoresArray']) : $_POST['dnisConductoresArray'];
-        $carnetConducir = is_array($_POST['carnetConductoresArray']) ? implode(",", $_POST['carnetConductoresArray']) : $_POST['carnetConductoresArray'];
-        $vigenciaConductor = is_array($_POST['vigenciaConductoresArray']) ? implode(",", $_POST['vigenciaConductoresArray']) : $_POST['vigenciaConductoresArray'];
+        $nroRegistro = $_POST['numeroRegistroArray'];
+        $fechaHabilitacion = $_POST['fechaHabilitacionArray'];
+        $tipoHabilitacion = $_POST['tipoHabilitacionArray'];
+        $cantAsientos = $_POST['cantidadAsientosArray'];
+        $vigenciaVTV = $_POST['vigenciaVTVArray'];
+        $nroPoliza = $_POST['polizaArray'];
+        $tipoSeguro = $_POST['tipoSeguroArray'];
+        $nombreConductor = $_POST['nombresConductoresArray'];
+        $dniConductor = $_POST['dnisConductoresArray'];
+        $carnetConducir = $_POST['carnetConductoresArray'];
+        $vigenciaConductor = $_POST['vigenciaConductoresArray'];
 
         $rutaArchivo = null;
         if (isset($_FILES['pdfFile']) && $_FILES['pdfFile']['error'] == 0) {
@@ -33,12 +32,11 @@
             $filename = "adjuntoPDFsalida".$idSalida.".pdf";
             $rutaArchivo = $uploadDir . $filename;
         
-            // Check if the file already exists and delete it if it does
+            // Check archivo existente
             if (file_exists($rutaArchivo)) {
-                unlink($rutaArchivo); // Deletes the old file
+                unlink($rutaArchivo); // Borra el archivo existente
             }
         
-            // Move the new file to the directory
             if (!move_uploaded_file($_FILES['pdfFile']['tmp_name'], $rutaArchivo)) {
                 die("Error al mover el archivo al directorio de destino.");
             }
@@ -81,7 +79,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("sssisiisssssississiisi", 
+            $stmt->bind_param("sssssssssssssssssssssi", 
                 $nombreEmpresa, 
                 $nombreGerente, 
                 $domicilioEmpresa, 
@@ -123,7 +121,7 @@
                 die("Error en la preparación de la consulta: " . $conexion->error);
             }
 
-            $stmt->bind_param("isssisiisssssississiis", 
+            $stmt->bind_param("isssssssssssssssssssss", 
                 $idSalida, 
                 $nombreEmpresa, 
                 $nombreGerente, 
