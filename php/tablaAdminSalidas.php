@@ -20,19 +20,17 @@
         $masDe24hs = in_array($distancia, [1, 2, 4, 6]) ? 'Si' : 'No';
 
         // Anexo IX habilitación
-        $anexoixHabilsql = "SELECT anexoixHabil FROM anexoiv WHERE idAnexoIV = '".$resp['idAnexoIV']."'";
+        $anexoixHabilsql = "SELECT anexoviiiHabil FROM anexoiv WHERE idAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoixHabilresponse = mysqli_query($conexion, $anexoixHabilsql);
-        $anexoixHabil = mysqli_fetch_assoc($anexoixHabilresponse)['anexoixHabil'] == 1 ? 'Si' : 'No';
+        $anexoixHabil = mysqli_fetch_assoc($anexoixHabilresponse)['anexoviiiHabil'] == 1 ? 'Si' : 'No';
 
         // Verificación de anexos completos
         $sqlAnexoV = "SELECT * FROM anexov WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoVResponse = mysqli_query($conexion, $sqlAnexoV);
         $sqlAnexoVIII = "SELECT * FROM anexoviii WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
         $anexoVIIIResponse = mysqli_query($conexion, $sqlAnexoVIII);
-        $sqlAnexoX = "SELECT * FROM anexox WHERE fkAnexoIV = '".$resp['idAnexoIV']."'";
-        $anexoXResponse = mysqli_query($conexion, $sqlAnexoX);
 
-        $anexosCompletos = (mysqli_num_rows($anexoVResponse) >= 1 && mysqli_num_rows($anexoVIIIResponse) == 0 && mysqli_num_rows($anexoXResponse) == 0) ? 'Si' : 'No';
+        $anexosCompletos = (mysqli_num_rows($anexoVResponse) >= 1 && mysqli_num_rows($anexoVIIIResponse) == 0) ? 'Si' : 'No';
 
         if($resp['tipoSolicitud'] == 1){
             $solicitud = "Representación Institucional";

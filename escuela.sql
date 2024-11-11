@@ -5487,35 +5487,35 @@ CREATE TABLE `anexoiv` (
   `estado` tinyint(1) NOT NULL,
   `tipoSolicitud` tinyint(1) NOT NULL,
   `distanciaSalida` tinyint(1) NOT NULL,
-  `region` int(11) NOT NULL,
-  `distrito` varchar(70) NOT NULL,
-  `institucionEducativa` varchar(70) NOT NULL,
-  `numeroInstitucion` int(11) NOT NULL,
-  `domicilioInstitucion` varchar(70) NOT NULL,
-  `telefonoInstitucion` bigint(20) NOT NULL,
-  `denominacionProyecto` varchar(200) NOT NULL,
-  `lugarVisita` varchar(100) NOT NULL,
-  `direccionVisita` varchar(70) NOT NULL,
-  `localidadVisita` varchar(100) NOT NULL,
-  `regionVisita` varchar(100) NOT NULL,
+  `region` int NOT NULL,
+  `distrito` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `institucionEducativa` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `numeroInstitucion` int NOT NULL,
+  `domicilioInstitucion` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoInstitucion` bigint NOT NULL,
+  `denominacionProyecto` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `lugarVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `direccionVisita` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `localidadVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `regionVisita` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) NOT NULL,
+  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaSalida` time NOT NULL,
   `fechaRegreso` date NOT NULL,
-  `lugarRegreso` varchar(70) NOT NULL,
+  `lugarRegreso` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `horaRegreso` time NOT NULL,
-  `itinerario` varchar(200) NOT NULL,
-  `objetivosSalida` varchar(500) NOT NULL,
-  `cronograma` varchar(500) NOT NULL,
-  `actividades` varchar(200) NOT NULL,
-  `dniEncargado` int(11) NOT NULL,
-  `apellidoNombreEncargado` varchar(70) NOT NULL,
-  `cargo` int(11) NOT NULL,
-  `nombreHospedaje` varchar(70) NOT NULL,
-  `domicilioHospedaje` varchar(70) NOT NULL,
-  `telefonoHospedaje` bigint(20) NOT NULL,
-  `localidadHospedaje` varchar(70) NOT NULL,
-  `gastosEstimativos` varchar(200) NOT NULL,
+  `itinerario` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `objetivosSalida` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cronograma` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `actividades` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniEncargado` int NOT NULL,
+  `apellidoNombreEncargado` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cargo` int NOT NULL,
+  `nombreHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoHospedaje` bigint NOT NULL,
+  `localidadHospedaje` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `gastosEstimativos` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
   `anexoviiiHabil` tinyint(1) NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NOT NULL DEFAULT current_timestamp()
@@ -5526,7 +5526,7 @@ CREATE TABLE `anexoiv` (
 --
 
 INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `lugarVisita`, `direccionVisita`, `localidadVisita`, `regionVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `objetivosSalida`, `cronograma`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `fechaLimite`, `fechaModificacion`) VALUES
-(4, 1, 2, 3, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'Salida a Mar Del Plata', 'Mar Del Plata', 'Mar Del Plata', 'Mar Del Plata', '30', '2024-12-20', 'Escuela', '06:00:00', '2024-12-26', 'Escuela', '20:00:00', 'Comer, pasear, caminar, comprar.', 'Comer, pasear, caminar, comprar.', 'Comer, pasear, caminar, comprar.', 'Comer, pasear, caminar, comprar.', 18892329, 'Paola Arrua Sosa', 2, 'Hotel Peruano \"Las tonas\"', 'Las tonas 123', 1122334455, 'Mar Del Plata', '1 peso', 1, '2024-11-29 12:00:00', '2024-11-10 00:46:56');
+(3, 1, 2, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', 'TEST2', '1', '2024-12-20', 'TEST2', '20:00:00', '2024-12-20', 'TEST2', '22:00:00', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 1, '2024-12-16 12:00:00', '2024-10-25 20:24:48');
 
 -- --------------------------------------------------------
 
@@ -5534,17 +5534,19 @@ INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`
 -- Estructura de tabla para la tabla `anexoix`
 --
 
-CREATE TABLE `anexoix` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `nombreEstablecimiento` varchar(100) NOT NULL,
-  `cue` int(11) NOT NULL,
-  `domicilio` varchar(50) NOT NULL,
-  `distrito` varchar(50) NOT NULL,
-  `director` varchar(50) NOT NULL,
-  `nombreProyecto` varchar(70) NOT NULL,
+DROP TABLE IF EXISTS `anexoix`;
+CREATE TABLE IF NOT EXISTS `anexoix` (
+  `fkAnexoIV` int NOT NULL,
+  `nombreEstablecimiento` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cue` int NOT NULL,
+  `domicilio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `distrito` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `director` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreProyecto` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
   `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `lugarSalida` varchar(70) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5552,13 +5554,16 @@ CREATE TABLE `anexoix` (
 -- Estructura de tabla para la tabla `anexov`
 --
 
-CREATE TABLE `anexov` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
-  `apellidoNombre` varchar(50) NOT NULL,
-  `edad` tinyint(4) NOT NULL,
-  `cargo` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `anexov`;
+CREATE TABLE IF NOT EXISTS `anexov` (
+  `fkAnexoIV` int NOT NULL,
+  `dni` int NOT NULL,
+  `apellidoNombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `edad` tinyint NOT NULL,
+  `cargo` tinyint NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`),
+  KEY `dni` (`dni`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `anexov`
@@ -5573,15 +5578,25 @@ INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VAL
 -- Estructura de tabla para la tabla `anexovi`
 --
 
-CREATE TABLE `anexovi` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dniAlumno` int(11) NOT NULL,
-  `constanciaMedica` varchar(700) NOT NULL,
+DROP TABLE IF EXISTS `anexovi`;
+CREATE TABLE IF NOT EXISTS `anexovi` (
+  `fkAnexoIV` int NOT NULL,
+  `dniAlumno` int NOT NULL,
+  `constanciaMedica` varchar(700) COLLATE utf8mb3_unicode_ci NOT NULL,
   `obraSocial` tinyint(1) NOT NULL,
-  `nombreObra` varchar(100) NOT NULL,
-  `nSocio` varchar(50) NOT NULL,
-  `telefonos` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombreObra` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nSocio` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonos` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `anexovi`
+--
+
+INSERT INTO `anexovi` (`fkAnexoIV`, `dniAlumno`, `constanciaMedica`, `obraSocial`, `nombreObra`, `nSocio`, `telefonos`) VALUES
+(3, 47950839, 'Epilepsia', 1, 'IOMA', '20458223433', '1173652393'),
+(3, 0, '', 0, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -5589,18 +5604,20 @@ CREATE TABLE `anexovi` (
 -- Estructura de tabla para la tabla `anexovii`
 --
 
-CREATE TABLE `anexovii` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `dniEstudiante` int(11) NOT NULL,
-  `domicilio` varchar(100) NOT NULL,
-  `altura` int(11) NOT NULL,
-  `localidad` varchar(100) NOT NULL,
-  `observaciones` text NOT NULL,
+DROP TABLE IF EXISTS `anexovii`;
+CREATE TABLE IF NOT EXISTS `anexovii` (
+  `fkAnexoIV` int NOT NULL,
+  `dniEstudiante` int NOT NULL,
+  `domicilio` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `altura` int NOT NULL,
+  `localidad` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `observaciones` text COLLATE utf8mb3_unicode_ci NOT NULL,
   `obraSocial` tinyint(1) NOT NULL,
-  `nombreObraSocial` varchar(100) NOT NULL,
-  `numeroAfiliado` varchar(100) NOT NULL,
-  `telefonos` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombreObraSocial` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `numeroAfiliado` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonos` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5608,37 +5625,30 @@ CREATE TABLE `anexovii` (
 -- Estructura de tabla para la tabla `anexoviii`
 --
 
-CREATE TABLE `anexoviii` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `nombreEmpresa` varchar(100) NOT NULL,
-  `nombreGerente` varchar(100) NOT NULL,
-  `domicilioEmpresa` varchar(100) NOT NULL,
-  `telefonoEmpresa` int(11) NOT NULL,
-  `domicilioGerente` varchar(100) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `telefonoMovil` int(11) NOT NULL,
-  `titularidadVehiculo` varchar(100) NOT NULL,
-  `rutaPDF` varchar(250) NOT NULL,
-  `nroRegistro` varchar(100) NOT NULL,
-  `fechaHabilitacion` varchar(100) NOT NULL,
-  `tipoHabilitacion` varchar(100) NOT NULL,
-  `cantAsientos` int(11) NOT NULL,
-  `vigenciaVTV` varchar(100) NOT NULL,
-  `aseguradora` varchar(100) NOT NULL,
-  `nroPoliza` int(100) NOT NULL,
-  `tipoSeguro` varchar(100) NOT NULL,
-  `nombreConductor` varchar(300) NOT NULL,
-  `dniConductor` int(9) NOT NULL,
-  `carnetConducir` int(9) NOT NULL,
-  `vigenciaConductor` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoviii`
---
-
-INSERT INTO `anexoviii` (`fkAnexoIV`, `nombreEmpresa`, `nombreGerente`, `domicilioEmpresa`, `telefonoEmpresa`, `domicilioGerente`, `telefono`, `telefonoMovil`, `titularidadVehiculo`, `rutaPDF`, `nroRegistro`, `fechaHabilitacion`, `tipoHabilitacion`, `cantAsientos`, `vigenciaVTV`, `aseguradora`, `nroPoliza`, `tipoSeguro`, `nombreConductor`, `dniConductor`, `carnetConducir`, `vigenciaConductor`) VALUES
-(4, 'a', 'a', 'a', 1122334455, 'a', 1122334455, 1122334455, 'a', '../archivosPDFAnexoVIII/adjuntoPDFsalida4.pdf', 'asdasd', '2026-06-20', 'a', 1, '2026-06-20', 'a', 1, 'a', 'sdasd,', 45822343, 45822343, '2025-12-16,');
+DROP TABLE IF EXISTS `anexoviii`;
+CREATE TABLE IF NOT EXISTS `anexoviii` (
+  `fkAnexoIV` int NOT NULL,
+  `nombreEmpresa` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreGerente` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `domicilioEmpresa` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefonoEmpresa` int NOT NULL,
+  `domicilioGerente` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `telefono` int NOT NULL,
+  `telefonoMovil` int NOT NULL,
+  `titularidadVehiculo` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nroRegistro` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `fechaHabilitacion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `tipoHabilitacion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cantAsientos` int NOT NULL,
+  `vigenciaVTV` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `aseguradora` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nroPoliza` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `tipoSeguro` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `nombreConductor` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dniConductor` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `carnetConducir` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `vigenciaConductor` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5646,10 +5656,12 @@ INSERT INTO `anexoviii` (`fkAnexoIV`, `nombreEmpresa`, `nombreGerente`, `domicil
 -- Estructura de tabla para la tabla `anexovinfo`
 --
 
-CREATE TABLE `anexovinfo` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `observaciones` varchar(400) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `anexovinfo`;
+CREATE TABLE IF NOT EXISTS `anexovinfo` (
+  `fkAnexoIV` int NOT NULL,
+  `observaciones` varchar(400) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5672,10 +5684,12 @@ CREATE TABLE `archivos_visto` (
 -- Estructura de tabla para la tabla `area`
 --
 
-CREATE TABLE `area` (
-  `pk_area` int(11) NOT NULL,
-  `area` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE IF NOT EXISTS `area` (
+  `pk_area` int NOT NULL AUTO_INCREMENT,
+  `area` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`pk_area`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `area`
@@ -17107,9 +17121,9 @@ CREATE TABLE `asistencia_docente` (
   `id` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` varchar(1) NOT NULL,
-  `cupof` int(11) NOT NULL,
-  `dni_toma` int(11) NOT NULL,
+  `estado` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cupof` int NOT NULL,
+  `dni_toma` int NOT NULL,
   `fecha_toma` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -36615,11 +36629,13 @@ INSERT INTO `cursosciclolectivo` (`id`, `estado`, `id_cursos`, `ciclolectivo`) V
 -- Estructura de tabla para la tabla `departamentos`
 --
 
-CREATE TABLE `departamentos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `dni_jefe` int(11) NOT NULL COMMENT 'DNI del jefe de departamento'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `departamentos`;
+CREATE TABLE IF NOT EXISTS `departamentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `dni_jefe` int NOT NULL COMMENT 'DNI del jefe de departamento',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `departamentos`
@@ -56387,13 +56403,22 @@ INSERT INTO `personal` (`dni`, `apellido`, `nombre`, `tipo_doc`, `sexo`, `domici
 -- Estructura de tabla para la tabla `planillainfoanexo`
 --
 
-CREATE TABLE `planillainfoanexo` (
-  `fkAnexoIV` int(11) NOT NULL,
-  `empresas` varchar(500) NOT NULL,
-  `datosInfraestructura` varchar(500) NOT NULL,
-  `hospitalesCercanos` varchar(500) NOT NULL,
-  `datosInteres` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `planillainfoanexo`;
+CREATE TABLE IF NOT EXISTS `planillainfoanexo` (
+  `fkAnexoIV` int NOT NULL,
+  `empresas` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `datosInfraestructura` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `hospitalesCercanos` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `datosInteres` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
+  KEY `fkAnexoIV` (`fkAnexoIV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `planillainfoanexo`
+--
+
+INSERT INTO `planillainfoanexo` (`fkAnexoIV`, `empresas`, `datosInfraestructura`, `hospitalesCercanos`, `datosInteres`) VALUES
+(3, '-', '-', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -57394,11 +57419,13 @@ INSERT INTO `provincia` (`id_provincias`, `provincia`) VALUES
 -- Estructura de tabla para la tabla `telefono`
 --
 
-CREATE TABLE `telefono` (
-  `id` int(11) NOT NULL,
-  `dni` bigint(20) NOT NULL,
-  `telefono` varchar(25) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `telefono`;
+CREATE TABLE IF NOT EXISTS `telefono` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dni` bigint NOT NULL,
+  `telefono` varchar(25) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `telefono`

@@ -54,11 +54,11 @@
                                         <th>Fecha de Salida</th>
                                         <th>Fecha de Regreso</th>
                                         <th>¿Menos De 24hs?</th>
-                                        <th>¿Anexo IX?</th>
+                                        <th>¿Anexo VII?</th>
                                         <th>Fecha de la Solicitud</th>
                                         <th>Fecha Límite</th>
-                                        <th>Anexo XI</th>
-                                        <th>Documento (PDF)</th>
+                                        <th>Inspector (PDF)</th>
+                                        <th>Director (PDF)</th>
                                         <th>Gestionar</th>
                                         <th>Eliminar</th>
                                     </tr>

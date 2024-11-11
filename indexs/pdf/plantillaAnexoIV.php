@@ -2,8 +2,9 @@
     require ('fpdf/fpdf.php'); // Asegúrate de que esta ruta sea correcta
     include ('../../php/verificarSessionPDF.php');
 
-    $idSalida = $_SESSION['idSalida'];
+    // $idSalida = $_SESSION['idSalida'];
 
+    $idSalida = 3;
     // Consulta para obtener los datos principales
     $sql = "SELECT 
             aiv.*, 

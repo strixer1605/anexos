@@ -50,7 +50,7 @@
                     break;
             }
 
-            $anexoixHabil = ($fila['anexoixHabil'] == 1) ? "Si" : "No";
+            $anexoviiiHabil = ($fila['anexoviiiHabil'] == 1) ? "Si" : "No";
 
             echo '<tr>
                     <td> '.$fila['idAnexoIV'].' </td>
@@ -61,7 +61,7 @@
                     <td> '.$fila['lugarVisita'].' </td>
                     <td> '.$fila['fechaSalida'].' </td>
                     <td> '.$fila['fechaRegreso'].' </td>
-                    <td> '.$anexoixHabil.'</td>
+                    <td> '.$anexoviiiHabil.'</td>
                     <td> '.$fila['fechaLimite'].' </td>
                     <td> '.$fila['fechaModificacion'].' </td>
                 </tr>';
