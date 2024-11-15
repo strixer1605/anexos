@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 11-11-2024 a las 13:18:10
+-- Tiempo de generación: 15-11-2024 a las 05:45:26
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -5487,7 +5487,7 @@ INSERT INTO `alumnos` (`dni`, `apellido`, `nombre`, `fechan`, `sexo`, `id_locali
 
 DROP TABLE IF EXISTS `anexoiv`;
 CREATE TABLE IF NOT EXISTS `anexoiv` (
-  `idAnexoIV` int NOT NULL,
+  `idAnexoIV` int NOT NULL AUTO_INCREMENT,
   `estado` tinyint(1) NOT NULL,
   `tipoSolicitud` tinyint(1) NOT NULL,
   `distanciaSalida` tinyint(1) NOT NULL,
@@ -5522,35 +5522,8 @@ CREATE TABLE IF NOT EXISTS `anexoiv` (
   `gastosEstimativos` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `anexoviiiHabil` tinyint(1) NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
-  `fechaModificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoiv`
---
-
-INSERT INTO `anexoiv` (`idAnexoIV`, `estado`, `tipoSolicitud`, `distanciaSalida`, `region`, `distrito`, `institucionEducativa`, `numeroInstitucion`, `domicilioInstitucion`, `telefonoInstitucion`, `denominacionProyecto`, `lugarVisita`, `direccionVisita`, `localidadVisita`, `regionVisita`, `fechaSalida`, `lugarSalida`, `horaSalida`, `fechaRegreso`, `lugarRegreso`, `horaRegreso`, `itinerario`, `objetivosSalida`, `cronograma`, `actividades`, `dniEncargado`, `apellidoNombreEncargado`, `cargo`, `nombreHospedaje`, `domicilioHospedaje`, `telefonoHospedaje`, `localidadHospedaje`, `gastosEstimativos`, `anexoviiiHabil`, `fechaLimite`, `fechaModificacion`) VALUES
-(3, 1, 2, 1, 18, 'La Costa', 'E.E.S.T.', 1, 'Calle 104 y 124', 2246420535, 'TEST2', 'TEST2', 'TEST2', 'TEST2', '1', '2024-12-20', 'TEST2', '20:00:00', '2024-12-20', 'TEST2', '22:00:00', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 18892329, 'Paola Arrua Sosa', 2, '-', '-', 0, '-', 'TEST2111111111111111111111111111111111111111111111111111111111111111111Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111', 1, '2024-12-16 12:00:00', '2024-10-25 20:24:48');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `anexoix`
---
-
-DROP TABLE IF EXISTS `anexoix`;
-CREATE TABLE IF NOT EXISTS `anexoix` (
-  `fkAnexoIV` int NOT NULL,
-  `nombreEstablecimiento` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `cue` int NOT NULL,
-  `domicilio` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `distrito` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `director` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `nombreProyecto` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `fechaSalida` date NOT NULL,
-  `lugarSalida` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  KEY `fkAnexoIV` (`fkAnexoIV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -5569,13 +5542,6 @@ CREATE TABLE IF NOT EXISTS `anexov` (
   KEY `fkAnexoIV` (`fkAnexoIV`),
   KEY `dni` (`dni`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexov`
---
-
-INSERT INTO `anexov` (`fkAnexoIV`, `dni`, `apellidoNombre`, `edad`, `cargo`) VALUES
-(3, 18892329, 'ARRUA SOSA PAOLA', 42, 2);
 
 -- --------------------------------------------------------
 
@@ -5647,13 +5613,6 @@ CREATE TABLE IF NOT EXISTS `anexoviii` (
   `carnetConducir` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `vigenciaConductor` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Volcado de datos para la tabla `anexoviii`
---
-
-INSERT INTO `anexoviii` (`fkAnexoIV`, `nombreEmpresa`, `nombreGerente`, `domicilioEmpresa`, `telefonoEmpresa`, `domicilioGerente`, `telefono`, `telefonoMovil`, `titularidadVehiculo`, `rutaPDF`, `nroRegistro`, `fechaHabilitacion`, `tipoHabilitacion`, `cantAsientos`, `vigenciaVTV`, `aseguradora`, `nroPoliza`, `tipoSeguro`, `nombreConductor`, `dniConductor`, `carnetConducir`, `vigenciaConductor`) VALUES
-(3, 'asdsad', 'asdasd', 'asdasd', '1231231231', 'asdasd', '2147483647', '2147483647', 'a', '../archivosPDFAnexoVIII/adjuntoPDFsalida3.pdf', 'asdasd%asdasd', '2026-06-20%2026-06-12', 'aa%asd', '12%12', '2026-06-20%2030-05-20', 'a', '12%111', 'asd%aaa', 'a%asdasd', '1%12', '1%12', '2026-06-20%2026-06-20');
 
 -- --------------------------------------------------------
 
@@ -56424,13 +56383,6 @@ CREATE TABLE IF NOT EXISTS `planillainfoanexo` (
   `datosInteres` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   KEY `fkAnexoIV` (`fkAnexoIV`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Volcado de datos para la tabla `planillainfoanexo`
---
-
-INSERT INTO `planillainfoanexo` (`fkAnexoIV`, `empresas`, `datosInfraestructura`, `hospitalesCercanos`, `datosInteres`) VALUES
-(3, '-', '-', '-', '-');
 
 -- --------------------------------------------------------
 
