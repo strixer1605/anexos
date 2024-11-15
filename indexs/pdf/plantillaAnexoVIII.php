@@ -46,7 +46,7 @@
         $pdf->Cell(0, 10, mb_convert_encoding('Teléfono móvil: ', 'ISO-8859-1', 'UTF-8').$filaAnexoVIIIArrays['telefonoMovil'], 0, 1);
         $pdf->MultiCell(0, 8, mb_convert_encoding('Titularidad del vehículo (Micro, ómnibus, combi, automóvil, camioneta, barco, lancha, avión, entre otros): '.$filaAnexoVIIIArrays['titularidadVehiculo'].'', 'ISO-8859-1', 'UTF-8'), 0);
 
-        $pdf->Ln(2);
+        $pdf->Ln(5);
     
         $pdf->MultiCell(0, 8, mb_convert_encoding('Habilitación del/los vehículos (número de registro, fecha, tipo de habilitación, cantidad de asientos, vigencia de VTV hasta el regreso):', 'ISO-8859-1', 'UTF-8'), 0);
     
@@ -146,7 +146,7 @@
                 $pdf->Cell(5, 8, chr(149), 0, 0);
                 $pdf->Cell(0, 8, mb_convert_encoding('DNI del/los conductor/ra/es/as: ' . $conductor['dni'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 8, chr(149), 0, 0);
-                $pdf->Cell(0, 8, mb_convert_encoding('Número/s de carnet de conducir y vigencia: ' . $conductor['carnet'] . $conductor['vencimiento'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+                $pdf->Cell(0, 8, mb_convert_encoding('Número/s de carnet de conducir y vigencia: ' . $conductor['carnet'] . ', '.$conductor['vencimiento'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Ln(5);
             }
         }
@@ -154,6 +154,8 @@
         $pdf->Ln(5);
     }
     
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 8, mb_convert_encoding('Aclaración:', 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 8, mb_convert_encoding('El presente anexo debe ser completado de modo digital por la empresa de transporte y/o por las autoridades de la escuela, una vez visada la documentación correspondiente (la cual se registra en la Declaración Jurada, anexo IX).', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Adjuntar fotocopia de Constancia de habilitaciones, carnet de conductor, DNI del conductor/ra o conductores.', 'ISO-8859-1', 'UTF-8'), 0);

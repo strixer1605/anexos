@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include 'verificarSessionNoStart.php';
+
     include 'conexion.php';
 
     $sql = "SELECT * FROM `anexov` WHERE fkAnexoIV = ".$_SESSION['idSalida']." ORDER BY dni";

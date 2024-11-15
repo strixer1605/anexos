@@ -167,7 +167,7 @@ $(document).ready(function(){
                     document.getElementById('edadAcompañante').value = "";
                     Swal.fire({
                         icon: 'success',
-                        title: 'No Docente agregado',
+                        title: 'No docente agregado',
                         text: response.message,
                         timer: 1500,
                         showConfirmButton: false

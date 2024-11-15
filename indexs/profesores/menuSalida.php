@@ -47,7 +47,7 @@
                         <h3>Formularios</h3>
                         <hr>
                         <ul>
-                            <li><a href="formularioAnexos.php" class="btn form-control botones w-100 mb-3">Anexos V y VIII  </a></li>
+                            <li><a href="formularioAnexos.php" class="btn form-control botones w-100 mb-3">Anexo V, VIII y Planilla Informativa</a></li>
                         </ul>
                     </div>
                 <?php endif; ?>

@@ -50,7 +50,7 @@
             </div>
         </div>
         
-        <br><br>
+        <br>
         <div class="wrapper">
             <div class="title">¿Tiene obra social?</div>
             <div class="box">
@@ -74,7 +74,7 @@
                 </div>
 
                 <div id="obraSocialNumeroDiv" style="display:none;">
-                    <h5 style="margin-bottom: 15px;">Número de afiliado:</h5>
+                    <h5 style="margin-bottom: 15px;">Número de afiliado (Número de Socio):</h5>
                     <input type="text" class="form-control item" id="numeroAfiliado" value="' . $numeroAfiliado . '" name="numeroAfiliado" placeholder="Ingrese el número...">
                 </div>
 
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <br><br>
+        <br>
         <div class="wrapper">
             <div class="title">Teléfonos de contacto:</div>
             <div class="box">
@@ -130,15 +130,14 @@
 
         <br>
         <div class="wrapper">
-            <div class="title">Observaciones</div>
+            <div class="title">Constancia médica</div>
             <div class="box">
-                <h6>Deje constancia de cualquier indicación que estime necesario deba conocer el personal docente a cargo y personal médico:</h6>
-                <br>
+                <p class="form-label labels6" for="observaciones">Deje cualquier indicación que crea necesaria que deba conocer el personal a cargo y personal médico:</p>
                 <textarea class="form-control item" id="observaciones" name="observaciones" rows="3" placeholder="Descripción..."></textarea>
             </div>
         </div>
         
-        <br><br>
+        <br>
         <div class="wrapper">
             <div class="title">¿Tiene obra social?</div>
             <div class="box">
@@ -161,13 +160,13 @@
                 </div>
 
                 <div id="obraSocialNumeroDiv" style="display:none;">
-                    <h5 style="margin-bottom: 15px;">Ingrese su número de afiliado:</h5>
+                    <h5 style="margin-bottom: 15px;">Ingrese su número de afiliado (Número de socio):</h5>
                     <input type="text" class="form-control item" id="numeroAfiliado" name="numeroAfiliado" placeholder="Ingrese el número...">
                 </div>
             </div>
         </div>
 
-        <br><br>
+        <br>
         <div class="wrapper">
             <div class="title">Teléfonos de contacto:</div>
             <div class="box">

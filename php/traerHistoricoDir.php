@@ -1,4 +1,5 @@
 <?php 
+    // include 'verificarSessionNoStart.php';
     include 'conexion.php';
     $sql = "SELECT * FROM `anexoiv` WHERE estado IN(0, 2, 3)";
     $result = mysqli_query($conexion, $sql);
@@ -33,16 +34,12 @@
             // Distancia y duración
             switch ($fila['distanciaSalida']) {
                 case 1: 
-                case 2: 
-                case 4:
-                case 6: 
+                case 2:  
                     $duracion = "Menos";
                     break;
                 case 3: 
+                case 4: 
                 case 5: 
-                case 7: 
-                case 8: 
-                case 9:
                     $duracion = "Más";
                     break;
                 default: 
@@ -50,7 +47,13 @@
                     break;
             }
 
-            $anexoixHabil = ($fila['anexoixHabil'] == 1) ? "Si" : "No";
+            $anexoviiiHabil = ($fila['anexoviiiHabil'] == 1) ? "Si" : "No";
+
+            // Formateo de fechas a dd/mm/aa
+            $fechaSalida = date("d/m/y", strtotime($fila['fechaSalida']));
+            $fechaRegreso = date("d/m/y", strtotime($fila['fechaRegreso']));
+            $fechaLimite = date("d/m/y", strtotime($fila['fechaLimite']));
+            $fechaModificacion = date("d/m/y", strtotime($fila['fechaModificacion']));
 
             echo '<tr>
                     <td> '.$fila['idAnexoIV'].' </td>
@@ -59,10 +62,11 @@
                     <td> '.$estado.'</td>
                     <td> '.$duracion.' de 24hs </td>
                     <td> '.$fila['lugarVisita'].' </td>
-                    <td> '.$fila['fechaSalida'].' </td>
-                    <td> '.$fila['fechaRegreso'].' </td>
-                    <td> '.$anexoixHabil.'</td>
-                    <td> '.$fila['fechaLimite'].' </td>
+                    <td> '.$fechaSalida.' </td>
+                    <td> '.$fechaRegreso.' </td>
+                    <td> '.$anexoviiiHabil.'</td>
+                    <td> '.$fechaLimite.' </td>
+                    <td> '.$fechaModificacion.' </td>
                 </tr>';
         }
     }

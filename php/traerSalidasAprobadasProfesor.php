@@ -1,5 +1,5 @@
 <?php
-    $sqlSalidasAprobadas = "SELECT `idAnexoIV`, `estado`, `denominacionProyecto`, `dniEncargado`, `cargo`, `fechaModificacion` FROM `anexoiv` WHERE dniEncargado = $dni AND estado = 3";
+    $sqlSalidasAprobadas = "SELECT `idAnexoIV`, `estado`, `denominacionProyecto`, `distanciaSalida`, `dniEncargado`, `cargo`, `fechaModificacion` FROM `anexoiv` WHERE dniEncargado = $dni AND estado = 3 AND fechaSalida > CURDATE()";
     $resultSalidaAprobada = $conexion->query($sqlSalidasAprobadas);
 
     if ($resultSalidaAprobada === false) {
@@ -13,7 +13,7 @@
                   </li>';
         }
     } else {
-        echo "No hay salidas aprobadas.";
+        echo "No hay salidas aprobadas activas.";
     }
 
     $resultSalidaAprobada->close();

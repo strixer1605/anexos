@@ -28,7 +28,6 @@
                 <textarea class="form-control item" id="constancia" name="constancia" rows="3" placeholder="Descripción...">' . htmlspecialchars($constanciaMedica) . '</textarea>
             </div>
 
-            <br>
             <div class="wrapper">
                 <div class="title">¿Tiene Obra Social / Prepaga?</div>
                 <div class="box">
@@ -44,18 +43,18 @@
                         <div class="dot"></div>
                         <div class="text">No</div>
                     </label>
+                    
+                    <br>
+                    <div id="nomInput" style="display:' . $displayObraInputs . ';">
+                        <p class="form-label" for="nomObra">Nombre de la Obra Social / Prepaga:</p>
+                        <input type="text" class="form-control item" id="nomObra" name="nomObra" value="' . htmlspecialchars($nombreObra) . '" placeholder="Ingrese el nombre...">
+                    </div>
+
+                    <div id="nroInput" style="display:' . $displayObraInputs . ';">
+                        <p class="form-label" for="nroObra">Número de Socio:</p>
+                        <input type="text" class="form-control item" id="nroObra" name="nroObra" value="' . htmlspecialchars($nSocio) . '" placeholder="Ingrese el número...">
+                    </div>
                 </div>
-            </div>
-
-            <br>
-            <div id="nomInput" style="display:' . $displayObraInputs . ';">
-                <label class="form-label" for="nomObra">Nombre de la Obra Social / Prepaga:</label>
-                <input type="text" class="form-control item" id="nomObra" name="nomObra" value="' . htmlspecialchars($nombreObra) . '" placeholder="Ingrese el nombre...">
-            </div>
-
-            <div id="nroInput" style="display:' . $displayObraInputs . ';">
-                <label class="form-label" for="nroObra">Número de afiliado:</label>
-                <input type="text" class="form-control item" id="nroObra" name="nroObra" value="' . htmlspecialchars($nSocio) . '" placeholder="Ingrese el número...">
             </div>
 
             <br>
@@ -68,7 +67,6 @@
                         <button type="button" class="cargar" id="agregarTelefono">Agregar</button>
                     </div>
                     
-                    <input type="hidden" id="telefonosOculto" name="telefonos" value="' . htmlspecialchars($fila['telefonos']) . '">
                     <div id="listaTelefonos" class="listaTelefonos">';
                         $telefonos = !empty($fila['telefonos']) ? explode(',', $fila['telefonos']) : [];
                         foreach ($telefonos as $index => $telefono) {
@@ -82,6 +80,8 @@
                         }
                         echo '
                     </div>
+
+                    <input type="hidden" id="telefonosOculto" name="telefonos" value="' . htmlspecialchars($fila['telefonos']) . '">
                 </div>
             </div>
             <br><br>
@@ -93,7 +93,6 @@
                 <textarea class="form-control item" id="constancia" name="constancia" rows="3" placeholder="Descripción..."></textarea>
             </div>
 
-            <br>
             <div class="wrapper">
                 <div class="title">¿Tiene Obra Social / Prepaga?</div>
                 <div class="box">
@@ -123,7 +122,6 @@
                 <input type="text" class="form-control item" id="nroObra" name="nroObra" placeholder="Ingrese el número...">
             </div>
 
-            <br>
             <div class="wrapper">
                 <div class="title">Teléfonos de contacto:</div>
                 <div class="box">

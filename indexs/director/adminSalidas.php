@@ -14,7 +14,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Anexo IV - Salidas Educativas</title>
+        <title>Administrador - Salidas Educativas</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
@@ -22,19 +22,12 @@
         <link rel="stylesheet" href="../../css/adminSalidas.css">
     </head>
     <body>
-        <div class="container-fluid d-flex align-items-center">
-            <a href="directivo.php" class="btn btn-warning ms-auto" style="color: white;">Atrás</a>
-        </div>
+        <nav class="navbar navbar-custom">
+            <a onclick="window.history.back();" class="btn btn-warning ms-auto"  style="color: white; font-family: system-ui;">Atrás</a>
+        </nav>
         <div class="registration-form">
             <form>
-                <div class="form-icon">
-                    <span><i class="icon icon-pencil"></i></span>
-                </div>
-                <div style="text-align: center;">
-                    <h2 style="color: black;">Adminstador de salidas</h2>
-                </div>
-                <br>
-                <nav class="navbar navbar-expand-lg bg-dark" style="color: white; padding: 10px;">
+                <nav class="navbar navbar-expand-lg bg-dark" style="color: white; padding: 10px; border-radius: 20px 20px 0 0;">
                     <div class="container-fluid d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                             <img src="../../imagenes/eest.webp" style="height:70px;">
@@ -53,8 +46,7 @@
                                         <th>Lugar a Visitar</th>
                                         <th>Fecha de Salida</th>
                                         <th>Fecha de Regreso</th>
-                                        <th>¿Menos De 24hs?</th>
-                                        <th>¿Anexo VII?</th>
+                                        <th>¿Anexo VIII?</th>
                                         <th>Fecha de la Solicitud</th>
                                         <th>Fecha Límite</th>
                                         <th>Inspector (PDF)</th>
@@ -69,7 +61,6 @@
                         </div>    
                     </div>
                 </div>
-                <br>
                 <div class="d-flex justify-content-center gap-2">
                     <a href="historicoDir.php" class="btn btn-block create-account" id="historicoButton">Histórico Salidas</a>
                 </div>

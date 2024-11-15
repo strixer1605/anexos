@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             esValido = false;
             
             Swal.fire({
-                icon: 'error',
+                icon: 'warning',
                 title: 'Campo obligatorio',
                 text: 'Debe indicar si el alumno tiene Obra Social.',
             }).then(() => {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 esValido = false;
 
                 Swal.fire({
-                    icon: 'error',
+                    icon: 'warning',
                     title: 'Campo obligatorio',
                     text: 'Debe indicar nombre de Obra social / Prepaga y su n° de socio obligatoriamente.',
                 }).then(() => {
@@ -68,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     Swal.fire({
                         icon: 'success',
+                        title: 'Éxito',
                         title: 'Anexo 6 cargado correctamente.',
-                        showConfirmButton: false,
-                        timer: 1500
+                        confirmButtonText: 'Aceptar',
                     }).then(() => {
-                        window.location.replace('hijoSalida.php');
+                        window.history.back();
                     });
                 } else {
                     // Mostrar mensaje de error si no fue exitoso
@@ -116,16 +116,15 @@ let estadoFormulario = {
 
 function showError(input, message) {
     Swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: 'warning',
+        title: 'Atención',
         text: message,
         confirmButtonText: 'Aceptar'
     }).then(() => {
-        // Esperar brevemente para asegurar que el desplazamiento hacia arriba esté completo
         setTimeout(() => {
             input.scrollIntoView({ behavior: "smooth", block: "center" });
             input.focus();
-        }, 400); // Ajusta el tiempo según sea necesario para sincronizar el scroll
+        }, 500);
     });
 }
 
@@ -146,38 +145,63 @@ function agregarTelefono() {
     const telefonoInput = document.getElementById('telefono');
     const telefono = telefonoInput.value.trim();
 
-    // Validar que el número no esté vacío
     if (telefono === '') {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'Debe ingresar un número de teléfono.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     } else if (isNaN(telefono)) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'El teléfono debe contener solamente números.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
+        });
+        return;
+    } else if (telefono.length < 10 || telefono.length > 20) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'El teléfono debe tener entre 10 y 20 caracteres.',
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     } else if (estadoFormulario.telefonos.includes(telefono)) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'Este número de teléfono ya está agregado.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     }
 
-    // Agregar el número al estado
     estadoFormulario.telefonos.push(telefono);
     actualizarTelefonosOcultos();
 
-    // Limpiar el input
     telefonoInput.value = '';
 }
 

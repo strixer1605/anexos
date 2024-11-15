@@ -1,20 +1,18 @@
 // Función para mostrar errores con SweetAlert y desplazar hacia el campo con error
 function showError(input, message) {
     Swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: 'warning',
+        title: 'Campo obligatorio',
         text: message,
         confirmButtonText: 'Aceptar'
     }).then(() => {
-        // Esperar brevemente para asegurar que el desplazamiento hacia arriba esté completo
         setTimeout(() => {
             input.scrollIntoView({ behavior: "smooth", block: "center" });
             input.focus();
-        }, 400); // Ajusta el tiempo según sea necesario para sincronizar el scroll
+        }, 500); 
     });
 }
 
-// Estado inicial del formulario
 let estadoFormulario = {
     domicilio: '',
     altura: 0,
@@ -26,7 +24,6 @@ let estadoFormulario = {
     telefonos: []
 };
 
-// Función de validación del formulario
 function validarFormulario() {
     let esValido = true;
 
@@ -37,16 +34,23 @@ function validarFormulario() {
     const obraSocialNo = document.getElementById('obraNo');
     const nombreObraSocialInput = document.getElementById('nombreObraSocial');
     const numeroAfiliadoInput = document.getElementById('numeroAfiliado');
-    const telefonos = document.getElementById('telefonosOculto').value; // Obtén el valor del input oculto
+    const telefonos = document.getElementById('telefonosOculto').value;
 
-    // Validar domicilio (obligatorio)
+    // Expresión regular para validar caracteres especiales
+    const regexEspeciales = /^[a-zA-Z0-9\s,]+$/; // Permite letras, números, espacios y comas
+
+    // Validar domicilio (obligatorio y sin caracteres especiales)
     if (domicilioInput.value.trim() === '') {
         esValido = false;
         showError(domicilioInput, 'Debe indicar su domicilio.');
         return esValido;
+    } else if (!regexEspeciales.test(domicilioInput.value.trim())) {
+        esValido = false;
+        showError(domicilioInput, 'El domicilio no debe contener caracteres especiales.');
+        return esValido;
     }
 
-    // Validar altura (obligatorio y numérico)
+    // Validar altura (obligatorio, numérico, sin caracteres especiales)
     const alturaValue = alturaInput.value.trim();
     if (alturaValue === '') {
         esValido = false;
@@ -56,12 +60,20 @@ function validarFormulario() {
         esValido = false;
         showError(alturaInput, 'La altura debe ser un número.');
         return esValido;
+    } else if (!/^\d+$/.test(alturaValue)) { // Solo números
+        esValido = false;
+        showError(alturaInput, 'La altura no debe contener caracteres especiales.');
+        return esValido;
     }
 
-    // Validar localidad (obligatorio)
+    // Validar localidad (obligatorio y sin caracteres especiales)
     if (localidadInput.value.trim() === '') {
         esValido = false;
         showError(localidadInput, 'Debe indicar su localidad.');
+        return esValido;
+    } else if (!regexEspeciales.test(localidadInput.value.trim())) {
+        esValido = false;
+        showError(localidadInput, 'La localidad no debe contener caracteres especiales.');
         return esValido;
     }
 
@@ -72,7 +84,6 @@ function validarFormulario() {
         return esValido;
     }
 
-    // Si tiene obra social ("Sí"), validar los inputs de obra social
     if (obraSocialSi.checked) {
         if (nombreObraSocialInput.value.trim() === '') {
             esValido = false;
@@ -95,51 +106,72 @@ function validarFormulario() {
     }
 
     return esValido;
-
 }
 
-
-// Función para agregar teléfono
 function agregarTelefono() {
     const telefonoInput = document.getElementById('telefono');
     const telefono = telefonoInput.value.trim();
 
-    // Validar que el número no esté vacío
     if (telefono === '') {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'Debe ingresar un número de teléfono.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     } else if (isNaN(telefono)) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'El teléfono debe contener solamente números.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
+        });
+        return;
+    } else if (telefono.length < 10 || telefono.length > 20) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'El teléfono debe tener entre 10 y 20 caracteres.',
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     } else if (estadoFormulario.telefonos.includes(telefono)) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Atención',
             text: 'Este número de teléfono ya está agregado.',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            setTimeout(() => {
+                telefonoInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                telefonoInput.focus();
+            }, 500); 
         });
         return;
     }
 
-    // Agregar el número al estado
     estadoFormulario.telefonos.push(telefono);
     actualizarTelefonosOcultos();
 
-    // Limpiar el input
     telefonoInput.value = '';
 }
 
-// Función para actualizar los datos ocultos de los teléfonos
 function actualizarTelefonosOcultos() {
     const telefonosOculto = document.getElementById('telefonosOculto');
     const listaTelefonosDiv = document.getElementById('listaTelefonos');
@@ -157,12 +189,9 @@ function actualizarTelefonosOcultos() {
     `).join('');
 }
 
-// Función para eliminar un número de teléfono
 function eliminarTelefono(index) {
     // Eliminar el teléfono de la lista
     estadoFormulario.telefonos.splice(index, 1);
-    
-    // Actualizar la lista visible y el input oculto
     actualizarTelefonosOcultos();
 }
 
@@ -173,7 +202,6 @@ function cargarTelefonosIniciales() {
     .map(telefono => telefono.trim())
     .filter(Boolean); // Filtrar valores vacíos
     
-    // Actualizar la visualización de la lista
     actualizarTelefonosOcultos();
 }
 cargarTelefonosIniciales();

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include 'verificarSessionNoStart.php';
 
     if (isset($_POST['dniList'])) {
         $dniList = $_POST['dniList'];

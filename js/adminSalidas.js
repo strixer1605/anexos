@@ -27,24 +27,43 @@ $(document).ready(function() {
             let tabla = $('#proyectosTabla');
             // Recorrer los datos y generar las filas
             data.forEach(function(salida) {
-                let fila = `
-                    <tr>
-                        <td>${salida.denominacionProyecto}</td>
-                        <td>${salida.tipoSolicitud}</td>
-                        <td>${salida.lugarVisita}</td>
-                        <td>${formatearFecha(salida.fechaSalida)}</td> <!-- Solo fecha -->
-                        <td>${formatearFecha(salida.fechaRegreso)}</td> <!-- Solo fecha -->
-                        <td>${salida.masDe24hs}</td>
-                        <td>${salida.anexoixHabil}</td>
-                        <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
-                        <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
-                        <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
-                        <td><button class="btn btn-primary" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</button></td>
-                        <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
-                        <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
-                    </tr>
-                `;
-                tabla.append(fila);
+                if(salida.distanciaSalida == 1 || salida.distanciaSalida == 2){
+                    let fila = `
+                        <tr>
+                            <td>${salida.denominacionProyecto}</td>
+                            <td>${salida.tipoSolicitud}</td>
+                            <td>${salida.lugarVisita}</td>
+                            <td>${formatearFecha(salida.fechaSalida)}</td> <!-- Solo fecha -->
+                            <td>${formatearFecha(salida.fechaRegreso)}</td> <!-- Solo fecha -->
+                            <td>${salida.anexoixHabil}</td>
+                            <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
+                            <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td>(Mismo PDF para ambos)</td>
+                            <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
+                            <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
+                        </tr>
+                    `;
+                    tabla.append(fila);
+                } else {
+                    let fila = `
+                        <tr>
+                            <td>${salida.denominacionProyecto}</td>
+                            <td>${salida.tipoSolicitud}</td>
+                            <td>${salida.lugarVisita}</td>
+                            <td>${formatearFecha(salida.fechaSalida)}</td> <!-- Solo fecha -->
+                            <td>${formatearFecha(salida.fechaRegreso)}</td> <!-- Solo fecha -->
+                            <td>${salida.anexoixHabil}</td>
+                            <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
+                            <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFDirector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
+                            <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
+                        </tr>
+                    `;
+                    tabla.append(fila);
+                }
             });
             
         },

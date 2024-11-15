@@ -21,22 +21,21 @@ if (isset($idSalida)) {
         } 
 
         echo '
-            <p style="margin-top: 10px; margin-bottom: 15px;"><b>Atención:</b> Si no desea ingresar datos, complete los campos con un guión medio (-).</p>
             <div class="form-group">
                 <label for="empresas" class="form-label">Empresa y/o empresas contratadas (nombre, dirección, teléfonos):</label>
-                <textarea class="form-control item" id="empresas" name="empresas" rows="3" placeholder="Ingrese empresas contradadas (nombre, direccion, telefono)..." required>'.htmlspecialchars($row['empresas'], ENT_QUOTES, 'UTF-8').'</textarea>
+                <textarea class="form-control item" id="empresas" name="empresas" rows="2" placeholder="Ingrese empresas contradadas (nombre, direccion, telefono)..." required>'.htmlspecialchars($row['empresas'], ENT_QUOTES, 'UTF-8').'</textarea>
             </div>
             <div class="form-group">
                 <label for="datosInfraestructura" class="form-label">Datos de la Infraestructura disponible:</label>
-                <textarea class="form-control item" id="datosInfraestructura" name="datosInfraestructura" rows="3" placeholder="Ingrese los datos de la Infraestructura disponible..." required>'.htmlspecialchars($row['datosInfraestructura'], ENT_QUOTES, 'UTF-8').'</textarea>
+                <textarea class="form-control item" id="datosInfraestructura" name="datosInfraestructura" rows="2" placeholder="Ingrese los datos de la Infraestructura disponible..." required>'.htmlspecialchars($row['datosInfraestructura'], ENT_QUOTES, 'UTF-8').'</textarea>
             </div>
             <div class="form-group">
                 <label for="hospitalesCercanos" class="form-label">Hospitales y centros asistenciales cercanos (direcciones y teléfonos):</label>
-                <textarea class="form-control item" id="hospitalesCercanos" name="hospitalesCercanos" rows="3" placeholder="Ingrese los datos de hospitales y centros de asistencia cercanos (nombre, direccion, telefono)..." required>'.htmlspecialchars($row['hospitalesCercanos'], ENT_QUOTES, 'UTF-8').'</textarea>
+                <textarea class="form-control item" id="hospitalesCercanos" name="hospitalesCercanos" rows="2" placeholder="Ingrese los datos de hospitales y centros de asistencia cercanos (nombre, direccion, telefono)..." required>'.htmlspecialchars($row['hospitalesCercanos'], ENT_QUOTES, 'UTF-8').'</textarea>
             </div>
             <div class="form-group">
                 <label for="datosInteres" class="form-label">Dirección de los hospital/es:</label>
-                <textarea class="form-control item" id="datosInteres" name="datosInteres" rows="3" placeholder="Ingrese datos de interes..." required>'.htmlspecialchars($row['datosInteres'], ENT_QUOTES, 'UTF-8').'</textarea>
+                <textarea class="form-control item" id="datosInteres" name="datosInteres" rows="2" placeholder="Ingrese datos de interes..." required>'.htmlspecialchars($row['datosInteres'], ENT_QUOTES, 'UTF-8').'</textarea>
             </div>
         ';
     } else {

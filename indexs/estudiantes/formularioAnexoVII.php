@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Anexo VII - Salidas Educativas</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
@@ -25,6 +25,7 @@
                 </div>
                 <div style="text-align: center;">
                     <h2 style="color: black;">Anexo VII</h2>
+                    <h4 style="color: black;">(Declaración jurada)</h4>
                 </div>
                 <br>
                 <p style="margin-top: 10px; margin-bottom: 15px;"><b>Atención:</b> Para reemplazar los datos solo debe modificarlos y subir el formulario nuevamente. Los datos que usted no complete, se mostrarán automáticamente con un guión medio (-) en el PDF.</p>

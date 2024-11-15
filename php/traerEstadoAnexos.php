@@ -1,4 +1,5 @@
 <?php
+    include 'verificarSessionNoStart.php';
     include ('conexion.php');
 
     if (isset($idSalida)) {

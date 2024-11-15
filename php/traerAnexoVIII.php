@@ -18,20 +18,8 @@
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $existingPdfPath = '../'.$row['rutaPDF'] ?? null;  // Get the existing PDF path if it exists
+                $existingPdfPath = isset($row['rutaPDF']) ? '../'.$row['rutaPDF'] : null;
             } 
-
-            $nombreConductor2 = $row['nombreConductor2'];
-            $dniConductor2 = $row['dniConductor2'];
-            $licenciaConductor2 = $row['numeroLicencia2'];
-            $vigenciaConductor2 = $row['vigencia2'];
-
-            if ($nombreConductor2 === "-" && $dniConductor2 === "-" && $licenciaConductor2 === "-" && $vigenciaConductor2 === "0000-00-00") {
-                $nombreConductor2 = '';
-                $dniConductor2 = '';
-                $licenciaConductor2 = '';
-                $vigenciaConductor2 = '';
-            }
 
             echo '
                 <p style="margin-left: 2px;"><b>Atención:</b> La información completada no debe contenter caracteres especiales. Los nombres propios no pueden contener números y las fechas de vigencia deben ser actuales.</p>    
@@ -91,7 +79,7 @@
                 echo '
                     <div class="form-group">
                         <label for="existingPdf" class="form-label">Documento PDF existente:</label>
-                        <p><a class="form-control item" style="text-decoration: none;" href="'.$existingPdfPath.'" target="_blank">Ver documento actual</a></p>
+                        <p><a class="form-control item" id="existingPdf" name="existingPdf" style="text-decoration: none;" href="'.$existingPdfPath.'" target="_blank">Ver documento actual</a></p>
                     </div>
                 ';
             }

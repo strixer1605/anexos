@@ -63,15 +63,15 @@ document.addEventListener("DOMContentLoaded", function() {
             polizaArray.push(document.getElementById(`nroPoliza${i}`)?.value || '');
             tipoSeguroArray.push(document.getElementById(`tipoSeguro${i}`)?.value || '');
     
-            console.log(`Vehículo: ${i + 1}`, {
-                numeroRegistro: numeroRegistroArray[i],
-                fechaHabilitacion: fechaHabilitacionArray[i],
-                tipoHabilitacion: tipoHabilitacionArray[i],
-                cantidadAsientos: cantidadAsientosArray[i],
-                vigenciaVTV: vigenciaVTVArray[i],
-                poliza: polizaArray[i],
-                tipoSeguro: tipoSeguroArray[i]
-            });
+            // console.log(`Vehículo: ${i + 1}`, {
+            //     numeroRegistro: numeroRegistroArray[i],
+            //     fechaHabilitacion: fechaHabilitacionArray[i],
+            //     tipoHabilitacion: tipoHabilitacionArray[i],
+            //     cantidadAsientos: cantidadAsientosArray[i],
+            //     vigenciaVTV: vigenciaVTVArray[i],
+            //     poliza: polizaArray[i],
+            //     tipoSeguro: tipoSeguroArray[i]
+            // });
         }
     
         for (let i = 0; i < cantidadConductores; i++) {
@@ -81,12 +81,12 @@ document.addEventListener("DOMContentLoaded", function() {
             vigenciaConductoresArray.push(document.getElementById(`vigenciaConductor${i}`)?.value || '');
     
             // Mostrar cada dato capturado en la consola
-            console.log(`Conductor: ${i + 1}`, {
-                nombreConductor: nombresConductoresArray[i],
-                dniConductor: dnisConductoresArray[i],
-                carnetConducir: carnetConductoresArray[i],
-                vigenciaConductor: vigenciaConductoresArray[i]
-            });
+            // console.log(`Conductor: ${i + 1}`, {
+            //     nombreConductor: nombresConductoresArray[i],
+            //     dniConductor: dnisConductoresArray[i],
+            //     carnetConducir: carnetConductoresArray[i],
+            //     vigenciaConductor: vigenciaConductoresArray[i]
+            // });
         }
     
         document.getElementById("numeroRegistroArray")?.setAttribute("value", numeroRegistroArray.join("%"));
@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("vigenciaConductoresArray")?.setAttribute("value", vigenciaConductoresArray.join("%"));
     }
     
-
     function validateAndSubmitAnexoVIII(event) {
         event.preventDefault();
     
@@ -116,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
             'telefono',
             'telefonoMovil',
             'titularidadVehiculo',
-            'aseguradora'
+            'aseguradora',
         ];
     
         const vehiculosValidar = [
@@ -146,12 +145,10 @@ document.addEventListener("DOMContentLoaded", function() {
         function isValidDate(dateStr) {
             const date = parseDate(dateStr);
             const today = new Date();
-            const maxFutureDate = new Date();
-            maxFutureDate.setFullYear(today.getFullYear() + 10);
     
             today.setHours(0, 0, 0, 0);
     
-            return date > today && date <= maxFutureDate;
+            return date > today;
         }
     
         function containsSpecialCharacters(str) {
@@ -182,7 +179,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     firstInvalidField = element;
                     break;
                 }
-                if (field === 'nombreGerente' && (containsSpecialCharacters(element.value) || containsOnlyNumbers(element.value))) {
+                if (field === 'nombreGerente' && (containsSpecialCharacters(element.value) || !containsOnlyLetters(element.value))) {
+                    firstInvalidField = element;
+                    break;
+                }
+                if (field === 'titularidadVehiculo' && (containsSpecialCharacters(element.value) || !containsOnlyLetters(element.value))) {
                     firstInvalidField = element;
                     break;
                 }
@@ -196,6 +197,25 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
+
+        const pdfFileElement = document.getElementById('pdfFile');
+        const existingPDF = document.getElementById('existingPdf');
+        console.log(pdfFileElement, existingPDF)
+
+        if (!existingPDF && (!pdfFileElement.files || pdfFileElement.files.length === 0)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Archivo PDF requerido',
+                text: 'Por favor, cargue un archivo PDF antes de enviar el formulario.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    pdfFileElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    pdfFileElement.focus();
+                }, 500);
+            });
+            return;
+        }
     
         if (!firstInvalidField) {
             for (let i = 0; i < 10; i++) {
@@ -206,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         break;
                     }
     
-                    // Validaciones específicas basadas en el campo actual
                     if (element) {
                         const elementId = `${vehiculoField}${i}`;
                         if (elementId.startsWith('nroRegistro') || elementId.startsWith('tipoHabilitacion') || elementId.startsWith('tipoSeguro')) {
@@ -217,9 +236,37 @@ document.addEventListener("DOMContentLoaded", function() {
                             if (!containsOnlyNumbers(element.value)) {
                                 firstInvalidField = element;
                             }
-                        } else if (elementId.startsWith('fechaHabilitacion') || elementId.startsWith('vigenciaVTV')) {
+                        } else if (elementId.startsWith('vigenciaVTV')) {
                             if (!isValidDate(element.value)) {
                                 firstInvalidField = element;
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Campos Incorrectos',
+                                    text: `El campo "${firstInvalidField.previousElementSibling.textContent}" posee una fecha no válida (vencida).`,
+                                    confirmButtonText: 'Aceptar'
+                                }).then(() => {
+                                    setTimeout(() => {
+                                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        firstInvalidField.focus();
+                                    }, 500);
+                                });
+                                return;
+                            }
+                        } else if (elementId.startsWith('fecha')) {
+                            if (isValidDate(element.value)) {
+                                firstInvalidField = element;
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Campos Incorrectos',
+                                    text: `El campo "${firstInvalidField.previousElementSibling.textContent}" posee una fecha no válida (futura).`,
+                                    confirmButtonText: 'Aceptar'
+                                }).then(() => {
+                                    setTimeout(() => {
+                                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        firstInvalidField.focus();
+                                    }, 500);
+                                });
+                                return;
                             }
                         }
                     }
@@ -232,14 +279,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!firstInvalidField) {
             for (let i = 0; i < 10; i++) {
                 let dniValue = null, carnetValue = null;
-    
+        
                 for (let conductorField of conductoresValidar) {
                     const element = document.getElementById(`${conductorField}${i}`);
                     if (element && element.value.trim() === '') {
                         firstInvalidField = element;
                         break;
                     }
-    
+        
                     if (element) {
                         const elementId = `${conductorField}${i}`;
                         if (elementId.startsWith('nombreConductor') && !containsOnlyLetters(element.value)) {
@@ -260,11 +307,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             firstInvalidField = element;
                         }
                     }
-    
+        
                     if (firstInvalidField) break;
                 }
-    
-                // Verificación de que el DNI y el número de carnet coincidan
+        
                 if (dniValue && carnetValue && dniValue !== carnetValue) {
                     firstInvalidField = document.getElementById(`carnetConducir${i}`);
                     Swal.fire({
@@ -272,14 +318,38 @@ document.addEventListener("DOMContentLoaded", function() {
                         title: 'Error de Validación',
                         text: `El DNI del conductor no coincide con el número de carnet en el campo "${firstInvalidField.previousElementSibling.textContent}".`,
                         confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        setTimeout(() => {
+                            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            firstInvalidField.focus();
+                        }, 500);
                     });
                     return;
                 }
-    
+        
+                if (dniValue && carnetValue) {
+                    const dniValueLength = dniValue.length;
+                    if (dniValueLength < 7 || dniValueLength > 8) {
+                        firstInvalidField = document.getElementById(`dniConductor${i}`);
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Error de Validación',
+                            text: `El DNI del conductor y el número de carnet deben poseer entre 7 y 8 dígitos en el campo "${firstInvalidField.previousElementSibling.textContent}".`,
+                            confirmButtonText: 'Aceptar'
+                        }).then(() => {
+                            setTimeout(() => {
+                                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                firstInvalidField.focus();
+                            }, 500);
+                        });
+                        return;
+                    }
+                }
+        
                 if (firstInvalidField) break;
             }
         }
-    
+        
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -331,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
-        enviarFormulario('formPlanilla', '../../php/insertPlanillaAnexo.php', 'Planilla cargada correctamente!', 'anexov-tab');
+        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexov-tab');
     }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {

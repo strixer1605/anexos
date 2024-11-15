@@ -1,6 +1,7 @@
 <?php 
+    include 'verificarSessionNoStart.php';
     include 'conexion.php';
-    $sql = "SELECT * FROM `anexoiv` WHERE estado != 1 and dniEncargado = $dni";
+    $sql = "SELECT * FROM `anexoiv` WHERE estado NOT IN (1, 4) and dniEncargado = $dni";
     $result = mysqli_query($conexion, $sql);
 
     if (!$result) {
@@ -52,6 +53,12 @@
 
             $anexoviiiHabil = ($fila['anexoviiiHabil'] == 1) ? "Si" : "No";
 
+            // Formatear fechas en dd/mm/aa
+            $fechaSalida = date("d/m/y", strtotime($fila['fechaSalida']));
+            $fechaRegreso = date("d/m/y", strtotime($fila['fechaRegreso']));
+            $fechaLimite = date("d/m/y", strtotime($fila['fechaLimite']));
+            $fechaModificacion = date("d/m/y", strtotime($fila['fechaModificacion']));
+
             echo '<tr>
                     <td> '.$fila['idAnexoIV'].' </td>
                     <td> '.$tipo.' </td>
@@ -59,11 +66,11 @@
                     <td> '.$estado.'</td>
                     <td> '.$duracion.' de 24hs </td>
                     <td> '.$fila['lugarVisita'].' </td>
-                    <td> '.$fila['fechaSalida'].' </td>
-                    <td> '.$fila['fechaRegreso'].' </td>
+                    <td> '.$fechaSalida.' </td>
+                    <td> '.$fechaRegreso.' </td>
                     <td> '.$anexoviiiHabil.'</td>
-                    <td> '.$fila['fechaLimite'].' </td>
-                    <td> '.$fila['fechaModificacion'].' </td>
+                    <td> '.$fechaLimite.' </td>
+                    <td> '.$fechaModificacion.' </td>
                 </tr>';
         }
     }

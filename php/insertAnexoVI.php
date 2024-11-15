@@ -1,6 +1,7 @@
 <?php
     // Iniciar la sesión
     session_start();
+
     if (isset($_SESSION['dniPadre'])) {
         
         include 'conexion.php'; // Asegúrate de tener un archivo de conexión a la base de datos

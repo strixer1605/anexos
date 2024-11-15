@@ -4,6 +4,8 @@
     $dniEncargado = $_SESSION['dniProfesor'];
     $apellidoNombreEncargado = $_SESSION['apellidoDoc'] . ' ' . $_SESSION['nombreDoc'];
     $cargo = 2;
+    
+    include 'verificarSessionNoStart.php';
 
     include('conexion.php');
 

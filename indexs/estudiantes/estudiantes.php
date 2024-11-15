@@ -1,13 +1,5 @@
 <?php
-    session_start();
-    $edad = $_SESSION['edad'];
-    if (!isset($_SESSION['dniEstudiante'])) {
-        header('Location: ../../index.php');
-        exit;
-    } else {
-        $dniEstudiante = $_SESSION['dniEstudiante'];
-        include('../../php/conexion.php');
-    }
+    include '../../php/verificarSessionEstudiantes.php';
 ?>
 <!DOCTYPE html>
     <html lang="en">

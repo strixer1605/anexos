@@ -76,8 +76,7 @@
 
     $pdf = new FPDF();
     
-    $pdf->SetMargins(20, 20, 20, 20);
-    // Establecer margen inferior
+    $pdf->SetMargins(20, 20, 20);
     $pdf->SetAutoPageBreak(true, 20);
     
     $pdf->AddPage();
@@ -99,127 +98,40 @@
     
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Quien suscribe, " . ucwords(strtolower($nombreCompleto)) . " DNI " . $dniAlumno . " domiciliada/o en la calle " . $filaAnexoVII['domicilio'] . " N° " . $filaAnexoVII['altura'] . " de la localidad de " . $filaAnexoVII['localidad'] . " que concurre a la institución EEST N°1, participará de la salida educativa / de representacion institucional (tachar la que no corresponde) a realizarse en localidad de " . $filaAnexoIV['localidadVisita'] . " el/los dia/s " . $diaSalida . " del mes de " . $mesSalida . " del año " . $anoSalida . "";
-
-    // Establece la palabra o frase objetivo en función de la condición
-    if ($filaAnexoIV['tipoSolicitud'] == 1){
-        $palabraObjetivo = "de representacion institucional";
+    if ($filaAnexoIV['tipoSolicitud'] == 1) {
+        $tipoSalida = "Salida de Representación Institucional";
     } else {
-        $palabraObjetivo = "educativa";
+        $tipoSalida = "Salida Educativa";
     }
 
-    $maxAncho = 174; // Ancho máximo para el texto (ajusta según tus márgenes)
-    $altoLinea = 8; // Altura de cada línea
-
-    // Divide el texto completo en palabras
-    $palabras = explode(' ', $textoCompleto);
-    $lineaActual = '';
-    $x = 20; // Posición X inicial
-    $y = 80; // Posición Y inicial
-
-    // Variable para indicar si ya se ha encontrado y subrayado la frase objetivo
-    $fraseEncontrada = false;
-
-    foreach ($palabras as $i => $palabra) {
-        // Calcula el ancho de la palabra actual
-        $anchoPalabra = $pdf->GetStringWidth($palabra . ' ');
-
-        // Si añadir la palabra excede el ancho máximo, imprime la línea actual y resetea
-        if ($pdf->GetStringWidth($lineaActual . $palabra . ' ') > $maxAncho) {
-            $pdf->SetXY($x, $y);
-            $pdf->Cell(0, $altoLinea, mb_convert_encoding($lineaActual, 'ISO-8859-1', 'UTF-8'), 0, 1);
-            
-            // Incrementa Y para la siguiente línea
-            $y += $altoLinea;
-            $lineaActual = '';
-        }
-
-        // Verifica si la frase completa (palabras consecutivas) coincide con la palabra objetivo
-        $palabrasSiguientes = implode(' ', array_slice($palabras, $i, count(explode(' ', $palabraObjetivo))));
-
-        if ($palabrasSiguientes === $palabraObjetivo && !$fraseEncontrada) {
-            // Calcula las coordenadas de inicio y fin de la frase
-            $xInicio = $pdf->GetX() + $pdf->GetStringWidth($lineaActual);
-            $xFin = $xInicio + $pdf->GetStringWidth($palabraObjetivo);
-            $yInicio = $y;
-
-            // Marca que ya encontró la frase
-            $fraseEncontrada = true;
-        }
-        
-        // Agrega la palabra actual a la línea
-        $lineaActual .= $palabra . ' ';
-    }
-
-    // Imprime la última línea si queda algún texto
-    if (!empty($lineaActual)) {
-        $pdf->SetXY($x, $y);
-        $pdf->Cell(0, $altoLinea, mb_convert_encoding($lineaActual, 'ISO-8859-1', 'UTF-8'), 0, 1);
-    }
-
-    // Dibuja la línea debajo de la frase objetivo
-    if (isset($xInicio) && isset($xFin)) {
-        $pdf->Line($xInicio, $yInicio + $altoLinea - 4, $xFin, $yInicio + $altoLinea - 4);
-    }
-
-    $pdf->Ln(10);
-    
     $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Dejo constancia de que he sido informada/o de las características de la salida, las actividades a realizar, el modo de traslado, docentes responsables y los lugares donde se desarrollarán las actividades.";
-
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Quien suscribe, " . ucwords(strtolower($nombreCompleto)) . " DNI " . $dniAlumno . " domiciliada/o en la calle " . $filaAnexoVII['domicilio'] . " N°" . $filaAnexoVII['altura'] . " de la localidad de " . $filaAnexoVII['localidad'] . " a que concurre a la institución EEST N°1, participará de la ".$tipoSalida." a realizarse en localidad de " . $filaAnexoIV['localidadVisita'] . " el/los dia/s " . $diaSalida . " del mes de " . $mesSalida . " del año " . $anoSalida.".", 'ISO-8859-1', 'UTF-8'), 0);   
     
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Autorizo a las y los responsables de la salida a disponer cambios con relación a la planificación de las actividades en aspectos acotados, que resulten necesarios, a su solo criterio y sin previo aviso, sobre lo cual seré informada/o durante el desarrollo de la salida.";
-
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Dejo constancia de que he sido informada/o de las características de la salida, las actividades a realizar, el modo de traslado, docentes responsables y los lugares donde se desarrollarán las actividades.", 'ISO-8859-1', 'UTF-8'), 0);
     
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Tomo conocimiento de que las y los docentes a cargo de la organización de la salida no son responsables de los objetos que llevo conmigo.";
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Autorizo a las y los responsables de la salida a disponer cambios con relación a la planificación de las actividades en aspectos acotados, que resulten necesarios, a su solo criterio y sin previo aviso, sobre lo cual seré informada/o durante el desarrollo de la salida.", 'ISO-8859-1', 'UTF-8'), 0);
+    
+    $pdf->Ln(5);
 
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Tomo conocimiento de que las y los docentes a cargo de la organización de la salida no son responsables de los objetos que llevo conmigo.", 'ISO-8859-1', 'UTF-8'), 0);
     
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Asumo el carácter pedagógico de las experiencias a realizar y la importancia que tienen para mi formación.";
-
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Tomo conocimiento de que las y los docentes a cargo de la organización de la salida no son responsables de los objetos que llevo conmigo.", 'ISO-8859-1', 'UTF-8'), 0);
     
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Dejo aquí constancia de cualquier indicación necesaria deba conocer el personal docente a cargo y personal médico:";
-
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
-    
-    $pdf->Ln(5);
-    
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = $filaAnexoVII['observaciones'];
-
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
-    
-    $pdf->Ln(5);
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Dejo aquí constancia de cualquier indicación necesaria deba conocer el personal docente a cargo y personal médico: ".$filaAnexoVII['observaciones'], 'ISO-8859-1', 'UTF-8'), 0);
     
     $pdf->AddPage();
 
-    $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Asimismo autorizo, en caso de necesidad y urgencia, a que se realice una consulta médica y la adopción de las prescripciones que las y los profesionales de la salud indiquen.";
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Asimismo autorizo, en caso de necesidad y urgencia, a que se realice una consulta médica y la adopción de las prescripciones que las y los profesionales de la salud indiquen.", 'ISO-8859-1', 'UTF-8'), 0);
 
-    // Escribir el texto completo
-    $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->Ln(5);
 
     $pdf->MultiCell(35, 10, mb_convert_encoding("¿Tiene Obra\nSocial/Prepaga?", 'ISO-8859-1', 'UTF-8'), 1, 'C');
     $pdf->SetXY($pdf->GetX() + 35, $pdf->GetY() - 20);
@@ -280,11 +192,6 @@
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell('0', 10, mb_convert_encoding('Fecha: ....../....../..........', 'ISO-8859-1', 'UTF-8'), 0, 1);
-    
-    $pdf->Ln(5); 
-
-    $pdf->SetFont('Arial', 'B', 11);
-    $pdf->Cell(0, 5, mb_convert_encoding('Aclaración:', 'ISO-8859-1', 'UTF-8'), 0, 1);
     
     $pdf->Output('I', 'anexoVI.pdf');
 ?>

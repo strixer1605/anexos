@@ -36,9 +36,9 @@
                                     <th>Lugar visita</th>
                                     <th>Fecha salida</th>
                                     <th>Fecha regreso</th>
-                                    <th>Anexo 9</th>
+                                    <th>¿Anexo VIII?</th>
                                     <th>Fecha límite (entrega)</th>
-                                    <th>Fecha Modificación</th>
+                                    <th>Fecha de modificación</th>
                                 </tr>
                             </thead>
                             <tbody>

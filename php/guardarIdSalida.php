@@ -7,3 +7,4 @@ if (isset($_POST['idSalida'])) {
 } else {
     echo "Error: idSalida no proporcionado.";
 }
+?>

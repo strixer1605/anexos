@@ -1,14 +1,11 @@
 <?php
     session_start();
+    include 'verificarSessionNoStart.php';
+
     $idSalida = $_SESSION['idSalida'];
     include('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        // $localidadEmpresa = !empty($_POST['localidadEmpresa']) ? $_POST['localidadEmpresa'] : '-';
-        // $hospitales = !empty($_POST['hospitales']) ? $_POST['hospitales'] : '-';
-        // $hospitalesTelefono = !empty($_POST['hospitalesTelefono']) ? $_POST['hospitalesTelefono'] : '-';
-        // $hospitalesDireccion = !empty($_POST['hospitalesDireccion']) ? $_POST['hospitalesDireccion'] : '-';
         $empresas = $_POST['empresas'];
         $datosInfraestructura = $_POST['datosInfraestructura'];
         $hospitalesCercanos = $_POST['hospitalesCercanos'];
@@ -26,7 +23,7 @@
                         empresas = ?, 
                         datosInfraestructura = ?, 
                         hospitalesCercanos = ?, 
-                        datosInteres = ?,
+                        datosInteres = ?
                     WHERE fkAnexoIV = ?";
 
             $stmt = $conexion->prepare($sql);

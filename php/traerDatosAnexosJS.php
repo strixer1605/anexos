@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include '../../php/verificarSessionNoStart.php';
+
     $idSalida = $_SESSION['idSalida'];
     include('conexion.php');
     header('Content-Type: application/json');

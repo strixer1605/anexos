@@ -4,11 +4,11 @@
 
     $idSalida = $_SESSION['idSalida'];
 
-    $sqlInfoAIV = "SELECT * FROM anexoiv WHERE idAnexoIV";
+    $sqlInfoAIV = "SELECT * FROM anexoiv WHERE idAnexoIV = $idSalida";
     $resultado = mysqli_query($conexion, $sqlInfoAIV);
     $fila = mysqli_fetch_assoc($resultado);
 
-    $sqlIntegrantes = "SELECT * FROM anexov WHERE cargo != 5";
+    $sqlIntegrantes = "SELECT * FROM anexov WHERE cargo != 5 AND fkAnexoIV = $idSalida";
     $resultadoIntegrantes = mysqli_query($conexion, $sqlIntegrantes);
 
     $fechaSalida = date('d/m/Y', strtotime($fila['fechaSalida']));
@@ -23,7 +23,7 @@
     $pdf->Image('../../imagenes/logoprovincia.jpg', 102, 15, 90); // Logo
 
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Ln(5);
+    $pdf->Ln(10);
 
     $pdf->Cell(0, 30, mb_convert_encoding('IF-2024-35029666-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
     $pdf->SetFont('Arial', 'B', 15);
@@ -31,38 +31,27 @@
     $pdf->Ln(2);
 
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(0, 5, mb_convert_encoding('Planilla de estudiantes y acompañantes', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
-    $pdf->Cell(0, 10, mb_convert_encoding('Planilla de asistencia', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(0, 5, mb_convert_encoding('PLANILLA DE ESTUDIANTES Y ACOMPAÑANTES', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(0, 10, mb_convert_encoding('PLANILLA DE ASISTENCIA', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     $pdf->Ln(5);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 5, mb_convert_encoding('(La presente deberá incorporarse al libro de Registro de Actas Institucionales, antes de producirse la salida).', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->Ln(5);
     
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(45, 10, mb_convert_encoding('Institución Educativa:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(87, 10, mb_convert_encoding($fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(8, 10, mb_convert_encoding('N°:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding($fila['numeroInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(18, 10, mb_convert_encoding('Distrito:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding($fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(32, 10, mb_convert_encoding('Lugar a visitar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(100, 10, mb_convert_encoding($fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(15, 10, mb_convert_encoding('Fecha:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(25, 10, $fechaSalida, 0, 0);
+    $pdf->Cell(133, 10, mb_convert_encoding('Institución Educativa: '.$fila['institucionEducativa'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+
+    $pdf->Cell(8, 10, mb_convert_encoding('N°: '.$fila['numeroInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Cell(18, 10, mb_convert_encoding('Distrito: '.$fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+
+    $pdf->Cell(133, 10, mb_convert_encoding('Lugar a visitar: '.$fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+
+    $pdf->Cell(15, 10, mb_convert_encoding('Fecha: '.$fechaSalida, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetMargins(5, 15, 0);
 
-    $pdf->Ln(15);
+    $pdf->Ln(5);
     $header = array('N°', 'Apellido y Nombre', 'DNI', 'Edad', 'Estudiante', 'Docente', 'No docente', 'Asistencia (P/A)');
     $widths = array(8, 73, 18, 12, 21, 16, 22, 30);
 
@@ -121,7 +110,8 @@
 
     $pdf->SetMargins(20, 20, 20);
 
-    $pdf->Ln(10);
+    $pdf->AddPage();
+
     $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Observaciones (para ser completado ante cualquier eventualidad):', 'ISO-8859-1', 'UTF-8'));
 
@@ -129,7 +119,7 @@
     
     $pdf->Cell(0, 5, mb_convert_encoding('La presente planilla tendrá validez para toda tramitación oficial que se realice.', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Ln(60);
+    $pdf->Ln(50);
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(82, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');

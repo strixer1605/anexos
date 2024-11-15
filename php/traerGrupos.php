@@ -1,4 +1,5 @@
 <?php
+    include 'verificarSessionNoStart.php';
     include ('conexion.php');
     
     $sqlGrupos = "SELECT * FROM `grupos` WHERE nombre NOT IN ('0', '999') ORDER BY nombre ASC";

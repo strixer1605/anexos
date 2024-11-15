@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include 'verificarSessionNoStart.php';
+
     include ('conexion.php');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

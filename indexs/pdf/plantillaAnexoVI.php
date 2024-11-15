@@ -112,8 +112,6 @@
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(0, 10, mb_convert_encoding($filaAnexoIV['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Ln(3);
-
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(53, 10, mb_convert_encoding('Lugar, día y hora de salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
@@ -178,7 +176,14 @@
     $pdf->Cell(34, 10, mb_convert_encoding('2- AUTORIZACIÓN (completa el madre/padre, tutor o responsable):', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', '', 12);
-    $textoCompleto = "Por la presente autorizo a mi hijo/a " . ucwords(strtolower($nombreCompleto)). ", DNI: ". $dniAlumno . ", que concurre al Establecimiento Educativo ".$filaAnexoIV['institucionEducativa']." N°".$filaAnexoIV['numeroInstitucion']." del Distrito ".$filaAnexoIV['distrito']." a participar de la Salida Educativa / Salida de Representación Institucional a realizarse en la localidad de ".$filaAnexoIV['localidadVisita']." el/los dia/s ".$diaSalida." del mes de ".$mesSalida." del presente ciclo lectivo.";
+
+    if ($filaAnexoIV['tipoSolicitud'] == 1) {
+        $tipoSalida = "Salida de Representación Institucional";
+    } else {
+        $tipoSalida = "Salida Educativa";
+    }
+    
+    $textoCompleto = "Por la presente autorizo a mi hijo/a " . ucwords(strtolower($nombreCompleto)). ", DNI: ". $dniAlumno . ", que concurre al Establecimiento Educativo ".$filaAnexoIV['institucionEducativa']." N°".$filaAnexoIV['numeroInstitucion']." del Distrito ".$filaAnexoIV['distrito']." a participar de la ".$tipoSalida." a realizarse en la localidad de ".$filaAnexoIV['localidadVisita']." el/los dia/s ".$diaSalida." del mes de ".$mesSalida." del presente ciclo lectivo.";
     $pdf->MultiCell(0, 8, mb_convert_encoding($textoCompleto, 'ISO-8859-1', 'UTF-8'), 0);
 
     $pdf->Ln(10);
@@ -217,7 +222,7 @@
     $pdf->MultiCell(0, 8, mb_convert_encoding('Autorizo, en caso de necesidad y urgencia, a hacer atender al estudiante por profesionales médicos y a que se adopten las prescripciones que ellos indiquen, sobre lo cual requiero inmediato aviso.', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->MultiCell(0, 8, mb_convert_encoding('Los docentes a cargo del cuidado y vigilancia activa de las/los estudiantes con menos de 18 años de edad no serán responsables de los objetos u otros elementos de valor que los mismos puedan llevar.', 'ISO-8859-1', 'UTF-8'), 0);
 
-    $pdf->Ln(10);
+    $pdf->AddPage();
 
     $pdf->Cell(34, 10, mb_convert_encoding('Teléfonos de contacto en caso de urgencia (Consignar varios):', 'ISO-8859-1', 'UTF-8'), 0, 1);
 

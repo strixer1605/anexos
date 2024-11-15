@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const selectRadio = document.getElementsByClassName('secundario');  // Devuelve una colección
         // Cambiar el texto según el ancho de la ventana
         if (width < 920) {
-            selectRadio[2].textContent = "Reprecentación Inst.";
+            selectRadio[2].textContent = "Rep. Inst.";
             labels[0].textContent = "Dentro del barrio.";
             labels[1].textContent = "Distrito (1)";
             labels[2].textContent = "Distrito (2)";

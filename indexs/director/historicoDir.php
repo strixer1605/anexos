@@ -9,7 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu de Salidas</title>
+        <title>Histórico de Salidas</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/historico.css">
         <style>
@@ -44,8 +44,9 @@
                                     <th>Lugar visita</th>
                                     <th>Fecha salida</th>
                                     <th>Fecha regreso</th>
-                                    <th>Anexo 9</th>
+                                    <th>¿Anexo VIII?</th>
                                     <th>Fecha límite (entrega)</th>
+                                    <th>Fecha de gestión (Director)</th>
                                 </tr>
                             </thead>
                             <tbody>
