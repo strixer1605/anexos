@@ -14,7 +14,6 @@
     $pdf->SetMargins(20, 20, 20, 20);
     // Establecer margen inferior
     $pdf->SetAutoPageBreak(true, 20);
-    $pdf->AddPage();
         
     //datos
     $nombreDirector = ucwords(strtolower($_SESSION['nombreDir'] . ' ' . $_SESSION['apellidoDir']));
@@ -275,32 +274,32 @@
     $pdf->Ln(40);    
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
     $pdf->Ln(5);
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma y alcaración de la Autoridad del Establecimiento', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma del Inspector (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Firma y alcaración de la Autoridad del Establecimiento', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Firma del Inspector (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('que completó este formulario:', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('que completó este formulario:', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
     $pdf->Ln(50);
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Lugar y fecha', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
     $pdf->Ln(5);
 
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma del Jefe Distrital (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-    $pdf->Cell(95, 5, mb_convert_encoding('Firma del Jefe Distrital (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Firma del Jefe Distrital (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(85, 5, mb_convert_encoding('Firma del Jefe Distrital (si correspondiere):', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
     
     $pdf->Ln(10);
 
@@ -468,6 +467,10 @@
     $pdf->SetFont('Arial', '', 12);
 
     while ($filaAnexoVIIIArrays = mysqli_fetch_assoc($resultadoAnexoVIII)) {
+        $fechaHabilitacion = date("d/m/y", strtotime($filaAnexoVIIIArrays['fechaHabilitacion']));
+        $vigenciaVTV = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaVTV']));
+        $vigenciaConductor = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaConductor']));
+
         $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la empresa o razón social: '.$filaAnexoVIIIArrays['nombreEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Nombre del gerente o responsable: '.$filaAnexoVIIIArrays['nombreGerente'], 'ISO-8859-1', 'UTF-8'), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del propietario o la empresa: '.$filaAnexoVIIIArrays['domicilioEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
@@ -515,10 +518,10 @@
             for ($i = 0; $i < $count; $i++) {
                 $vehiculos[] = [
                     'registro' => isset($registroArray[$i]) ? $registroArray[$i] : '',
-                    'fechaHabilitacion' => isset($fechaHabArray[$i]) ? $fechaHabArray[$i] : '',
+                    'fechaHabilitacion' => isset($fechaHabArray[$i]) ? date("d/m/y", strtotime($fechaHabArray[$i])) : '',
                     'tipoHabilitacion' => isset($tipoHabArray[$i]) ? $tipoHabArray[$i] : '',
                     'cantAsientos' => isset($cantArray[$i]) ? $cantArray[$i] : '',
-                    'vigenciaVTV' => isset($vigenciaArray[$i]) ? $vigenciaArray[$i] : '',
+                    'vigenciaVTV' => isset($vigenciaArray[$i]) ? date("d/m/y", strtotime($vigenciaArray[$i])) : '',
                     'aseguradora' => isset($aseguradoraArray[$i]) ? $aseguradoraArray[$i] : '',
                     'nroPoliza' => isset($polizaArray[$i]) ? $polizaArray[$i] : '',
                     'tipoSeguro' => isset($seguroArray[$i]) ? $seguroArray[$i] : ''
@@ -564,7 +567,7 @@
                     'nombre' => isset($nombreArray[$i]) ? $nombreArray[$i] : '',
                     'dni' => isset($dniArray[$i]) ? $dniArray[$i] : '',
                     'carnet' => isset($carnetArray[$i]) ? $carnetArray[$i] : '',
-                    'vencimiento' => isset($vencimientoArray[$i]) ? $vencimientoArray[$i] : ''
+                    'vencimiento' => isset($vencimientoArray[$i]) ? date("d/m/y", strtotime($vencimientoArray[$i])) : '',
                 ];
             }
     
@@ -577,13 +580,14 @@
                 $pdf->Cell(5, 8, chr(149), 0, 0);
                 $pdf->Cell(0, 8, mb_convert_encoding('DNI del/los conductor/ra/es/as: ' . $conductor['dni'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 8, chr(149), 0, 0);
-                $pdf->Cell(0, 8, mb_convert_encoding('Número/s de carnet de conducir y vigencia: ' . $conductor['carnet'] . $conductor['vencimiento'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+                $pdf->Cell(0, 8, mb_convert_encoding('Número/s de carnet de conducir y vigencia: ' . $conductor['carnet'] . ', '.$conductor['vencimiento'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Ln(5);
             }
         }
 
         $pdf->Ln(5);
     }
+    
     
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(0, 8, mb_convert_encoding('Aclaración:', 'ISO-8859-1', 'UTF-8'), 0, 1);

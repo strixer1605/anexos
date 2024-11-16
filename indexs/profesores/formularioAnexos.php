@@ -225,6 +225,7 @@
         <script>
             var salidaIDSesion = "<?php echo $idSalida; ?>";
             var anexoVIIIHabil = "<?php echo $anexoviiiHabil; ?>";  
+            var planillaHabil = "<?php echo $planillaHabil; ?>";  
         </script>
     </body>
 </html>

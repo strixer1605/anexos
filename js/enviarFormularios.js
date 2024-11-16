@@ -2,9 +2,17 @@ document.addEventListener("DOMContentLoaded", function() {
     var anexoVIIIDiv = document.getElementById('anexoVIII');
     var anexoVIIIDivTab = document.getElementById('anexoVIII-tab');
     
-    if (anexoVIIIHabil === "0") {
+    var planillaDiv = document.getElementById('planillaInfo');
+    var planillaDivTab = document.getElementById('planillaInfo-tab');
+    
+    if (anexoVIIIHabil === "2") {
         if (anexoVIIIDiv) anexoVIIIDiv.style.display = 'none';
         if (anexoVIIIDivTab) anexoVIIIDivTab.style.display = 'none';
+    }
+
+    if (planillaHabil == 0) {
+        if (planillaDiv) planillaDiv.style.display = 'none';
+        if (planillaDivTab) planillaDivTab.style.display = 'none';
     }
 
     $.ajax({

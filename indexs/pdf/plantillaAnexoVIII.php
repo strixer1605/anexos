@@ -37,6 +37,10 @@
     $pdf->SetFont('Arial', '', 12);
 
     while ($filaAnexoVIIIArrays = mysqli_fetch_assoc($resultadoAnexoVIII)) {
+        $fechaHabilitacion = date("d/m/y", strtotime($filaAnexoVIIIArrays['fechaHabilitacion']));
+        $vigenciaVTV = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaVTV']));
+        $vigenciaConductor = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaConductor']));
+
         $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la empresa o razón social: '.$filaAnexoVIIIArrays['nombreEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Nombre del gerente o responsable: '.$filaAnexoVIIIArrays['nombreGerente'], 'ISO-8859-1', 'UTF-8'), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del propietario o la empresa: '.$filaAnexoVIIIArrays['domicilioEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
@@ -84,10 +88,10 @@
             for ($i = 0; $i < $count; $i++) {
                 $vehiculos[] = [
                     'registro' => isset($registroArray[$i]) ? $registroArray[$i] : '',
-                    'fechaHabilitacion' => isset($fechaHabArray[$i]) ? $fechaHabArray[$i] : '',
+                    'fechaHabilitacion' => isset($fechaHabArray[$i]) ? date("d/m/y", strtotime($fechaHabArray[$i])) : '',
                     'tipoHabilitacion' => isset($tipoHabArray[$i]) ? $tipoHabArray[$i] : '',
                     'cantAsientos' => isset($cantArray[$i]) ? $cantArray[$i] : '',
-                    'vigenciaVTV' => isset($vigenciaArray[$i]) ? $vigenciaArray[$i] : '',
+                    'vigenciaVTV' => isset($vigenciaArray[$i]) ? date("d/m/y", strtotime($vigenciaArray[$i])) : '',
                     'aseguradora' => isset($aseguradoraArray[$i]) ? $aseguradoraArray[$i] : '',
                     'nroPoliza' => isset($polizaArray[$i]) ? $polizaArray[$i] : '',
                     'tipoSeguro' => isset($seguroArray[$i]) ? $seguroArray[$i] : ''
@@ -133,7 +137,7 @@
                     'nombre' => isset($nombreArray[$i]) ? $nombreArray[$i] : '',
                     'dni' => isset($dniArray[$i]) ? $dniArray[$i] : '',
                     'carnet' => isset($carnetArray[$i]) ? $carnetArray[$i] : '',
-                    'vencimiento' => isset($vencimientoArray[$i]) ? $vencimientoArray[$i] : ''
+                    'vencimiento' => isset($vencimientoArray[$i]) ? date("d/m/y", strtotime($vencimientoArray[$i])) : '',
                 ];
             }
     

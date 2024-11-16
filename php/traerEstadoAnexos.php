@@ -3,7 +3,8 @@
     include ('conexion.php');
 
     if (isset($idSalida)) {
-        $sql = "SELECT anexoviiiHabil FROM anexoiv WHERE idAnexoIV = ?";
+        // Primer consulta para obtener anexoviiiHabil
+        $sql = "SELECT anexoviiiHabil, distanciaSalida FROM anexoiv WHERE idAnexoIV = ?";
         $stmt = $conexion->prepare($sql);
         if ($stmt === false) {
             die('Error preparando la consulta: ' . $conexion->error);
@@ -17,6 +18,7 @@
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $anexoviiiHabil = $row['anexoviiiHabil'];
+                $distanciaSalida = $row['distanciaSalida']; // Guardamos el valor de distanciaSalida
             } else {
                 die('Error: No se encontraron resultados.');
             }
@@ -25,6 +27,13 @@
             die('Error al ejecutar la consulta: ' . $stmt->error);
         }
  
+        // Lógica para la variable planillaHabil
+        if ($distanciaSalida == 1 || $distanciaSalida == 2) {
+            $planillaHabil = 0;
+        } else {
+            $planillaHabil = 1;
+        }
+
         $stmt->close();
         $conexion->close();
     } else {
