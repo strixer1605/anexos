@@ -46,7 +46,7 @@
                 $resultCountAnexov = $stmtCountAnexov->get_result();
                 $countAnexov = $resultCountAnexov->fetch_assoc()['total'];
 
-                if ($countAnexov > 2) {
+                if ($countAnexov >= 2) {
                     echo '<li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo V</a></li>';
                 } else {
                     echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo V (Sin Completar)</a></li>';

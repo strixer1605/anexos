@@ -1,6 +1,8 @@
 <?php
     require ('fpdf/fpdf.php'); // Asegúrate de que esta ruta sea correcta
     include ('../../php/verificarSessionPDF.php');
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
     $idSalida = $_SESSION['idSalida'];
 
@@ -168,7 +170,7 @@
     
     while ($row = mysqli_fetch_assoc($resultadoTitulares)) {
         $nombre = ucwords(strtolower($row['apellidoNombre']));
-        $pdf->Cell(120, 8, mb_convert_encoding("Apellido y Nombre: $nombre", 'ISO-8859-1', 'UTF-8'), 0, 0);
+        $pdf->Cell(120, 8, mb_convert_encoding("Apellido y Nombre: ".$nombre.", ".$_SESSION['dniProfesor'], 'ISO-8859-1', 'UTF-8'), 0, 0);
         $pdf->Cell(0, 8, mb_convert_encoding('Cargo: Docente titular', 'ISO-8859-1', 'UTF-8'), 0, 1);
     }
 

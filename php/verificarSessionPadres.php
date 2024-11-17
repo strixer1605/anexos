@@ -4,6 +4,6 @@
         header('Location: ../../index.php');
         exit;
     } else {
-        include('../../php/conexion.php');
+        include('conexion.php');
     }
 ?>

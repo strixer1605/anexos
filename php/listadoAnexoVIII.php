@@ -1,8 +1,10 @@
 <?php
+    header('Access-Control-Allow-Origin: *'); // Allows all origins, or replace * with your specific domain if needed
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS'); // Specifies allowed methods
+    header('Access-Control-Allow-Headers: Content-Type'); // Allows specific headers
+
     session_start();
     include 'verificarSessionNoStart.php';
-
-    include 'conexion.php';
 
     $sql = "SELECT * FROM `anexoVIII` WHERE fkAnexoIV = ".$_SESSION['idSalida']."";
     $result = mysqli_query($conexion, $sql);

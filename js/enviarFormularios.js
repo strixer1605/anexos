@@ -17,29 +17,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $.ajax({
         method: 'GET',
-        url: '../../php/listadoAnexoVIII.php',
+        url: 'https://www.tecnica1lacosta.edu.ar/anexos/php/listadoAnexoVIII.php',
         success: function(response) {
-            const respuesta = JSON.parse(response);
-
-            if (respuesta.status === "registrosSI") {
-                generarDatosCargados(respuesta.data); // Llama a la función con los datos recibidos
-            } 
-            else if (respuesta.status === "registrosNO") {
-                const selectVehiculos = document.getElementById("cantidadVehiculos"); 
-                selectVehiculos.addEventListener("change", generarVehiculos);
-
-                const selectConductores = document.getElementById("cantidadConductores"); 
-                selectConductores.addEventListener("change", generarConductores);
+            // Log the raw response to inspect
+            console.log(response);
+    
+            // Check if the response is a valid JSON string
+            try {
+                const respuesta = JSON.parse(response);
+                console.log(respuesta);
+    
+                if (respuesta.status === "registrosSI") {
+                    generarDatosCargados(respuesta.data); // Process the data
+                } 
+                else if (respuesta.status === "registrosNO") {
+                    const selectVehiculos = document.getElementById("cantidadVehiculos"); 
+                    selectVehiculos.addEventListener("change", generarVehiculos);
+    
+                    const selectConductores = document.getElementById("cantidadConductores"); 
+                    selectConductores.addEventListener("change", generarConductores);
+                }
+            } catch (e) {
+                // Handle case where response is not valid JSON
+                console.error("Response is not valid JSON", e);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error en la respuesta del servidor. No se recibió JSON.',
+                });
             }
         },
-        error: function() {
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Ha ocurrido un error al obtener los datos.',
             });
         }
-    });
+    });    
 
     function capturarDatos() {
         let numeroRegistroArray = [];
