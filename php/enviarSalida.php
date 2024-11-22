@@ -7,43 +7,39 @@
 
             $idAnexoIV = $_POST['idAnexoIV'];
 
-            // Verificar si el anexo VIII está habilitado
-            $sqlAnexoVIIIHabil = "SELECT anexoviiiHabil FROM anexoiv WHERE idAnexoIV = ?";
-            $stmtAnexoVIIIHabil = $conexion->prepare($sqlAnexoVIIIHabil);
+            // Verificar si el anexo VIII y la planilla estan habilitados
+            $sqlHabiles = "SELECT anexoviiiHabil, planillaHabilitada FROM anexoiv WHERE idAnexoIV = ?";
+            $stmtHabiles = $conexion->prepare($sqlHabiles);
 
-            if ($stmtAnexoVIIIHabil) {
-                $stmtAnexoVIIIHabil->bind_param('i', $idAnexoIV);
-                $stmtAnexoVIIIHabil->execute();
-                $resultAnexoVIIIHabil = $stmtAnexoVIIIHabil->get_result();
-                $anexoVIIIHabilitado = $resultAnexoVIIIHabil->fetch_assoc()['anexoviiiHabil'];
-                $stmtAnexoVIIIHabil->close();
+            if ($stmtHabiles) {
+                $stmtHabiles->bind_param('i', $idAnexoIV);
+                $stmtHabiles->execute();
+                $resultHabiles = $stmtHabiles->get_result();
+            
+                $rowHabiles = $resultHabiles->fetch_assoc();
+                $anexoVIIIHabilitado = $rowHabiles['anexoviiiHabil'];
+                $planillaHabilitada = $rowHabiles['planillaHabilitada'];
+
+                $stmtHabiles->close();
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Error en la consulta de habilitación del Anexo VIII.']);
                 exit;
             }
 
-            // Consultar anexos V y planilla informatva
+            // Consultar anexos
             $sqlAnexoV = "SELECT COUNT(*) as count FROM anexov WHERE fkAnexoIV = ?";
             $sqlAnexoVIII = "SELECT COUNT(*) as count FROM anexoviii WHERE fkAnexoIV = ?";
             $sqlAnexoPlanilla = "SELECT COUNT(*) as count FROM planillainfoanexo WHERE fkAnexoIV = ?";
 
             $stmtAnexoV = $conexion->prepare($sqlAnexoV);
-            $stmtAnexoPlanilla = $conexion->prepare($sqlAnexoPlanilla);
 
-            if ($stmtAnexoV && $sqlAnexoPlanilla) {
+            if ($stmtAnexoV) {
                 // Ejecutar y verificar Anexo V
                 $stmtAnexoV->bind_param('i', $idAnexoIV);
                 $stmtAnexoV->execute();
                 $resultAnexoV = $stmtAnexoV->get_result();
                 $anexoVCompleto = $resultAnexoV->fetch_assoc()['count'] > 1;
                 $stmtAnexoV->close();
-
-                // Ejecutar y verificar Anexo planilla informativa
-                $stmtAnexoPlanilla->bind_param('i', $idAnexoIV);
-                $stmtAnexoPlanilla->execute();
-                $resultAnexoPlanilla = $stmtAnexoPlanilla->get_result();
-                $anexoPlanillaCompleto = $resultAnexoPlanilla->fetch_assoc()['count'] > 0;
-                $stmtAnexoPlanilla->close();
 
                 // Verificar Anexo VIII solo si está habilitado
                 if ($anexoVIIIHabilitado == 1) {
@@ -63,8 +59,24 @@
                     $anexoVIIICompleto = true;
                 }
 
+                if ($planillaHabilitada == 1) {
+                    $stmtAnexoPlanilla = $conexion->prepare($sqlAnexoPlanilla);
+                    if ($stmtAnexoPlanilla) {
+                        $stmtAnexoPlanilla->bind_param('i', $idAnexoIV);
+                        $stmtAnexoPlanilla->execute();
+                        $resultAnexoPlanilla = $stmtAnexoPlanilla->get_result();
+                        $planillaCompleta = $resultAnexoPlanilla->fetch_assoc()['count'] > 0;
+                        $stmtAnexoPlanilla->close();
+                    } else {
+                        echo json_encode(['status' => 'error', 'message' => 'Error en la consulta de la Planilla Informativa.']);
+                        exit;
+                    }
+                } else {
+                    $planillaCompleta = true;
+                }
+                
                 // Si todos los anexos están completos, proceder con el UPDATE
-                if ($anexoVCompleto && $anexoVIIICompleto && $anexoPlanillaCompleto) {
+                if ($anexoVCompleto && $anexoVIIICompleto && $planillaCompleta) {
                     $sqlUpdate = "UPDATE anexoiv SET estado = 4 WHERE idAnexoIV = ?";
                     $stmtUpdate = $conexion->prepare($sqlUpdate);
                     if ($stmtUpdate) {
@@ -79,7 +91,7 @@
                         echo json_encode(['status' => 'error', 'message' => 'Error en la consulta de actualización.']);
                     }
                 } else {
-                    echo json_encode(['status' => 'error', 'message' => 'Faltan anexos por completar.']);
+                    echo json_encode(['status' => 'error', 'message' => 'Faltan anexos por completar. Revise la cantidad de itegrantes en la salida o busque formularios incompletos en la sección de formularios.']);
                 }
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de las consultas de verificación.']);

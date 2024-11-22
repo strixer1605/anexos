@@ -27,7 +27,8 @@
                     </div>';
             }
             
-            echo '</li>'; // Cerrar la lista
+            echo '</li>                    <hr>'; // Cerrar la lista
+            
         }
     } else {
         echo "No hay salidas pendientes.";

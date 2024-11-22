@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (anexoVIIIDivTab) anexoVIIIDivTab.style.display = 'none';
     }
 
-    if (planillaHabil == 0) {
+    if (planillaHabil === "2") {
         if (planillaDiv) planillaDiv.style.display = 'none';
         if (planillaDivTab) planillaDivTab.style.display = 'none';
     }
 
     $.ajax({
         method: 'GET',
-        url: 'https://www.tecnica1lacosta.edu.ar/anexos/php/listadoAnexoVIII.php',
+        url: '../../php/listadoAnexoVIII.php',
         success: function(response) {
             // Log the raw response to inspect
             console.log(response);

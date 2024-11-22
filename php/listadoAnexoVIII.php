@@ -6,7 +6,7 @@
     session_start();
     include 'verificarSessionNoStart.php';
 
-    $sql = "SELECT * FROM `anexoVIII` WHERE fkAnexoIV = ".$_SESSION['idSalida']."";
+    $sql = "SELECT * FROM `anexoviii` WHERE fkAnexoIV = ".$_SESSION['idSalida']."";
     $result = mysqli_query($conexion, $sql);
 
     if (!$result) {

@@ -127,8 +127,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="regionVisita" class="form-label">Región a Visitar:</label>
-                    <input type="text" class="form-control item" id="regionVisita" name="regionVisita" placeholder="Ingrese la región a visitar..." required>
+                    <label for="regionVisita" class="form-label">Región a Visitar (Número):</label>
+                    <input type="number" class="form-control item" id="regionVisita" name="regionVisita" placeholder="Ingrese el número de región a visitar..." required>
                 </div>
 
                 <div class="form-group">
@@ -222,7 +222,7 @@
                     <textarea type="text" class="form-control item" id="gastosEstimativos" name="gastosEstimativos" placeholder="Ingrese los gastos estimativos o como solventarlos..." required></textarea>
                 </div>
 
-                <p style="margin-top: 15px;"><b style="color: red;">ANTENCIÓN:</b> Deberá completar la lista del anexo V, para así poder descargar el anexo IV y evitar impresiones incorrectas.</p>
+                <p style="margin-top: 15px;"><b style="color: red;">ATENCIÓN:</b> Deberá completar la lista del anexo V, para así poder descargar el anexo IV y evitar impresiones incorrectas.</p>
 
                 <div class="form-group">
                     <center><button type="button" class="create-account" id="cargarAnexoIV">Cargar Anexo 4</button></center>

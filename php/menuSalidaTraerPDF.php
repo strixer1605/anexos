@@ -40,13 +40,13 @@
                 }
 
                 // Verificación del total de registros en anexov para mostrar Anexo V
-                $sqlCountAnexov = "SELECT COUNT(*) as total FROM anexov";
+                $sqlCountAnexov = "SELECT COUNT(*) as total FROM anexov WHERE fkAnexoIV = $idSalida";
                 $stmtCountAnexov = $conexion->prepare($sqlCountAnexov);
                 $stmtCountAnexov->execute();
                 $resultCountAnexov = $stmtCountAnexov->get_result();
                 $countAnexov = $resultCountAnexov->fetch_assoc()['total'];
 
-                if ($countAnexov >= 2) {
+                if ($countAnexov > 1) {
                     echo '<li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo V</a></li>';
                 } else {
                     echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo V (Sin Completar)</a></li>';

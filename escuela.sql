@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-11-2024 a las 05:45:26
+-- Tiempo de generación: 22-11-2024 a las 00:07:05
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -5521,10 +5521,11 @@ CREATE TABLE IF NOT EXISTS `anexoiv` (
   `localidadHospedaje` varchar(70) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `gastosEstimativos` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `anexoviiiHabil` tinyint(1) NOT NULL,
+  `planillaHabilitada` tinyint NOT NULL,
   `fechaLimite` datetime DEFAULT NULL,
   `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idAnexoIV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 

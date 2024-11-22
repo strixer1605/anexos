@@ -425,8 +425,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const fields = [
             'denominacionProyecto',
-            'localidadViaje',
-            'lugarVisitar',
+            'lugarVisita',
+            'direccionVisita',
+            'localidadVisita',
+            'regionVisita',
             'fechaSalida',
             'lugarSalida',
             'horaSalida',
@@ -435,6 +437,8 @@ document.addEventListener("DOMContentLoaded", function() {
             'horaRegreso',
             'itinerario',
             'actividades',
+            'objetivosSalida',
+            'cronograma',
             'gastosEstimativos'
         ];
 
@@ -521,6 +525,22 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             return;
         }        
+
+        const regionVisita = document.getElementById('regionVisita');
+        if (!/^\d+$/.test(regionVisita.value.trim())) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Región Inválida',
+                text: 'El campo Región de Visita solo debe contener números.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    regionVisita.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    regionVisita.focus();
+                }, 300);
+            });
+            return;
+        }
 
         const checkboxes = document.querySelectorAll(".form-check-input");
         checkboxes.forEach(function(checkbox) {

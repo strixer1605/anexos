@@ -6,6 +6,7 @@
         $estado = 1;
         $tipoSolicitud = intval($_POST['tipoSalida']);
         $distanciaSalida = intval($_POST['distanciaSalida']);
+        $planillaHabilitada = ($distanciaSalida == 1 || $distanciaSalida == 2) ? 2 : 1; // Nueva lógica
         $region = 18;
         $distrito = "La Costa";
         $institucionEducativa = "E.E.S.T.";
@@ -43,17 +44,17 @@
             telefonoInstitucion, denominacionProyecto, lugarVisita, direccionVisita, localidadVisita, regionVisita,
             fechaSalida, lugarSalida, horaSalida, fechaRegreso, lugarRegreso, horaRegreso, itinerario, actividades, objetivosSalida,
             cronograma, dniEncargado, apellidoNombreEncargado, cargo, nombreHospedaje, domicilioHospedaje, telefonoHospedaje, 
-            localidadHospedaje, gastosEstimativos, anexoviiiHabil, fechaLimite
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            localidadHospedaje, gastosEstimativos, anexoviiiHabil, planillaHabilitada, fechaLimite
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $conexion->prepare($sql)) {
             $stmt->bind_param(
-                "iiiissisisssssssssssssssisississis",
+                "iiiissisisssssssssssssssisississiis",
                 $estado, $tipoSolicitud, $distanciaSalida, $region, $distrito, $institucionEducativa, $numeroInstitucion, $domicilioInstitucion,
                 $telefonoInstitucion, $denominacionProyecto, $lugarVisita, $direccionVisita, $localidadVisita, $regionVisita, $fechaSalida, 
                 $lugarSalida, $horaSalida, $fechaRegreso, $lugarRegreso, $horaRegreso, $itinerario, $actividades, $objetivosSalida, $cronograma,
                 $dniEncargado, $apellidoNombreEncargado, $cargo, $nombreHospedaje, $domicilioHospedaje, $telefonoHospedaje, 
-                $localidadHospedaje,$gastosEstimativos, $anexo8, $fechaLimite
+                $localidadHospedaje,$gastosEstimativos, $anexo8, $planillaHabilitada, $fechaLimite
             );
 
             if ($stmt->execute()) {
