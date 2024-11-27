@@ -4,11 +4,19 @@ document.addEventListener("DOMContentLoaded", function() {
     
     var planillaDiv = document.getElementById('planillaInfo');
     var planillaDivTab = document.getElementById('planillaInfo-tab');
-    
+
+    var anexoVIIINextTab = "planillaInfo-tab"
+
     if (anexoVIIIHabil === "2") {
         if (anexoVIIIDiv) anexoVIIIDiv.style.display = 'none';
         if (anexoVIIIDivTab) anexoVIIIDivTab.style.display = 'none';
+    }else if (anexoVIIIHabil === "1"){
+        if (planillaHabil === "2"){
+            anexoVIIINextTab = "anexoV-tab"
+        }
     }
+
+    console.log('anexoVIIINextTab:', anexoVIIINextTab);
 
     if (planillaHabil === "2") {
         if (planillaDiv) planillaDiv.style.display = 'none';
@@ -17,15 +25,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $.ajax({
         method: 'GET',
-        url: '../../php/listadoAnexoVIII.php',
+        url: 'https://www.tecnica1lacosta.edu.ar/anexos/php/listadoAnexoVIII.php',
         success: function(response) {
             // Log the raw response to inspect
-            console.log(response);
+            // console.log(response);
     
             // Check if the response is a valid JSON string
             try {
                 const respuesta = JSON.parse(response);
-                console.log(respuesta);
+                // console.log(respuesta);
     
                 if (respuesta.status === "registrosSI") {
                     generarDatosCargados(respuesta.data); // Process the data
@@ -224,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const pdfFileElement = document.getElementById('pdfFile');
         const existingPDF = document.getElementById('existingPdf');
-        console.log(pdfFileElement, existingPDF)
+        // console.log(pdfFileElement, existingPDF)
 
         if (!existingPDF && (!pdfFileElement.files || pdfFileElement.files.length === 0)) {
             Swal.fire({
@@ -390,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         capturarDatos();
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', 'planillaInfo-tab');
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', anexoVIIINextTab);
     }    
 
     function validateAndSubmitAnexoPlanilla(event) {
@@ -425,7 +433,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
-        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexov-tab');
+        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexoV-tab');
     }
 
     function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
@@ -565,7 +573,7 @@ function generarCamposVehiculos(vehiculosCount, nroRegistroArray = [], fechaHabi
                     </div>
                     <div class="form-group">
                         <p for="nroPoliza${i}" class="form-label">Número de póliza del vehículo ${i + 1}:</p>
-                        <input type="text" class="form-control item" id="nroPoliza${i}" name="nroPoliza${i}" value="${nroPolizaArray[i] || camposExistentes[i]?.nroPoliza || ''}" placeholder="Número de póliza...">
+                        <input type="number" class="form-control item" id="nroPoliza${i}" name="nroPoliza${i}" value="${nroPolizaArray[i] || camposExistentes[i]?.nroPoliza || ''}" placeholder="Número de póliza...">
                     </div>
                     <div class="form-group">
                         <p for="tipoSeguro${i}" class="form-label">Tipo de seguro del vehículo ${i + 1}:</p>
@@ -661,7 +669,7 @@ function generarVehiculos() {
                     </div>
                     <div class="form-group">
                         <p for="nroPoliza${i}" class="form-label">Número de póliza del vehículo ${i + 1}:</p>
-                        <input type="text" class="form-control item" id="nroPoliza${i}" name="nroPoliza${i}" placeholder="Ingrese el número de póliza...">
+                        <input type="number" class="form-control item" id="nroPoliza${i}" name="nroPoliza${i}" placeholder="Ingrese el número de póliza...">
                     </div>
                     <div class="form-group">
                         <p for="tipoSeguro${i}" class="form-label">Tipo de seguro del vehículo ${i + 1}:</p>
