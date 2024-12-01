@@ -41,14 +41,14 @@
         $vigenciaVTV = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaVTV']));
         $vigenciaConductor = date("d/m/y", strtotime($filaAnexoVIIIArrays['vigenciaConductor']));
 
-        $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la empresa o razón social: '.$filaAnexoVIIIArrays['nombreEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Nombre del gerente o responsable: '.$filaAnexoVIIIArrays['nombreGerente'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del propietario o la empresa: '.$filaAnexoVIIIArrays['domicilioEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono del propietario o la empresa: '.$filaAnexoVIIIArrays['telefonoEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del gerente o responsable: '.$filaAnexoVIIIArrays['domicilioGerente'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono: ', 'ISO-8859-1', 'UTF-8').$filaAnexoVIIIArrays['telefono'], 0, 1);
-        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono móvil: ', 'ISO-8859-1', 'UTF-8').$filaAnexoVIIIArrays['telefonoMovil'], 0, 1);
-        $pdf->MultiCell(0, 8, mb_convert_encoding('Titularidad del vehículo (Micro, ómnibus, combi, automóvil, camioneta, barco, lancha, avión, entre otros): '.$filaAnexoVIIIArrays['titularidadVehiculo'].'', 'ISO-8859-1', 'UTF-8'), 0);
+        $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la empresa o razón social: '.ucwords(strtolower($filaAnexoVIIIArrays['nombreEmpresa'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Nombre del gerente o responsable: '.ucwords(strtolower($filaAnexoVIIIArrays['nombreGerente'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del propietario o la empresa: '.ucfirst(strtolower($filaAnexoVIIIArrays['domicilioEmpresa'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono del propietario o la empresa: 0'.$filaAnexoVIIIArrays['telefonoEmpresa'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Domicilio del gerente o responsable: '.ucfirst(strtolower($filaAnexoVIIIArrays['domicilioGerente'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono: 0', 'ISO-8859-1', 'UTF-8').$filaAnexoVIIIArrays['telefono'], 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Teléfono móvil: 0', 'ISO-8859-1', 'UTF-8').$filaAnexoVIIIArrays['telefonoMovil'], 0, 1);
+        $pdf->MultiCell(0, 8, mb_convert_encoding('Titularidad del vehículo (Micro, ómnibus, combi, automóvil, camioneta, barco, lancha, avión, entre otros): '.ucfirst(strtolower($filaAnexoVIIIArrays['titularidadVehiculo'])).'', 'ISO-8859-1', 'UTF-8'), 0);
 
         $pdf->Ln(5);
     
@@ -107,13 +107,13 @@
                 $pdf->Cell(5, 10, chr(149), 0, 0);
                 $pdf->Cell(0, 10, mb_convert_encoding('Fecha de Habilitación: ' . $vehiculo['fechaHabilitacion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
-                $pdf->Cell(0, 10, mb_convert_encoding('Tipo de Habilitación: ' . $vehiculo['tipoHabilitacion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+                $pdf->Cell(0, 10, mb_convert_encoding('Tipo de Habilitación: ' . ucfirst(strtolower($vehiculo['tipoHabilitacion'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
                 $pdf->Cell(0, 10, mb_convert_encoding('Cantidad de Asientos: ' . $vehiculo['cantAsientos'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
                 $pdf->Cell(0, 10, mb_convert_encoding('Vigencia de VTV: ' . $vehiculo['vigenciaVTV'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
-                $pdf->Cell(0, 10, mb_convert_encoding('Aseguradora: ' . $aseguradora, 'ISO-8859-1', 'UTF-8'), 0, 1);
+                $pdf->Cell(0, 10, mb_convert_encoding('Aseguradora: ' . ucfirst($aseguradora), 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
                 $pdf->Cell(0, 10, mb_convert_encoding('Póliza: ' . $vehiculo['nroPoliza'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 10, chr(149), 0, 0);
@@ -141,12 +141,12 @@
                 ];
             }
     
-            // Iterar sobre el array de vehículos
+            // Iterar sobre el array de conductores
             foreach ($conductores as $index => $conductor) {
                 $posicion = $index + 1;
                 $pdf->Cell(0, 8, mb_convert_encoding('Conductor Nº'.$posicion, 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 8, chr(149), 0, 0);
-                $pdf->Cell(0, 8, mb_convert_encoding('Nombre del conductor/ra/res/ras: ' . $conductor['nombre'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+                $pdf->Cell(0, 8, mb_convert_encoding('Nombre del conductor/ra/res/ras: ' . ucwords(strtolower($conductor['nombre'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 8, chr(149), 0, 0);
                 $pdf->Cell(0, 8, mb_convert_encoding('DNI del/los conductor/ra/es/as: ' . $conductor['dni'], 'ISO-8859-1', 'UTF-8'), 0, 1);
                 $pdf->Cell(5, 8, chr(149), 0, 0);

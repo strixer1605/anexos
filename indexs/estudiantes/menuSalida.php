@@ -53,7 +53,7 @@
                             $stmtAnexoVI = $stmtAnexoVI->get_result();
                             
                             if ($stmtAnexoVI->num_rows > 0) {
-                                echo '<li><a href="../pdf/plantillaAnexoVII.php" class="btn form-control botones w-100 mb-3">Anexo VII</a></li>';
+                                echo '<li><a href="../pdf/plantillaAnexoVII.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo VII</a></li>';
                             } else {
                                 echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo VII (Sin completar)</a></li>';
                             }

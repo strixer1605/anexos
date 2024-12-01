@@ -37,7 +37,7 @@ function validarFormulario() {
     const telefonos = document.getElementById('telefonosOculto').value;
 
     // Expresión regular para validar caracteres especiales
-    const regexEspeciales = /^[a-zA-Z0-9\s,]+$/; // Permite letras, números, espacios y comas
+    const regexEspeciales = /^[a-zA-ZÀ-ÿ0-9\s,]+$/;
 
     // Validar domicilio (obligatorio y sin caracteres especiales)
     if (domicilioInput.value.trim() === '') {

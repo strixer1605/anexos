@@ -110,7 +110,7 @@
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(66, 10, mb_convert_encoding('Nombre del Proyecto de la Salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
     $pdf->SetFont('Arial', '', 12);
-    $pdf->Cell(0, 10, mb_convert_encoding($filaAnexoIV['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding(ucfirst(strtolower($filaAnexoIV['denominacionProyecto'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(53, 10, mb_convert_encoding('Lugar, día y hora de salida:', 'ISO-8859-1', 'UTF-8'), 0, 0);
@@ -128,13 +128,13 @@
     $pdf->Cell(0, 10, mb_convert_encoding('Lugares de estadía (domicilios y teléfonos):', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Cell(5, 10, chr(149), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la estadía: ' . $filaAnexoIV['nombreHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Nombre de la estadía: ' . ucwords(strtolower($filaAnexoIV['nombreHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Cell(5, 10, chr(149), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding('Domicilio de la estadía: ' . $filaAnexoIV['domicilioHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Domicilio de la estadía: ' . ucfirst(strtolower($filaAnexoIV['domicilioHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Cell(5, 10, chr(149), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding('Localidad de la estadía: ' . $filaAnexoIV['localidadHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Localidad de la estadía: ' . ucwords(strtolower($filaAnexoIV['localidadHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Cell(5, 10, chr(149), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la estadía: ' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la estadía: 0' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Ln(3);
     $pdf->SetFont('Arial', '', 12);
@@ -210,7 +210,7 @@
     }
 
     $pdf->Cell(50, 10, 'Nombre (Obra Social):', 1, 0, 'C');
-    $pdf->Cell(0, 10, ' ' . $filaAnexoVI['nombreObra'], 1, 1, 'L'); 
+    $pdf->Cell(0, 10, ' ' . ucwords(strtolower($filaAnexoVI['nombreObra'])), 1, 1, 'L'); 
     $pdf->Cell(55, 10, '', 0, 0, 'C'); 
     $pdf->Cell(50, 10, mb_convert_encoding('Nº Socio:', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
     $pdf->Cell(0, 10, ' ' . $filaAnexoVI['nSocio'], 1, 1, 'L');
@@ -231,7 +231,7 @@
     
     foreach ($arrayValores as $fila => $telefono) {
         $pdf->Cell(5, 8, chr(149), 0, 0);  // Viñeta
-        $pdf->Cell(0, 8, mb_convert_encoding($telefono, 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 8, mb_convert_encoding('0'.$telefono, 'ISO-8859-1', 'UTF-8'), 0, 1);
     }
     
     $pdf->Ln(10);

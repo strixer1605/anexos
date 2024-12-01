@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function validarAnexoIV(event) {
         event.preventDefault();
-
+    
         const anexo9 = document.querySelector('input[name="anexoVIII"]:checked');
         if (!anexo9) {
             const tipoSalidaContainer = document.querySelector('input[name="anexoVIII"]').closest('div');
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
+    
         const tipoSalida = document.querySelector('input[name="tipoSalida"]:checked');
         if (!tipoSalida) {
             const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div');
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
+    
         const distanciaSalida = document.querySelector('input[name="distanciaSalida"]:checked');
         if (!distanciaSalida) {
             const distSalidaContainer = document.querySelector('input[name="distanciaSalida"]').closest('div');
@@ -419,10 +419,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
+    
         const esValido = validarFechas();
         if (!esValido) return;
-
+    
         const fields = [
             'denominacionProyecto',
             'lugarVisita',
@@ -441,19 +441,61 @@ document.addEventListener("DOMContentLoaded", function() {
             'cronograma',
             'gastosEstimativos'
         ];
-
+    
         let firstInvalidField = null;
-
-        // Validación de campos vacíos obligatorios
+    
+        function containsSpecialCharacters(str) {
+            const regex = /[^a-zA-ZÀ-ÿ0-9\s]/g; // Prohíbe caracteres especiales
+            return regex.test(str);
+        }
+    
+        function containsOnlyNumbers(str) {
+            return /^[0-9]+$/.test(str);
+        }
+    
+        function containsOnlyLetters(str) {
+            const regex = /^[a-zA-ZÀ-ÿ\s]+$/; // Acepta letras y espacios
+            return regex.test(str);
+        }
+    
+        function isValidPhoneNumber(number) {
+            return /^[0-9]{10,15}$/.test(number);
+        }
+    
+        function parseDate(dateStr) {
+            const [day, month, year] = dateStr.split('/');
+            return new Date(`${year}-${month}-${day}`);
+        }
+    
+        function isValidDate(dateStr) {
+            const date = parseDate(dateStr);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return date > today;
+        }
+    
+        // Validación de campos obligatorios
         for (let field of fields) {
             const element = document.getElementById(field);
-            if (element && element.value.trim() === '') {
-                firstInvalidField = element;
-                break;
+            if (element) {
+                if (element.value.trim() === '') {
+                    firstInvalidField = element;
+                    break;
+                }
+    
+                if ((field === 'lugarVisita' || field === 'direccionVisita' || field === 'localidadVisita' 
+                    || field === 'lugarSalida' || field === 'lugarRegreso') && containsSpecialCharacters(element.value)) {
+                    firstInvalidField = element;
+                    break;
+                }                
+    
+                if ((field.includes('telefono') || field.includes('telefonoMovil')) && !isValidPhoneNumber(element.value)) {
+                    firstInvalidField = element;
+                    break;
+                }
             }
         }
-
-        // Validación de campos de hospedaje solo si están visibles
+    
         if (document.getElementById("nombreHospedaje").style.display !== "none") {
             const hospedajeFields = [
                 'nombreHospedaje',
@@ -461,39 +503,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 'telefonoHospedaje',
                 'localidadHospedaje'
             ];
-
+    
             for (let field of hospedajeFields) {
                 const element = document.getElementById(field);
-                if (element && element.value.trim() === '') {
-                    firstInvalidField = element;
-                    break;
+                if (element) {
+                    if (element.value.trim() === '') {
+                        firstInvalidField = element;
+                        break;
+                    }
+    
+                    if (field === 'nombreHospedaje' && !containsOnlyLetters(element.value)) {
+                        firstInvalidField = element;
+                        break;
+                    }
+    
+                    if (field === 'telefonoHospedaje' && !isValidPhoneNumber(element.value)) {
+                        firstInvalidField = element;
+                        break;
+                    }
                 }
             }
         }
-
-        if (firstInvalidField) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Campos Incompletos',
-                text: `El campo "${firstInvalidField.previousElementSibling.textContent}" es obligatorio.`,
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                setTimeout(() => {
-                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstInvalidField.focus();
-                }, 300);
-            });
-            return;
-        }
-
+    
         // Validación del nombre encargado
         var nombreEncargado = document.getElementById("nombreEncargado").value;
-        var nombrePattern = /^[A-Za-z\s]+$/;
-        if (!nombrePattern.test(nombreEncargado)) {
+        if (!containsOnlyLetters(nombreEncargado)) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Nombre Inválido',
-                text: "El nombre del encargado no debe contener números.",
+                text: "El nombre del encargado no debe contener números o caracteres especiales.",
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 setTimeout(() => {
@@ -503,31 +541,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
-        // Validación de telefonoHospedaje
-        var telefonoHospedaje = document.getElementById("telefonoHospedaje");
-        var telefonoValue = telefonoHospedaje.value.trim();
-        var allowDashes = telefonoHospedaje.dataset.allowDashes === "true";
-        const regex = allowDashes ? /^[\d-]{10,13}$/ : /^\d{10,13}$/;
-        
-        if (telefonoValue && !regex.test(telefonoValue) && telefonoHospedaje.disabled == false) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Número de Teléfono Inválido',
-                text: `El campo "${document.querySelector(`label[for=${telefonoHospedaje.id}]`).textContent}" debe contener solo números, con un máximo de 13 caracteres.`,
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                setTimeout(() => {
-                    telefonoHospedaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    telefonoHospedaje.focus();
-                }, 300);
-            });
-            event.preventDefault();
-            return;
-        }        
-
+    
+        // Validación de región de visita
         const regionVisita = document.getElementById('regionVisita');
-        if (!/^\d+$/.test(regionVisita.value.trim())) {
+        if (!containsOnlyNumbers(regionVisita.value.trim())) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Región Inválida',
@@ -541,14 +558,43 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-
-        const checkboxes = document.querySelectorAll(".form-check-input");
-        checkboxes.forEach(function(checkbox) {
-            checkbox.value = checkbox.checked ? "1" : "0";
-        });
-
+    
+        // Validación de campos de teléfono
+        var telefonoHospedaje = document.getElementById("telefonoHospedaje");
+        var telefonoValue = telefonoHospedaje.value.trim();
+        if (telefonoValue && !isValidPhoneNumber(telefonoValue)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Número de Teléfono Inválido',
+                text: `El campo "${document.querySelector(`label[for=${telefonoHospedaje.id}]`).textContent}" debe contener solo números, con un máximo de 15 caracteres.`,
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    telefonoHospedaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    telefonoHospedaje.focus();
+                }, 300);
+            });
+            return;
+        }
+    
+        if (firstInvalidField) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos Incorrectos',
+                text: `El campo "${firstInvalidField.previousElementSibling.textContent}" contiene una entrada inválida o está incompleto.`,
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                setTimeout(() => {
+                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalidField.focus();
+                }, 500);
+            });
+            return;
+        }
+    
         enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!');
     }
+    
 
     function enviarFormulario(formId, actionUrl, successMessage) {
         var form = document.getElementById(formId);
@@ -572,6 +618,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             console.log("Response from server:", data);  // Log respuesta
             if (data.trim() === 'success') {
+                document.getElementById("cargarAnexoIV").disabled = true;
+                document.getElementById("cargarAnexoIV").textContent = "Esperando respuesta...";
                 Swal.fire({
                     icon: 'success',
                     title: successMessage,

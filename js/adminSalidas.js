@@ -38,7 +38,7 @@ $(document).ready(function() {
                             <td>${salida.anexoixHabil}</td>
                             <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
                             <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
-                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
                             <td>(Mismo PDF para ambos)</td>
                             <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
                             <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
@@ -56,8 +56,8 @@ $(document).ready(function() {
                             <td>${salida.anexoixHabil}</td>
                             <td>${formatearFecha(salida.fechaSolicitud, true)}</td> <!-- Fecha con hora -->
                             <td>${formatearFecha(salida.fechaLimite, true)}</td> <!-- Fecha con hora -->
-                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
-                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFDirector.php" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
+                            <td><a class="btn btn-primary" href="../pdf/plantillaPDFDirector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
                             <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
                             <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
                         </tr>

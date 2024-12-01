@@ -61,7 +61,6 @@
                     <h2 style="color: black;">Menú de Anexos</h2>
                 </div>
                 <br>
-                
                 <?php include("../../php/traerEstadoAnexos.php")?>
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -84,6 +83,7 @@
                         <br>
                         <center><h2>Anexo V</h2></center>
                         <br>
+                        <p style="margin-top: 15px;"><b style="color: red;">ATENCIÓN:</b> El anexo V posee autoguardado, osea que cada cambio que usted haga en él, se guarda automáticamente sin necesidad de enviarlo como un formulario.</p>
                         <form id="formAnexo5" class="formulario" action="../../php/insertAnexoV.php" method="POST">
                             <!-- Sección de DNI -->
                             <div class="row mb-4">

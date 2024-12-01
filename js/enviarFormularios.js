@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    console.log('anexoVIIINextTab:', anexoVIIINextTab);
+    // console.log('anexoVIIINextTab:', anexoVIIINextTab);
 
     if (planillaHabil === "2") {
         if (planillaDiv) planillaDiv.style.display = 'none';
@@ -25,11 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $.ajax({
         method: 'GET',
-        url: 'https://www.tecnica1lacosta.edu.ar/anexos/php/listadoAnexoVIII.php',
+        url: '../../php/listadoAnexoVIII.php',
         success: function(response) {
-            // Log the raw response to inspect
-            // console.log(response);
-    
             // Check if the response is a valid JSON string
             try {
                 const respuesta = JSON.parse(response);
@@ -184,17 +181,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         function containsSpecialCharacters(str) {
-            const regex = /[^a-zA-Z0-9\s]/g;
+            const regex = /[^a-zA-ZÀ-ÿ0-9\s]/g; 
             return regex.test(str);
         }
+        
     
         function containsOnlyNumbers(str) {
             return /^[0-9]+$/.test(str);
         }
     
         function containsOnlyLetters(str) {
-            return /^[a-zA-Z\s]+$/.test(str);
-        }
+            const regex = /^[a-zA-ZÀ-ÿ\s]+$/;
+            return regex.test(str);
+        }        
     
         function containsOnlyLettersAndNumbers(str) {
             return /^[a-zA-Z0-9\s]+$/.test(str);
@@ -262,6 +261,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         const elementId = `${vehiculoField}${i}`;
                         if (elementId.startsWith('nroRegistro') || elementId.startsWith('tipoHabilitacion') || elementId.startsWith('tipoSeguro')) {
                             if (!containsOnlyLettersAndNumbers(element.value)) {
+                                firstInvalidField = element;
+                            }
+                        }
+                        else if (elementId.startsWith('tipoHabilitacion')) {
+                            if (!containsOnlyLetters(element.value)) {
                                 firstInvalidField = element;
                             }
                         } else if (elementId.startsWith('cantAsientos') || elementId.startsWith('nroPoliza')) {
@@ -398,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         capturarDatos();
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', anexoVIIINextTab);
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', anexoVIIINextTab, 'cargarAnexoVIII');
     }    
 
     function validateAndSubmitAnexoPlanilla(event) {
@@ -433,15 +437,23 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     
-        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexoV-tab');
+        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexoV-tab', 'cargarPlanilla');
     }
 
-    function enviarFormulario(formId, actionUrl, successMessage, nextTabId) {
+    document.getElementById('cargarAnexoVIII').addEventListener('click', validateAndSubmitAnexoVIII);
+    document.getElementById('cargarPlanilla').addEventListener('click', validateAndSubmitAnexoPlanilla);
+
+    function enviarFormulario(formId, actionUrl, successMessage, nextTabId, buttonId) {
         var form = document.getElementById(formId);
-        if (!form) return;
-
+        var button = document.getElementById(buttonId); // Obtén el botón
+        if (!form || !button) return;
+    
+        button.disabled = true; // Deshabilitar el botón
+        var textoboton = button.textContent
+        button.textContent = "Esperando respuesta..."; // Deshabilitar el botón
+    
         var formData = new FormData(form);
-
+    
         fetch(actionUrl, {
             method: 'POST',
             body: formData
@@ -467,7 +479,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al cargar el anexo',
+                    title: 'Error al cargar el formulario',
                     text: data,
                     confirmButtonText: 'Intentar de nuevo'
                 });
@@ -481,11 +493,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 text: 'No se pudo conectar al servidor. Por favor intenta de nuevo.',
                 confirmButtonText: 'Ok'
             });
+        })
+        .finally(() => {
+            button.disabled = false; // Habilitar el botón después de la respuesta
+            button.textContent = textoboton;
         });
-    }
-
-    document.getElementById('cargarAnexoVIII').addEventListener('click', validateAndSubmitAnexoVIII);
-    document.getElementById('cargarPlanilla').addEventListener('click', validateAndSubmitAnexoPlanilla);
+    }    
 });
 
 function generarDatosCargados(data) {

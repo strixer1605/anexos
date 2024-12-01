@@ -45,7 +45,7 @@
 
     $pdf->Cell(18, 10, mb_convert_encoding('Distrito: '.$fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(133, 10, mb_convert_encoding('Lugar a visitar: '.$fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(133, 10, mb_convert_encoding('Lugar a visitar: '.ucfirst(strtolower($fila['lugarVisita'])), 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(15, 10, mb_convert_encoding('Fecha: '.$fechaSalida, 'ISO-8859-1', 'UTF-8'), 0, 1);
 

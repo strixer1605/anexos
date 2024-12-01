@@ -34,9 +34,9 @@
 
                 // Verifica si hay suficientes docentes suplentes (cargo 5)
                 if ($countCargo5 > 0) {
-                    echo '<li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo IV</a></li>';
+                    echo '<li><a href="../pdf/plantillaAnexoIV.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo IV</a></li>';
                 } else {
-                    echo '<li><a href="../pdf/plantillaAnexoIV.php" class="btn form-control botones w-100 mb-3">Anexo IV (Atención: no hay suficientes suplentes)</a></li>';
+                    echo '<li><a href="../pdf/plantillaAnexoIV.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo IV (Atención: no hay suficientes suplentes)</a></li>';
                 }
 
                 // Verificación del total de registros en anexov para mostrar Anexo V
@@ -47,7 +47,7 @@
                 $countAnexov = $resultCountAnexov->fetch_assoc()['total'];
 
                 if ($countAnexov > 1) {
-                    echo '<li><a href="../pdf/plantillaAnexoV.php" class="btn form-control botones w-100 mb-3">Anexo V</a></li>';
+                    echo '<li><a href="../pdf/plantillaAnexoV.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo V</a></li>';
                 } else {
                     echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo V (Sin Completar)</a></li>';
                 }
@@ -61,7 +61,7 @@
                     $resultAnexoVIII = $stmtAnexoVIII->get_result();
 
                     if ($resultAnexoVIII->num_rows > 0) {
-                        echo '<li><a href="../pdf/plantillaAnexoVIII.php" class="btn form-control botones w-100 mb-3">Anexo VIII</a></li>';
+                        echo '<li><a href="../pdf/plantillaAnexoVIII.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo VIII</a></li>';
                     } else {
                         echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo VIII (Sin completar)</a></li>';
                     }

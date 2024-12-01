@@ -91,7 +91,7 @@
                         echo json_encode(['status' => 'error', 'message' => 'Error en la consulta de actualización.']);
                     }
                 } else {
-                    echo json_encode(['status' => 'error', 'message' => 'Faltan anexos por completar. Revise la cantidad de itegrantes en la salida o busque formularios incompletos en la sección de formularios.']);
+                    echo json_encode(['status' => 'error', 'message' => 'Faltan anexos por completar. Revise la cantidad de integrantes en la salida o busque formularios incompletos en la sección de formularios.']);
                 }
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de las consultas de verificación.']);

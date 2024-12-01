@@ -105,7 +105,7 @@
     }
 
     $pdf->SetFont('Arial', '', 12);
-    $pdf->MultiCell(0, 8, mb_convert_encoding("Quien suscribe, " . ucwords(strtolower($nombreCompleto)) . " DNI " . $dniAlumno . " domiciliada/o en la calle " . $filaAnexoVII['domicilio'] . " N°" . $filaAnexoVII['altura'] . " de la localidad de " . $filaAnexoVII['localidad'] . " a que concurre a la institución EEST N°1, participará de la ".$tipoSalida." a realizarse en localidad de " . $filaAnexoIV['localidadVisita'] . " el/los dia/s " . $diaSalida . " del mes de " . $mesSalida . " del año " . $anoSalida.".", 'ISO-8859-1', 'UTF-8'), 0);   
+    $pdf->MultiCell(0, 8, mb_convert_encoding("Quien suscribe, " . ucwords(strtolower($nombreCompleto)) . " DNI " . $dniAlumno . " domiciliada/o en la calle " . ucfirst(strtolower($filaAnexoVII['domicilio'])) . " N°" . $filaAnexoVII['altura'] . " de la localidad de " . ucwords(strtolower($filaAnexoVII['localidad'])) . " a que concurre a la institución EEST N°1, participará de la ".$tipoSalida." a realizarse en localidad de " . ucwords(strtolower($filaAnexoIV['localidadVisita'])) . " el/los dia/s " . $diaSalida . " del mes de " . $mesSalida . " del año " . $anoSalida.".", 'ISO-8859-1', 'UTF-8'), 0);   
     
     $pdf->Ln(5);
     
@@ -148,7 +148,7 @@
     }
 
     $pdf->Cell(50, 10, 'Nombre (Obra Social):', 1, 0, 'C');
-    $pdf->Cell(0, 10, ' ' . $filaAnexoVII['nombreObraSocial'], 1, 1, 'L'); 
+    $pdf->Cell(0, 10, ' ' . ucwords(strtolower($filaAnexoVII['nombreObraSocial'])), 1, 1, 'L'); 
     $pdf->Cell(55, 10, '', 0, 0, 'C'); 
     $pdf->Cell(50, 10, mb_convert_encoding('Nº Socio:', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
     $pdf->Cell(0, 10, ' ' . $filaAnexoVII['numeroAfiliado'], 1, 1, 'L');
@@ -162,7 +162,7 @@
     
     foreach ($arrayValores as $fila => $telefono) {
         $pdf->Cell(5, 8, chr(149), 0, 0);  // Viñeta
-        $pdf->Cell(0, 8, mb_convert_encoding($telefono, 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 8, mb_convert_encoding('0'.$telefono, 'ISO-8859-1', 'UTF-8'), 0, 1);
     }
     
     $pdf->Ln(10);

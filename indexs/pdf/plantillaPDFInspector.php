@@ -84,7 +84,7 @@ include('../../php/verificarSessionPDF.php');
     $resultado = mysqli_query($conexion, $sqlInfoAIV);
     $fila = mysqli_fetch_assoc($resultado);
 
-    $sqlIntegrantes = "SELECT * FROM anexov WHERE cargo != 5";
+    $sqlIntegrantes = "SELECT * FROM anexov WHERE cargo != 5 AND fkAnexoIV = $idSalida";
     $resultadoIntegrantes = mysqli_query($conexion, $sqlIntegrantes);
 
     $fechaSalida = date('d/m/Y', strtotime($fila['fechaSalida']));
@@ -107,7 +107,6 @@ include('../../php/verificarSessionPDF.php');
 
     $pdf->Cell(0, 30, mb_convert_encoding('IF-2024-35029395-GDEBA-CGCYEDGCYE', 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
 
-    // Texto ANEXO IV
     $pdf->SetFont('Arial', 'B', 15);
     $pdf->Cell(0, 10, mb_convert_encoding('ANEXO IV', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
 
@@ -148,18 +147,18 @@ include('../../php/verificarSessionPDF.php');
 
     $pdf->Cell(125, 10, mb_convert_encoding('Domicilio: '.$fila['domicilioInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
-    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono: '.$fila['telefonoInstitucion'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono: 02246-42-0535', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(0, 10, mb_convert_encoding('Denominacion del Proyecto: '.$fila['denominacionProyecto'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Denominacion del Proyecto: '.ucfirst(strtolower($fila['denominacionProyecto'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(0, 10, mb_convert_encoding('Lugar a visitar: '.$fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Lugar a visitar: '.ucfirst(strtolower($fila['lugarVisita'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(0, 10, mb_convert_encoding('Dirección a visitar: '.$fila['direccionVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Dirección a visitar: '.ucfirst(strtolower($fila['direccionVisita'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(0, 10, mb_convert_encoding('Localidad a visitar: '.$fila['localidadVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Localidad a visitar: '.ucwords(strtolower($fila['localidadVisita'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Cell(0, 10, mb_convert_encoding('Región a visitar: '.$fila['regionVisita'], 'ISO-8859-1', 'UTF-8'), 0, 1);
-    
+     
     $pdf->SetFont('Arial', '', 13);
     $pdf->Cell(20, 15, mb_convert_encoding('SALIDA', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
@@ -171,7 +170,7 @@ include('../../php/verificarSessionPDF.php');
     $pdf->Cell(20, 5, mb_convert_encoding($fila['horaSalida'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(15, 5, mb_convert_encoding('Lugar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Cell(86, 5, mb_convert_encoding($fila['lugarSalida'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(86, 5, mb_convert_encoding(ucfirst(strtolower($fila['lugarSalida'])), 'ISO-8859-1', 'UTF-8'), 0, 0);
     
     $pdf->Ln(5);
 
@@ -186,7 +185,7 @@ include('../../php/verificarSessionPDF.php');
     $pdf->Cell(20, 5, mb_convert_encoding($fila['horaRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(15, 5, mb_convert_encoding('Lugar:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Cell(20, 5, mb_convert_encoding($fila['lugarRegreso'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(20, 5, mb_convert_encoding(ucfirst(strtolower($fila['lugarRegreso'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
     
     $pdf->AddPage();
 
@@ -220,10 +219,10 @@ include('../../php/verificarSessionPDF.php');
     $pdf->Ln(5);
     $pdf->Cell(0, 10, mb_convert_encoding('Datos del/los docente/s reemplazantes', 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    while ($row = mysqli_fetch_assoc($resultadoSuplentes)) {
+    while ($row = mysqli_fetch_assoc($resultadoTitulares)) {
         $nombre = ucwords(strtolower($row['apellidoNombre']));
         $pdf->Cell(120, 8, mb_convert_encoding("Apellido y Nombre: $nombre", 'ISO-8859-1', 'UTF-8'), 0, 0);
-        $pdf->Cell(0, 8, mb_convert_encoding('Cargo: Docente suplente', 'ISO-8859-1', 'UTF-8'), 0, 1);
+        $pdf->Cell(0, 8, mb_convert_encoding('Cargo: Docente titular', 'ISO-8859-1', 'UTF-8'), 0, 1);
     }
 
     $pdf->Ln(5);
@@ -237,7 +236,7 @@ include('../../php/verificarSessionPDF.php');
     $pdf->Cell(0, 10, mb_convert_encoding('Total de Personas: '.$totalPersonas, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->AddPage();
-
+    
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(0, 10, mb_convert_encoding('Sólo para salidas de más de 24 horas', 'ISO-8859-1', 'UTF-8'), 0, 1);
     
@@ -245,7 +244,7 @@ include('../../php/verificarSessionPDF.php');
 
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell(25, 10, mb_convert_encoding('Hospedaje:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Cell(90, 10, mb_convert_encoding($fila['nombreHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(90, 10, mb_convert_encoding(ucfirst(strtolower($fila['nombreHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(21, 10, mb_convert_encoding('Teléfono:', 'ISO-8859-1', 'UTF-8'), 0, 0);
 
@@ -255,16 +254,16 @@ include('../../php/verificarSessionPDF.php');
     $pdf->Ln(5);    
 
     $pdf->Cell(22, 10, mb_convert_encoding('Domicilio:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Cell(93, 10, mb_convert_encoding($fila['domicilioHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(93, 10, mb_convert_encoding(ucfirst(strtolower($fila['domicilioHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(23, 10, mb_convert_encoding('Localidad:', 'ISO-8859-1', 'UTF-8'), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding($fila['localidadHospedaje'], 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding(ucwords(strtolower($fila['localidadHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Ln(10);    
+    $pdf->Ln(5);
 
     $pdf->MultiCell(0, 10, mb_convert_encoding('Gastos estimativos de la actividad y modo de solventarlos: '.$fila['gastosEstimativos'], 'ISO-8859-1', 'UTF-8'));
 
-    $pdf->Ln(40);    
+    $pdf->Ln(40);
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(85, 5, mb_convert_encoding('.......................................................................', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
@@ -296,7 +295,7 @@ include('../../php/verificarSessionPDF.php');
     
     $pdf->Ln(10);
 
-    $pdf->SetFont('Arial', '', 11);
+    $pdf->SetFont('Arial', '', 12);
     $pdf->MultiCell(0, 10, mb_convert_encoding('El presente formulario debe ser completado de forma digital por un integrante del Equipo Directivo, y enviado al/la Inspector/a en este formato.', 'ISO-8859-1', 'UTF-8'));
     $pdf->MultiCell(0, 10, mb_convert_encoding('El presente formulario deberá estar completo por duplicado (Uno para la institución otro la para la instancia de Supervisión)', 'ISO-8859-1', 'UTF-8'));
 
@@ -334,7 +333,7 @@ include('../../php/verificarSessionPDF.php');
 
     $pdf->Cell(18, 10, mb_convert_encoding('Distrito: '.$fila['distrito'], 'ISO-8859-1', 'UTF-8'), 0, 1);
 
-    $pdf->Cell(133, 10, mb_convert_encoding('Lugar a visitar: '.$fila['lugarVisita'], 'ISO-8859-1', 'UTF-8'), 0, 0);
+    $pdf->Cell(133, 10, mb_convert_encoding('Lugar a visitar: '.ucfirst(strtolower($fila['lugarVisita'])), 'ISO-8859-1', 'UTF-8'), 0, 0);
 
     $pdf->Cell(15, 10, mb_convert_encoding('Fecha: '.$fechaSalida, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
