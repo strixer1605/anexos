@@ -10,7 +10,14 @@ include('../../php/verificarSessionPDF.php');
         
     //datos
     $nombreDirector = ucwords(strtolower($_SESSION['nombreDir'] . ' ' . $_SESSION['apellidoDir']));
-    $idSalida = $_SESSION['idSalida'];
+    
+    error_reporting(0);
+    if($idSalidaGet = $_GET['idSalida']) {
+        $idSalida = $idSalidaGet;
+    } else {
+        $idSalida = $_SESSION['idSalida'];
+    }
+
     $sql = "SELECT 
         tipoSolicitud, 
         denominacionProyecto, 

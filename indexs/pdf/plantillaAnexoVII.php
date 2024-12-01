@@ -3,7 +3,12 @@
     include ('../../php/verificarSessionPDF.php');
 
     $dniAlumno = $_SESSION['dniEstudiante'];
-    $idSalida = $_SESSION['idSalida'];
+    error_reporting(0);
+    if($idSalidaGet = $_GET['idSalida']) {
+        $idSalida = $idSalidaGet;
+    } else {
+        $idSalida = $_SESSION['idSalida'];
+    }
 
     $sqlAnexoIV = "SELECT * FROM anexoiv WHERE idAnexoIV = $idSalida";
     $sqlAnexoV = "SELECT * FROM anexov WHERE fkAnexoIV = $idSalida AND cargo IN(1, 2, 4, 5)";

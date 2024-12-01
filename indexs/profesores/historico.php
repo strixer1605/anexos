@@ -39,6 +39,9 @@
                                     <th>¿Anexo VIII?</th>
                                     <th>Fecha límite (entrega)</th>
                                     <th>Fecha de modificación</th>
+                                    <th>Anexo IV (PDF)</th>
+                                    <th>Anexo V (PDF)</th>
+                                    <th>Anexo VIII (PDF)</th>
                                 </tr>
                             </thead>
                             <tbody>

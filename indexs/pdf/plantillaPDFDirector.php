@@ -6,7 +6,13 @@
     use setasign\Fpdi\Fpdi;
     use setasign\Fpdi\PdfReader\PdfReader;
 
-    $idSalida = $_SESSION['idSalida'];
+    error_reporting(0);
+
+    if($idSalidaGet = $_GET['idSalida']) {
+        $idSalida = $idSalidaGet;
+    } else {
+        $idSalida = $_SESSION['idSalida'];
+    }
     $sqlAnexoVIII = "SELECT * FROM anexoviii WHERE fkAnexoIV = $idSalida";
     $resultadoAnexoVIII = mysqli_query($conexion, $sqlAnexoVIII);
 
@@ -17,7 +23,7 @@
         
     //datos
     $nombreDirector = ucwords(strtolower($_SESSION['nombreDir'] . ' ' . $_SESSION['apellidoDir']));
-    $idSalida = $_SESSION['idSalida'];
+
     $sql = "SELECT 
         tipoSolicitud, 
         denominacionProyecto, 

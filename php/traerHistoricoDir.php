@@ -67,6 +67,8 @@
                     <td> '.$anexoviiiHabil.'</td>
                     <td> '.$fechaLimite.' </td>
                     <td> '.$fechaModificacion.' </td>
+                    <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php?idSalida='.$fila['idAnexoIV'].'">Descargar</a></td>
+                    <td><a class="btn btn-primary" href="../pdf/plantillaPDFDirector.php?idSalida='.$fila['idAnexoIV'].'">Descargar</a></td>
                 </tr>';
         }
     }

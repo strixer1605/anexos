@@ -52,7 +52,6 @@
                                         <th>Inspector (PDF)</th>
                                         <th>Director (PDF)</th>
                                         <th>Gestionar</th>
-                                        <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody id="proyectosTabla">

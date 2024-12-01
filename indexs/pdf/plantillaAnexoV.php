@@ -2,7 +2,13 @@
     require ('fpdf/fpdf.php');
     include ('../../php/verificarSessionPDF.php');
 
-    $idSalida = $_SESSION['idSalida'];
+    error_reporting(0);
+    if($idSalidaGet = $_GET['idSalida']) {
+        $idSalida = $idSalidaGet;
+    } else {
+        $idSalida = $_SESSION['idSalida'];
+    }
+
 
     $sqlInfoAIV = "SELECT * FROM anexoiv WHERE idAnexoIV = $idSalida";
     $resultado = mysqli_query($conexion, $sqlInfoAIV);

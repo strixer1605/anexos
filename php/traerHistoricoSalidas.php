@@ -67,6 +67,9 @@
                     <td> '.$anexoviiiHabil.'</td>
                     <td> '.$fechaLimite.' </td>
                     <td> '.$fechaModificacion.' </td>
+                    <td> <a class="btn btn-primary" href="../pdf/plantillaAnexoIV.php?idSalida='.$fila['idAnexoIV'].'" target="_blank">Descargar</a> </td>
+                    <td> <a class="btn btn-primary" href="../pdf/plantillaAnexoV.php?idSalida='.$fila['idAnexoIV'].'" target="_blank">Descargar</a> </td>
+                    <td> <a class="btn btn-primary" href="../pdf/plantillaanexoVIII.php?idSalida='.$fila['idAnexoIV'].'" target="_blank">Descargar</a> </td>
                 </tr>';
         }
     }

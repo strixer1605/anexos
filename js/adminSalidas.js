@@ -41,7 +41,6 @@ $(document).ready(function() {
                             <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
                             <td>(Mismo PDF para ambos)</td>
                             <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
-                            <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
                         </tr>
                     `;
                     tabla.append(fila);
@@ -59,7 +58,6 @@ $(document).ready(function() {
                             <td><a class="btn btn-primary" href="../pdf/plantillaPDFInspector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
                             <td><a class="btn btn-primary" href="../pdf/plantillaPDFDirector.php" target="_blank" onclick="establecerIdSalida(${salida.idAnexoIV})">Descargar</a></td>
                             <td><button class="btn btn-success" onclick="gestionarSalida(${salida.idAnexoIV}, event)">Gestionar</button></td>
-                            <td><button class="btn btn-danger" onclick="eliminarSalida(${salida.idAnexoIV}, event)">Eliminar</button></td>
                         </tr>
                     `;
                     tabla.append(fila);
@@ -160,45 +158,6 @@ function desaprobarSalida(id) {
         } catch (e) {
             console.log('Error al parsear respuesta:', e); // Debug
             Swal.fire('Error', 'No se pudo procesar la solicitud.', 'error');
-        }
-    });
-}
-
-function eliminarSalida(id, event) {
-    event.preventDefault(); // Prevenir el comportamiento predeterminado
-    console.log('Eliminando salida con ID: ', id);
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: 'Esta acción eliminará la salida permanentemente, incluyendo todo registro asociado.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            console.log('Confirmación recibida, enviando solicitud AJAX'); // Debug
-            // Lógica para eliminar salida
-            $.post('../../php/eliminarSalida.php', { idAnexoIV: id }, function(response) {
-                console.log('Respuesta AJAX:', response); // Debug
-                try {
-                    const res = JSON.parse(response);
-                    if (res.status === 'success') {
-                        Swal.fire({
-                            title: 'Eliminada',
-                            text: res.message,
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire('Error', res.message, 'error');
-                    }
-                } catch (e) {
-                    console.log('Error al parsear respuesta:', e); // Debug
-                    Swal.fire('Error', 'No se pudo procesar la solicitud.', 'error');
-                }
-            });
         }
     });
 }

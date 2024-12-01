@@ -47,6 +47,8 @@
                                     <th>¿Anexo VIII?</th>
                                     <th>Fecha límite (entrega)</th>
                                     <th>Fecha de gestión (Director)</th>
+                                    <th>Inspector (PDF)</th>
+                                    <th>Director (PDF)</th>
                                 </tr>
                             </thead>
                             <tbody>
