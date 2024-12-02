@@ -10,7 +10,7 @@
         $estado = 1;
         $tipoSolicitud = intval($_POST['tipoSalida']);
         $distanciaSalida = intval($_POST['distanciaSalida']);
-        $planillaHabilitada = ($distanciaSalida == 1 || $distanciaSalida == 2) ? 2 : 1; // Nueva lógica
+        $planillaHabilitada = ($distanciaSalida == 1) ? 2 : 1; // Nueva lógica
         $region = 18;
         $distrito = "La Costa";
         $institucionEducativa = "E.E.S.T.";

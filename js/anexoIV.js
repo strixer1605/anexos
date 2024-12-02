@@ -44,19 +44,19 @@ document.addEventListener("DOMContentLoaded", function() {
         if (width < 920) {
             switch(distanciaSeleccionada) {
                 case "1":
-                    alertMessage = 'Salida dentro del barrio o área geográfica inmediata, con regreso en el día. (5 días previos de entrega)';
+                    alertMessage = 'Salida dentro del barrio o área geográfica inmediata, con regreso en el día. (1 día previo de entrega)';
                     break;
                 case "2":
-                    alertMessage = 'Salida dentro del Distrito o fuera de él, con regreso en el día. (10 días previos de entrega)';
+                    alertMessage = 'Salida dentro del Distrito o fuera de él, con regreso en el día. (5 días previos de entrega)';
                     break;
                 case "3":
-                    alertMessage = 'Salida dentro del Distrito o fuera de él, con más de 24 horas de duración. (15 días previos de entrega)';
+                    alertMessage = 'Salida dentro del Distrito o fuera de él, con más de 24 horas de duración. (10 días previos de entrega)';
                     break;
                 case "4":
-                    alertMessage = 'Salida fuera de la Provincia de Buenos Aires. (30 días previos de entrega)';
+                    alertMessage = 'Salida fuera de la Provincia de Buenos Aires. (25 días previos de entrega)';
                     break;
                 case "5":
-                    alertMessage = 'Salida fuera del país. (30 días previos de entrega)';
+                    alertMessage = 'Salida fuera del país. (25 días previos de entrega)';
                     break;
                 default:
                     alertMessage = 'Opción no válida';
@@ -71,19 +71,19 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             switch(distanciaSeleccionada) {
                 case "1":
-                    alertMessage = 'Esta salida necesita 5 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 1 día previo de entrega.';
                     break;
                 case "2":
-                    alertMessage = 'Esta salida necesita 10 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 5 días previos de entrega.';
                     break;
                 case "3":
-                    alertMessage = 'Esta salida necesita 15 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 10 días previos de entrega.';
                     break;
                 case "4":
-                    alertMessage = 'Esta salida necesita 30 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 25 días previos de entrega.';
                     break;
                 case "5":
-                    alertMessage = 'Esta salida necesita 30 días previos de entrega.';
+                    alertMessage = 'Esta salida necesita 25 días previos de entrega.';
                     break;
                 default:
                     alertMessage = 'Opción no válida';
@@ -138,13 +138,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
         // Asignación de los días a restar según la distancia seleccionada
         if (distanciaSeleccionada == 1) {
-            diasARestar = 5;
+            diasARestar = 1;
         } else if (distanciaSeleccionada == 2) {
-            diasARestar = 10;
+            diasARestar = 5;
         } else if (distanciaSeleccionada == 3) {
-            diasARestar = 15;
+            diasARestar = 10;
         } else if (distanciaSeleccionada == 4 || distanciaSeleccionada == 5) {
-            diasARestar = 30;
+            diasARestar = 25;
         }
     
         // Validar que se haya seleccionado una fecha de salida
@@ -595,7 +595,6 @@ document.addEventListener("DOMContentLoaded", function() {
         enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!');
     }
     
-
     function enviarFormulario(formId, actionUrl, successMessage) {
         var form = document.getElementById(formId);
         if (!form) return;

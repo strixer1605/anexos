@@ -13,6 +13,7 @@
     </head>
     <body>
         <div class="container">
+            <br>
             <a href="../../php/logout.php" class="btn btn-danger">Cerrar sesión</a>
             <div class="row justify-content-center ">
                 <div class="col-6">

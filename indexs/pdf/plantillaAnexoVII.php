@@ -198,5 +198,5 @@
     $pdf->SetFont('Arial', '', 12);
     $pdf->Cell('0', 10, mb_convert_encoding('Fecha: ....../....../..........', 'ISO-8859-1', 'UTF-8'), 0, 1);
     
-    $pdf->Output('I', 'anexoVI.pdf');
+    $pdf->Output('I', 'anexoVII.pdf');
 ?>
