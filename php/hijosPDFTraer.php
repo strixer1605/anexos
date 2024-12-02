@@ -9,9 +9,9 @@
         $stmtAnexoVI = $stmtAnexoVI->get_result();
         
         if ($stmtAnexoVI->num_rows > 0) {
-            echo '<li><a href="../pdf/plantillaAnexoVI.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo VI</a></li>';
+            echo '<li><a href="../pdf/plantillaAnexoVI.php" target="_blank" class="btn btn-danger botones w-100 mb-3" style="color: white;">Anexo VI</a></li>';
         } else {
-            echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo VI (Sin completar)</a></li>';
+            echo '<li><a class="btn btn-danger botones w-100 mb-3" style="color: white;" disabled>Anexo VI (Sin completar)</a></li>';
         }
         $stmtAnexoVI->close();
         $conexion->close();

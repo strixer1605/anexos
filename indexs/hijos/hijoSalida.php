@@ -24,7 +24,7 @@
         <div class="container">
             <h1>
                 <?php
-                    echo $_SESSION['denominacionProyecto'];
+                    echo ucfirst(strtolower($_SESSION['denominacionProyecto']));
                 ?>
             </h1>
             <div class="row mt-5">
@@ -32,11 +32,11 @@
                     <h3>Formularios</h3>
                     <hr>
                     <ul>
-                        <li><a href="formularioAnexosPadres.php" class="btn form-control botones w-100 mb-3">Anexo VI</a></li>
+                        <li><a href="formularioAnexosPadres.php" class="btn btn-primary botones w-100 mb-3" style="color: white;">Anexo VI</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <h3>Documentos (PDF)</h3>
+                    <h3>Visualizar PDF's</h3>
                     <hr>
                     <ul>
                         <?php include('../../php/hijosPDFTraer.php'); ?>

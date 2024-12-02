@@ -43,10 +43,10 @@
                             if (mysqli_num_rows($resultado) > 0) {
                                 while ($filaAnexoIV = mysqli_fetch_assoc($resultado)) {
                                     if ($filaAnexoIV['distanciaSalida'] == 1 || $filaAnexoIV['distanciaSalida'] == 2){
-                                        echo "<li><a class='btn border-bottom border-top form-control disabled' tabindex='-1' style='pointer-events: none;'>" . $filaAnexoIV['denominacionProyecto'] . " (Salida de menos de 24 hs)</a></li><br>";
+                                        echo "<li><a class='btn border-bottom border-top form-control disabled' tabindex='-1' style='border-radius: 30px; background-color: #ebebeb; pointer-events: none;'>" . ucfirst(strtolower($filaAnexoIV['denominacionProyecto'])) . " (Salida de menos de 24 hs)</a></li><br>";
                                     }
                                     else{
-                                        echo "<li><a href='menuSalida.php?idSalida=" . $filaAnexoIV['idAnexoIV'] . "' class='btn border-bottom border-top form-control'>" . $filaAnexoIV['denominacionProyecto'] . "</a></li><br>";
+                                        echo "<li><a href='menuSalida.php?idSalida=" . $filaAnexoIV['idAnexoIV'] . "' class='btn border-bottom border-top form-control' style='border-radius: 30px; background-color: #ebebeb;'><b>" . ucfirst(strtolower($filaAnexoIV['denominacionProyecto'])) . "</b></a></li><br>";
                                     }
                                 }
                             } else {

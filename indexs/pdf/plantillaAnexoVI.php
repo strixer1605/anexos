@@ -139,7 +139,7 @@
     $pdf->Cell(5, 10, chr(149), 0, 0);
     $pdf->Cell(0, 10, mb_convert_encoding('Localidad de la estadía: ' . ucwords(strtolower($filaAnexoIV['localidadHospedaje'])), 'ISO-8859-1', 'UTF-8'), 0, 1);
     $pdf->Cell(5, 10, chr(149), 0, 0);
-    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la estadía: 0' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
+    $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la estadía: ' . $telefonoHospedaje, 'ISO-8859-1', 'UTF-8'), 0, 1);
 
     $pdf->Ln(3);
     $pdf->SetFont('Arial', '', 12);
@@ -167,7 +167,7 @@
     }
     
     $pdf->Ln(5);
-    $pdf->MultiCell(0, 10, mb_convert_encoding('Empresa y/o empresas contratadas (nombre, dirección teléfonos): assss sdasasdasd asdasd asdas'.$filasPlantilla['empresas'].'', 'ISO-8859-1', 'UTF-8'), 0);
+    $pdf->MultiCell(0, 10, mb_convert_encoding('Empresa y/o empresas contratadas (nombre, dirección teléfonos): '.$filasPlantilla['empresas'].'', 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->Ln(5);
     $pdf->MultiCell(0, 10, mb_convert_encoding('Otros datos de la Infraestructura disponible: '.$filasPlantilla['datosInfraestructura'], 'ISO-8859-1', 'UTF-8'), 0);
     $pdf->Ln(5);

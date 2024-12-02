@@ -1,15 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
-    function validateAndSubmitAnexoVI(event) {
+    function validateAndSubmitAnexoVI(event, buttonId) {
         event.preventDefault();
-
+    
         let esValido = true;
         const obraSi = document.getElementById('obraSi');
         const obraNo = document.getElementById('obraNo');
-
+        const button = document.getElementById(buttonId);
+    
+        if (!button) return;
+    
         // Validación: Debe seleccionar si tiene obra social
         if (!obraSi.checked && !obraNo.checked) {
             esValido = false;
-            
+    
             Swal.fire({
                 icon: 'warning',
                 title: 'Campo obligatorio',
@@ -20,17 +23,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     obraSi.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 500);
             });
-            return esValido;  // Detiene el envío si no es válido
+            return esValido; // Detiene el envío si no es válido
         }
-
+    
         // Validación: Si seleccionó "Sí" en obra social, debe completar nombre y número
         if (obraSi.checked) {
             const nombreObra = document.getElementById('nomObra');
             const nroObra = document.getElementById('nroObra');
-
+    
             if (nombreObra.value.trim() === "" || nroObra.value.trim() === "") {
                 esValido = false;
-
+    
                 Swal.fire({
                     icon: 'warning',
                     title: 'Campo obligatorio',
@@ -41,35 +44,40 @@ document.addEventListener('DOMContentLoaded', function () {
                         nombreObra.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 500);
                 });
-                return esValido;  // Detiene el envío si no es válido
+                return esValido; // Detiene el envío si no es válido
             }
         }
-
+    
         if (esValido) {
+            // Deshabilitar el botón y cambiar texto
+            button.disabled = true;
+            const textoOriginal = button.textContent;
+            button.textContent = "Enviando...";
+    
             // Crear FormData para enviar al servidor
             const formData = new FormData();
             formData.append('constancia', document.getElementById('constancia').value);
-            formData.append('obraSocial', obraSi.checked ? 1 : 0);  // 1 si tiene obra social, 0 si no
+            formData.append('obraSocial', obraSi.checked ? 1 : 0); // 1 si tiene obra social, 0 si no
             formData.append('nombreObra', document.getElementById('nomObra').value);
             formData.append('nroObra', document.getElementById('nroObra').value);
-        
+    
             // Agregar los teléfonos al formData
             estadoFormulario.telefonos.forEach((telefono, index) => {
                 formData.append(`telefono[${index}]`, telefono);
             });
-        
+    
             // Enviar datos usando fetch
             fetch('../../php/insertAnexoVI.php', {
                 method: 'POST',
                 body: formData,
             })
-            .then(response => response.json())  // Esperar respuesta en JSON
+            .then(response => response.json()) // Esperar respuesta en JSON
             .then(data => {
                 if (data.success) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Éxito',
-                        title: 'Anexo 6 cargado correctamente.',
+                        text: 'Anexo 6 cargado correctamente.',
                         confirmButtonText: 'Aceptar',
                     }).then(() => {
                         window.history.back();
@@ -90,14 +98,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: 'Error de conexión',
                     text: 'Ocurrió un error en la conexión. Inténtalo de nuevo más tarde.'
                 });
+            })
+            .finally(() => {
+                button.disabled = false; // Habilitar el botón
+                button.textContent = textoOriginal; // Restaurar el texto original
             });
-        }        
+        }
     }
     
     document.getElementById('cargarAnexoVI').addEventListener('click', function(event) {
         event.preventDefault(); // Evitar el envío por defecto del formulario
         if (validarTelefono()) {
-            validateAndSubmitAnexoVI(event); // Pass the event object
+            validateAndSubmitAnexoVI(event, 'cargarAnexoVI'); // Pass the event object
         }
     });
 

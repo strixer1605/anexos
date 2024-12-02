@@ -40,7 +40,7 @@
         <div class="container">
             <h1>
                 <?php
-                    echo $_SESSION['denominacionProyecto'];
+                    echo ucfirst(strtolower($_SESSION['denominacionProyecto']));
                 ?>
             </h1>
             <div class="row mt-5">
@@ -49,7 +49,7 @@
                         <h3>Formularios</h3>
                         <hr>
                         <ul>
-                            <li><a href="formularioAnexos.php" class="btn form-control botones w-100 mb-3">Anexo V <?php echo $anexoVIIItexto, $planillatexto; ?></a></li>
+                            <li><a href="formularioAnexos.php" class="btn btn-primary botones w-100 mb-3" style="color: white;">Anexo V <?php echo $anexoVIIItexto, $planillatexto; ?></a></li>
                         </ul>
                     </div>
                 <?php endif; ?>

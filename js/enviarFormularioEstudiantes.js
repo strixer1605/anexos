@@ -231,36 +231,62 @@ function obtenerDatosFormulario() {
         estadoFormulario.numeroAfiliado = '';
     }
 
-    enviarDatos(estadoFormulario); // Llama a la función para enviar los datos
+    enviarDatos(estadoFormulario, 'cargarAnexoVII'); // Llama a la función para enviar los datos
 }
 
-async function enviarDatos(datos) {
-    const response = await fetch('../../php/insertAnexoVII.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datos)
-    });
-    
-    const result = await response.json();
+async function enviarDatos(datos, buttonId) {
+    console.log(buttonId);
+    const button = document.getElementById(buttonId);
+    if (!button) return;
 
-    if (response.ok) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: result.message,
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.history.back(); // Volver a la página anterior
-            }
+    button.disabled = true; // Deshabilita el botón
+    const textoOriginal = button.textContent;
+    button.textContent = "Esperando respuesta..."; // Cambia el texto del botón
+
+    try {
+        const response = await fetch('../../php/insertAnexoVII.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
         });
-    } else {
-        console.error('Error en la solicitud:', result.message);
+        
+        const result = await response.json();
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: result.message,
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.history.back(); // Volver a la página anterior
+                }
+            });
+        } else {
+            console.error('Error en la solicitud:', result.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: result.message,
+                confirmButtonText: 'Intentar de nuevo'
+            });
+        }
+    } catch (error) {
+        console.error('Error en la conexión:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: 'No se pudo conectar al servidor.',
+            confirmButtonText: 'Aceptar'
+        });
+    } finally {
+        button.disabled = false; // Habilita el botón
+        button.textContent = textoOriginal; // Restaura el texto original
     }
 }
-
 
 // Llamada a la función cuando se hace clic en un botón
 document.getElementById('cargarAnexoVII').addEventListener('click', function(event) {

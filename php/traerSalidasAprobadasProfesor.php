@@ -7,7 +7,7 @@
     } elseif ($resultSalidaAprobada->num_rows > 0) {
         while ($salidaA = $resultSalidaAprobada->fetch_assoc()) {
             echo '<li>
-                    <a href="../../php/traerDatosSalida.php?idSalida=' . $salidaA['idAnexoIV'] . '" class="btn form-control botones w-100 mb-3" >' . 
+                    <a href="../../php/traerDatosSalida.php?idSalida=' . $salidaA['idAnexoIV'] . '" class="btn btn-warning botones w-100 me-2" style="border-radius: 30px; background-color: #ebebeb;">Salida: ' . 
                        $salidaA['denominacionProyecto'] . 
                     '</a>
                   </li>';

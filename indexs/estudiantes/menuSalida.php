@@ -29,7 +29,7 @@
         <div class="container">
             <h1>
                 <?php
-                    echo $fila['denominacionProyecto'];
+                    echo ucfirst(strtolower($fila['denominacionProyecto']));
                 ?>
             </h1>
             <div class="row mt-5">
@@ -37,11 +37,11 @@
                     <h3>Formularios</h3>
                     <hr>
                     <ul>
-                        <li><a href="formularioAnexoVII.php" class="btn form-control botones w-100 mb-3">Anexo VII</a></li>
+                        <li><a href="formularioAnexoVII.php" class="btn btn-primary botones w-100 mb-3" style="color:white;">Anexo VII</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <h3>Documentos (PDF)</h3>
+                    <h3>Visualizar PDF's</h3>
                     <hr>
                     <ul>
                         <?php
@@ -53,9 +53,9 @@
                             $stmtAnexoVI = $stmtAnexoVI->get_result();
                             
                             if ($stmtAnexoVI->num_rows > 0) {
-                                echo '<li><a href="../pdf/plantillaAnexoVII.php" target="_blank" class="btn form-control botones w-100 mb-3">Anexo VII</a></li>';
+                                echo '<li><a href="../pdf/plantillaAnexoVII.php" target="_blank" class="btn btn-danger botones w-100 mb-3" style="color:white;">Anexo VII</a></li>';
                             } else {
-                                echo '<li><a class="btn form-control botones w-100 mb-3" disabled>Anexo VII (Sin completar)</a></li>';
+                                echo '<li><a class="btn btn-danger botones w-100 mb-3" style="color:white;" disabled>Anexo VII (Sin completar)</a></li>';
                             }
                             $stmtAnexoVI->close();
                             $conexion->close();
