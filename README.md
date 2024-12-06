@@ -1,3 +1,6 @@
+Este sistema fue realizado por los estudiantes de 7ºC (2024) de la E.E.S.T Nº1 de Santa Teresita.
+Integrantes: Expósito Santiago, Lorenzo Joaquín y Maldonado Felipe.
+
 Para implementar el Sistema de Anexos Digitales en otro establecimiento educativo, es esencial cumplir con los siguientes requisitos técnicos y organizativos:
 
 1. Requisitos Técnicos

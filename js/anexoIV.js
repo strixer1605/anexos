@@ -368,7 +368,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function validarAnexoIV(event) {
         event.preventDefault();
-    
+
+        const button = document.getElementById('cargarAnexoIV');
+        if (!button) return;
+
         const anexo9 = document.querySelector('input[name="anexoVIII"]:checked');
         if (!anexo9) {
             const tipoSalidaContainer = document.querySelector('input[name="anexoVIII"]').closest('div');
@@ -385,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
+
         const tipoSalida = document.querySelector('input[name="tipoSalida"]:checked');
         if (!tipoSalida) {
             const tipoSalidaContainer = document.querySelector('input[name="tipoSalida"]').closest('div');
@@ -402,7 +405,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
+
         const distanciaSalida = document.querySelector('input[name="distanciaSalida"]:checked');
         if (!distanciaSalida) {
             const distSalidaContainer = document.querySelector('input[name="distanciaSalida"]').closest('div');
@@ -419,10 +422,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
+
         const esValido = validarFechas();
         if (!esValido) return;
-    
+
         const fields = [
             'denominacionProyecto',
             'lugarVisita',
@@ -441,39 +444,39 @@ document.addEventListener("DOMContentLoaded", function() {
             'cronograma',
             'gastosEstimativos'
         ];
-    
+
         let firstInvalidField = null;
-    
+
         function containsSpecialCharacters(str) {
             const regex = /[^a-zA-ZÀ-ÿ0-9\s]/g; // Prohíbe caracteres especiales
             return regex.test(str);
         }
-    
+
         function containsOnlyNumbers(str) {
             return /^[0-9]+$/.test(str);
         }
-    
+
         function containsOnlyLetters(str) {
             const regex = /^[a-zA-ZÀ-ÿ\s]+$/; // Acepta letras y espacios
             return regex.test(str);
         }
-    
+
         function isValidPhoneNumber(number) {
             return /^[0-9]{10,15}$/.test(number);
         }
-    
+
         function parseDate(dateStr) {
             const [day, month, year] = dateStr.split('/');
             return new Date(`${year}-${month}-${day}`);
         }
-    
+
         function isValidDate(dateStr) {
             const date = parseDate(dateStr);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             return date > today;
         }
-    
+
         // Validación de campos obligatorios
         for (let field of fields) {
             const element = document.getElementById(field);
@@ -482,20 +485,20 @@ document.addEventListener("DOMContentLoaded", function() {
                     firstInvalidField = element;
                     break;
                 }
-    
+
                 if ((field === 'lugarVisita' || field === 'direccionVisita' || field === 'localidadVisita' 
                     || field === 'lugarSalida' || field === 'lugarRegreso') && containsSpecialCharacters(element.value)) {
                     firstInvalidField = element;
                     break;
                 }                
-    
+
                 if ((field.includes('telefono') || field.includes('telefonoMovil')) && !isValidPhoneNumber(element.value)) {
                     firstInvalidField = element;
                     break;
                 }
             }
         }
-    
+
         if (document.getElementById("nombreHospedaje").style.display !== "none") {
             const hospedajeFields = [
                 'nombreHospedaje',
@@ -503,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'telefonoHospedaje',
                 'localidadHospedaje'
             ];
-    
+
             for (let field of hospedajeFields) {
                 const element = document.getElementById(field);
                 if (element) {
@@ -511,12 +514,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         firstInvalidField = element;
                         break;
                     }
-    
+
                     if (field === 'nombreHospedaje' && !containsOnlyLetters(element.value)) {
                         firstInvalidField = element;
                         break;
                     }
-    
+
                     if (field === 'telefonoHospedaje' && !isValidPhoneNumber(element.value)) {
                         firstInvalidField = element;
                         break;
@@ -524,7 +527,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
-    
+
         // Validación del nombre encargado
         var nombreEncargado = document.getElementById("nombreEncargado").value;
         if (!containsOnlyLetters(nombreEncargado)) {
@@ -541,7 +544,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
+
         // Validación de región de visita
         const regionVisita = document.getElementById('regionVisita');
         if (!containsOnlyNumbers(regionVisita.value.trim())) {
@@ -558,25 +561,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
-        // Validación de campos de teléfono
-        var telefonoHospedaje = document.getElementById("telefonoHospedaje");
-        var telefonoValue = telefonoHospedaje.value.trim();
-        if (telefonoValue && !isValidPhoneNumber(telefonoValue)) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Número de Teléfono Inválido',
-                text: `El campo "${document.querySelector(`label[for=${telefonoHospedaje.id}]`).textContent}" debe contener solo números, con un máximo de 15 caracteres.`,
-                confirmButtonText: 'Aceptar'
-            }).then(() => {
-                setTimeout(() => {
-                    telefonoHospedaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    telefonoHospedaje.focus();
-                }, 300);
-            });
-            return;
-        }
-    
+
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -591,60 +576,62 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             return;
         }
-    
-        enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!');
+
+        // Deshabilitar el botón
+        button.disabled = true;
+        const textoOriginal = button.textContent;
+        button.textContent = "Enviando...";
+
+        enviarFormulario('formAnexoIV', '../../php/insertAnexoIV.php', 'Anexo 4 cargado correctamente!', button, textoOriginal);
     }
-    
-    function enviarFormulario(formId, actionUrl, successMessage) {
+
+    function enviarFormulario(formId, actionUrl, successMessage, button, textoOriginal) {
         var form = document.getElementById(formId);
         if (!form) return;
-    
+
         var formData = new FormData(form);
-        var fechaAlert = document.getElementById("fechaLimite").value;
-        var fechaLimite = new Date(fechaAlert);
-        var diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        var nombreDia = diasSemana[fechaLimite.getDay()];
-        var numeroDia = fechaLimite.getDate();
-        var nombreMes = meses[fechaLimite.getMonth()];
-        var anio = fechaLimite.getFullYear();
-        console.log(`Tiene hasta el ${nombreDia} ${numeroDia} de ${nombreMes} de ${anio} a las 12:00 del mediodía para entregar el proyecto a dirección.`)
+
         fetch(actionUrl, {
             method: 'POST',
             body: formData
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log("Response from server:", data);  // Log respuesta
-            if (data.trim() === 'success') {
-                document.getElementById("cargarAnexoIV").disabled = true;
-                document.getElementById("cargarAnexoIV").textContent = "Esperando respuesta...";
-                Swal.fire({
-                    icon: 'success',
-                    title: successMessage,
-                    text: `Tiene hasta el ${nombreDia} ${numeroDia} de ${nombreMes} de ${anio} para entregar el proyecto a dirección.`,
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    window.location.replace('../../indexs/profesores/menuAdministrarSalidas.php');
-                });
-            } else {
+            .then(response => response.text())
+            .then(data => {
+                console.log("Response from server:", data); // Log respuesta
+                if (data.trim() === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: successMessage,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.replace('../../indexs/profesores/menuAdministrarSalidas.php');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al cargar el anexo',
+                        text: data,
+                        confirmButtonText: 'Intentar de nuevo'
+                    });
+                    // Rehabilitar el botón en caso de error
+                    button.disabled = false;
+                    button.textContent = textoOriginal;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al cargar el anexo',
-                    text: data,
-                    confirmButtonText: 'Intentar de nuevo'
+                    title: 'Error en la conexión',
+                    text: 'No se pudo conectar al servidor. Por favor intenta de nuevo.',
+                    confirmButtonText: 'Ok'
                 });
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error en la conexión',
-                text: 'No se pudo conectar al servidor. Por favor intenta de nuevo.',
-                confirmButtonText: 'Ok'
+                // Rehabilitar el botón en caso de error
+                button.disabled = false;
+                button.textContent = textoOriginal;
             });
-        });
     }
 
     document.getElementById('cargarAnexoIV').addEventListener('click', validarAnexoIV);
+
 });
