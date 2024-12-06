@@ -42,9 +42,6 @@
                 </div>
             </div>
         </div>
-        <?php 
-            include('../../php/footer.php');
-        ?>
         <script>
             
         // Obtener los elementos

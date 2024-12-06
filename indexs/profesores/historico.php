@@ -53,9 +53,6 @@
             </div>
             <?php if ($historico == false) {echo '<h5>No hay registros de salidas educativas...</h5>';}?>
         </div>
-        <?php 
-            include('../../php/footer.php');
-        ?>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
