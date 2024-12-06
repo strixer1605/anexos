@@ -131,9 +131,18 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("carnetConductoresArray")?.setAttribute("value", carnetConductoresArray.join("%"));
         document.getElementById("vigenciaConductoresArray")?.setAttribute("value", vigenciaConductoresArray.join("%"));
     }
+    let contador = 0
     
     function validateAndSubmitAnexoVIII(event) {
+        contador++
+        console.log(contador);
         event.preventDefault();
+    
+        // Deshabilitar el botón al hacer clic
+        const button = document.getElementById('cargarAnexoVIII');
+        button.disabled = true;
+        var textoboton = button.textContent;
+        button.textContent = "Esperando respuesta..."; // Cambiar el texto para indicar que se está esperando la respuesta
     
         const fields = [
             'nombreEmpresa',
@@ -181,10 +190,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         function containsSpecialCharacters(str) {
-            const regex = /[^a-zA-ZÀ-ÿ0-9\s]/g; 
+            const regex = /[^a-zA-ZÀ-ÿ0-9\s]/g;
             return regex.test(str);
         }
-        
     
         function containsOnlyNumbers(str) {
             return /^[0-9]+$/.test(str);
@@ -193,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function() {
         function containsOnlyLetters(str) {
             const regex = /^[a-zA-ZÀ-ÿ\s]+$/;
             return regex.test(str);
-        }        
+        }
     
         function containsOnlyLettersAndNumbers(str) {
             return /^[a-zA-Z0-9\s]+$/.test(str);
@@ -228,11 +236,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
-
+    
         const pdfFileElement = document.getElementById('pdfFile');
         const existingPDF = document.getElementById('existingPdf');
-        // console.log(pdfFileElement, existingPDF)
-
+    
         if (!existingPDF && (!pdfFileElement.files || pdfFileElement.files.length === 0)) {
             Swal.fire({
                 icon: 'warning',
@@ -245,6 +252,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     pdfFileElement.focus();
                 }, 500);
             });
+            // Restaurar el botón si hay un error
+            button.disabled = false;
+            button.textContent = textoboton;
             return;
         }
     
@@ -286,6 +296,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                         firstInvalidField.focus();
                                     }, 500);
                                 });
+                                // Restaurar el botón si hay un error
+                                button.disabled = false;
+                                button.textContent = textoboton;
                                 return;
                             }
                         } else if (elementId.startsWith('fecha')) {
@@ -302,6 +315,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                         firstInvalidField.focus();
                                     }, 500);
                                 });
+                                // Restaurar el botón si hay un error
+                                button.disabled = false;
+                                button.textContent = textoboton;
                                 return;
                             }
                         }
@@ -315,14 +331,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!firstInvalidField) {
             for (let i = 0; i < 10; i++) {
                 let dniValue = null, carnetValue = null;
-        
+    
                 for (let conductorField of conductoresValidar) {
                     const element = document.getElementById(`${conductorField}${i}`);
                     if (element && element.value.trim() === '') {
                         firstInvalidField = element;
                         break;
                     }
-        
+    
                     if (element) {
                         const elementId = `${conductorField}${i}`;
                         if (elementId.startsWith('nombreConductor') && !containsOnlyLetters(element.value)) {
@@ -343,10 +359,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             firstInvalidField = element;
                         }
                     }
-        
+    
                     if (firstInvalidField) break;
                 }
-        
+    
                 if (dniValue && carnetValue && dniValue !== carnetValue) {
                     firstInvalidField = document.getElementById(`carnetConducir${i}`);
                     Swal.fire({
@@ -360,9 +376,12 @@ document.addEventListener("DOMContentLoaded", function() {
                             firstInvalidField.focus();
                         }, 500);
                     });
+                    // Restaurar el botón si hay un error
+                    button.disabled = false;
+                    button.textContent = textoboton;
                     return;
                 }
-        
+    
                 if (dniValue && carnetValue) {
                     const dniValueLength = dniValue.length;
                     if (dniValueLength < 7 || dniValueLength > 8) {
@@ -378,14 +397,17 @@ document.addEventListener("DOMContentLoaded", function() {
                                 firstInvalidField.focus();
                             }, 500);
                         });
+                        // Restaurar el botón si hay un error
+                        button.disabled = false;
+                        button.textContent = textoboton;
                         return;
                     }
                 }
-        
+    
                 if (firstInvalidField) break;
             }
         }
-        
+    
         if (firstInvalidField) {
             Swal.fire({
                 icon: 'warning',
@@ -398,14 +420,23 @@ document.addEventListener("DOMContentLoaded", function() {
                     firstInvalidField.focus();
                 }, 500);
             });
+            // Restaurar el botón si hay un error
+            button.disabled = false;
+            button.textContent = textoboton;
             return;
         }
     
+        // Cuando todo está validado correctamente, se envía el formulario
         capturarDatos();
-        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', anexoVIIINextTab, 'cargarAnexoVIII');
+        enviarFormulario('formAnexoVIII', '../../php/insertAnexoVIII.php', 'Anexo VIII cargado correctamente!', anexoVIIINextTab, 'cargarAnexoVIII', 'Cargar Anexo VIII');
     }    
+    
+    let contadorP = 0
 
     function validateAndSubmitAnexoPlanilla(event) {
+        contadorP++
+        console.log(contadorP);
+
         let firstInvalidField = null;
     
         const otrosCampos = [
@@ -414,7 +445,13 @@ document.addEventListener("DOMContentLoaded", function() {
             'hospitalesCercanos',
             'datosInteres',
         ];
-
+    
+        // Deshabilitar el botón cuando se haga clic
+        const button = document.getElementById('cargarPlanilla');
+        button.disabled = true;
+        var textoboton = button.textContent;
+        button.textContent = "Esperando respuesta..."; // Cambiar el texto para indicar que se está esperando la respuesta
+    
         for (let id of otrosCampos) {
             const element = document.getElementById(id);
             if (element && element.value.trim() === '') {
@@ -433,27 +470,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     }, 500);
                 });
                 event.preventDefault();
+                // Restaurar el botón después de cancelar la acción
+                button.disabled = false;
+                button.textContent = textoboton;
                 return;
             }
         }
     
-        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexoV-tab', 'cargarPlanilla');
+        enviarFormulario('formPlanilla', '../../php/insertAnexoPlanilla.php', 'Planilla cargada correctamente!', 'anexoV-tab', 'cargarPlanilla', 'Cargar Planilla Informativa');
     }
-
+    
     document.getElementById('cargarAnexoVIII').addEventListener('click', validateAndSubmitAnexoVIII);
     document.getElementById('cargarPlanilla').addEventListener('click', validateAndSubmitAnexoPlanilla);
-
-    function enviarFormulario(formId, actionUrl, successMessage, nextTabId, buttonId) {
+    
+    function enviarFormulario(formId, actionUrl, successMessage, nextTabId, buttonId, buttonText) {
         var form = document.getElementById(formId);
         var button = document.getElementById(buttonId); // Obtén el botón
         if (!form || !button) return;
     
-        button.disabled = true; // Deshabilitar el botón
-        var textoboton = button.textContent
-        button.textContent = "Esperando respuesta..."; // Deshabilitar el botón
-    
         var formData = new FormData(form);
     
+        // Enviar la solicitud con fetch
         fetch(actionUrl, {
             method: 'POST',
             body: formData
@@ -495,10 +532,12 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         })
         .finally(() => {
-            button.disabled = false; // Habilitar el botón después de la respuesta
-            button.textContent = textoboton;
+            // Restaurar el botón después de recibir la respuesta
+            button.disabled = false; // Habilitar el botón
+            button.textContent = buttonText; // Restaurar el texto original del botón
         });
     }    
+     
 });
 
 function generarDatosCargados(data) {
